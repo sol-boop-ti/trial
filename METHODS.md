@@ -56,3 +56,12 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Process:** new account → normal human activity (follow niche accounts, likes, comments) with **no posts** until the UGC videos are ready.
 - **Decision & why:** new accounts that post straight away get throttled or flagged, and they can realistically post only ~1–2 times per day. Starting the warm-up before production means the account is ready by the time the videos are.
 - **Status:** in progress (started before any Poolday work).
+
+## M5. Parallel preparation before touching Poolday
+- **What:** everything that doesn't need Poolday was prepared first, so Poolday time is spent only on directing renders.
+- **Tools:** Claude Code with 5 sub-agents running in parallel (agent loop build, growth idea, LinkedIn angles, UGC scripts, review kit + deliverable skeleton).
+- **Inputs:** shared context files written first so every agent works from the same facts: `BRIEF.md` (assignment + user notes), `poolday/agent-guide-notes.md` (condensed agent guide), `PLAN.md`, `research/company-picks.md`.
+- **Decisions & why:**
+  - **Page and video reviews run in Claude chat** (it can browse the web) instead of this cloud session, which can't reach poolday.ai. We prepared paste-ready review prompts with an explicit framework, so the output is structured and repeatable.
+  - **The agent loop works without an API key** (mock mode + a Claude Code command), with the API as an option for running unattended. It can be demoed without any credentials.
+  - Each agent writes only its own output file and hands back a methods note, to avoid conflicting edits.

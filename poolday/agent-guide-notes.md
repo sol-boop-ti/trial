@@ -1,0 +1,15 @@
+# Poolday agent guide: key facts (condensed from https://poolday.ai/agent-guide)
+- Poolday = AI media production agent (image, audio, video, decks). Everything is made inside Poolday. It does NOT post to social platforms.
+- Runs take ~1h+ (quality over speed). Tiers: Micro, Light (fast/cheap), Standard (default), Max (full crew), Ultra (Max on the strongest model).
+- Modes: Build (no questions), Clarify (all questions upfront), Align (one question at a time until "start building").
+- Brand kit first: "Create a brand kit for [x]" from a website/Figma/guidelines → mention `brand:name` to apply it. A screenshot of an app gets rebuilt into animatable pieces.
+- Perfect prompt: Context/Inputs · Objective (+ where it lives) · Desired output · Audience · Creative direction · Hard constraints · Validation & choice steps ("first 10 actor photos, let me choose, then 5 voices…") · where it has creative freedom. Every word is treated as a rule.
+- Direct with mechanisms, not adjectives ("hard cut at 0:04, hold logo 2 frames"), not "punchier".
+- First video ≈ 7 prompts, 2nd ≈ 4, 3rd ≈ 1–2.
+- Variants: ask for N variants in ONE conversation (base built once, cloned). Parallel conversations for different videos or sections; the agent can split into parallel conversations itself.
+- Save a flow as a skill or a /command → next video takes ~2 prompts. Templates can be cloned ("another one like X but for Germany").
+- Live editor (sliders, text fields, no re-render) + point & select elements to edit.
+- Inputs: files up to 1GB; YouTube/TikTok/IG links up to ~20min/100MB; NOT Google Drive/Dropbox links.
+- Capabilities: edit footage, AI images/video, AI UGC, lipsync, avatars, voice clone, music/SFX sync, captions, 3D/GPU effects, color grading, segmentation/tracking, web research & brand extraction, translation.
+- No public API documented.
+- Supported ratios: 16:9, 9:16, 1:1, 4:5.

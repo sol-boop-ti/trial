@@ -12,18 +12,18 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 | # | Who | Task | Needs Poolday? | Status |
 |---|---|---|---|---|
 | 0.1 | 🧑 | Warm up IG account (A2): 10–15 min/day, no posts yet | no | 🟡 in progress |
-| 0.2 | 🧑 | Pick 2 reference videos + 2–3 "what I love" lines each (A3) | no | ⬜ |
-| 0.3 | 🧑 | Page screenshots (desktop + mobile) + page text for poolday.ai and /solutions/b2b-startups (C2) | no | ⬜ |
-| 0.4 | 🧑 | Pick the video to review (PostHog or Upflow), screenshot frames with timestamps (C2) | no | ⬜ |
-| 0.5 | 🧑 | Get an Anthropic API key (console.anthropic.com), needed to run the agent loop | no | ⬜ |
+| 0.2 | 🧑 | Pick 2 reference videos (any SaaS/motion-design video you love that fits the brand) + 2–3 "what I love" lines each (A3) | no | ⬜ |
+| 0.3 | 🧑 | Page reviews: paste the prompt from `deliverables/D6-D7-review-kit.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ⬜ (kit being written) |
+| 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run the video prompt from the review kit in Claude chat | no | ⬜ |
+| 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ⬜ |
 | 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ⬜ |
-| 0.7 | 🧑 | (optional) Prep UGC hooks/scripts with Claude chat | no | ⬜ |
-| 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first | no | ⬜ |
-| 0.9 | 🤖 | Write the growth idea in full (D5) | no | ⬜ |
-| 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy skeletons (D1) | no | ⬜ |
-| 0.11 | 🤖 | Write the page reviews (D7) + video review (D6) once 0.3/0.4 arrive | no | ⬜ |
+| 0.7 | 🤖 | UGC angles, hooks, scripts, posting plan → `deliverables/D4-ugc-scripts.md` | no | 🟡 in progress |
+| 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | 🟡 in progress |
+| 0.9 | 🤖 | Write the growth idea in full (D5) → `deliverables/D5-growth-idea.md` | no | 🟡 in progress |
+| 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy (D1) → `deliverables/D1-linkedin.md` | no | 🟡 in progress |
+| 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | 🟡 in progress |
 | 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
-| 0.13 | 🤖 | Deliverable doc skeleton (all sections, placeholders for videos/stats) | no | ⬜ |
+| 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | 🟡 in progress |
 
 When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.
 
