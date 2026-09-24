@@ -164,3 +164,11 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - Gmail drafts are a stub.
   - The dashboard is local and single-user.
 - **Time/credits:** ~1h build, $0 in Poolday credits, $0 API spend.
+
+## M11. Course corrections from the user's review (round 1)
+- **Reviews (D6/D7):** extracted the two prompts into standalone files (`deliverables/PROMPT-A-page-review.md`, `PROMPT-B-video-review.md`) so they paste cleanly into Claude chat. The results come back to Claude Code for the final write-up.
+- **UGC (D4):** the user runs it with their proven format (shock face + iPhone product demo, from their Casey AI/Pletor work), made in Poolday following the brief's intended steps (options first, Align mode). Our scripts become optional backup.
+- **Growth idea (D5):** being rewritten. Shorter and concrete. Render time is treated as unknown until measured, unverified risks are removed, and the templates come from research into what's actually trending (Apple-style motion first).
+- **LinkedIn (D1):** being reworked around current-trend viral angles ("we killed AI slop", an AI video slop benchmark, remaking viral fake "one prompt" videos for real).
+- **Agent loop (D3):** adding a Poolday API client (the brief implies an API exists). Endpoints are mapped from a config file because the docs aren't available yet. A fake Poolday server is used for tests. Real Anthropic API mode will be tested on a ~$2 budget with a cheaper model on 3–5 leads.
+- **Security:** the API key is kept outside the repo (a session-only env file), `.env` files are git-ignored, and a check runs before each commit to make sure no key is in the repo.

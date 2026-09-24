@@ -13,16 +13,18 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 |---|---|---|---|---|
 | 0.1 | 🧑 | Warm up IG account (A2): 10–15 min/day, no posts yet | no | 🟡 in progress |
 | 0.2 | 🧑 | Pick 2 reference videos (any SaaS/motion-design video you love that fits the brand) + 2–3 "what I love" lines each (A3) | no | ⬜ |
-| 0.3 | 🧑 | Page reviews: paste the prompt from `deliverables/D6-D7-review-kit.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ⬜ (kit being written) |
-| 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run the video prompt from the review kit in Claude chat | no | ⬜ |
+| 0.3 | 🧑 | Page reviews: paste `deliverables/PROMPT-A-page-review.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ⬜ |
+| 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run `deliverables/PROMPT-B-video-review.md` in Claude chat | no | ⬜ |
 | 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ⬜ |
 | 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ⬜ |
-| 0.7 | 🤖 | UGC angles, hooks, scripts, posting plan → `deliverables/D4-ugc-scripts.md` | no | ✅ done (review it) |
+| 0.7 | 🧑 | UGC: your own Pletor/Casey AI format (shock face + iPhone product demo), made in Poolday the intended way. Send me the Pletor image/video prompts + models so we adapt them to Poolday | no | ⬜ |
 | 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | ✅ done, tests pass (mock mode) |
 | 0.9 | 🤖 | Write the growth idea in full (D5) → `deliverables/D5-growth-idea.md` | no | ✅ done (review it) |
 | 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy (D1) → `deliverables/D1-linkedin.md` | no | ✅ done (pick an angle) |
 | 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | ✅ kit ready, waiting on your chat outputs |
 | 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
+| 0.14 | 🧑 | Get the Poolday API docs (dashboard/settings, or ask the Poolday team on Slack) and paste them here | no | ⬜ |
+| 0.15 | 🧑 | (optional) Allow `poolday.ai` in this cloud environment's network settings so I can read the docs and pages directly | no | ⬜ |
 | 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | ✅ skeleton done, fills as we go |
 
 When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.
