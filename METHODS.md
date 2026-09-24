@@ -265,3 +265,20 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Budget:** blended ~$19 per video (40/30/30 product mix + 30% re-renders) gives ~790 videos for $15k across 3 stages. At 5% video → demo, that's ~$380 per booked demo [est.]. The AI ad is the product to cap.
 - **Why this beats Motion:** 3 products instead of 1; podcast clips as a weekly repeat use case; generative ads; a human call offer; quality shown in public through the X remakes. Motion's URL → launch video launch (X post, Aug 2 2026) is confirmed in search results.
 - **Finding:** Poolday's Enterprise plan reportedly lists "API access" [verify]. If so, the D3 Poolday client can automate the page.
+
+## M17. LinkedIn v3 (D1)
+- **What:** 3 angles, ranked, with full copy for each, a Poolday brief for the top pick (103 words, Align mode, options first), the comment-to-lead process and metrics.
+- **Ranking:**
+  1. **Same prompt, 4 apps (Higgsfield, Kling, Seedance, Poolday).**
+     - The brief: one 15s B2B launch brief, sent word for word to each.
+     - Fairness rules: same text and files, 1 attempt + ≤3 revisions, ≤60 min per tool, no edits outside the tool, all four published even if Poolday doesn't win, brief and files public so anyone can rerun it.
+     - Takeaway: "a model makes clips, an agent makes the video."
+     - Cost outside Poolday: ~$45–65.
+  2. **Free launch video, comment your URL:** the first [20] B2B companies get one within 72h. This doubles as the launch of the URL → video tool. A hook naming a specific model is allowed only once Poolday confirms it ran on it; honest alternatives are provided.
+  3. **Reply with proof on X:** a playbook (search queries, what to remake, a sped-up screen recording with a real clock, a reply template, consent and credit rules). The best reply becomes a LinkedIn post.
+- **Tools:** Claude Code sub-agent, ~7 web searches. Fetches of Higgsfield pages were blocked (snippets only).
+- **Decisions & why:**
+  - The comparison goes first because it creates the agent-vs-model proof the other posts rely on, and it reaches people choosing tools.
+  - The CTA asks for a URL, not just a keyword, which filters leads and avoids the engagement-bait penalty.
+  - "Free" is tied to a real, capped offer, so it's true.
+- **Unverified:** Higgsfield replying to "AI can't" posts with recordings (only their After Effects "AI Motion Designer" launch, ~Sep 10–13, is confirmed); which model Poolday runs on; tool prices on the day.

@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Poolday design tokens  ·  "Horizon" system  ·  v1
+   Dark-first, restrained, one light source. Reused for the lead-magnet site
+   and, later, the Poolday marketing pages. See README.md.
+   ========================================================================== */
+
+/* ---- Fonts (bundled, OFL; render offline) ------------------------------- */
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("fonts/geist-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: block;
+}
+
+:root {
+  /* ---- Color: canvas & surfaces (near-black, faint blue cast) ---------- */
+  --pd-bg-0: #050608;          /* page canvas */
+  --pd-bg-1: #0a0b0e;          /* sunken / section */
+  --pd-surface-1: #0f1115;     /* cards, inputs */
+  --pd-surface-2: #15181d;     /* raised: popovers, selected */
+  --pd-surface-3: #1c2027;     /* hover on raised */
+  --pd-glass: rgba(255, 255, 255, 0.035);
+  --pd-glass-strong: rgba(255, 255, 255, 0.06);
+
+  /* ---- Color: lines ------------------------------------------------------ */
+  --pd-line-1: rgba(255, 255, 255, 0.07);   /* hairline dividers */
+  --pd-line-2: rgba(255, 255, 255, 0.11);   /* card borders */
+  --pd-line-3: rgba(255, 255, 255, 0.18);   /* focus-adjacent, hover */
+
+  /* ---- Color: text ------------------------------------------------------- */
+  --pd-text-1: #f3f4f6;        /* primary  (16.9:1 on bg-0) */
+  --pd-text-2: #a2a7b1;        /* secondary (7.9:1) */
+  --pd-text-3: #6c717b;        /* tertiary, meta (4.1:1, 14px+ only) */
+  --pd-text-4: #464a52;        /* disabled, placeholders on dark */
+  --pd-text-inverse: #07080a;
+
+  /* ---- Color: the one light source ("horizon") ---------------------------
+     A cool, near-white cyan. Used for glow, focus, progress and the single
+     active state on a screen. Never for large fills or body text.          */
+  --pd-light-core: #eafaff;
+  --pd-light: #9fe4ff;
+  --pd-light-mid: #4fb6ff;
+  --pd-light-deep: #2150ff;
+  --pd-light-a12: rgba(159, 228, 255, 0.12);
+  --pd-light-a24: rgba(159, 228, 255, 0.24);
+  --pd-light-a40: rgba(159, 228, 255, 0.40);
+
+  /* ---- Color: status (quiet) -------------------------------------------- */
+  --pd-ok: #7ee2b8;
+  --pd-warn: #f2c46b;
+  --pd-live: #7ee2b8;
+
+  /* ---- Gradients --------------------------------------------------------- */
+  --pd-grad-horizon: radial-gradient(60% 55% at 50% 100%,
+      rgba(79, 182, 255, 0.28) 0%, rgba(33, 80, 255, 0.10) 38%, rgba(5, 6, 8, 0) 72%);
+  --pd-grad-rim: linear-gradient(90deg, rgba(159,228,255,0) 0%, rgba(234,250,255,.9) 50%, rgba(159,228,255,0) 100%);
+  --pd-grad-text: linear-gradient(180deg, #ffffff 0%, #c9ced8 100%);
+  --pd-grad-progress: linear-gradient(90deg, #2150ff 0%, #4fb6ff 55%, #eafaff 100%);
+
+  /* ---- Type -------------------------------------------------------------- */
+  --pd-font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pd-font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pd-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Scale (px @ desktop). Display sizes use negative tracking. */
+  --pd-fs-display-xl: 72px;  --pd-lh-display-xl: 1.02;  --pd-tr-display-xl: -0.042em;
+  --pd-fs-display-l: 56px;   --pd-lh-display-l: 1.04;   --pd-tr-display-l: -0.038em;
+  --pd-fs-display-m: 40px;   --pd-lh-display-m: 1.08;   --pd-tr-display-m: -0.032em;
+  --pd-fs-title: 28px;       --pd-lh-title: 1.15;       --pd-tr-title: -0.024em;
+  --pd-fs-heading: 20px;     --pd-lh-heading: 1.3;      --pd-tr-heading: -0.014em;
+  --pd-fs-body-l: 17px;      --pd-lh-body-l: 1.5;
+  --pd-fs-body: 15px;        --pd-lh-body: 1.5;
+  --pd-fs-small: 13px;       --pd-lh-small: 1.45;
+  --pd-fs-micro: 11px;       --pd-lh-micro: 1.3;        --pd-tr-micro: 0.08em; /* uppercase labels, mono */
+
+  --pd-fw-regular: 400;
+  --pd-fw-medium: 500;
+  --pd-fw-semibold: 600;
+
+  /* ---- Space (4px base) -------------------------------------------------- */
+  --pd-s-1: 4px;   --pd-s-2: 8px;   --pd-s-3: 12px;  --pd-s-4: 16px;
+  --pd-s-5: 20px;  --pd-s-6: 24px;  --pd-s-8: 32px;  --pd-s-10: 40px;
+  --pd-s-12: 48px; --pd-s-16: 64px; --pd-s-20: 80px; --pd-s-24: 96px;
+  --pd-gutter: 40px;           /* page side padding desktop (16px mobile) */
+  --pd-max: 1200px;            /* content max width */
+
+  /* ---- Radii ------------------------------------------------------------- */
+  --pd-r-xs: 6px;   /* chips, swatches */
+  --pd-r-s: 10px;   /* buttons (small), tags */
+  --pd-r-m: 14px;   /* inputs, small cards */
+  --pd-r-l: 20px;   /* cards, media */
+  --pd-r-xl: 28px;  /* hero input, player */
+  --pd-r-pill: 999px;
+
+  /* ---- Elevation (dark UI: light from above, not shadow from below) ----- */
+  --pd-edge: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --pd-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px -8px rgba(0, 0, 0, 0.6);
+  --pd-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.5), 0 24px 64px -16px rgba(0, 0, 0, 0.8);
+  --pd-glow-focus: 0 0 0 1px rgba(159, 228, 255, 0.55), 0 0 0 4px rgba(159, 228, 255, 0.10), 0 0 32px -4px rgba(79, 182, 255, 0.35);
+  --pd-glow-soft: 0 0 48px -8px rgba(79, 182, 255, 0.35);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --pd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);      /* default: enter, settle */
+  --pd-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* screen transitions */
+  --pd-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1); /* small confirmations only */
+  --pd-dur-1: 120ms;  /* hover, press */
+  --pd-dur-2: 220ms;  /* selection, toggles */
+  --pd-dur-3: 420ms;  /* panels, cards entering */
+  --pd-dur-4: 700ms;  /* screen crossfade */
+  --pd-dur-loop: 6s;  /* ambient loops (previews, horizon breathing) */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --pd-dur-1: 0ms; --pd-dur-2: 0ms; --pd-dur-3: 0ms; --pd-dur-4: 0ms; }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --pd-fs-display-xl: 44px; --pd-fs-display-l: 38px; --pd-fs-display-m: 30px;
+    --pd-fs-title: 24px; --pd-gutter: 16px;
+  }
+}
