@@ -338,3 +338,10 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - Real (CC-licensed) photos in the podcast styles.
   - All brand values isolated in tokens, so Poolday's real kit can be swapped in.
 - **Blocker:** Poolday's brand. poolday.ai is denied by the environment's egress policy (`connect_rejected`), so the brand comes from the user: allow the domain, or upload the logo, screenshots and font names, or export the kit from Poolday's own brand-kit feature.
+
+## M22. Poolday brand kit received → re-skin + page rebuilds
+- **Input:** `deliverables/design/poolday-brand-kit/`, built by the user in another Claude session from the live site. It contains measured tokens (pure black ground, ink #f5f5f5, off-white cta pill, Inter), the halftone scan-dot signature, components, copy rules (headlines end with a period, one CTA verb "Book a 15 min demo", recipe captions), a copy bank, a homepage UI audit with measurements and a friction list, and a reference screenshot.
+- **Decisions:**
+  - **Growth mockups:** re-skinned from the invented v1 identity to Poolday's kit. The user's asks are reconciled with the brand rules: the "Poolday AI does it for you" button is the one cta pill in view with a halftone shimmer (no neon glow); the progress bar is a thin ink line; colour lives only inside the media ("the videos are the colour").
+  - **D7 page rebuilds started:** before (reconstruction) / after for home, b2b-startups and pricing, in the kit. Annotated side-by-sides plus a ranked change list with an A/B test per change.
+  - Rules carried over from the critique: never alter factual claims, limit the slogan pattern, mark unverified numbers.

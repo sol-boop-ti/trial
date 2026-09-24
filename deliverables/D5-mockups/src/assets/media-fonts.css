@@ -1,0 +1,13 @@
+/* Media fonts: used INSIDE the example videos (customer content), never for Poolday UI.
+   Independent of the brand layer, so swapping the Poolday kit never changes the previews.
+   All SIL OFL 1.1; see ../../CREDITS.md. */
+@font-face { font-family: "NW Display"; src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "NW UI"; src: url("fonts/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "NW Mono"; src: url("fonts/geist-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("fonts/montserrat-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("fonts/montserrat-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "Bangers"; src: url("fonts/bangers-latin-400-normal.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Caveat"; src: url("fonts/caveat-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: block; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-style: italic; font-display: block; }
+@font-face { font-family: "Anton"; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); font-display: block; }

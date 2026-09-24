@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poolday · Make a video</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="svgdefs"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.5l2.1 5.6a4 4 0 0 0 2.3 2.3L22 12.5l-5.6 2.1a4 4 0 0 0-2.3 2.3L12 22.5l-2.1-5.6a4 4 0 0 0-2.3-2.3L2 12.5l5.6-2.1a4 4 0 0 0 2.3-2.3z" fill="currentColor"/><path d="M19.5 2.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z" fill="currentColor" opacity=".7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 12 12"><path d="M2.5 6.2 5 8.5l4.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v2.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 26 26"><path d="M5 3.5v17.2l4.6-4.4 2.9 6.6 3-1.3-2.9-6.5h6.4z" fill="currentColor" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="i-nw" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></symbol>
+</defs></svg>
+
+<div class="app" id="app">
+  <div class="horizon" id="horizon"></div><div class="grain"></div>
+
+  <header class="topbar">
+    <!-- The one logo file. Swap design/brand/logo.svg for the real Poolday lockup. -->
+    <a href="#" aria-label="Poolday"><img class="logo" src="../../design/brand/logo.svg" alt="Poolday"></a>
+    <div class="prog" id="prog" aria-label="Progress">
+      <span class="n" id="progN"><b>01</b> / 06</span>
+      <div class="track" id="track"><div class="fill" id="fill"><i class="sheen" id="sheen"></i></div><i class="bloom" id="bloom"></i><i class="head" id="head"></i></div>
+      <span class="lbl" id="progL">Product &amp; link</span>
+    </div>
+    <div class="right"><span class="chip" id="urlchip" style="opacity:0"><span class="fav"><svg width="10" height="10"><use href="#i-nw"/></svg></span><b id="urlchipT">northwind.ai</b></span></div>
+  </header>
+
+  <!-- ================= S1: product + link ================= -->
+  <section class="screen" id="s-link" data-step="1">
+    <div class="stage">
+      <h1 class="h-display" data-in="0"><span class="grad-ink">Paste a link.</span><br> <span class="dim">Watch the video.</span></h1>
+      <div class="tabs" id="tabs" data-in="1">
+        <div class="tab-ind" id="ind"></div>
+        <button class="tab" data-tab="launch" data-hover><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="2.25"/><path d="M6.75 6.1v3.8L10 8z" fill="currentColor"/></svg>Launch video</button>
+        <button class="tab" data-tab="podcast" data-hover><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="5.75" y="1.75" width="4.5" height="8" rx="2.25"/><path d="M3.5 7.5a4.5 4.5 0 0 0 9 0M8 12v2.25"/></svg>Podcast clips</button>
+        <button class="tab" data-tab="ad" data-hover><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M8 1.75l1.6 3.9 3.9 1.6-3.9 1.6L8 12.75l-1.6-3.9-3.9-1.6 3.9-1.6z"/><path d="M12.5 11.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg>AI product ad</button>
+      </div>
+      <div class="field" id="field" data-tab="launch" data-in="2">
+        <svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.54 3.54 0 0 0-5-5l-.9.9"/><path d="M11.5 8.5a3.5 3.5 0 0 0-5 0L4 11a3.54 3.54 0 0 0 5 5l.9-.9"/></svg>
+        <div class="input" id="input" data-hover><span class="fav"><svg width="12" height="12"><use href="#i-nw"/></svg></span><span class="ph" id="ph">yourcompany.com</span><span class="caret" id="caret"></span></div>
+        <div class="imgslot" id="imgslot"><span class="thumb"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></span>Product image</div>
+        <button class="btn btn-primary" id="go1" data-hover><span id="golabel">Continue</span><svg class="arrow"><use href="#i-arrow"/></svg></button>
+      </div>
+      <!-- Proof line: the count is ILLUSTRATIVE (see design/README.md). Wire to a real count or remove before launch. -->
+      <div class="proof" data-in="3" data-illustrative="true"><span class="live-dot"></span><span><b id="count">1,284</b> videos made today</span></div>
+    </div>
+  </section>
+
+  <!-- ================= S2: screen recording? ================= -->
+  <section class="screen" id="s-rec" data-step="2">
+    <div class="ask">
+      <div class="head">
+        <h2 class="h-display" data-words><span class="grad-ink">Do you have a screen recording</span><br><span class="dim">of your product in action?</span></h2>
+        <p class="sub" data-in="2">It's what the video shows. Thirty seconds of real clicks is plenty.</p>
+      </div>
+      <div class="opts">
+        <button class="opt opt-up" id="rec-up" data-in="3" data-hover>
+          <div class="drop"><span class="ic"><svg width="22" height="22"><use href="#i-up"/></svg></span><b>Yes, upload it</b><span>MP4 or MOV · up to 2 min</span><div class="browse">Drop a file here or <u>browse</u></div></div>
+        </button>
+        <button class="opt opt-ai" id="rec-ai" data-in="4" data-hover data-ai>
+          <i class="halo"></i><i class="rim"></i>
+          <div class="body">
+            <i class="aur"></i><i class="shim"></i><i class="flash"></i>
+            <div class="top"><span class="orb"><svg><use href="#i-spark"/></svg></span><span class="rec-badge">Recommended</span></div>
+            <h3>No, <span class="dim">Poolday AI will</span><br>record it for you</h3>
+            <p>Our agent opens <span class="u-host">northwind.ai</span>, clicks through the product like a new user and captures a clean 1080p walkthrough.</p>
+            <div class="steps3"><span><i></i>Opens your site</span><span><i></i>Clicks through the product</span><span><i></i>Records 1080p</span></div>
+            <div class="cta"><span class="go">Let AI record it<svg class="arrow"><use href="#i-arrow"/></svg></span><span class="meta">~40 S</span></div>
+            <div class="done"><span class="ok"><svg width="22" height="22"><use href="#i-check"/></svg></span><b>AI will record it</b><span>Added to your video plan</span></div>
+          </div>
+          <i class="burst"></i>
+        </button>
+      </div>
+      <div class="foot" data-in="5">You can swap in your own footage later.</div>
+    </div>
+  </section>
+
+  <!-- ================= S3: brand kit? ================= -->
+  <section class="screen" id="s-kit" data-step="3">
+    <div class="ask">
+      <div class="head">
+        <h2 class="h-display" data-words><span class="grad-ink">Do you have a brand kit?</span><br><span class="dim">Logo, colours, fonts.</span></h2>
+        <p class="sub" data-in="2">So the video looks like it came from your team.</p>
+      </div>
+      <div class="opts">
+        <button class="opt opt-up" id="kit-up" data-in="3" data-hover>
+          <div class="drop"><span class="ic"><svg width="22" height="22"><use href="#i-up"/></svg></span><b>Yes, upload it</b><span>PDF, ZIP or a Figma link</span><div class="browse">Drop files here or <u>browse</u></div></div>
+        </button>
+        <button class="opt opt-ai" id="kit-ai" data-in="4" data-hover data-ai>
+          <i class="halo"></i><i class="rim"></i>
+          <div class="body">
+            <i class="aur"></i><i class="shim"></i><i class="flash"></i>
+            <div class="top"><span class="orb"><svg><use href="#i-spark"/></svg></span><span class="rec-badge">Recommended</span></div>
+            <h3>Poolday AI <span class="dim">builds it</span><br>from your site</h3>
+            <p>We pull the logo, colours and type from <span class="u-host">northwind.ai</span> in seconds. You can edit it before we render.</p>
+            <div class="kitdots"><i></i><i></i><i></i><i></i><em>Aa</em></div>
+            <div class="cta"><span class="go">Build my brand kit<svg class="arrow"><use href="#i-arrow"/></svg></span><span class="meta">~10 S</span></div>
+            <div class="done"><span class="ok"><svg width="22" height="22"><use href="#i-check"/></svg></span><b>AI will build it</b><span>Pulled from northwind.ai while you pick a style</span></div>
+          </div>
+          <i class="burst"></i>
+        </button>
+      </div>
+      <div class="foot" data-in="5">Nothing is published. The kit stays private to you.</div>
+    </div>
+  </section>
+
+  <!-- ================= S4: style (launch) ================= -->
+  <section class="screen" id="s-style" data-step="4">
+    <div class="pick">
+      <div class="head">
+        <h2 class="h-display" data-words><span class="grad-ink">Pick a style.</span></h2>
+        <div class="kitnote" data-in="1"><span class="sw"><i style="background:#0e1116"></i><i style="background:#c6f432"></i><i style="background:#f4f1ea"></i></span>Previews already use your brand kit.</div>
+      </div>
+      <div class="grid3" id="grid3">
+        <div class="card" data-i="0" data-in="2" data-hover>
+          <span class="check"><svg width="12" height="12"><use href="#i-check"/></svg></span>
+          <div class="pv"><iframe data-src="previews/glass.html" title="Glass Keynote preview"></iframe><span class="tag"><i></i>Preview</span><div class="segs"></div></div>
+          <div class="meta3"><div><h3>Glass Keynote</h3><p>Liquid glass, floating UI, a slow device reveal.</p></div><span class="dur">30s</span></div>
+        </div>
+        <div class="card" data-i="1" data-in="3" data-hover>
+          <span class="check"><svg width="12" height="12"><use href="#i-check"/></svg></span>
+          <div class="pv"><iframe data-src="previews/kinetic.html" title="Kinetic Hype preview"></iframe><span class="tag"><i></i>Preview</span><div class="segs"></div></div>
+          <div class="meta3"><div><h3>Kinetic Hype</h3><p>Type that hits on the beat. Built for feeds.</p></div><span class="dur">20s</span></div>
+        </div>
+        <div class="card" data-i="2" data-in="4" data-hover>
+          <span class="check"><svg width="12" height="12"><use href="#i-check"/></svg></span>
+          <div class="pv"><iframe data-src="previews/founder.html" title="Founder Film preview"></iframe><span class="tag"><i></i>Preview</span><div class="segs"></div></div>
+          <div class="meta3"><div><h3>Founder Film</h3><p>You on camera, cut like a documentary.</p></div><span class="dur">45s</span></div>
+        </div>
+      </div>
+      <div class="actions" style="width:1292px" data-in="5">
+        <div class="fmt"><span>Format</span><div class="tabs"><button class="tab on">16:9</button><button class="tab">9:16</button><button class="tab">1:1</button></div></div>
+        <div class="go-row"><span class="hint">Usually 3–5 min</span><button class="btn btn-primary btn-l" id="go4" data-hover>Generate video<svg class="arrow"><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= S4b: style (podcast clips) ================= -->
+  <section class="screen" id="s-pod" data-step="2">
+    <div class="pick" style="padding-top:40px">
+      <div class="head" style="margin-bottom:30px">
+        <h2 class="h-display" data-words><span class="grad-ink">Pick a clip style.</span></h2>
+        <p class="sub" data-in="1">We found <b>9 clip-worthy moments</b> in this episode. Choose how they look.</p>
+      </div>
+      <div class="grid5" id="grid5"></div>
+      <div class="actions" style="width:1220px" data-in="7">
+        <div class="fmt"><span>Clips</span><div class="tabs"><button class="tab">3</button><button class="tab">6</button><button class="tab on">9</button></div><span style="margin-left:6px">9:16 · 30–60s each</span></div>
+        <div class="go-row"><span class="hint">Usually 3–5 min</span><button class="btn btn-primary btn-l">Make 9 clips<svg class="arrow"><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= S5: generating ================= -->
+  <section class="screen" id="s-gen" data-step="5">
+    <div class="gen">
+      <section>
+        <h1 class="ttl" data-in="0">Making your launch video</h1>
+        <div class="tags" data-in="1"><span>Northwind</span><span>Glass Keynote</span><span>16:9</span><span>30s</span></div>
+        <ol class="log" id="log" data-in="2"></ol>
+        <div class="mail" data-in="3">
+          <h4><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="2"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg>We'll email it when it's ready</h4>
+          <p>Close this tab anytime, or stay and watch it come together.</p>
+          <div class="f"><div class="in"><span class="ph">you@company.com</span></div><button class="btn btn-secondary">Notify me</button></div>
+        </div>
+      </section>
+      <section data-in="1">
+        <div class="status"><span class="stage-lb" id="stageLb">Opening northwind.ai</span><span class="eta"><span><b id="pct">0%</b></span><span id="left">about 4 min left</span></span></div>
+        <div class="canvas" id="canvas">
+          <!-- L1+L2+L3: a real browser the agent drives -->
+          <div class="layer" id="L-browser">
+            <div class="browser" id="browser">
+              <div class="bchrome"><i class="d"></i><i class="d"></i><i class="d"></i>
+                <div class="url"><svg class="lock" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="4.5" width="6" height="4.5" rx="1"/><path d="M3.5 4.5V3a1.5 1.5 0 0 1 3 0v1.5"/></svg><span id="urlT"></span></div>
+                <i class="load" id="load"></i></div>
+              <div class="bview" id="bview">
+                <div class="skel" id="skel"><i style="width:30%"></i><i style="width:62%;height:40px"></i><i style="width:48%;height:40px"></i><i style="width:40%"></i></div>
+                <div class="site" id="site">
+                  <div class="nav"><span class="lg"><i><svg width="11" height="11"><use href="#i-nw"/></svg></i>northwind</span><span>Product</span><span>Customers</span><span>Pricing</span><span class="cta">Start free</span></div>
+                  <div class="hero"><h5>Forecasts your <em>CFO</em> can actually trust.</h5><p class="hp">Northwind connects your ledger, CRM and payroll, then models the next quarter in real time.</p></div>
+                  <div class="shot"><svg viewBox="0 0 1200 720" width="100%" height="100%" preserveAspectRatio="xMinYMin slice"><use href="#nwDash"/></svg></div>
+                  <div class="bbox" data-t=".lg" data-at="0.25"><b>logo · svg</b></div>
+                  <div class="bbox" data-t="h5" data-at="0.55"><b>headline · Manrope 600</b></div>
+                  <div class="bbox" data-t=".shot" data-at="0.85"><b>product ui</b></div>
+                  <div class="bbox" data-t="h5 em" data-at="1.1" style="border-color:#8fb31a;background:rgba(198,244,50,.12)"><b style="background:#6f8c10">#C6F432</b></div>
+                  <div class="bbox" data-t=".nav .cta" data-at="1.3" style="border-color:#0e1116"><b style="background:#0e1116">#0E1116</b></div>
+                  <div class="scanl" id="scanl"></div>
+                </div>
+                <div class="appv" id="appv">
+                  <svg class="dash" viewBox="0 0 1200 720"><use href="#nwDash"/></svg>
+                  <div class="sidehl" id="sidehl"></div>
+                  <svg class="newline" id="newline" viewBox="0 0 1200 720"><path id="nlp" d="M760 560 C820 540 880 500 940 470 S1060 420 1160 380" fill="none" stroke="#c6f432" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/></svg>
+                  <div class="panel" id="panel"><div class="k">SCENARIO B</div><b>Hiring plan</b><div class="row"><span>New hires in Q4</span><em id="hires">+2</em></div><div class="sl"><i id="slf"></i><u id="slk"></u></div><div class="row"><span>Runway</span><em id="runway">31 mo</em></div><div class="row"><span>Q4 revenue</span><em>$5.36M</em></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="rec" id="rec"><i></i><span id="recT">REC 00:00</span></div>
+            <div class="aic" id="aic"><svg width="22" height="22" style="color:#fff"><use href="#i-cursor"/></svg><span class="who"><svg><use href="#i-spark"/></svg>Poolday AI</span></div>
+            <i class="clk" id="clk"></i>
+          </div>
+          <!-- L4: script -->
+          <div class="layer" id="L-script"><div class="docpanel"><div class="k"><b>SCRIPT</b><span>6 BEATS · 29 S</span><span>TONE: CALM, CONFIDENT</span></div><div id="beats"></div></div></div>
+          <!-- L5: voice-over -->
+          <div class="layer" id="L-voice"><div class="docpanel"><div class="k"><b>VOICE-OVER</b><span>EN-US · 29.4 S</span></div><div class="wave" id="wave"></div><div class="lines" id="vlines"></div><div class="voice"><span class="av"></span><div><b>Warm, mid</b><span>Voice 04 · matched to Glass Keynote</span></div></div></div></div>
+          <!-- L6+L7: storyboard + render -->
+          <div class="layer" id="L-board">
+            <svg class="fr" id="curF" viewBox="0 0 1600 900"><use href="#nwF1"/></svg>
+            <svg class="fr" id="nextF" viewBox="0 0 1600 900"><use href="#nwF1"/></svg>
+            <div class="gridov" id="gridov"></div><div class="scan" id="scan"></div>
+            <div class="hud"><span id="hudA">FRAME 01</span><span id="hudB">COMPOSITING</span></div>
+          </div>
+        </div>
+        <div class="strip" id="strip"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ================= S6: result ================= -->
+  <section class="screen" id="s-res" data-step="6">
+    <div class="res">
+      <div class="top" data-in="0">
+        <div>
+          <h1><span class="ok"><svg width="13" height="13"><use href="#i-check"/></svg></span>Your launch video is ready.</h1>
+          <div class="meta"><span>Northwind Forecast</span><i></i><span>Glass Keynote</span><i></i><span>0:30</span><i></i><span>Made in 3 min 48 s</span></div>
+        </div>
+        <div class="links">
+          <button class="btn btn-ghost icbtn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 0 1 9.4-3.9L13.5 5.5M13.5 2v3.5H10M13.5 8a5.5 5.5 0 0 1-9.4 3.9L2.5 10.5M2.5 14v-3.5H6"/></svg>Try another style</button>
+          <button class="btn btn-secondary icbtn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a3 3 0 0 0 4.2 0l2.3-2.3a3 3 0 0 0-4.2-4.2l-.6.6M9.5 6.5a3 3 0 0 0-4.2 0L3 8.8a3 3 0 0 0 4.2 4.2l.6-.6"/></svg>Copy link</button>
+        </div>
+      </div>
+      <div class="grid">
+        <div data-in="1">
+          <div class="player">
+            <iframe data-src="previews/glass.html" title="Your video"></iframe>
+            <div class="wm"><img src="../../design/brand/logo.svg" alt="">Made with</div>
+            <div class="ctrl">
+              <div class="scrub" id="rscrub"><i style="--w:3"><b></b></i><i style="--w:3"><b></b></i><i style="--w:3"><b></b></i><i style="--w:3"><b></b></i></div>
+              <div class="cbar">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#fff"><rect x="4" y="3" width="3.2" height="12" rx="1"/><rect x="10.8" y="3" width="3.2" height="12" rx="1"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3l4-3.5v11L6 11H3z" fill="#fff"/><path d="M12.5 6.5a3.5 3.5 0 0 1 0 5M14.5 4.5a6.5 6.5 0 0 1 0 9"/></svg>
+                <span class="t" id="rtime">0:00 <span>/ 0:30</span></span><span class="sp"></span><span class="cc">CC</span>
+                <span style="font-family:var(--pd-font-mono);font-size:11px;color:rgba(255,255,255,.7)">720p</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="under">
+            <div class="made"><span><i></i>Walkthrough recorded by Poolday AI</span><span><i></i>Brand kit from northwind.ai</span></div>
+            <div class="note"><span class="live-dot"></span><span>Also sent to <b>maya@northwind.ai</b></span></div>
+          </div>
+        </div>
+        <aside class="rail">
+          <div class="act" data-in="2"><span class="ic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8.5M4.5 7 8 10.5 11.5 7M2.5 13.5h11"/></svg></span><div><b>Download</b><span>720p MP4 · watermarked</span></div></div>
+          <div class="act hd" data-in="3"><span class="ic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="1.75" y="3.75" width="8.5" height="8.5" rx="1.5"/><path d="M12.5 5.5l1.75-.9v6.8l-1.75-.9" stroke-linecap="round"/></svg></span><div><b>Get HD + 3 variants</b><span>4K, no watermark, 9:16 · 1:1 · 15s</span></div><svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5 10.5 8 6 12.5"/></svg></div>
+          <div class="demo" data-in="4">
+            <div class="k">Done with you</div>
+            <h3>Want this for your real launch?</h3>
+            <p>A Poolday producer builds it with you: your footage, your voice, your date. First cut in 48 hours.</p>
+            <button class="btn btn-primary" id="book" data-hover>Book 15 min<svg class="arrow"><use href="#i-arrow"/></svg></button>
+            <div class="slot"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>Next slot: tomorrow, 10:30</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div id="ripple"></div>
+  <svg id="cursor" viewBox="0 0 26 26" style="color:#fff"><use href="#i-cursor"/></svg>
+</div>
+<script src="lib/motion.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
-<!-- Northwind (fictional) launch-video frames, Apple style. Injected inline by 03/04 pages. -->
+<!-- Northwind (fictional) launch-video frames, Apple style. Injected inline by the app and previews. Fonts are media fonts (assets/fonts), independent of the Poolday brand layer. -->
 <defs>
   <style>
-    .nw-d { font-family: "Inter Tight", "Inter", sans-serif; }
-    .nw-u { font-family: "Inter", sans-serif; }
-    .nw-m { font-family: "Geist Mono", monospace; }
+    .nw-d { font-family: "NW Display", sans-serif; }
+    .nw-u { font-family: "NW UI", sans-serif; }
+    .nw-m { font-family: "NW Mono", monospace; }
   </style>
   <linearGradient id="nwText" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa2af"/></linearGradient>
   <linearGradient id="nwBand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6f432" stop-opacity=".28"/><stop offset="1" stop-color="#c6f432" stop-opacity="0"/></linearGradient>

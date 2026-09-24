@@ -1,0 +1,12 @@
+<!-- @dsCard group="Graphics" height=72 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root" class="pd-stage" style="color:var(--ink-muted)"></div>
+<script>
+  var P = window.Poolday, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, ['layout-grid','briefcase','gamepad-2','mic','chevron-down','volume-2'].map(function (n) { return h(P.Icon, { key: n, name: n, size: 24 }); })));
+</script>
+</body>
+</html>

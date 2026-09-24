@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Founder Film preview</title>
+<link rel="stylesheet" href="preview.css">
+<style>
+  .stage { background: #070808; }
+  /* Photo slot: drop a portrait at src/assets/founder.jpg and it replaces the rendered placeholder. */
+  .portrait { position: absolute; overflow: hidden; }
+  .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+  .portrait .ph { object-fit: contain; object-position: 50% 100%; }
+  .studio { position: absolute; inset: -40px; background:
+      radial-gradient(42% 70% at 12% 38%, rgba(214,196,168,.26), transparent 70%),
+      radial-gradient(60% 60% at 80% 30%, rgba(40,70,74,.55), transparent 75%),
+      linear-gradient(180deg, #111718 0%, #0b0f10 70%, #080a0a 100%); }
+  .shelf { position: absolute; height: 5px; border-radius: 3px; background: rgba(0,0,0,.55); filter: blur(3px); }
+  .bok { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255,196,120,.95), rgba(255,160,80,.35) 55%, transparent 72%); filter: blur(7px); }
+  .lamp { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255,214,160,.55), transparent 65%); filter: blur(18px); }
+  .grade { position: absolute; inset: 0; pointer-events: none; z-index: 20; mix-blend-mode: soft-light;
+    background: linear-gradient(100deg, rgba(255,166,96,.42) 0%, rgba(255,166,96,.1) 40%, rgba(0,120,140,.3) 75%, rgba(0,90,110,.45) 100%); }
+  .lift { position: absolute; inset: 0; pointer-events: none; z-index: 21; background: rgba(18,26,28,.14); mix-blend-mode: lighten; }
+  .bars { position: absolute; left: 0; right: 0; height: 88px; background: #030303; z-index: 30; }
+  .cap { position: absolute; left: 0; right: 0; top: 540px; text-align: center; z-index: 32; font-family: "NW Display"; font-weight: 600; font-size: 40px; letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 28px rgba(0,0,0,.5), 0 1px 3px rgba(0,0,0,.4); white-space: nowrap; }
+  .cap span { display: inline-block; margin: 0 .12em; }
+  #lt { position: absolute; left: 88px; top: 452px; z-index: 32; }
+  #lt .rule { height: 3px; background: #c6f432; border-radius: 2px; }
+  #lt .clip { overflow: hidden; margin-top: 12px; }
+  #lt b { display: block; font-family: "NW Display"; font-weight: 600; font-size: 30px; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
+  #lt span { display: block; font-size: 17px; color: rgba(255,255,255,.72); margin-top: 2px; white-space: nowrap; }
+  /* B-roll */
+  #b1 { background: radial-gradient(70% 70% at 60% 45%, #10181a, #050606 70%); perspective: 1400px; }
+  #mon { position: absolute; left: 250px; top: 120px; width: 860px; height: 516px; border-radius: 16px; background: #0b0d10; padding: 12px; box-shadow: 0 0 0 2px #1e2126, 0 0 160px 10px rgba(198,244,50,.12), 0 80px 140px -40px #000; transform-origin: 30% 50%; }
+  #mon svg { width: 100%; height: 100%; display: block; border-radius: 8px; }
+  #desk { position: absolute; left: -100px; right: -100px; top: 610px; height: 220px; background: linear-gradient(180deg, #1a1712, #070706); filter: blur(2px); }
+  #b2 { background: #06080a; }
+  #macro { position: absolute; left: -2300px; top: -1080px; width: 3600px; height: 2160px; transform-origin: 2940px 1440px; }
+  #macro svg { width: 100%; height: 100%; }
+  #tilt { position: absolute; inset: 0; backdrop-filter: blur(7px); -webkit-mask: linear-gradient(180deg, #000 0%, transparent 34%, transparent 62%, #000 100%); z-index: 5; }
+  #endT { position: absolute; left: 0; right: 0; top: 262px; text-align: center; z-index: 33; }
+  #endT b { display: block; font-family: "Instrument Serif"; font-weight: 400; font-size: 104px; letter-spacing: -0.01em; color: #f4f1ea; line-height: 1; }
+  #endT span { display: block; margin-top: 18px; font-family: "NW Mono"; font-size: 16px; letter-spacing: .32em; color: rgba(244,241,234,.6); }
+  #black { position: absolute; inset: 0; background: #030303; z-index: 40; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div id="defs"></div>
+  <!-- A-cam: medium shot. The same camera is used for the punch-in (a cut, not a zoom). -->
+  <section class="scene" id="camA"><div id="rigA" style="position:absolute;inset:0">
+    <div class="studio"></div>
+    <div class="lamp" style="left:980px;top:120px;width:260px;height:260px"></div>
+    <i class="bok" style="left:1040px;top:170px;width:70px;height:70px"></i><i class="bok" style="left:1130px;top:250px;width:44px;height:44px;opacity:.6"></i><i class="bok" style="left:960px;top:300px;width:30px;height:30px;opacity:.5"></i><i class="bok" style="left:1180px;top:120px;width:26px;height:26px;opacity:.45"></i>
+    <div class="shelf" style="left:60px;top:250px;width:300px"></div><div class="shelf" style="left:40px;top:360px;width:340px"></div>
+    <div class="portrait" id="pA" style="left:430px;top:40px;width:680px;height:765px"><img class="ph" src="../assets/person.svg" alt=""><img class="photo" src="../assets/founder.jpg" alt="" onerror="this.remove()"></div>
+  </div></section>
+  <!-- B-cam: the other side of the table, mirrored framing, warmer -->
+  <section class="scene" id="camB"><div id="rigB" style="position:absolute;inset:0">
+    <div class="studio" style="transform:scaleX(-1);filter:hue-rotate(-8deg) brightness(1.05)"></div>
+    <div class="lamp" style="left:60px;top:150px;width:300px;height:300px"></div>
+    <i class="bok" style="left:120px;top:210px;width:80px;height:80px"></i><i class="bok" style="left:250px;top:300px;width:40px;height:40px;opacity:.55"></i><i class="bok" style="left:60px;top:330px;width:28px;height:28px;opacity:.5"></i>
+    <div class="portrait" id="pB" style="left:250px;top:70px;width:640px;height:720px;transform:scaleX(-1)"><img class="ph" src="../assets/person.svg" alt=""><img class="photo" src="../assets/founder.jpg" alt="" onerror="this.remove()"></div>
+  </div></section>
+  <!-- B-roll 1: the product on a monitor, rack focus -->
+  <section class="scene" id="b1"><div id="desk"></div><div id="mon"><svg viewBox="0 0 1200 720"><use href="#nwDash"/></svg></div></section>
+  <!-- B-roll 2: macro on the forecast line, tilt-shift depth of field -->
+  <section class="scene" id="b2"><div id="macro"><svg viewBox="0 0 1200 720"><use href="#nwDash"/></svg></div><div id="tilt"></div></section>
+
+  <div id="lt"><div class="rule" id="ltR"></div><div class="clip" id="ltC"><b>Maya Chen</b><span>Founder &amp; CEO, Northwind</span></div></div>
+  <div class="cap" id="cap"></div>
+  <div id="endT"><b>Northwind</b><span>A FOUNDER FILM</span></div>
+  <div class="grade"></div><div class="lift"></div>
+  <div class="bars" id="barT" style="top:0"></div><div class="bars" id="barB" style="bottom:0"></div>
+  <div id="black"></div>
+  <div class="vig"></div>
+</div>
+<script src="../lib/motion.js"></script>
+<script src="preview.js"></script>
+<script>
+const { clamp, lerp, seg, fr, expo, ink, out3, out5, in3, inOut3 } = M;
+const $ = (s) => document.querySelector(s);
+// Edit decision list: [scene, start, end]. Hard cuts on the phrase, like a real edit.
+const EDL = [["camA", 0, 3.0, "wide"], ["camA", 3.0, 4.8, "punch"], ["b1", 4.8, 6.0], ["b2", 6.0, 7.2], ["camB", 7.2, 10]];
+// Captions: [start, end, text]. Words ink in on their own beat; the active word is full white.
+const CAPS = [[0.35, 1.6, "We ran a $40M company"], [1.6, 2.95, "on spreadsheets."], [3.05, 3.75, "Every Monday,"], [3.75, 4.75, "the numbers were already wrong."],
+  [4.9, 6.0, "So we built the forecast"], [6.0, 7.1, "that updates itself."], [7.35, 8.55, "Now it’s the first thing I open."]];
+let capKey = "";
+function draw(t) {
+  const shot = EDL.find(([, a, b]) => t >= a && t < b) || EDL[EDL.length - 1];
+  ["camA", "camB", "b1", "b2"].forEach(id => $("#" + id).classList.toggle("on", id === shot[0]));
+  // A-cam: slow push during the wide; the punch-in is a 1.32x cut framed on the face, with a touch of handheld drift.
+  if (shot[0] === "camA") {
+    const u = t - shot[1];
+    const hx = Math.sin(t * 1.3) * 3 + Math.sin(t * 3.1) * 1.2, hy = Math.cos(t * 1.1) * 2.4;
+    $("#rigA").style.transformOrigin = "780px 250px";
+    $("#rigA").style.transform = shot[3] === "punch" ? `translate(${hx}px, ${hy}px) scale(${1.32 + u * 0.018})` : `scale(${1 + t * 0.013}) translate(${hx * .4}px, ${hy * .4}px)`;
+  }
+  if (shot[0] === "camB") { const u = t - 7.2; $("#rigB").style.transformOrigin = "560px 280px"; $("#rigB").style.transform = `scale(${1.04 + u * 0.016}) translateX(${-u * 5}px)`; }
+  if (shot[0] === "b1") { const u = t - 4.8; const f = 1 - out3(seg(u, 0, 0.55));
+    $("#mon").style.transform = `rotateY(${-20 + u * 3}deg) rotateX(4deg) translateX(${-u * 26}px)`; $("#mon").style.filter = f > 0.02 ? `blur(${f * 7}px)` : ""; }
+  if (shot[0] === "b2") { const u = t - 6.0; $("#macro").style.transform = `scale(${1 + u * 0.05}) rotate(${-4 + u * 1.2}deg) translate(${-u * 30}px, 0)`; }
+  // Lower third: rule grows first, then the name wipes in; leaves before the punch-in.
+  const lr = out5(seg(t, 0.55, 1.0)), lw = out3(seg(t, 0.7, 1.25)), lo = 1 - in3(seg(t, 2.55, 2.9));
+  $("#ltR").style.width = lr * 300 + "px"; $("#ltC").style.width = lw * 380 + "px"; $("#lt").style.opacity = t < 3 ? lo : 0;
+  // Captions
+  const c = CAPS.find(([a, b]) => t >= a && t < b);
+  const key = c ? c[2] : ""; if (key !== capKey) { capKey = key; $("#cap").innerHTML = key ? key.split(" ").map(w => `<span>${w}</span>`).join("") : ""; }
+  if (c) { const ws = [...$("#cap").children], n = ws.length, per = Math.min(0.2, (c[1] - c[0]) * 0.7 / n);
+    ws.forEach((w, i) => { const b = c[0] + i * per, tau = fr(t, b); const act = t >= b && (i === n - 1 || t < b + per);
+      w.style.opacity = ink(tau, 0.7) * (act ? 1 : 0.82); w.style.transform = `translateY(${(1 - expo(tau)) * 16}px) scale(${act ? 1.04 : 1})`; }); }
+  // End: letterbox tightens to 2.39:1, serif title, fade to black for the loop point.
+  const bb = 88 + out3(seg(t, 8.6, 9.2)) * 34; $("#barT").style.height = $("#barB").style.height = bb + "px";
+  const et = fr(t, 8.75); $("#endT").style.opacity = ink(et, 0.35) * (1 - seg(t, 9.6, 9.95)); $("#endT").style.transform = `translateY(${(1 - expo(et, 0.85)) * 18}px) scale(${1 + Math.max(0, t - 8.75) * 0.02})`;
+  $("#endT").style.visibility = t > 8.7 ? "visible" : "hidden";
+  const dim = seg(t, 8.6, 9.1) * 0.62; $("#camB").style.filter = dim ? `brightness(${1 - dim}) blur(${dim * 5}px)` : "";
+  $("#black").style.opacity = t < 0.25 ? 1 - out3(t / 0.25) : seg(t, 9.75, 10);
+}
+Preview({ loop: 10, init: async () => { $("#defs").innerHTML = await (await fetch("../frames.svg")).text(); }, draw });
+</script>
+</body>
+</html>

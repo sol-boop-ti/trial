@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kinetic Hype preview</title>
+<link rel="stylesheet" href="preview.css">
+<style>
+  /* One accent per shot: the customer's lime on an off-black ground, off-white ink. */
+  .stage { background: #0b0b0c; --ink: #f4f4f2; --acc: #c6f432; --gr: #0b0b0c; }
+  .big { position: absolute; font-family: "Anton"; text-transform: uppercase; color: var(--ink); line-height: .86; white-space: nowrap; letter-spacing: -0.01em; }
+  .big span { display: inline-block; }
+  .cnt { position: absolute; right: 40px; top: 34px; font-family: "NW Mono"; font-size: 17px; letter-spacing: .12em; color: rgba(244,244,242,.45); z-index: 30; }
+  .tick { position: absolute; left: 40px; top: 36px; display: flex; gap: 6px; z-index: 30; }
+  .tick i { width: 34px; height: 4px; border-radius: 2px; background: rgba(244,244,242,.16); overflow: hidden; position: relative; }
+  .tick i b { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; }
+
+  /* K1 */
+  #stop { left: 0; right: 0; top: 118px; text-align: center; font-size: 330px; }
+  #guess { left: 0; right: 0; top: 440px; text-align: center; font-size: 150px; color: var(--acc); }
+  /* K2: line + decelerating drum */
+  #yf { left: 96px; top: 222px; font-size: 118px; }
+  #drumWin { position: absolute; left: 96px; top: 336px; width: 1100px; height: 330px; overflow: hidden; -webkit-mask: linear-gradient(180deg, transparent 0, rgba(0,0,0,.5) 50px, #000 90px, #000 240px, transparent 320px); }
+  #drum { position: absolute; left: 0; top: 0; }
+  .dr { position: absolute; left: 0; height: 150px; display: flex; align-items: center; font-family: "Anton"; font-size: 150px; text-transform: uppercase; color: var(--ink); white-space: nowrap; transform-origin: 0 50%; }
+  .dr.hit span { background: var(--acc); color: var(--gr); padding: 0 18px; margin-left: -18px; }
+  /* K3: counter on a wiping block */
+  #blk { position: absolute; left: 0; top: 150px; height: 400px; background: var(--acc); }
+  #num { left: 90px; top: 190px; font-size: 330px; color: var(--gr); font-feature-settings: "tnum"; }
+  .chipK { position: absolute; height: 58px; padding: 0 22px; border-radius: 29px; display: flex; align-items: center; font-family: "NW Display"; font-weight: 700; font-size: 26px; letter-spacing: -0.01em; background: var(--gr); color: var(--ink); }
+  /* K4: lockup */
+  #nw { left: 0; right: 0; top: 196px; text-align: center; font-size: 250px; }
+  #bar { position: absolute; left: 50%; top: 440px; height: 14px; background: var(--acc); }
+  #tag { position: absolute; left: 0; right: 0; top: 488px; text-align: center; font-family: "NW Display"; font-weight: 600; font-size: 54px; letter-spacing: -0.03em; color: var(--ink); }
+  #tag span { display: inline-block; }
+  #flash { position: absolute; inset: 0; background: var(--acc); z-index: 45; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="tick" id="tick"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  <div class="cnt" id="cnt">01 / 04</div>
+  <section class="scene" id="k1"><div class="big" id="stop"></div><div class="big" id="guess"></div></section>
+  <section class="scene" id="k2"><div class="big" id="yf"></div><div id="drumWin"><div id="drum"></div></div></section>
+  <section class="scene" id="k3"><div id="blk"></div><div class="big" id="num">+0.0%</div>
+    <div class="chipK" id="c1" style="left:860px;top:522px">Forecast accuracy</div><div class="chipK" id="c2" style="left:700px;top:560px;background:#f4f4f2;color:#0b0b0c">Q3</div></section>
+  <section class="scene" id="k4"><div class="big" id="nw"></div><div id="bar"></div><div id="tag"></div></section>
+  <div id="flash"></div>
+  <div class="vig" style="opacity:.6"></div>
+</div>
+<script src="../lib/motion.js"></script>
+<script src="preview.js"></script>
+<script>
+const { clamp, lerp, seg, fr, expo, ink, out3, out5, in3, inOut3, drum, spring } = M;
+const $ = (s) => document.querySelector(s);
+const chars = (el, s) => { el.innerHTML = [...s].map(c => `<span>${c === " " ? "&nbsp;" : c}</span>`).join(""); return [...el.children]; };
+const wordsOf = (el, s) => { el.innerHTML = s.split(" ").map(w => `<span>${w}</span>`).join(" "); return [...el.children]; };
+const SC = [["k1", 0, 1.9], ["k2", 1.9, 4.3], ["k3", 4.3, 6.4], ["k4", 6.4, 9]];
+const DRUM = ["late", "manual", "a guess", "wrong", "stale."], DH = 150;
+let G, NW, TG, YF;
+
+// Whip into the cut (manual: "motion into the next shot beats a fade"): accelerate over the last ~9 frames.
+const whip = (t, end, dist = 1400, dur = 0.3) => { const k = in3(seg(t, end - dur, end)); return k * dist; };
+const vel = (f, t) => f(t) - f(t - 1 / 30);
+
+function draw(t) {
+  SC.forEach(([id, a, b], i) => $("#" + id).classList.toggle("on", t >= a && t < b));
+  const si = SC.findIndex(([, a, b]) => t >= a && t < b);
+  $("#cnt").textContent = `0${si + 1} / 04`;
+  [...$("#tick").children].forEach((e, i) => { const [, a, b] = SC[i]; e.firstChild.style.transform = `scaleX(${clamp((t - a) / (b - a))})`; });
+  // Seamless loop: a 3-frame accent flash on the loop point and on the K2->K3 hit.
+  const fl = (a) => Math.max(0, 1 - Math.abs(t - a) * 30 / 3);
+  $("#flash").style.opacity = Math.max(fl(0) * 0.9, fl(9) * 0.9, fl(4.3) * 0.55);
+
+  if (si === 0) { // ---- K1: STOP slams in, GUESSING rises letter by letter, whip left
+    const st = fr(t, 0.04), s = 1 + (1 - expo(st, 0.72)) * 0.9;
+    const wx = (tt) => -whip(tt, 1.9, 1500);
+    $("#stop").style.transform = `translateX(${wx(t)}px) scale(${s})`; $("#stop").style.opacity = ink(st, 1.2);
+    mblur($("#stop"), vel(wx, t) + (st < 8 ? 30 : 0), 0);
+    G.forEach((c, i) => { const tau = fr(t, 0.42 + i * 1.5 / 30); c.style.transform = `translateY(${(1 - expo(tau)) * 150}px)`; c.style.opacity = ink(tau); });
+    $("#guess").style.transform = `translateX(${wx(t - 0.03)}px)`; mblur($("#guess"), vel(wx, t - 0.03));
+  } else if (si === 1) { // ---- K2: "Your forecast is" + decelerating drum landing on STALE
+    const u = t - 1.9;
+    YF.forEach((w, i) => { const tau = fr(u, 0.02 + i * 4 / 30); w.style.transform = `translateY(${(1 - expo(tau)) * 120}px)`; w.style.opacity = ink(tau); });
+    const pos = (tt) => drum(tt, 0.12, 1.45, 11) * (DRUM.length - 1); // items travelled
+    const p = pos(u), v = (p - pos(u - 1 / 30)) * DH;
+    [...$("#drum").children].forEach((e, i) => {
+      const d = i - p; // 0 = centred on the line
+      const y = 55 + d * DH, sc = lerp(1, 0.78, Math.min(1, Math.abs(d)));
+      const op = d < 0 ? lerp(1, 0.9, Math.min(1, -d)) * (d < -1.5 ? 0 : 1) : lerp(1, 0.4, Math.min(1, d)) * (d > 1.6 ? 0.3 : 1);
+      const land = i === DRUM.length - 1 ? 1 : 1 - out3(seg(u, 1.45, 1.75)); // neighbours clear once it lands
+      e.style.transform = `translateY(${y}px) scale(${sc})`; e.style.opacity = op * land; mblur(e, 0, v);
+      e.classList.toggle("hit", i === DRUM.length - 1 && u > 1.45);
+    });
+    const wx = (tt) => -whip(tt, 2.4, 1400, 0.28);
+    $("#k2").style.transform = `translateX(${wx(u)}px)`; mblur($("#k2"), vel(wx, u));
+  } else if (si === 2) { // ---- K3: accent block wipes, number counts, chips arrive late and drift
+    const u = t - 4.3;
+    const bw = 1280 * out5(seg(u, 0, 0.42)); $("#blk").style.width = bw + "px";
+    $("#blk").style.transform = `skewX(${(1 - out3(seg(u, 0, 0.5))) * -12}deg)`;
+    const n = 18.4 * out5(seg(u, 0.12, 0.95)); $("#num").textContent = "+" + n.toFixed(1) + "%";
+    const nt = fr(u, 0.1); $("#num").style.transform = `translateX(${(1 - expo(nt)) * -260}px) rotate(${(1 - expo(nt, 0.8)) * -6}deg) scale(${1 + u * 0.02})`; $("#num").style.opacity = ink(nt);
+    [["#c1", 0.55, 1], ["#c2", 0.72, -1]].forEach(([s, b, d]) => { const tau = fr(u, b); const e = spring(tau, 0.32, 0.2);
+      $(s).style.transform = `translate(${u * 6 * d}px, ${(1 - e) * 80}px) rotate(${(1 - expo(tau, 0.8)) * 8 * d - 1.5 * d}deg) scale(${0.8 + 0.2 * e})`; $(s).style.opacity = ink(tau); });
+    const wy = (tt) => -whip(tt, 2.1, 900, 0.26);
+    $("#k3").style.transform = `translateY(${wy(u)}px)`; mblur($("#k3"), 0, vel(wy, u));
+  } else { // ---- K4: wordmark letters whip in from the right with overshoot, bar grows, tag rises
+    const u = t - 6.4;
+    NW.forEach((c, i) => { const b = 0.02 + i * 1.6 / 30; const tau = fr(u, b); const e = spring(tau, 0.36, 0.22);
+      const x = (tt) => (1 - spring(fr(tt, b), 0.36, 0.22)) * 900; c.style.transform = `translateX(${x(u)}px) skewX(${(1 - expo(tau, 0.8)) * -14}deg)`; c.style.opacity = ink(tau, 0.9); mblur(c, vel(x, u)); });
+    const bw = 860 * out5(seg(u, 0.5, 1.05)); $("#bar").style.width = bw + "px"; $("#bar").style.marginLeft = (-bw / 2) + "px";
+    TG.forEach((w, i) => { const tau = fr(u, 0.75 + i * 4 / 30); w.style.transform = `translateY(${(1 - expo(tau)) * 60}px)`; w.style.opacity = ink(tau); });
+    $("#k4").style.transform = `scale(${1 + u * 0.012})`;
+    const wy = (tt) => -whip(tt, 2.6, 1000, 0.3); $("#k4").style.transform += ` translateY(${wy(u)}px)`; mblur($("#k4"), 0, vel(wy, u));
+  }
+}
+Preview({ loop: 9, init: () => {
+  chars($("#stop"), "STOP"); G = chars($("#guess"), "GUESSING."); YF = wordsOf($("#yf"), "YOUR FORECAST IS");
+  $("#drum").innerHTML = DRUM.map(w => `<div class="dr"><span>${w}</span></div>`).join("");
+  NW = chars($("#nw"), "NORTHWIND"); TG = wordsOf($("#tag"), "Forecasts that move first.");
+}, draw });
+</script>
+</body>
+</html>

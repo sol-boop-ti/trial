@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="800" height="900">
+  <!-- Rendered placeholder person (low-key studio portrait, key light from camera left, cool rim right).
+       Used only when no photo is dropped into assets/founder.jpg or assets/guest.jpg. -->
+  <defs>
+    <radialGradient id="skin" cx=".36" cy=".42" r=".78">
+      <stop offset="0" stop-color="#4a3128"/><stop offset=".4" stop-color="#2c1d17"/><stop offset=".75" stop-color="#170f0c"/><stop offset="1" stop-color="#0d0908"/>
+    </radialGradient>
+    <radialGradient id="neck" cx=".3" cy=".2" r=".9"><stop offset="0" stop-color="#3a271f"/><stop offset=".6" stop-color="#1a110d"/><stop offset="1" stop-color="#0b0807"/></radialGradient>
+    <linearGradient id="knit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#23262c"/><stop offset=".35" stop-color="#15171b"/><stop offset=".8" stop-color="#0b0c0e"/><stop offset="1" stop-color="#08090a"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b2a22"/><stop offset=".5" stop-color="#1a1310"/><stop offset="1" stop-color="#0b0807"/></linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0"><stop offset=".6" stop-color="#9fd6ff" stop-opacity="0"/><stop offset="1" stop-color="#bfe6ff" stop-opacity=".75"/></linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="soft6"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/></feMerge></filter>
+  </defs>
+  <g filter="url(#soft)">
+    <!-- torso: dark knit, lit from the left -->
+    <path d="M40 900 C60 760 150 668 300 640 C340 632 370 628 400 628 C430 628 470 632 520 642 C660 670 750 760 770 900Z" fill="url(#knit)"/>
+    <path d="M300 642 C340 690 460 690 510 644" fill="none" stroke="#0b0c0f" stroke-width="18" stroke-linecap="round" opacity=".7"/>
+    <!-- neck -->
+    <path d="M338 520 C340 580 336 620 318 650 C360 684 450 684 492 648 C474 616 470 580 472 520Z" fill="url(#neck)"/>
+    <path d="M330 610 C380 640 440 640 482 606" fill="none" stroke="#120c09" stroke-width="26" opacity=".55" filter="url(#soft6)"/>
+    <!-- head -->
+    <path d="M404 170 C306 170 256 250 262 356 C268 452 318 548 404 566 C488 552 540 460 546 356 C552 250 500 170 404 170Z" fill="url(#skin)"/>
+    <!-- ear (shadow side) -->
+    <path d="M540 350 C566 346 572 392 556 424 C548 440 536 438 532 430Z" fill="#3c271e"/>
+    <!-- no facial features: a contre-jour portrait reads as an intentional placeholder -->
+    <path d="M300 470 C330 540 380 566 404 566 C470 556 520 500 540 430 C520 520 470 580 404 584 C350 580 316 530 300 470Z" fill="#1a110c" opacity=".55"/>
+    <!-- hair -->
+    <path d="M252 330 C236 214 320 132 420 138 C522 144 574 216 562 330 C552 286 520 240 470 226 C420 240 336 244 292 272 C272 290 258 312 252 330Z" fill="url(#hair)"/>
+    <path d="M292 272 C340 236 420 222 470 226" fill="none" stroke="#5a4033" stroke-width="3" opacity=".6"/>
+  </g>
+  <g filter="url(#glow)">
+    <!-- warm key edge (camera left) -->
+    <path d="M300 250 C268 300 262 380 280 450 C296 510 340 556 396 568" fill="none" stroke="#f0b48a" stroke-width="7" opacity=".4"/>
+    <path d="M262 330 C250 250 300 170 390 150" fill="none" stroke="#e8a978" stroke-width="4" opacity=".45"/>
+    <path d="M300 640 C170 670 76 760 48 900" fill="none" stroke="#e8a978" stroke-width="5" opacity=".35"/>
+    <!-- cool rim on the shadow side -->
+    <path d="M520 214 C560 262 566 330 546 420 C536 470 514 520 480 550" fill="none" stroke="#bfe6ff" stroke-width="5" opacity=".7"/>
+    <path d="M560 660 C680 700 748 780 768 900" fill="none" stroke="#9fd6ff" stroke-width="4" opacity=".35"/>
+  </g>
+</svg>
