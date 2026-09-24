@@ -49,3 +49,10 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 ---
 
 <!-- Next entries: M4 reference video choice, M5 Poolday runs (per conversation: tier, prompts count, render times, credits), M6 agent loop build, ... -->
+
+## M4. Instagram account warm-up (D4)
+- **What:** created a new IG account and started warming it up before posting any AI UGC.
+- **Tools:** Instagram (manual).
+- **Process:** new account → normal human activity (follow niche accounts, likes, comments) with **no posts** until the UGC videos are ready.
+- **Decision & why:** new accounts that post straight away get throttled or flagged, and they can realistically post only ~1–2 times per day. Starting the warm-up before production means the account is ready by the time the videos are.
+- **Status:** in progress (started before any Poolday work).

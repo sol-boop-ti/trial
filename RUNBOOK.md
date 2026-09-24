@@ -7,6 +7,28 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 
 ---
 
+## PHASE 0: Everything done BEFORE opening Poolday (status board)
+
+| # | Who | Task | Needs Poolday? | Status |
+|---|---|---|---|---|
+| 0.1 | 🧑 | Warm up IG account (A2): 10–15 min/day, no posts yet | no | 🟡 in progress |
+| 0.2 | 🧑 | Pick 2 reference videos + 2–3 "what I love" lines each (A3) | no | ⬜ |
+| 0.3 | 🧑 | Page screenshots (desktop + mobile) + page text for poolday.ai and /solutions/b2b-startups (C2) | no | ⬜ |
+| 0.4 | 🧑 | Pick the video to review (PostHog or Upflow), screenshot frames with timestamps (C2) | no | ⬜ |
+| 0.5 | 🧑 | Get an Anthropic API key (console.anthropic.com), needed to run the agent loop | no | ⬜ |
+| 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ⬜ |
+| 0.7 | 🧑 | (optional) Prep UGC hooks/scripts with Claude chat | no | ⬜ |
+| 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first | no | ⬜ |
+| 0.9 | 🤖 | Write the growth idea in full (D5) | no | ⬜ |
+| 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy skeletons (D1) | no | ⬜ |
+| 0.11 | 🤖 | Write the page reviews (D7) + video review (D6) once 0.3/0.4 arrive | no | ⬜ |
+| 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
+| 0.13 | 🤖 | Deliverable doc skeleton (all sections, placeholders for videos/stats) | no | ⬜ |
+
+When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.
+
+---
+
 ## PHASE A: Setup (≈45 min, today, now)
 
 ### A1 🧑 Sign up for Poolday
@@ -19,6 +41,7 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 - **DO:** spend 10 min warming it up: follow about 20 accounts in the AI and marketing niche, and like and comment on a few posts. **Don't post yet.**
 - **EXPECT:** new accounts can post only **~1–2 times per day** before reach drops or the account gets flagged. This goes in the deliverable.
 - **REPORT:** `done A2 — handle @___`
+- **STATUS:** 🟡 warm-up started
 
 ### A3 🧑 Pick 2 reference videos (your taste = the biggest quality lever)
 The skill copies the **cuts, rhythm and look** of the reference, so this choice matters more than any prompt.
