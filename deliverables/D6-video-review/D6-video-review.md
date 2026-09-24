@@ -53,7 +53,9 @@ Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/
 ## 3. What both videos teach us about the agent (the root cause)
 
 1. **Pacing defaults are too slow for SaaS UI.** Fix it once with a Poolday **skill** (the guide: "skills are knowledge you teach the agent about your preferences"):
-   > *SaaS UI pacing: average shot ≤1.2s; a text card holds for reading time (~0.25s/word) + 0.3s, max 1.5s; typing ≥25 chars/s; the logo reveal ≤0.8s; the end card ≤1.5s; cut on the beat; never hold a finished animation for more than 0.4s. Always pay off the opening question with the real product UI.*
+   > *SaaS UI pacing: hook 1.5–2.5s; average shot ≤1.2s (fast montage 0.4–0.8s); a text card holds for reading time (~0.25s/word) + 0.3s; typing ~1.5 frames per glyph; the logo lockup 2–3s in total, including a ≥0.6s hold once landed, and alive (slow push/drift), never a static slide; cut on the beat; nothing fully still during holds. Always pay off the opening question with the real product UI.*
+
+   These numbers are aligned with `poolday/motion-design-for-agents.md` (the user's motion-design manual, distilled from analysing many great motion pieces), which should be given to Poolday as a skill too.
 
    Attach 3–5 reference SaaS launch videos with great pacing to the skill. That's the user's idea, and it fits the guide's "drop in inspiration, name what you like about each reference".
 2. **The brand kit captured the identity (logo, colours, font) but not the brand's visual *medium*.** PostHog = 2D illustration.

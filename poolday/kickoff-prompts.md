@@ -37,3 +37,26 @@ Rich visual detail, seamless continuity from start to finish.
 
 ## After the first one is final
 "Save this flow as a skill and a `/prospect-video` command that takes a company URL + reference link." The agent loop (D3) then generates only that 2-line call.
+
+---
+
+## v2: the three-input setup (updated after the reference videos and the motion manual)
+
+Give Poolday three things, each with one job:
+1. **Taste = the reference video** (`references/`). Say in words what you love: for ImagineArt it's the easing, the speed, and the tiles → fan → carousel continuity.
+2. **Craft = the motion manual** (`poolday/motion-design-for-agents.md`). Do this once per workspace: *"Create a skill from this document called motion-craft. Apply it to every motion-design video."* It holds the measured rules: exponential settles, staggers of 3–6 frames, holds that stay alive, one accent colour, big type on one line, motion blur on fast moves, sound synced to events.
+3. **Process = the ref-teaser skill** (`poolday/ref-replicate-skill.md`): beat list → brand kit → swap table → one approval gate → build.
+
+Plus **brand fidelity**: build the brand kit first. Feed it the logo, fonts, product screenshots (rebuilt into animatable pieces) and the brand's visual medium (flat 2D, 3D, photo…), not only the URL. That's the lesson from the PostHog review.
+
+Kickoff (Align mode, Max tier):
+```
+Use the ref-teaser skill and my motion-craft skill.
+Reference: <link or attached file>. Brand: brand:<name> (or <url>).
+What I love in the reference: <the easing / speed / the continuity from X to Y>.
+Keep its motion exactly; change only content (words, images, palette, logo).
+Objective: a ~20s teaser I'll send to <role> at <company> about <angle>.
+Hard rules: show the real product UI at least once; one line of type per shot;
+the end card is animated, never a static slide.
+You have creative freedom on everything else.
+```

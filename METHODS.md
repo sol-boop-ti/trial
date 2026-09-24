@@ -306,3 +306,19 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Customer brand colours stay inside the media:** the UI stays neutral next to any brand.
 - **Placeholders:** "1,284 videos made today" is illustrative; the podcast style names reference real creators (legal check or rename); the logo is a placeholder; Northwind is fictional.
 - **Reproduce:** `cd deliverables && python3 -m http.server 8765 &` then `NODE_PATH=/opt/node22/lib/node_modules node D5-mockups/src/render.js` (and `capture.js` for the walkthrough).
+
+## M20. Reference videos + motion-craft manual
+- **Inputs from the user:**
+  - ImagineArt video (the easing, the speed, the tiles → radial fan → carousel continuity).
+  - Skuve "Product Search" reel (a clean light UI world, numbered product cards, one lime accent).
+  - A "stretching creativity to its limits" kinetic serif-type video (brand unknown).
+  - `motion-design-for-agents.md`: a motion-design manual distilled in another Claude conversation from analysing many great motion pieces (timing, easing curves, staggers, settles, texture, typography, sound, a per-scene checklist).
+- **Decision: a three-input setup for every Poolday video:**
+  - **Taste** = the reference video.
+  - **Craft** = the manual, saved as a Poolday skill ("motion-craft").
+  - **Process** = the ref-teaser skill.
+  - Plus a brand kit that captures the brand's visual medium.
+
+  Why: each input fixes a different failure seen in the review. The reference fixes generic style, the manual fixes template-looking motion and slow holds, the skill fixes lost continuity, and the kit fixes off-brand output.
+- **Aligned** the D6 pacing rules with the manual. The logo lockup is 2–3s including a ≥0.6s *alive* hold, not a static slide.
+- **Files:** `references/README.md`, `poolday/motion-design-for-agents.md`, `poolday/kickoff-prompts.md` (v2 section).
