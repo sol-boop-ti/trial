@@ -172,3 +172,14 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **LinkedIn (D1):** being reworked around current-trend viral angles ("we killed AI slop", an AI video slop benchmark, remaking viral fake "one prompt" videos for real).
 - **Agent loop (D3):** adding a Poolday API client (the brief implies an API exists). Endpoints are mapped from a config file because the docs aren't available yet. A fake Poolday server is used for tests. Real Anthropic API mode will be tested on a ~$2 budget with a cheaper model on 3–5 leads.
 - **Security:** the API key is kept outside the repo (a session-only env file), `.env` files are git-ignored, and a check runs before each commit to make sure no key is in the repo.
+
+## M12. Growth idea rewrite (D5 v2)
+- **What:** rewrote D5 to be short (~900 words), concrete, and limited to claims we can back up, following the user's feedback.
+- **Tools:** Claude Code sub-agent. 7 web searches (worked); page fetches of YouTube and X were blocked by the network, so view counts weren't checked.
+- **Process:** searched for trending motion styles, the viral "one prompt" posts, and competitors. Wrote the doc in the user's structure: idea → flow → templates → X replies → funnel → unknowns → staged budget → targets → risks. Trimmed from 1,203 to 957 words.
+- **Decisions & why:**
+  - **Render time treated as unknown** (measured in pilot days 1–2). The page shows the video on the page if renders are fast and emails it if they're slow.
+  - **Templates picked by recognizability, with evidence from tutorial/course volume and 2026 trend lists:** Apple-style product motion (incl. Liquid Glass), kinetic typography, 3D CGI product ad, "one prompt" code-made motion graphics, founder video with bold captions.
+  - **Unverified claims cut:** the spam flag, operator throughput, sub-metric percentages.
+  - **Budget in stages:** ~$2k manual pilot → ~$5k public page → ~$8k scale, each stage opened by a trigger.
+- **Finding:** search results indicate Motion announced a "paste a URL, get a launch video" capability in Aug 2026, so the mechanic isn't new. The doc treats Motion as both the precedent and the main competitor: Poolday has to win on output quality (proved publicly through the X remakes) and on the human demo offer. *To be verified by opening the source links.*
