@@ -65,3 +65,17 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Page and video reviews run in Claude chat** (it can browse the web) instead of this cloud session, which can't reach poolday.ai. We prepared paste-ready review prompts with an explicit framework, so the output is structured and repeatable.
   - **The agent loop works without an API key** (mock mode + a Claude Code command), with the API as an option for running unattended. It can be demoed without any credentials.
   - Each agent writes only its own output file and hands back a methods note, to avoid conflicting edits.
+
+## M6. Growth idea write-up (D5)
+- **What:** turned the user's "paste your URL → watch your launch video" idea into a decision-ready proposal.
+- **Tools:** Claude Code sub-agent (no web access). Inputs: `BRIEF.md`, `PLAN.md` §4, `poolday/agent-guide-notes.md`.
+- **Process:** mapped each part of the idea to a Poolday capability confirmed in the agent guide (brand kit from a URL, screenshot rebuild, saved templates/commands, cloning, Light/Max tiers, pulling video from links, no public API). Then wrote 9 sections: pitch, UX, how it runs on Poolday, X distribution, lead routing, budget, metrics, risks, why now.
+- **Decisions & why:**
+  - **Email gate before the render:** it turns the ~1h run time into lead capture.
+  - **Lead scoring before spending credits:** qualified B2B leads get Standard/Max renders and a personal follow-up; others get Light and self-serve. This lowers cost per booked demo.
+  - **Demo offer = "your real launch video + 3 variants in 15 min":** it continues from the video they already received.
+  - **Pilot with a human operator before any API work:** it tests demand without needing engineering from Poolday.
+  - **Strict X reply rules:** max 3 replies a day, never accuse anyone of faking, skip human artists. This protects the brand.
+  - **$3k pilot → up to $15k:** scale if the pilot gets ≥10 booked demos at ≤$300 each with ≥25% qualified leads. Kill if it gets <5 demos, <15% qualified, or >20% of renders fail QA.
+  - Estimated numbers are marked **[A]**. Budget caps are in dollars because Poolday's credit cost per render is unknown; it gets measured on pilot day 2.
+- **Output:** `deliverables/D5-growth-idea.md` (~2,300 words).
