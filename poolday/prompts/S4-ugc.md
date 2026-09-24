@@ -1,5 +1,5 @@
 # S4 "UGC: actors": exact prompt (Align mode, cheapest tier for the photo steps)
-Attach: `pletor-ugc-reference.md` (+ optionally 2–3 of your best Pletor shock-face images as the look reference).
+Attach: `ugc-reference.md` (+ optionally 2–3 of your best shock-face images as the look reference).
 
 ```
 Context / inputs: Attached is the pipeline I used for a previous client's AI UGC

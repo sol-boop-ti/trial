@@ -1,6 +1,4 @@
-# Reference: the user's Pletor "UGC farm" pipeline (Casey AI format)
-
-Screenshot: `deliverables/assets/pletor-ugc-farm.webp` (4 personas: @casey_ai, @mailia_ai, @brooke_ai, @ciara_ai; dozens of shock-face variants per persona). It goes in the final deliverable's appendix.
+# Reference: AI UGC pipeline that performed well (shock face + iPhone product demo)
 
 **Format:** shock face (a candid iPhone-selfie reaction) → product demo filmed on an iPhone.
 **Chain:** (1) base character image → (2) shock-face image conditioned on (1) → (3) image-to-video with Kling 2.6/3.

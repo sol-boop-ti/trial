@@ -366,3 +366,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Home:** the 3 price facts under the hero CTA are removed (noise). "Watch a 2-min build" is kept.
 - **B2B:** a tiny cyan "Free · limited" pill on the "Paste your URL" field. It's the only cyan on the page, using the kit's reserved signal colour.
 - **Lesson:** pricing gains have to fit inside the original's simplicity. Extra blocks above the cards cost more clarity than they add persuasion.
+
+## M25. Poolday live: API discovered, product feedback, cleanup
+- **API confirmed by the agent itself:** there's a public API. Keys, reference docs, a playground and "video ready" webhooks live under **Capabilities → Integrations**. Flow: create a key (org-scoped, server-side only) → send a prompt (the same agent team as in chat) → webhook or poll → download the MP4. Lighter option: an **Automation with an inbound webhook** (POST to a URL → a saved prompt runs → the result appears as a conversation). The agent's advice matches our plan: build the video once in chat, save it, then let every API call run that tested brief (the `/prospect-video` command).
+- **Next:** read Integrations → Docs → fill `loop/poolday_api.example.toml` → test in the Playground → run one real lead end to end.
+- **Product feedback captured** (`deliverables/PRODUCT-FEEDBACK.md`): the upload modal clips its text; the UI/UX and Align flow are excellent.
+- **Cleanup:** the UGC reference file was renamed to `poolday/ugc-reference.md` and no longer names the previous client, since it gets uploaded to Poolday.
