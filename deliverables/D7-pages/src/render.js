@@ -11,9 +11,9 @@ const CMP = path.join(ROOT, 'compare');
 fs.mkdirSync(R, { recursive: true }); fs.mkdirSync(CMP, { recursive: true });
 
 const LEGEND = {
-  home: ['"Watch a 2-min build" for visitors not ready to call', 'A demo CTA right after the proof grid', '"Superintelligence" defined in one line', 'Customers and investors split', 'What happens in the 15 minutes'],
-  b2b: ['H1 says who it is for and the job', '"Paste your URL" free launch video (D5), tagged "Free · limited"', 'B2B startup logos in the first screen', 'Input-to-output use cases, launch video first', '"Human-made" claim backed by named videos', 'Onboarding and 95% autonomy as facts', 'Closing line says what happens on the call'],
-  pricing: ['One-line lede: price per finished video', 'Credits translated into videos per month', 'A persona caption per plan', 'The $600 first month framed as a pilot, no lock-in', 'Customer logos under the plans', 'Short comparison vs agency, freelancer, in-house', 'One-line procurement note', 'Four-question FAQ'],
+  home: ['"Watch a 2-min build" for visitors not ready to call', 'Video feed regrouped: 4 use-case rows, uniform tiles, one caption each', 'A demo CTA right after the proof grid', '"Superintelligence" defined in one line', 'Customers and investors split', 'What happens in the 15 minutes'],
+  b2b: ['H1 says who it is for and the job', '"Paste your URL" free launch video (D5), tagged "Free · limited"', 'Real B2B customer logos in the first screen', 'Input-to-output use cases, launch video first', '"Human-made" claim backed by named videos', 'Onboarding and 95% autonomy as facts', 'Closing line says what happens on the call'],
+  pricing: ['Credits translated into videos per month', '"Your first month at $600 · no lock-in"', 'Customer logos under the plans', 'Short comparison vs agency, freelancer, in-house', 'One-line procurement note', 'Four-question FAQ'],
 };
 const TITLE = { home: 'poolday.ai — Home', b2b: 'poolday.ai/solutions/b2b-startups', pricing: 'poolday.ai/pricing' };
 

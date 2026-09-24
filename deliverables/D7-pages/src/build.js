@@ -33,6 +33,7 @@ function art(a) {
     case 'ui':
       return `<div class="art" style="background:${a.bg}"><div class="win" style="left:9%;top:18%;width:52%;height:58%"><div class="bar" style="left:12px;top:16px;width:40%"></div>${[0, 1, 2].map(i => `<div class="sw" style="left:12px;top:${38 + i * 30}px;width:14px;height:14px;border-radius:4px;background:${['#6b4eff', '#f2994a', '#222'][i]}"></div><div class="bar" style="left:34px;top:${42 + i * 30}px;width:38%"></div><div class="tog" style="right:12px;top:${40 + i * 30}px;background:${a.acc}"></div>`).join('')}</div><div class="win" style="left:48%;top:40%;width:44%;height:16%;border-radius:10px"><div class="bar" style="left:12px;top:18px;width:70%"></div></div>${a.w ? `<div style="position:absolute;left:9%;bottom:10%;font:700 22px/1 Inter;letter-spacing:-.02em;color:#fff">${a.w}</div>` : ''}</div>`;
     case 'pod': // podcast clip, bold captions
+      if (a.land) return `<div class="art" style="background:${a.bg}"><div class="sw" style="left:50%;top:9%;width:64px;height:64px;margin-left:-32px;background:${a.face}"></div><div class="cap" style="top:50%;font-size:24px;color:#fff">${a.w1}</div><div class="cap" style="top:63%;font-size:24px;color:${a.hi}">${a.w2}</div><div class="wave" style="left:50%;top:81%;transform:translateX(-50%)">${[8, 14, 22, 10, 24, 16, 9, 20, 12, 8].map(h => `<span style="height:${h}px;background:${a.hi}"></span>`).join('')}</div></div>`;
       return `<div class="art" style="background:${a.bg}"><div class="sw" style="left:50%;top:22%;width:96px;height:96px;margin-left:-48px;background:${a.face}"></div><div class="cap" style="top:52%;font-size:28px;color:#fff">${a.w1}</div><div class="cap" style="top:63%;font-size:28px;color:${a.hi}">${a.w2}</div><div class="wave" style="left:50%;top:75%;transform:translateX(-50%)">${[8, 16, 26, 12, 30, 18, 10, 24, 14, 8].map(h => `<span style="height:${h}px;background:${a.hi}"></span>`).join('')}</div></div>`;
     case 'phone':
       return `<div class="art" style="background:${a.bg}"><div class="win" style="left:50%;top:10%;width:46%;height:92%;margin-left:-23%;border-radius:22px;background:${a.scr}"><div class="sw" style="left:18%;top:18%;width:64%;height:auto;aspect-ratio:1;background:${a.acc}"></div><div class="pill" style="left:50%;bottom:22%;transform:translateX(-50%);background:#fff;color:#111;font-size:14px;white-space:nowrap">${a.w}</div></div></div>`;
@@ -103,6 +104,28 @@ const CUSTOMERS = [['Unity', ''], ['Stillfront', 'serif'], ['Wildlife Studios', 
 const logoRow = (list, cls = '') => `<div class="logos ${cls}">${list.map(([n, c]) => `<span class="logo ${c}">${n}</span>`).join('')}</div>`;
 const quotes = () => `<div class="quotes">${['CRO', 'Head of Partnerships', 'Product Designer', 'Marketing Director', 'CRO'].map(r => `<div class="quote"><div>${sk([340, 320, 300, 210]).replace(/margin: 10px auto 0/g, '')}</div><div class="who"><div class="face"></div><div><b>${r}</b><span>Customer name and logo</span></div></div></div>`).join('')}</div>`;
 
+
+// ---------- Real customer logos (sources in CREDITS.md), inlined as monochrome currentColor ----------
+function svgLogo(file, h, extraStyle = '') {
+  let t = fs.readFileSync(path.join(__dirname, 'logos', file), 'utf8');
+  t = t.replace(/<\?xml[^>]*>/g, '').replace(/<!DOCTYPE[^>]*>/g, '').replace(/<title>[^<]*<\/title>/g, '');
+  t = t.replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"').replace(/stroke="(?!none)[^"]*"/g, 'stroke="currentColor"');
+  t = t.replace(/<svg([^>]*?)\s(width|height)="[^"]*"/g, '<svg$1').replace(/<svg([^>]*?)\s(width|height)="[^"]*"/g, '<svg$1');
+  t = t.replace(/style="[^"]*"/, '');
+  t = t.replace('<svg', `<svg aria-hidden="true" style="height:${h}px;width:auto;display:block;${extraStyle}"`);
+  if (!/fill="currentColor"/.test(t)) t = t.replace('<svg', '<svg fill="currentColor"');
+  return t.trim();
+}
+const LOGOS = {
+  PostHog: () => `<span class="rl">${svgLogo('posthog.svg', 22)}<b style="font-weight:700;letter-spacing:-0.035em">PostHog</b></span>`,
+  Lovable: () => `<span class="rl" style="gap:7px">${svgLogo('lovable-mark.svg', 22)}${svgLogo('lovable-wordmark.svg', 21)}</span>`,
+  ClickUp: () => `<span class="rl">${svgLogo('clickup.svg', 22)}<b style="font-weight:700;letter-spacing:-0.04em">ClickUp</b></span>`,
+  Dust: () => `<span class="rl">${svgLogo('dust.svg', 20)}</span>`,
+  Marblism: () => `<span class="rl"><b style="font-weight:600;letter-spacing:-0.03em">Marblism</b></span>`,
+  FullEnrich: () => `<span class="rl">${svgLogo('fullenrich.svg', 24)}<b style="font-weight:600;letter-spacing:-0.03em">FullEnrich</b></span>`,
+};
+const realLogoRow = (names) => `<div class="rlogos">${names.map(n => LOGOS[n]()).join('')}</div>`;
+
 // ===================== HOME =====================
 function homeBefore() {
   return head('Poolday home, before', 'Reconstruction of poolday.ai from the audit and page text, not a capture · tile titles illustrative · grey bars = copy not captured', 'Before') + nav() +
@@ -117,20 +140,50 @@ ${title2('100M+ video edits made by Poolday.', 'Some examples here.')}${tabs()}<
 <section class="sec">${title2('From the teams running it')}${quotes()}</section>
 <section class="closing"><canvas class="pd-halftone" data-cy="0.55"></canvas><div class="inner">${title2('See Poolday in action, live on a call.')}<div style="margin:-6px 0 36px">${sk([520, 380])}</div><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><div class="facts"><span>~$5–$25 per finished video</span><i>·</i><span>Month-to-month, no lock-in</span><i>·</i><span>First month $600</span></div></div></section>` + foot();
 }
+
+// New AFTER grid: four use-case rows, uniform 16:10 tiles, one caption under each tile
+const GROUPS = [
+  ['Launch films', [
+    ['PostHog', 'Made with brand kit + single prompt', { k: 'type', bg: '#e0533d', fg: '#fff', w: 'SHIP IT', size: 150, dots: true, y: -26 }],
+    ['ClickUp', 'Changelog + brand kit', { k: 'wash', bg: '#7b5cff', bg2: '#ff5fa2', w: 'Everything app, now faster.', size: 30 }],
+    ['Lovable', 'Made with brand kit + single prompt', { k: 'type', bg: '#ff4f7b', fg: '#fff', w: 'build.', size: 150, y: -30, x: 14 }],
+    ['ClickUp', 'Screen recording to pixel-perfect video', { k: 'type', bg: '#1a1a1a', fg: '#a78bfa', w: 'AI', size: 190, y: -40, x: 110 }],
+  ]],
+  ['Feature videos', [
+    ['Lovable', 'Screen recording to pixel-perfect video', { k: 'laptop', bg: '#efe6d8', acc: '#f7c948', w: 'Ship it' }],
+    ['Dust', 'Figma file + brand kit', { k: 'ui', bg: 'linear-gradient(90deg,#f7a48b 0 50%,#8a6cf7 50%)', acc: '#ff8a3d' }],
+    ['PostHog', 'Screen recording to pixel-perfect video', { k: 'ui', bg: '#f1eadb', acc: '#f54e00' }],
+    ['FullEnrich', 'Founder photos + voice', { k: 'split', bg: '#0f3d2e', bg2: '#16a34a', fg: '#eafff2', w: 'Find any email.', size: 30 }],
+  ]],
+  ['Podcast clips', [
+    ['Podcast', 'Full episode to snackable content', { k: 'pod', land: true, bg: '#141a2e', face: '#3a4a7a', hi: '#f7e64a', w1: 'This changed', w2: 'everything' }],
+    ['Podcast', 'Full episode to 5 vertical clips', { k: 'pod', land: true, bg: '#2b1411', face: '#7a3a2a', hi: '#6ee7b7', w1: 'Nobody talks', w2: 'about this' }],
+    ['Podcast', 'Full episode to edited episode', { k: 'pod', land: true, bg: '#1f1f1f', face: '#555', hi: '#fb923c', w1: 'Episode 112', w2: 'the full cut' }],
+    ['Podcast', 'Interview to captioned clip', { k: 'pod', land: true, bg: '#0f2a22', face: '#2f6b57', hi: '#f0abfc', w1: 'The real reason', w2: 'it worked' }],
+  ]],
+  ['Ads', [
+    ['Unity', 'Gameplay capture to 12 ad variants', { k: 'phone', bg: '#1b1b2f', scr: '#2a2250', acc: '#ffcc33', w: 'Play now' }],
+    ['Stillfront', 'App store page to UGC ad', { k: 'phone', bg: '#2e7d5b', scr: '#12372a', acc: '#f25c54', w: 'Download free' }],
+    ['Wildlife Studios', 'One prompt, 6 sizes', { k: 'type', bg: '#ffb627', fg: '#1d1300', w: 'LEVEL UP', size: 78, y: 24, x: 20 }],
+    ['WeWard', 'Founder photo + voice clone + brand kit', { k: 'wash', bg: '#ffd84d', bg2: '#ff8a3d', w: 'Walk. Earn. Repeat.', size: 30 }],
+  ]],
+];
+const groupedGrid = () => `<div class="ggrid">${GROUPS.map(([label, items]) => `<div class="grow"><h3 class="glabel">${label}</h3><div class="gtiles">${items.map(([t, r, a]) => `<figure class="gt"><div class="gm">${art(a)}</div><figcaption><b>${t}</b><span>${r}</span></figcaption></figure>`).join('')}</div></div>`).join('')}</div>`;
+
 function homeAfter() {
-  return head('Poolday home, after', 'Proposed redesign · same brand kit, same claims · tile titles illustrative · grey bars = copy unchanged', 'After') + nav() +
+  return head('Poolday home, after', 'Proposed redesign · same brand kit, same claims · tile titles and groupings illustrative · grey bars = copy unchanged', 'After') + nav() +
     `<section class="pd-hero d7-hero"><canvas class="pd-halftone" data-cx="0.47" data-cy="0.5"></canvas><div class="pd-hero-inner">
 <h1 class="pd-display">The Media Superintelligence.</h1>
 <p class="pd-lede">An AI agent that edits, generates and assembles on-brand videos.</p>
 <div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span${co(1, 'right')}>${watch()}</span></div>
 ${title2('100M+ video edits made by Poolday.', 'Some examples here.')}${tabs()}</div></section>
-<div class="grid-wrap"><div class="pd-grid">${HOME_TILES.map(t => tile(t)).join('')}</div></div>
-<section class="sec sec-tight center"><div style="display:inline-flex;flex-direction:column;align-items:center"${co(2)}><p class="lede" style="margin-bottom:28px">Your brand, in videos like these. <span style="color:var(--ink-quiet)">It learns your brand once.</span></p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div></section>
-<section class="sec">${title2('Meet Poolday.', 'Not a tool you operate: an agent that plans, makes and fixes the whole video.', co(3))}${steps()}</section>
-<section class="sec">${title2('Trusted by leaders worldwide in every category.', '', '')}<div${co(4)} style="max-width:1180px;margin:0 auto">${logoRow(CUSTOMERS)}<p class="backed">Backed by <b>Daphni</b><b>LocalGlobe</b></p></div></section>
+<div class="grid-wrap"><div${co(2)}>${groupedGrid()}</div></div>
+<section class="sec sec-tight center"><div style="display:inline-flex;flex-direction:column;align-items:center"${co(3)}><p class="lede" style="margin-bottom:28px">Your brand, in videos like these. <span style="color:var(--ink-quiet)">It learns your brand once.</span></p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div></section>
+<section class="sec">${title2('Meet Poolday.', 'Not a tool you operate: an agent that plans, makes and fixes the whole video.', co(4))}${steps()}</section>
+<section class="sec">${title2('Trusted by leaders worldwide in every category.', '', '')}<div${co(5)} style="max-width:1180px;margin:0 auto">${logoRow(CUSTOMERS)}<p class="backed">Backed by <b>Daphni</b><b>LocalGlobe</b></p></div></section>
 <section class="sec">${title2('From the teams running it.')}${quotes()}</section>
 <section class="closing"><canvas class="pd-halftone" data-cy="0.55"></canvas><div class="inner">${title2('See Poolday in action, live on a call.')}
-<div class="callsteps"${co(5)}><div><span>Minute 1</span>You share your website.</div><div><span>Minutes 2–10</span>It builds your brand kit live and drafts a first video.${V}</div><div><span>Minutes 10–15</span>You leave with a plan and your $600 first month.</div></div>
+<div class="callsteps"${co(6)}><div><span>Minute 1</span>You share your website.</div><div><span>Minutes 2–10</span>It builds your brand kit live and drafts a first video.${V}</div><div><span>Minutes 10–15</span>You leave with a plan and your $600 first month.</div></div>
 <div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a>${watch()}</div><div class="facts"><span>~$5–$25 per finished video</span><i>·</i><span>Month-to-month, no lock-in</span><i>·</i><span>First month $600</span></div></div></section>` + foot();
 }
 
@@ -173,7 +226,7 @@ function b2bAfter() {
 <p class="pd-lede">Delegate your next video to the agent, while keeping full control. Your colors, your logo, your Figma, your animations.</p>
 <div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span class="url-field"${co(2, 'right')}><span class="badge">Free · limited</span>${icon('link')}<span class="ph">Paste your URL</span><span class="go">${icon('arrow-right')}</span></span></div>
 <p class="url-note">Not ready for a call? Paste your site and get a free launch video made from it, by email.</p>
-<div${co(3)} style="margin-top:56px">${logoRow([['PostHog', 'mono'], ['Lovable', ''], ['ClickUp', ''], ['Dust', 'caps'], ['Marblism', 'serif'], ['FullEnrich', '']], 'small')}</div></div></section>
+<div${co(3)} style="margin-top:56px">${realLogoRow(['PostHog', 'Lovable', 'ClickUp', 'Dust', 'Marblism', 'FullEnrich'])}</div></div></section>
 <section class="sec" style="padding-top:64px">${title2('Merge a PR. Get a launch video.', 'Eight more videos your team never has time to make.', co(4))}<p class="sec-sub">Each one starts from something you already have.</p></section>
 <div class="grid-wrap" style="margin-top:48px"><div class="grid3"><div style="grid-column:span 2;grid-row:span 2">${tile({ ...USE.launch, a: USE.launch.big, sound: false }).replace('class="pd-card"', 'class="pd-card" style="height:100%;aspect-ratio:auto"')}</div>${order.map(k => useTile(USE[k])).join('')}</div></div>
 <section class="sec">${title2('Indistinguishable from human-made.', 'Judge for yourself: videos made for startups like yours.', co(5))}</section>
@@ -195,17 +248,16 @@ function pricingBefore() {
 function pricingAfter() {
   const C = (cells, cls = '') => cells.map((c, i) => `<div class="${i === 0 ? 'rh' : ''}${i === 1 ? ' pd' : ''} ${cls}">${c}</div>`).join('');
   return head('Poolday pricing, after', 'Proposed redesign · same structure, prices and plan contents · [verify] = not confirmed from the live site', 'After') + nav() +
-    `<section class="pd-hero d7-hero" style="padding-top:56px;padding-bottom:44px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.3" data-rx="520"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1>
-<p class="pricing-lede" style="margin-top:22px"${co(1)}>Pay for finished videos, not seats. <span>~$5–$25 per finished video.</span>${V}</p></div></section>
+    `<section class="pd-hero d7-hero" style="padding-bottom:64px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.3" data-rx="520"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1></div></section>
 <div class="plans tight">
-<div class="plan"><h3>Business</h3><p class="persona-s"${co(3, 'right')}>For a startup team of 1–3 that ships every week.</p><div class="price">$1,250<small>/mo</small></div><p class="yield-s"${co(2, 'right')}>≈ 50–250 finished videos a month${V}</p><ul>${li('$1,250 of credits')}${li('1-1 onboarding')}${li('1-business-day support')}${li('Extra credits at 2× the included rate')}</ul><p class="first"${co(4, 'right')}>First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
-<div class="plan"><h3>Enterprise</h3><p class="persona-s">For teams that need SSO, an MSA and API access.</p><div class="price"><span class="from">from</span>$2,500<small>/mo</small></div><p class="yield-s">≈ 100–500+ finished videos a month${V}</p><ul><li class="li-head">Everything in Business, plus</li>${li('SSO')}${li('MSA')}${li('A private Slack')}${li('API access')}${li('Unlimited users')}</ul><p class="first">First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
+<div class="plan"><h3>Business</h3><div class="price">$1,250<small>/mo</small></div><p class="yield-s"${co(1, 'right')}>≈ 50–250 finished videos a month${V}</p><ul>${li('$1,250 of credits')}${li('1-1 onboarding')}${li('1-business-day support')}${li('Extra credits at 2× the included rate')}</ul><p class="first"${co(2, 'right')}>Your first month at $600 <span class="pilot-s">· no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
+<div class="plan"><h3>Enterprise</h3><div class="price"><span class="from">from</span>$2,500<small>/mo</small></div><p class="yield-s">≈ 100–500+ finished videos a month${V}</p><ul><li class="li-head">Everything in Business, plus</li>${li('SSO')}${li('MSA')}${li('A private Slack')}${li('API access')}${li('Unlimited users')}</ul><p class="first">Your first month at $600 <span class="pilot-s">· no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
 </div>
-<section class="sec sec-tight center"><div${co(5)} style="display:inline-block"><p style="font-size:15px;color:var(--ink-muted)">Teams on Poolday</p>${logoRow(CUSTOMERS.slice(0, 8), 'small')}</div></section>
-<section class="sec">${title2('Poolday vs the usual options.', 'Priced per finished video.', co(6))}
+<section class="sec sec-tight center"><div${co(3)} style="display:inline-block"><p style="font-size:15px;color:var(--ink-muted)">Teams on Poolday</p>${logoRow(CUSTOMERS.slice(0, 8), 'small')}</div></section>
+<section class="sec">${title2('Poolday vs the usual options.', 'Priced per finished video.', co(4))}
 <div class="cmp">${C(['', 'Poolday', 'Agency', 'Freelancer', 'In-house editor'], 'h')}${C(['How you pay', '~$5–$25 per finished video', 'Per project', 'Per video or per hour', 'Salary plus tools'])}${C(['Commitment', 'Month-to-month', 'Project or retainer', 'Per job', 'A full-time hire'])}${C(['Your brand', 'Learned once, pixel-exact', 'Re-briefed each project', 'Re-briefed each job', 'Learned once'], 'last').replace('rh last', 'rh')}</div></section>
-<section class="sec center"><p class="proc-line"${co(7)}><b>Ready for procurement on Enterprise:</b> SSO · MSA · private Slack · API access · unlimited users. Security documentation on request${V}</p></section>
-<section class="sec" style="padding-top:96px">${title2('Questions.', 'Before the call.', co(8))}<div class="faq">
+<section class="sec center"><p class="proc-line"${co(5)}><b>Ready for procurement on Enterprise:</b> SSO · MSA · private Slack · API access · unlimited users. Security documentation on request${V}</p></section>
+<section class="sec" style="padding-top:96px">${title2('Questions.', 'Before the call.', co(6))}<div class="faq">
 <div><h4>What is a credit?</h4><p>What the agent spends to make a video. A finished video typically uses ~$5–$25 of credits, depending on length and how much footage is generated.${V}</p></div>
 <div><h4>What is the $600 first month?</h4><p>A pilot: your agent configured on your brand, 1-1 onboarding, first videos made together. Month-to-month after that, no lock-in.</p></div>
 <div><h4>What happens if I run out of credits?</h4><p>Top up anytime at 2× the included rate. If that happens every month, the next plan is cheaper.</p></div>

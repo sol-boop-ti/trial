@@ -372,3 +372,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Next:** read Integrations → Docs → fill `loop/poolday_api.example.toml` → test in the Playground → run one real lead end to end.
 - **Product feedback captured** (`deliverables/PRODUCT-FEEDBACK.md`): the upload modal clips its text; the UI/UX and Align flow are excellent.
 - **Cleanup:** the UGC reference file was renamed to `poolday/ugc-reference.md` and no longer names the previous client, since it gets uploaded to Poolday.
+
+## M26. D7 round 3
+- **Pricing:** only two additions to the original: "≈ 50–250 finished videos a month" and "Your first month at $600 · no lock-in".
+- **Home:** the feed is reorganized into 4 use-case rows (Launch films / Feature videos / Podcast clips / Ads), each with identical 16:10 tiles and one caption per tile (customer + recipe). Three alternatives are documented but not built.
+- **B2B:** real customer logos (PostHog, ClickUp, Lovable, Dust, FullEnrich), taken from traceable npm sources (simple-icons CC0, lobehub MIT, Dust's own design-system package, FullEnrich's own n8n node). Marblism falls back to its name in type. Sources are in `deliverables/D7-pages/CREDITS.md`. Poolday should confirm logo permissions before anything goes live.
+- **Lesson:** when websites are blocked, the npm packages companies publish themselves are a reliable source of official logos.
