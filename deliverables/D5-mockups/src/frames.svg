@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
+<!-- Northwind (fictional) launch-video frames, Apple style. Injected inline by 03/04 pages. -->
+<defs>
+  <style>
+    .nw-d { font-family: "Inter Tight", "Inter", sans-serif; }
+    .nw-u { font-family: "Inter", sans-serif; }
+    .nw-m { font-family: "Geist Mono", monospace; }
+  </style>
+  <linearGradient id="nwText" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa2af"/></linearGradient>
+  <linearGradient id="nwBand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6f432" stop-opacity=".28"/><stop offset="1" stop-color="#c6f432" stop-opacity="0"/></linearGradient>
+  <linearGradient id="nwArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".10"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="nwSpot" cx=".5" cy="1" r=".75"><stop offset="0" stop-color="#1c2a1a"/><stop offset=".55" stop-color="#0a0d0b"/><stop offset="1" stop-color="#050606"/></radialGradient>
+  <radialGradient id="nwGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#c6f432" stop-opacity=".35"/><stop offset="1" stop-color="#c6f432" stop-opacity="0"/></radialGradient>
+  <filter id="nwBlur"><feGaussianBlur stdDeviation="30"/></filter>
+
+  <!-- Northwind mark -->
+  <symbol id="nwMark" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></symbol>
+
+  <!-- Product dashboard -->
+  <symbol id="nwDash" viewBox="0 0 1200 720">
+    <rect x=".5" y=".5" width="1199" height="719" rx="22" fill="#0b0e12" stroke="rgba(255,255,255,.14)"/>
+    <rect x="1" y="1" width="1198" height="54" rx="21" fill="#0f1318"/>
+    <rect x="1" y="40" width="1198" height="15" fill="#0f1318"/>
+    <line x1="0" y1="55.5" x2="1200" y2="55.5" stroke="rgba(255,255,255,.08)"/>
+    <circle cx="28" cy="28" r="6" fill="#2a2f37"/><circle cx="48" cy="28" r="6" fill="#2a2f37"/><circle cx="68" cy="28" r="6" fill="#2a2f37"/>
+    <rect x="470" y="16" width="260" height="24" rx="8" fill="#161b22"/>
+    <text x="600" y="33" text-anchor="middle" class="nw-u" font-size="12" fill="#7d8594">app.northwind.ai/forecast</text>
+    <!-- sidebar -->
+    <line x1="220.5" y1="56" x2="220.5" y2="720" stroke="rgba(255,255,255,.07)"/>
+    <use href="#nwMark" x="26" y="82" width="22" height="22"/>
+    <text x="58" y="99" class="nw-d" font-size="18" font-weight="600" fill="#f4f1ea" letter-spacing="-.4">northwind</text>
+    <g class="nw-u" font-size="14" fill="#7d8594">
+      <text x="30" y="156">Overview</text>
+      <rect x="16" y="172" width="188" height="36" rx="9" fill="#171c23"/>
+      <circle cx="31" cy="190" r="3.5" fill="#c6f432"/><text x="44" y="195" fill="#f4f1ea">Forecast</text>
+      <text x="30" y="236">Scenarios</text><text x="30" y="276">Cash</text><text x="30" y="316">Headcount</text><text x="30" y="356">Reports</text>
+    </g>
+    <!-- header -->
+    <text x="256" y="112" class="nw-d" font-size="30" font-weight="500" fill="#f4f1ea" letter-spacing="-1">Q3 Forecast</text>
+    <rect x="1010" y="86" width="160" height="32" rx="16" fill="#131a12" stroke="rgba(198,244,50,.28)"/>
+    <circle cx="1030" cy="102" r="4" fill="#c6f432"/>
+    <text x="1042" y="107" class="nw-u" font-size="13" fill="#d9f58a">Live · synced 2m</text>
+    <!-- KPI tiles -->
+    <g class="nw-u">
+      <rect x="256" y="140" width="290" height="104" rx="14" fill="#10141a" stroke="rgba(255,255,255,.07)"/>
+      <text x="278" y="172" font-size="13" fill="#7d8594">Revenue, Q3</text>
+      <text x="278" y="218" class="nw-d" font-size="36" font-weight="500" fill="#f4f1ea" letter-spacing="-1">$4.82M</text>
+      <text x="520" y="218" text-anchor="end" font-size="14" fill="#c6f432">+18.4%</text>
+      <rect x="566" y="140" width="290" height="104" rx="14" fill="#10141a" stroke="rgba(255,255,255,.07)"/>
+      <text x="588" y="172" font-size="13" fill="#7d8594">Net burn</text>
+      <text x="588" y="218" class="nw-d" font-size="36" font-weight="500" fill="#f4f1ea" letter-spacing="-1">$612K</text>
+      <text x="830" y="218" text-anchor="end" font-size="14" fill="#9aa2af">−6.1%</text>
+      <rect x="876" y="140" width="294" height="104" rx="14" fill="#10141a" stroke="rgba(255,255,255,.07)"/>
+      <text x="898" y="172" font-size="13" fill="#7d8594">Runway</text>
+      <text x="898" y="218" class="nw-d" font-size="36" font-weight="500" fill="#f4f1ea" letter-spacing="-1">31 mo</text>
+    </g>
+    <!-- chart -->
+    <rect x="256" y="264" width="914" height="424" rx="14" fill="#0e1217" stroke="rgba(255,255,255,.07)"/>
+    <text x="278" y="298" class="nw-u" font-size="14" fill="#f4f1ea">Revenue vs. forecast</text>
+    <g class="nw-u" font-size="12" fill="#7d8594"><rect x="930" y="286" width="10" height="2" fill="#f4f1ea"/><text x="946" y="292">Actual</text><rect x="1010" y="286" width="10" height="2" fill="#c6f432"/><text x="1026" y="292">Forecast</text></g>
+    <g stroke="rgba(255,255,255,.06)"><line x1="278" y1="360" x2="1148" y2="360"/><line x1="278" y1="440" x2="1148" y2="440"/><line x1="278" y1="520" x2="1148" y2="520"/><line x1="278" y1="600" x2="1148" y2="600"/></g>
+    <g class="nw-m" font-size="11" fill="#566070"><text x="278" y="664">APR</text><text x="420" y="664">MAY</text><text x="562" y="664">JUN</text><text x="704" y="664">JUL</text><text x="846" y="664">AUG</text><text x="988" y="664">SEP</text><text x="1112" y="664">OCT</text></g>
+    <path d="M280 590 C 330 580, 360 560, 410 566 S 500 520, 560 530 S 650 470, 720 480 L 720 640 L 280 640 Z" fill="url(#nwArea)"/>
+    <path d="M280 590 C 330 580, 360 560, 410 566 S 500 520, 560 530 S 650 470, 720 480" fill="none" stroke="#f4f1ea" stroke-width="3" stroke-linecap="round"/>
+    <path d="M720 480 C 800 450, 860 420, 940 400 S 1060 350, 1146 330 L 1146 420 C 1060 450, 960 480, 900 490 S 790 500, 720 480 Z" fill="url(#nwBand)"/>
+    <path d="M720 480 C 790 455, 860 425, 940 405 S 1060 370, 1146 358" fill="none" stroke="#c6f432" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+    <line x1="720" y1="340" x2="720" y2="640" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>
+    <circle cx="940" cy="405" r="7" fill="#0e1217" stroke="#c6f432" stroke-width="3"/>
+    <rect x="862" y="340" width="156" height="44" rx="10" fill="#1a2012" stroke="rgba(198,244,50,.35)"/>
+    <text x="878" y="358" class="nw-u" font-size="11" fill="#9fb56a">SEP · P50</text>
+    <text x="878" y="376" class="nw-d" font-size="15" font-weight="600" fill="#f4f1ea">$1.71M</text>
+  </symbol>
+
+  <!-- Frame 1: logo reveal -->
+  <symbol id="nwF1" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="#050606"/>
+    <circle cx="800" cy="410" r="260" fill="url(#nwGlow)"/>
+    <use href="#nwMark" x="720" y="290" width="160" height="160"/>
+    <text x="800" y="560" text-anchor="middle" class="nw-d" font-size="64" font-weight="600" fill="#f4f1ea" letter-spacing="-2.5">northwind</text>
+  </symbol>
+  <!-- Frame 2: the tension -->
+  <symbol id="nwF2" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="#050606"/>
+    <text x="800" y="440" text-anchor="middle" class="nw-d" font-size="92" font-weight="300" fill="url(#nwText)" letter-spacing="-4">Your forecast is stale.</text>
+    <text x="800" y="510" text-anchor="middle" class="nw-u" font-size="28" fill="#6e7684">By the time it's done, the quarter moved.</text>
+  </symbol>
+  <!-- Frame 3: product reveal -->
+  <symbol id="nwF3" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="url(#nwSpot)"/>
+    <ellipse cx="800" cy="860" rx="620" ry="80" fill="#c6f432" opacity=".10" filter="url(#nwBlur)"/>
+    <use href="#nwDash" x="230" y="150" width="1140" height="684"/>
+  </symbol>
+  <!-- Frame 4: the number -->
+  <symbol id="nwF4" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="#050606"/>
+    <path d="M0 800 C 300 790, 520 750, 780 680 S 1250 540, 1600 470" fill="none" stroke="#c6f432" stroke-width="5" opacity=".9"/>
+    <path d="M0 800 C 300 790, 520 750, 780 680 S 1250 540, 1600 470 L1600 900 L0 900Z" fill="url(#nwBand)" opacity=".6"/>
+    <text x="800" y="420" text-anchor="middle" class="nw-d" font-size="220" font-weight="500" fill="#f4f1ea" letter-spacing="-10">+18.4%</text>
+    <text x="800" y="490" text-anchor="middle" class="nw-m" font-size="24" fill="#8a93a3" letter-spacing="3">REVENUE, SEEN 90 DAYS EARLY</text>
+  </symbol>
+  <!-- Frame 5: headline + product -->
+  <symbol id="nwF5" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="url(#nwSpot)"/>
+    <text x="800" y="210" text-anchor="middle" class="nw-d" font-size="84" font-weight="400" fill="url(#nwText)" letter-spacing="-3.6">Forecast the next quarter.</text>
+    <text x="800" y="306" text-anchor="middle" class="nw-d" font-size="84" font-weight="400" fill="#566070" letter-spacing="-3.6">Today.</text>
+    <use href="#nwDash" x="310" y="380" width="980" height="588"/>
+  </symbol>
+  <!-- Frame 6: end card -->
+  <symbol id="nwF6" viewBox="0 0 1600 900">
+    <rect width="1600" height="900" fill="#050606"/>
+    <use href="#nwMark" x="772" y="330" width="56" height="56"/>
+    <text x="800" y="470" text-anchor="middle" class="nw-d" font-size="56" font-weight="500" fill="#f4f1ea" letter-spacing="-2">Northwind Forecast</text>
+    <text x="800" y="530" text-anchor="middle" class="nw-u" font-size="26" fill="#8a93a3">Available today at northwind.ai</text>
+  </symbol>
+</defs>
+</svg>

@@ -282,3 +282,15 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - The CTA asks for a URL, not just a keyword, which filters leads and avoids the engagement-bait penalty.
   - "Free" is tied to a real, capped offer, so it's true.
 - **Unverified:** Higgsfield replying to "AI can't" posts with recordings (only their After Effects "AI Motion Designer" launch, ~Sep 10–13, is confirmed); which model Poolday runs on; tool prices on the day.
+
+## M18. Video review (D6)
+- **What:** reviewed both Poolday showcase videos (PostHog GenAI launch, Upflow faster payments).
+- **Tools:** ffmpeg (a static build via the `imageio-ffmpeg` pip package, since the system had none): 1 frame/s contact sheets, scene-cut detection (`select='gt(scene,0.25)'`), full-size key frames. Claude Code read the frames. The user's own viewing notes: scenes 1–2s too long, try 1.5×, the PostHog end card looks like PowerPoint, PostHog should be 2D.
+- **Process:** mapped each scene to a timestamp → listed the problem → wrote each fix as a mechanism (cut, hold, typing speed, payoff shot). Made a 1.5× quick test of Upflow (`setpts=PTS/1.5`, `atempo=1.5`) to check the pacing hypothesis.
+- **Findings:**
+  - **Upflow:** a strong idea with slow holds (typing 4s, logo typing 4s). **The product never appears**: the "did Acme pay?" setup is never answered. The best proof (79%) is micro-text.
+  - **PostHog:** high production value but off-brand (3D clay vs. PostHog's 2D illustrated identity). The climax "It's live" is tiny. Product proof is ~2s of tiny tabs. The end card is a static web-footer slide.
+- **Root causes:**
+  - The agent's default pacing is too slow for SaaS UI → propose a "SaaS UI pacing" Poolday skill with numeric rules plus reference videos.
+  - The brand kit captured the identity but not the brand's visual medium → feed it the illustration assets and add a "2D only" usage law.
+- **Output:** `deliverables/D6-video-review/D6-video-review.md`, `upflow-1.5x-quicktest.mp4`, and 2 remake prompts (intent-level) to produce before/after proof in Poolday.

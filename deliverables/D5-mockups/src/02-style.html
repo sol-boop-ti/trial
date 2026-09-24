@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poolday — Pick a style</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  :root { --horizon-top: 93vh; }
+  .steps { position: absolute; left: 50%; transform: translateX(-50%); }
+  .wrap { position: absolute; inset: 72px 0 0; display: flex; flex-direction: column; align-items: center; padding-top: 92px; }
+  .head { text-align: center; margin-bottom: 44px; }
+  h2 { margin: 0; font-family: var(--pd-font-display); font-weight: 500; font-size: 44px; letter-spacing: -0.04em; line-height: 1.05; }
+  .sub { margin: 14px 0 0; color: var(--pd-text-2); font-size: 16px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 408px); gap: 24px; }
+  .card { position: relative; border-radius: 22px; padding: 8px 8px 0; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+    border: 1px solid var(--pd-line-1); box-shadow: var(--pd-edge); cursor: pointer; transition: all var(--pd-dur-2) var(--pd-ease-out); }
+  .card:hover, .card.is-hover { border-color: var(--pd-line-2); transform: translateY(-2px); }
+  .card.on { border-color: rgba(159,228,255,.5); background: linear-gradient(180deg, rgba(159,228,255,.07), rgba(255,255,255,.015));
+    box-shadow: var(--pd-edge), 0 0 0 4px rgba(159,228,255,.07), 0 20px 60px -20px rgba(79,182,255,.45); }
+  .card .check { position: absolute; top: 20px; right: 20px; z-index: 3; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--pd-light-core); color: #05070a; opacity: 0; transform: scale(.6); transition: all var(--pd-dur-2) var(--pd-ease-spring); box-shadow: 0 0 20px rgba(159,228,255,.6); }
+  .card.on .check { opacity: 1; transform: scale(1); }
+  .pv { position: relative; aspect-ratio: 16/9; border-radius: 15px; overflow: hidden; background: #000; isolation: isolate; }
+  .pv .tag { position: absolute; left: 12px; top: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px;
+    border-radius: 6px; background: rgba(0,0,0,.45); backdrop-filter: blur(8px); font-family: var(--pd-font-mono); font-size: 10px; letter-spacing: .08em; color: rgba(255,255,255,.75); text-transform: uppercase; }
+  .pv .tag i { width: 5px; height: 5px; border-radius: 50%; background: #ff5a4f; box-shadow: 0 0 6px #ff5a4f; }
+  .pv .scrub { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: rgba(255,255,255,.12); z-index: 3; }
+  .pv .scrub::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.85); transform-origin: left; animation: scrub 6s linear infinite; }
+  @keyframes scrub { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .meta { padding: 16px 10px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .meta h3 { margin: 0; font-family: var(--pd-font-display); font-size: 19px; font-weight: 500; letter-spacing: -0.02em; }
+  .meta p { margin: 4px 0 0; color: var(--pd-text-3); font-size: 13.5px; }
+  .meta .dur { flex: none; font-family: var(--pd-font-mono); font-size: 11px; color: var(--pd-text-3); border: 1px solid var(--pd-line-1); border-radius: 6px; padding: 3px 7px; margin-top: 2px; }
+
+  /* --- Preview 1: Apple (spotlit object, thin type) --- */
+  .apple { background: radial-gradient(70% 90% at 50% 110%, #1b2433 0%, #07080b 60%, #000 100%); }
+  .apple .t { position: absolute; top: 24%; left: 0; right: 0; text-align: center; font-family: var(--pd-font-display); font-weight: 300; font-size: 30px; letter-spacing: -0.045em;
+    background: linear-gradient(180deg, #fff, #9aa3b2); -webkit-background-clip: text; background-clip: text; color: transparent; animation: aT 6s var(--pd-ease-out) infinite; }
+  .apple .t small { display: block; margin-top: 6px; font-size: 10.5px; font-weight: 400; letter-spacing: 0; color: #8b93a1; -webkit-text-fill-color: #8b93a1; }
+  .apple .dev { position: absolute; left: 50%; bottom: -30px; width: 250px; height: 118px; margin-left: -125px; border-radius: 12px 12px 0 0;
+    background: linear-gradient(180deg, #1c222c, #0c0f14); border: 1px solid rgba(255,255,255,.14); border-bottom: 0;
+    box-shadow: 0 -20px 60px -10px rgba(120,170,255,.25), inset 0 1px 0 rgba(255,255,255,.2); transform: perspective(600px) rotateX(18deg); animation: aD 6s var(--pd-ease-out) infinite; overflow: hidden; }
+  .apple .dev .scr { position: absolute; inset: 8px 8px 0; border-radius: 6px 6px 0 0; background: linear-gradient(135deg, #0d1422, #111a2b 40%, #1a2440); overflow: hidden; }
+  .apple .dev .scr::before { content: ""; position: absolute; left: 10px; top: 12px; width: 60px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.35); box-shadow: 0 12px 0 -1px rgba(255,255,255,.12), 0 22px 0 -1px rgba(255,255,255,.12); }
+  .apple .dev .scr::after { content: ""; position: absolute; right: 10px; top: 12px; width: 120px; height: 64px; border-radius: 6px; background: linear-gradient(180deg, rgba(120,180,255,.35), rgba(120,180,255,0)); clip-path: polygon(0 80%, 15% 60%, 30% 70%, 48% 35%, 62% 45%, 80% 15%, 100% 25%, 100% 100%, 0 100%); }
+  .apple .glare { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.06) 48%, transparent 56%); animation: aG 6s linear infinite; }
+  @keyframes aT { 0% { opacity: 0; transform: translateY(8px); filter: blur(4px); } 14%, 86% { opacity: 1; transform: none; filter: none; } 100% { opacity: 0; } }
+  @keyframes aD { 0% { transform: perspective(600px) rotateX(28deg) translateY(30px); } 50%, 100% { transform: perspective(600px) rotateX(14deg) translateY(0); } }
+  @keyframes aG { from { transform: translateX(-60%); } to { transform: translateX(60%); } }
+
+  /* --- Preview 2: Kinetic (bold type on the beat) --- */
+  .kin { background: #0b0b0c; }
+  .kin .rail { position: absolute; left: 22px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 0; font-family: var(--pd-font-display); font-weight: 800;
+    font-size: 44px; line-height: .92; letter-spacing: -0.03em; text-transform: uppercase; }
+  .kin .w { color: #f4f4f2; }
+  .kin .w.ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.35); }
+  .kin .w.box { align-self: flex-start; background: #d4ff3a; color: #0b0b0c; padding: 0 8px 2px; margin-left: -8px; animation: kB 1.5s steps(1) infinite; }
+  .kin .blk { position: absolute; right: 18px; top: 18px; width: 92px; height: 92px; border-radius: 50%; background: conic-gradient(from 0deg, #d4ff3a 0 25%, transparent 0 50%, #f4f4f2 0 75%, transparent 0); animation: kR 3s linear infinite; opacity: .9; }
+  .kin .bar { position: absolute; right: 18px; bottom: 26px; display: flex; gap: 4px; align-items: flex-end; height: 40px; }
+  .kin .bar i { width: 6px; background: #f4f4f2; border-radius: 1px; animation: kE .75s var(--pd-ease-in-out) infinite alternate; }
+  .kin .bar i:nth-child(2) { animation-delay: -.2s; } .kin .bar i:nth-child(3) { animation-delay: -.45s; background: #d4ff3a; } .kin .bar i:nth-child(4) { animation-delay: -.1s; } .kin .bar i:nth-child(5) { animation-delay: -.6s; }
+  @keyframes kB { 50% { background: #f4f4f2; } }
+  @keyframes kR { to { transform: rotate(360deg); } }
+  @keyframes kE { from { height: 8px; } to { height: 40px; } }
+
+  /* --- Preview 3: Storytelling (cinematic, graded, subtitled) --- */
+  .story { background: #0a0a0a; }
+  .story .scene { position: absolute; inset: 11% 0; background: linear-gradient(180deg, #1d2f3a 0%, #6d5a4a 58%, #d99a62 76%, #3b2a22 77%, #17110e 100%); overflow: hidden; animation: sK 6s linear infinite alternate; }
+  .story .sun { position: absolute; left: 62%; top: 55%; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: radial-gradient(circle, #fff3d6 0%, #ffc07a 30%, rgba(255,160,90,0) 70%); filter: blur(1px); }
+  .story svg.city { position: absolute; left: 0; right: 0; bottom: 22%; width: 100%; height: 40%; }
+  .story .fig { position: absolute; left: 28%; bottom: 23%; width: 16px; height: 44px; background: #0f0b09; border-radius: 8px 8px 2px 2px; }
+  .story .fig::before { content: ""; position: absolute; top: -13px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #0f0b09; }
+  .story .sub { position: absolute; left: 0; right: 0; bottom: 17%; text-align: center; font-size: 13px; font-weight: 500; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.8); z-index: 2; margin: 0; }
+  .story .chap { position: absolute; left: 14px; top: 17%; z-index: 2; font-family: var(--pd-font-mono); font-size: 9.5px; letter-spacing: .14em; color: rgba(255,240,220,.75); }
+  .story .grade { position: absolute; inset: 0; background: radial-gradient(90% 90% at 50% 50%, transparent 55%, rgba(0,0,0,.55)); }
+  
+  @keyframes sK { from { transform: scale(1.02); } to { transform: scale(1.1) translateX(-8px); } }
+
+  /* Action row */
+  .actions { margin-top: 40px; width: calc(408px * 3 + 48px); display: flex; align-items: center; justify-content: space-between; }
+  .fmt { display: flex; align-items: center; gap: 14px; color: var(--pd-text-3); font-size: 13px; }
+  .fmt .tabs { padding: 3px; }
+  .fmt .tab { height: 30px; padding: 0 12px; font-size: 13px; font-family: var(--pd-font-mono); letter-spacing: 0; }
+  .fmt .tab.on { background: var(--pd-surface-2); box-shadow: var(--pd-edge); border-radius: 999px; }
+  .go { display: flex; align-items: center; gap: 18px; }
+  .go .hint { color: var(--pd-text-3); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="horizon low"></div><div class="grain"></div>
+  <header class="topbar">
+    <a class="wordmark" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eafaff"/><stop offset="1" stop-color="#4fb6ff"/></linearGradient><clipPath id="wmc"><circle cx="12" cy="12" r="9.25"/></clipPath></defs><circle cx="12" cy="12" r="9.25" fill="none" stroke="#f3f4f6" stroke-width="1.5"/><rect x="0" y="13.4" width="24" height="12" fill="url(#wmg)" clip-path="url(#wmc)"/></svg>poolday</a>
+    <div class="steps"><span class="st done"><span class="dot"></span>Link</span><span class="sep"></span><span class="st on"><span class="dot"></span>Style</span><span class="sep"></span><span class="st"><span class="dot"></span>Video</span></div>
+    <div class="right"><span class="chip"><span class="fav" style="background:#0e1116;border:1px solid rgba(255,255,255,.12)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></svg></span><b>northwind.ai</b><span class="edit">Change</span></span></div>
+  </header>
+
+  <main class="wrap">
+    <div class="head">
+      <h2>Pick a style.</h2>
+      <p class="sub">Each one is a full brief: pacing, type, camera and sound.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card on" data-i="0">
+        <span class="check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv apple">
+          <span class="tag"><i></i>Preview</span>
+          <div class="t">Think faster.<small>Available today.</small></div>
+          <div class="dev"><div class="scr"></div></div>
+          <div class="glare"></div><div class="scrub"></div>
+        </div>
+        <div class="meta"><div><h3>Apple</h3><p>Spotlit product, slow camera, quiet type.</p></div><span class="dur">30s</span></div>
+      </div>
+
+      <div class="card" data-i="1">
+        <span class="check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv kin">
+          <span class="tag"><i></i>Preview</span>
+          <div class="rail" style="top:10px"><span class="w ghost">Stop</span><span class="w box">Guessing.</span><span class="w">Ship it.</span></div>
+          <div class="blk"></div>
+          <div class="bar"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="scrub"></div>
+        </div>
+        <div class="meta"><div><h3>Kinetic</h3><p>Bold words cut on the beat. Built for feeds.</p></div><span class="dur">20s</span></div>
+      </div>
+
+      <div class="card" data-i="2">
+        <span class="check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv story">
+          <span class="tag" style="top:12px;left:auto;right:12px"><i></i>Preview</span>
+          <div class="scene">
+            <div class="sun"></div>
+            <svg class="city" viewBox="0 0 400 100" preserveAspectRatio="none"><path d="M0 100V70h18V52h14v18h10V40h22v30h8V58h16v42zM90 100V62h12V30h20v32h10V50h18v50zM150 100V66h26V44h12v22h14V56h20v44zM222 100V38h16v-8h10v8h12v62zM260 100V60h22V48h18v52zM300 100V70h14V54h24v16h10V62h22v38zM370 100V58h14v-6h16v48z" fill="#140f0c" opacity=".92"/></svg>
+            <div class="fig"></div>
+          </div>
+          <div class="grade"></div>
+          <span class="chap">CHAPTER 01</span>
+          <p class="sub">It started with one spreadsheet.</p>
+          <div class="scrub"></div>
+        </div>
+        <div class="meta"><div><h3>Storytelling</h3><p>A founder's arc, voiced and graded like film.</p></div><span class="dur">45s</span></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="fmt"><span>Format</span>
+        <div class="tabs"><button class="tab on">16:9</button><button class="tab">9:16</button><button class="tab">1:1</button></div>
+      </div>
+      <div class="go"><span class="hint">Free · usually 2–4 min</span>
+        <button class="btn btn-primary btn-l" id="go">Generate video<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+const cards = [...document.querySelectorAll(".card")];
+function select(i) { cards.forEach((c, k) => c.classList.toggle("on", k === i)); }
+cards.forEach((c, k) => c.addEventListener("click", () => select(k)));
+window.demo = { select,
+  hoverCard(i) { cards.forEach((c, k) => c.classList.toggle("is-hover", k === i)); },
+  hover(on) { document.querySelector("#go").classList.toggle("is-hover", on); },
+  press(on) { document.querySelector("#go").classList.toggle("is-press", on); },
+  rect(sel) { const r = document.querySelector(sel).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; } };
+const q = new URLSearchParams(location.search);
+if (q.has("sel")) select(+q.get("sel"));
+document.fonts.ready.then(() => document.body.dataset.ready = 1);
+</script>
+</body>
+</html>

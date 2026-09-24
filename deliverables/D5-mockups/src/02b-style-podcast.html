@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poolday — Pick a clip style</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  :root { --horizon-top: 95vh; }
+  .steps { position: absolute; left: 50%; transform: translateX(-50%); }
+  .wrap { position: absolute; inset: 72px 0 0; display: flex; flex-direction: column; align-items: center; padding-top: 44px; }
+  .head { text-align: center; margin-bottom: 34px; }
+  h2 { margin: 0; font-family: var(--pd-font-display); font-weight: 500; font-size: 44px; letter-spacing: -0.04em; line-height: 1.05; }
+  .sub { margin: 14px 0 0; color: var(--pd-text-2); font-size: 16px; }
+  .sub b { color: var(--pd-text-1); font-weight: 500; }
+
+  .grid { display: grid; grid-template-columns: repeat(5, 228px); gap: 20px; }
+  .card { position: relative; border-radius: 22px; padding: 8px 8px 0; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+    border: 1px solid var(--pd-line-1); box-shadow: var(--pd-edge); transition: all var(--pd-dur-2) var(--pd-ease-out); }
+  .card.on { border-color: rgba(159,228,255,.5); background: linear-gradient(180deg, rgba(159,228,255,.07), rgba(255,255,255,.015));
+    box-shadow: var(--pd-edge), 0 0 0 4px rgba(159,228,255,.07), 0 20px 60px -20px rgba(79,182,255,.45); }
+  .card .check { position: absolute; top: 18px; right: 18px; z-index: 4; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--pd-light-core); color: #05070a; opacity: 0; box-shadow: 0 0 20px rgba(159,228,255,.6); }
+  .card.on .check { opacity: 1; }
+  .pv { position: relative; aspect-ratio: 9/16; border-radius: 15px; overflow: hidden; isolation: isolate; }
+  .pv svg.spk { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pv::before { content: ""; position: absolute; left: 50%; top: 52%; width: 260px; height: 260px; margin: -130px; border-radius: 50%; background: radial-gradient(circle, var(--glow, rgba(255,255,255,.12)), transparent 65%); }
+  .pv .scrub { position: absolute; left: 10px; right: 10px; bottom: 10px; height: 2px; border-radius: 2px; background: rgba(255,255,255,.2); z-index: 3; overflow: hidden; }
+  .pv .scrub::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; animation: scrub 5s linear infinite; }
+  @keyframes scrub { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .cap { position: absolute; left: 10px; right: 10px; z-index: 2; text-align: center; }
+  .meta { padding: 14px 8px 16px; }
+  .meta h3 { margin: 0; font-family: var(--pd-font-display); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; }
+  .meta p { margin: 3px 0 0; color: var(--pd-text-3); font-size: 13px; }
+  .pop { font-family: var(--pd-font-mono); font-size: 9.5px; letter-spacing: .08em; color: var(--pd-light); border: 1px solid rgba(159,228,255,.3); border-radius: 5px; padding: 2px 5px; text-transform: uppercase; }
+
+  /* Hormozi: heavy caps, stroke, colour pops */
+  .s-hz { background: radial-gradient(90% 60% at 50% 30%, #3a3632, #141312 70%); }
+  .s-hz .cap { top: 57%; font-family: var(--pd-font-display); font-weight: 900; font-size: 27px; line-height: 1.02; letter-spacing: -0.01em; text-transform: uppercase; color: #fff;
+    -webkit-text-stroke: 5px #000; paint-order: stroke fill; text-shadow: 0 4px 0 rgba(0,0,0,.9); animation: hz 1.2s var(--pd-ease-spring) infinite; }
+  .s-hz .cap .y { color: #ffe02e; } .s-hz .cap .g { color: #3cff6a; }
+  @keyframes hz { 0% { transform: scale(.86); } 18%, 100% { transform: scale(1); } }
+
+  /* Diary: moody, crimson rim, lower-third sentence case */
+  .s-doac { background: radial-gradient(70% 50% at 80% 30%, #3b0c0a, #0a0606 60%, #050303); }
+  .s-doac .cap { bottom: 60px; font-weight: 600; font-size: 15.5px; line-height: 1.3; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.9); }
+  .s-doac .cap em { font-style: normal; color: #ff4a3d; }
+  .s-doac .bars { position: absolute; left: 0; right: 0; height: 26px; background: #000; z-index: 1; }
+
+  /* Modern Wisdom: blue studio, bokeh, word box */
+  .s-mw { background: radial-gradient(80% 50% at 30% 20%, #16305a, #070d1a 70%); }
+  .s-mw .bk { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(140,190,255,.5), rgba(140,190,255,0) 70%); }
+  .s-mw .cap { top: 62%; font-family: var(--pd-font-display); font-weight: 800; font-size: 21px; line-height: 1.25; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+  .s-mw .cap .box { background: #2f6bff; border-radius: 6px; padding: 0 6px; box-decoration-break: clone; }
+
+  /* Ali: bright, warm, white pill captions */
+  .s-ali { background: linear-gradient(180deg, #e8c9a4 0%, #d59f6c 55%, #a86b3f 100%); }
+  .s-ali .shelf { position: absolute; left: 0; right: 0; top: 36%; height: 5px; background: rgba(90,50,20,.35); }
+  .s-ali .cap { top: 62%; }
+  .s-ali .pill { display: inline-block; background: #fff; color: #111; font-weight: 700; font-size: 15px; line-height: 1.3; padding: 7px 12px; border-radius: 12px; box-shadow: 0 6px 20px rgba(60,30,10,.35); }
+  .s-ali .pill mark { background: #ffe872; color: #111; padding: 0 3px; border-radius: 3px; }
+
+  /* Clean: calm, lowercase */
+  .s-clean { background: linear-gradient(180deg, #2b2d31, #151619); }
+  .s-clean .cap { bottom: 42px; font-size: 13.5px; font-weight: 500; letter-spacing: -0.005em; color: rgba(255,255,255,.95); }
+  .s-clean .cap span { opacity: .45; }
+
+  .actions { margin-top: 30px; width: calc(228px * 5 + 80px); display: flex; align-items: center; justify-content: space-between; }
+  .fmt { display: flex; align-items: center; gap: 14px; color: var(--pd-text-3); font-size: 13px; }
+  .fmt .tabs { padding: 3px; }
+  .fmt .tab { height: 30px; padding: 0 12px; font-size: 13px; font-family: var(--pd-font-mono); }
+  .fmt .tab.on { background: var(--pd-surface-2); box-shadow: var(--pd-edge); border-radius: 999px; }
+  .go { display: flex; align-items: center; gap: 18px; }
+  .go .hint { color: var(--pd-text-3); font-size: 13px; }
+</style>
+</head>
+<body>
+<!-- Shared speaker silhouette: no face, rim-lit, generic studio mic. -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="spk" viewBox="0 0 212 377">
+      <path d="M14 377c6-72 44-104 92-108 48 4 86 36 92 108z" fill="var(--body,#0b0b0c)"/>
+      <path d="M92 236h28v40H92z" fill="var(--body,#0b0b0c)"/>
+      <ellipse cx="106" cy="196" rx="40" ry="49" fill="var(--body,#0b0b0c)"/>
+      <ellipse cx="106" cy="196" rx="40" ry="49" fill="none" stroke="var(--rim,#fff)" stroke-width="2.4" stroke-dasharray="0 150 118 400" opacity=".75"/>
+      <path d="M14 377c6-72 44-104 92-108" fill="none" stroke="var(--rim,#fff)" stroke-width="2" opacity=".45" stroke-linecap="round"/>
+      <path d="M198 377c-6-66-40-100-78-107" fill="none" stroke="var(--rim,#fff)" stroke-width="1.6" opacity=".22" stroke-linecap="round"/>
+      <path d="M212 150 170 214" stroke="#1d1d20" stroke-width="5" stroke-linecap="round"/>
+      <rect x="150" y="206" width="22" height="46" rx="11" transform="rotate(28 161 229)" fill="#222226" stroke="rgba(255,255,255,.18)"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="page">
+  <div class="horizon low"></div><div class="grain"></div>
+  <header class="topbar">
+    <a class="wordmark" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eafaff"/><stop offset="1" stop-color="#4fb6ff"/></linearGradient><clipPath id="wmc"><circle cx="12" cy="12" r="9.25"/></clipPath></defs><circle cx="12" cy="12" r="9.25" fill="none" stroke="#f3f4f6" stroke-width="1.5"/><rect x="0" y="13.4" width="24" height="12" fill="url(#wmg)" clip-path="url(#wmc)"/></svg>poolday</a>
+    <div class="steps"><span class="st done"><span class="dot"></span>Link</span><span class="sep"></span><span class="st on"><span class="dot"></span>Style</span><span class="sep"></span><span class="st"><span class="dot"></span>Clips</span></div>
+    <div class="right"><span class="chip"><span class="fav" style="background:#1b1d22;border:1px solid rgba(255,255,255,.12)"><svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 .8v6.4L7 4z" fill="#f3f4f6"/></svg></span><b>The Operator Hour</b>&nbsp;· Ep. 212 · 1h 48m<span class="edit">Change</span></span></div>
+  </header>
+
+  <main class="wrap">
+    <div class="head">
+      <h2>Pick a clip style.</h2>
+      <p class="sub">We found <b>9 clip-worthy moments</b> in this episode. Choose how they look.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card on">
+        <span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv s-hz" style="--rim:#ffd9a8;--glow:rgba(255,200,140,.22)"><svg class="spk"><use href="#spk"/></svg>
+          <div class="cap">Most founders<br><span class="y">never</span> <span class="g">ship</span></div><div class="scrub"></div></div>
+        <div class="meta"><h3>Hormozi <span class="pop">Popular</span></h3><p>Heavy caps, color pops</p></div>
+      </div>
+      <div class="card">
+        <span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv s-doac" style="--rim:#ff5a4a;--body:#070404;--glow:rgba(200,30,20,.28)"><div class="bars" style="top:0"></div><div class="bars" style="bottom:0"></div><svg class="spk"><use href="#spk"/></svg>
+          <div class="cap">The moment I stopped <em>chasing</em> revenue, it showed up.</div><div class="scrub" style="bottom:34px"></div></div>
+        <div class="meta"><h3>Diary of a CEO</h3><p>Moody, cinematic, red rim</p></div>
+      </div>
+      <div class="card">
+        <span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv s-mw" style="--rim:#9cc4ff;--body:#060a14;--glow:rgba(80,140,255,.25)">
+          <div class="bk" style="left:12px;top:40px;width:60px;height:60px"></div><div class="bk" style="left:150px;top:18px;width:40px;height:40px;opacity:.7"></div><div class="bk" style="left:70px;top:8px;width:28px;height:28px;opacity:.5"></div>
+          <svg class="spk"><use href="#spk"/></svg>
+          <div class="cap">Discipline is just <span class="box">memory</span> of why</div><div class="scrub"></div></div>
+        <div class="meta"><h3>Modern Wisdom</h3><p>Word-by-word highlight</p></div>
+      </div>
+      <div class="card">
+        <span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv s-ali" style="--rim:#fff4e0;--body:#3a2416;--glow:rgba(255,245,220,.45)"><div class="shelf"></div>
+          <svg class="spk"><use href="#spk"/></svg>
+          <div class="cap"><span class="pill">Here's the <mark>3-step</mark> system</span></div><div class="scrub"></div></div>
+        <div class="meta"><h3>Ali Abdaal</h3><p>Bright, friendly, pill captions</p></div>
+      </div>
+      <div class="card">
+        <span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+        <div class="pv s-clean" style="--rim:#e6e8ec;--body:#0e0f11;--glow:rgba(255,255,255,.14)"><svg class="spk"><use href="#spk"/></svg>
+          <div class="cap">so we rebuilt it <span>from zero</span></div><div class="scrub"></div></div>
+        <div class="meta"><h3>Clean</h3><p>Quiet lowercase, no fuss</p></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="fmt"><span>Clips</span>
+        <div class="tabs"><button class="tab">3</button><button class="tab">6</button><button class="tab on">9</button></div>
+        <span style="margin-left:6px">9:16 · 30–60s each</span>
+      </div>
+      <div class="go"><span class="hint">Free · usually 3–5 min</span>
+        <button class="btn btn-primary btn-l">Make 9 clips<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      </div>
+    </div>
+  </main>
+</div>
+<script>document.fonts.ready.then(() => document.body.dataset.ready = 1);</script>
+</body>
+</html>

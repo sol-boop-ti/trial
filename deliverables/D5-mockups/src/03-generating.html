@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poolday — Making your video</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  :root { --horizon-top: 97vh; }
+  .steps { position: absolute; left: 50%; transform: translateX(-50%); }
+  .wrap { position: absolute; top: 116px; left: 50%; transform: translateX(-50%); width: 1232px; display: grid; grid-template-columns: 392px 800px; gap: 40px; }
+
+  /* Left: the agent */
+  .ttl { font-family: var(--pd-font-display); font-size: 30px; font-weight: 500; letter-spacing: -0.03em; margin: 0; line-height: 1.1; }
+  .ttl-meta { margin-top: 10px; display: flex; gap: 8px; }
+  .ttl-meta span { font-family: var(--pd-font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--pd-text-2); border: 1px solid var(--pd-line-1); border-radius: 6px; padding: 3px 7px; background: rgba(255,255,255,.02); }
+
+  .log { list-style: none; margin: 28px 0 0; padding: 0; position: relative; }
+  .log li { position: relative; display: grid; grid-template-columns: 22px 1fr; column-gap: 14px; padding-bottom: 16px; }
+  .log li::before { content: ""; position: absolute; left: 10.5px; top: 26px; bottom: 2px; width: 1px; background: var(--pd-line-1); }
+  .log li:last-child::before { display: none; }
+  .log li.done::before { background: linear-gradient(var(--pd-line-3), var(--pd-line-1)); }
+  .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--pd-line-2); color: transparent; margin-top: 0; background: var(--pd-bg-0); }
+  .done .ic { border-color: transparent; background: rgba(159,228,255,.12); color: var(--pd-light); }
+  .active .ic { border-color: transparent; background: conic-gradient(from var(--spin, 0deg), rgba(159,228,255,0) 0deg, var(--pd-light-core) 300deg, rgba(159,228,255,0) 300deg); animation: spin 1s linear infinite; position: relative; }
+  .active .ic::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--pd-bg-0); }
+  .active .ic::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--pd-light); box-shadow: 0 0 10px var(--pd-light); z-index: 1; animation: spin 1s linear infinite reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; min-height: 22px; }
+  .lb { font-size: 15px; color: var(--pd-text-3); letter-spacing: -0.005em; }
+  .done .lb { color: var(--pd-text-2); }
+  .active .lb { color: var(--pd-text-1); }
+  .dt { font-family: var(--pd-font-mono); font-size: 11px; color: var(--pd-text-3); white-space: nowrap; }
+  .active .dt { color: var(--pd-light); }
+  .detail { grid-column: 2; margin-top: 10px; }
+
+  .kit { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 14px; background: var(--pd-glass); border: 1px solid var(--pd-line-1); }
+  .kit .logo { width: 44px; height: 44px; border-radius: 11px; background: #0e1116; border: 1px solid rgba(255,255,255,.1); display: grid; place-items: center; flex: none; }
+  .kit .sw { display: flex; gap: 6px; }
+  .kit .sw i { width: 26px; height: 26px; border-radius: 7px; border: 1px solid rgba(255,255,255,.12); display: block; }
+  .kit .ty { margin-left: auto; text-align: right; line-height: 1.25; }
+  .kit .ty b { display: block; font-family: var(--pd-font-display); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
+  .kit .ty span { font-size: 11.5px; color: var(--pd-text-3); }
+  .pop { opacity: 0; transform: translateY(4px) scale(.96); }
+  .pop.in { opacity: 1; transform: none; transition: all var(--pd-dur-3) var(--pd-ease-out); }
+  .quote { font-size: 13.5px; color: var(--pd-text-2); line-height: 1.5; padding-left: 12px; border-left: 1px solid var(--pd-line-2); }
+
+  .mail { margin-top: 12px; padding: 18px; border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)); border: 1px solid var(--pd-line-2); box-shadow: var(--pd-edge); }
+  .mail h4 { margin: 0; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+  .mail p { margin: 4px 0 14px; font-size: 13px; color: var(--pd-text-3); }
+  .mail .f { display: flex; gap: 8px; }
+  .mail .in { flex: 1; height: 42px; border-radius: 12px; background: var(--pd-bg-0); border: 1px solid var(--pd-line-2); display: flex; align-items: center; padding: 0 14px; font-size: 14px; color: var(--pd-text-1); }
+  .mail .in .ph { color: var(--pd-text-4); }
+  .mail .btn { height: 42px; border-radius: 12px; padding: 0 16px; }
+
+  /* Right: the canvas */
+  .status { display: flex; align-items: center; justify-content: space-between; height: 24px; }
+  .stage-lb { font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em;
+    background: linear-gradient(90deg, #f3f4f6 0%, #f3f4f6 40%, #9fe4ff 50%, #f3f4f6 60%, #f3f4f6 100%); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 2.4s linear infinite; }
+  @keyframes sheen { from { background-position: 100% 0; } to { background-position: -50% 0; } }
+  .eta { font-family: var(--pd-font-mono); font-size: 12px; color: var(--pd-text-3); display: flex; gap: 14px; }
+  .eta b { color: var(--pd-text-1); font-weight: 500; }
+  .bar { position: relative; height: 2px; margin: 12px 0 18px; border-radius: 2px; background: var(--pd-line-1); overflow: visible; }
+  .bar .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: var(--pd-grad-progress); box-shadow: 0 0 12px rgba(159,228,255,.6); }
+  .bar .fill::after { content: ""; position: absolute; right: -2px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px 3px rgba(159,228,255,.8); }
+
+  .canvas { position: relative; width: 800px; height: 450px; border-radius: 20px; overflow: hidden; background: #050606; border: 1px solid var(--pd-line-2);
+    box-shadow: 0 40px 100px -40px rgba(0,0,0,1), 0 0 0 6px rgba(255,255,255,.015); }
+  .canvas svg.fr { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .canvas .next { clip-path: inset(0 calc(100% - var(--rev, 0%)) 0 0); }
+  .canvas .scan { position: absolute; top: 0; bottom: 0; width: 2px; left: var(--rev, 0%); background: var(--pd-light-core); box-shadow: 0 0 20px 4px rgba(159,228,255,.7), 0 0 80px 20px rgba(79,182,255,.25); }
+  .canvas .gridov { position: absolute; inset: 0; background-image: linear-gradient(rgba(159,228,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(159,228,255,.06) 1px, transparent 1px); background-size: 40px 40px; clip-path: inset(0 0 0 var(--rev, 0%)); }
+  .canvas .hud { position: absolute; left: 16px; top: 14px; display: flex; gap: 8px; z-index: 3; }
+  .canvas .hud span { font-family: var(--pd-font-mono); font-size: 10.5px; letter-spacing: .08em; color: rgba(255,255,255,.8); background: rgba(0,0,0,.5); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.1); border-radius: 6px; padding: 3px 7px; }
+  .canvas .rendering { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(159,228,255,.10) 50%, transparent 100%); background-size: 40% 100%; background-repeat: no-repeat; }
+
+  /* Site-reading view (before storyboard) */
+  .site { position: absolute; inset: 0; background: #f4f1ea; color: #0e1116; font-family: var(--pd-font-ui); }
+  .site .nav { height: 52px; display: flex; align-items: center; padding: 0 28px; gap: 24px; font-size: 13px; color: #4a4f57; border-bottom: 1px solid rgba(0,0,0,.06); }
+  .site .nav .lg { display: flex; gap: 7px; align-items: center; font-family: var(--pd-font-display); font-weight: 700; color: #0e1116; font-size: 16px; letter-spacing: -.02em; margin-right: auto; }
+  .site .nav .lg i { width: 18px; height: 18px; border-radius: 5px; background: #0e1116; display: grid; place-items: center; }
+  .site .nav .cta { background: #0e1116; color: #f4f1ea; border-radius: 999px; padding: 7px 14px; }
+  .site .hero { padding: 54px 28px 0; }
+  .site h5 { margin: 0; font-family: var(--pd-font-display); font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -.04em; width: 470px; }
+  .site h5 em { font-style: normal; background: #c6f432; padding: 0 6px; }
+  .site .hp { margin-top: 16px; width: 380px; font-size: 14px; color: #555b64; }
+  .site .shot { position: absolute; right: -40px; bottom: -30px; width: 380px; height: 250px; border-radius: 14px; background: #0e1116; box-shadow: 0 20px 50px rgba(0,0,0,.2); overflow: hidden; }
+  .site .box { position: absolute; border: 1.5px solid #2f8cff; border-radius: 4px; background: rgba(47,140,255,.06); }
+  .site .box b { position: absolute; left: -1.5px; top: -19px; font-family: var(--pd-font-mono); font-size: 10px; font-weight: 500; color: #fff; background: #2f8cff; padding: 2px 5px; border-radius: 3px 3px 3px 0; white-space: nowrap; }
+  .site .sline { position: absolute; left: 0; right: 0; height: 60px; background: linear-gradient(180deg, rgba(47,140,255,0), rgba(47,140,255,.18)); border-bottom: 1.5px solid #2f8cff; }
+
+  .strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 14px; }
+  .th { position: relative; aspect-ratio: 16/9; border-radius: 9px; overflow: hidden; background: rgba(255,255,255,.03); border: 1px solid var(--pd-line-1); }
+  .th svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .th .n { position: absolute; left: 6px; bottom: 5px; font-family: var(--pd-font-mono); font-size: 9.5px; color: rgba(255,255,255,.7); z-index: 2; }
+  .th.empty { background: linear-gradient(100deg, rgba(255,255,255,.02) 30%, rgba(255,255,255,.06) 50%, rgba(255,255,255,.02) 70%); background-size: 250% 100%; animation: shim 1.8s linear infinite; }
+  .th.empty .n { color: var(--pd-text-4); }
+  .th.cur { border-color: rgba(159,228,255,.55); box-shadow: 0 0 0 3px rgba(159,228,255,.08); }
+  @keyframes shim { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+</style>
+</head>
+<body>
+<div id="svgdefs"></div>
+<div class="page">
+  <div class="horizon low"></div><div class="grain"></div>
+  <header class="topbar">
+    <a class="wordmark" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wmg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eafaff"/><stop offset="1" stop-color="#4fb6ff"/></linearGradient><clipPath id="wmc"><circle cx="12" cy="12" r="9.25"/></clipPath></defs><circle cx="12" cy="12" r="9.25" fill="none" stroke="#f3f4f6" stroke-width="1.5"/><rect x="0" y="13.4" width="24" height="12" fill="url(#wmg)" clip-path="url(#wmc)"/></svg>poolday</a>
+    <div class="steps"><span class="st done"><span class="dot"></span>Link</span><span class="sep"></span><span class="st done"><span class="dot"></span>Style</span><span class="sep"></span><span class="st on"><span class="dot"></span>Video</span></div>
+    <div class="right"><span class="chip"><span class="fav" style="background:#0e1116;border:1px solid rgba(255,255,255,.12)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></svg></span><b>northwind.ai</b></span></div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h1 class="ttl">Making your launch video</h1>
+      <div class="ttl-meta"><span>Northwind</span><span>Apple</span><span>16:9</span><span>30s</span></div>
+
+      <ol class="log" id="log">
+        <li data-k="read"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb" data-a="Reading northwind.ai">Read northwind.ai</span><span class="dt" data-d="read">14 pages · 6 shots</span></div></div></li>
+        <li data-k="brand"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb" data-a="Extracting brand kit">Brand kit extracted</span><span class="dt">logo · colors · type</span></div>
+            <div class="detail"><div class="kit">
+              <span class="logo pop" data-at=".15"><svg width="20" height="20" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></svg></span>
+              <span class="sw"><i class="pop" data-at=".17" style="background:#0e1116"></i><i class="pop" data-at=".185" style="background:#c6f432"></i><i class="pop" data-at=".2" style="background:#f4f1ea"></i><i class="pop" data-at=".215" style="background:#8a93a3"></i></span>
+              <span class="ty pop" data-at=".235"><b>Aa</b><span>Manrope · Inter</span></span>
+            </div></div></div></li>
+        <li data-k="script"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb" data-a="Writing script and voice-over">Script and voice-over</span><span class="dt">6 beats · 29s</span></div>
+            <div class="detail quote pop" data-at=".3">“Your forecast is stale. Northwind sees the next quarter while it's still ahead of you.”</div></div></li>
+        <li data-k="board"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb">Storyboard</span><span class="dt" data-d="board">4 / 6 frames</span></div></div></li>
+        <li data-k="render"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb">Rendering</span><span class="dt" data-d="render">1080p · 30fps</span></div></div></li>
+        <li data-k="polish"><span class="ic"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2 5 8.5l4.5-5"/></svg></span>
+          <div><div class="row"><span class="lb">Sound, captions, final check</span><span class="dt"></span></div></div></li>
+      </ol>
+
+      <div class="mail">
+        <h4><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="2"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg>We'll send it when it's ready</h4>
+        <p>Render time varies. Close this tab anytime, or stay and watch it land here.</p>
+        <div class="f"><div class="in"><span class="ph">you@company.com</span></div><button class="btn btn-secondary">Notify me</button></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="status"><span class="stage-lb" id="stage">Storyboarding frame 5 of 6</span><span class="eta"><span><b id="pct">55%</b></span><span id="left">about 2 min left</span></span></div>
+      <div class="bar"><div class="fill" id="fill" style="width:55%"></div></div>
+      <div class="canvas" id="canvas">
+        <div class="site" id="site">
+          <div class="nav"><span class="lg"><i><svg width="11" height="11" viewBox="0 0 10 10"><path d="M5 .8 8.6 9 5 7 1.4 9z" fill="#c6f432"/></svg></i>northwind</span><span>Product</span><span>Customers</span><span>Pricing</span><span class="cta">Start free</span></div>
+          <div class="hero"><h5>Forecasts your <em>CFO</em> can actually trust.</h5><p class="hp">Northwind connects your ledger, CRM and payroll, then models the next quarter in real time.</p></div>
+          <div class="shot"><svg viewBox="0 0 1200 720" width="100%" height="100%" preserveAspectRatio="xMinYMin slice"><use href="#nwDash"/></svg></div>
+          <div class="box" data-t=".lg" data-at=".03"><b>logo</b></div>
+          <div class="box" data-t="h5" data-at=".06"><b>headline · Manrope 600</b></div>
+          <div class="box" data-t=".shot" data-at=".09"><b>product ui</b></div>
+          <div class="box hex" data-t="h5 em" data-at=".13" style="border-color:#8fb31a;background:rgba(198,244,50,.12)"><b style="background:#6f8c10">#C6F432</b></div>
+          <div class="sline" id="sline" style="top:150px"></div>
+        </div>
+        <svg class="fr cur-f" id="curF" viewBox="0 0 1600 900"><use href="#nwF4"/></svg>
+        <svg class="fr next" id="nextF" viewBox="0 0 1600 900"><use href="#nwF5"/></svg>
+        <div class="gridov" id="gridov"></div>
+        <div class="scan" id="scan"></div>
+        <div class="hud" id="hud"><span id="hudf">FRAME 05</span><span>COMPOSITING</span></div>
+      </div>
+      <div class="strip" id="strip"></div>
+    </section>
+  </main>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const ORDER = ["read", "brand", "script", "board", "render", "polish"];
+const RANGES = { read: [0, .12], brand: [.12, .26], script: [.26, .36], board: [.36, .72], render: [.72, .96], polish: [.96, 1.001] };
+const B0 = .36, BF = .06, NF = 6;
+const strip = $("#strip");
+for (let i = 0; i < NF; i++) strip.insertAdjacentHTML("beforeend", `<div class="th empty" data-i="${i}"><span class="n">0${i + 1}</span></div>`);
+function fmtLeft(p) { const s = Math.round((1 - p) * 260); return s > 90 ? `about ${Math.round(s / 60)} min left` : s > 5 ? `about ${s}s left` : "almost there"; }
+function setProgress(p) {
+  ORDER.forEach(k => { const [a, b] = RANGES[k]; const li = document.querySelector(`[data-k=${k}]`);
+    li.classList.toggle("done", p >= b); li.classList.toggle("active", p >= a && p < b); li.style.display = ""; });
+  // details visible once their step has started
+  document.querySelectorAll(".detail").forEach(d => { const li = d.closest("li"); d.style.display = (li.classList.contains("done") || li.classList.contains("active")) ? "" : "none"; });
+  document.querySelectorAll(".pop").forEach(el => el.classList.toggle("in", p >= +el.dataset.at));
+  const pages = Math.min(14, Math.floor(p / .12 * 14)), shots = Math.min(6, Math.floor(p / .12 * 6));
+  $("[data-d=read]").textContent = `${pages} pages · ${shots} shots`;
+  const nb = Math.max(0, Math.min(NF, Math.floor((p - B0) / BF)));
+  $("[data-d=board]").textContent = p < B0 ? "6 frames" : `${Math.min(nb, NF)} / ${NF} frames`;
+  const rp = Math.max(0, Math.min(1, (p - .72) / .24));
+  $("[data-d=render]").textContent = p >= .72 && p < .96 ? `${Math.round(rp * 100)}% · 1080p` : "1080p · 30fps";
+  // status
+  let label;
+  if (p < .12) label = "Reading northwind.ai";
+  else if (p < .26) label = "Extracting the brand kit";
+  else if (p < .36) label = "Writing the script";
+  else if (p < .72) label = `Storyboarding frame ${Math.min(nb + 1, NF)} of ${NF}`;
+  else if (p < .96) label = "Rendering 1080p";
+  else label = "Final check";
+  $("#stage").textContent = label;
+  $("#pct").textContent = Math.floor(p * 100) + "%";
+  $("#left").textContent = fmtLeft(p);
+  $("#fill").style.width = (p * 100) + "%";
+  document.querySelectorAll(".lb").forEach(l => { if (!l.dataset.f) l.dataset.f = l.textContent; l.textContent = l.closest("li").classList.contains("active") && l.dataset.a ? l.dataset.a : l.dataset.f; });
+  const site = $("#site"), sr = site.getBoundingClientRect();
+  if (p < .36) site.querySelectorAll(".box").forEach(b => {
+    const r = site.querySelector(b.dataset.t).getBoundingClientRect(), pad = 6;
+    const L = Math.max(4, r.left - sr.left - pad), T = Math.max(4, r.top - sr.top - pad);
+    const R = Math.min(sr.width - 4, r.right - sr.left + pad), Bm = Math.min(sr.height - 4, r.bottom - sr.top + pad);
+    Object.assign(b.style, { left: L + "px", top: T + "px", width: (R - L) + "px", height: (Bm - T) + "px", display: p >= +b.dataset.at ? "" : "none" });
+    const lb = b.querySelector("b"); lb.style.top = T < 24 ? "50%" : "-19px"; lb.style.left = T < 24 ? "calc(100% + 6px)" : "-1.5px"; lb.style.transform = T < 24 ? "translateY(-50%)" : ""; lb.style.borderRadius = T < 24 ? "3px" : "";
+  });
+  // canvas
+  const cv = $("#canvas");
+  const inSite = p < .36;
+  $("#site").style.display = inSite ? "" : "none";
+  $("#sline").style.top = (40 + ((p * 900) % 380)) + "px";
+  let cur, next, rev;
+  if (p < B0) { rev = 0; }
+  else if (p < .72) { const f = (p - B0) / BF; cur = Math.max(0, Math.floor(f) - 1); next = Math.min(NF - 1, Math.floor(f)); rev = (f - Math.floor(f)); if (Math.floor(f) === 0) cur = -1; }
+  else { cur = NF - 2; next = 4; rev = 1; }
+  if (p >= .72) { cur = 4; next = 4; rev = rp; }
+  $("#curF").style.display = inSite || cur < 0 ? "none" : ""; if (cur >= 0) $("#curF use").setAttribute("href", `#nwF${cur + 1}`);
+  $("#nextF").style.display = inSite ? "none" : ""; if (next != null) $("#nextF use").setAttribute("href", `#nwF${next + 1}`);
+  cv.style.setProperty("--rev", (rev * 100).toFixed(2) + "%");
+  $("#scan").style.display = inSite || (p >= .96) ? "none" : "";
+  $("#gridov").style.display = inSite || p >= .96 ? "none" : "";
+  $("#hud").style.display = inSite ? "none" : "";
+  $("#hudf").textContent = p >= .72 ? "RENDER PASS" : `FRAME 0${(next ?? 0) + 1}`;
+  $("#hud span:last-child").textContent = p >= .96 ? "ENCODING" : p >= .72 ? `${Math.round(rp * 100)}%` : "COMPOSITING";
+  if (p >= .72) { $("#curF").style.filter = "grayscale(1) brightness(.55)"; } else $("#curF").style.filter = "";
+  // strip
+  document.querySelectorAll(".th").forEach((t, i) => {
+    const filled = p >= B0 + (i + 1) * BF - 0.0001 || p >= .72; const isCur = !filled && p >= B0 + i * BF && p < .72;
+    t.classList.toggle("empty", !filled && !isCur); t.classList.toggle("cur", isCur);
+    const has = t.querySelector("svg");
+    if ((filled || isCur) && !has) t.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 1600 900"><use href="#nwF${i + 1}"/></svg>`);
+    if (!(filled || isCur) && has) has.remove();
+    const s = t.querySelector("svg"); if (s) s.style.opacity = isCur ? .45 : 1;
+  });
+}
+window.demo = { setProgress };
+const q = new URLSearchParams(location.search);
+fetch("frames.svg").then(r => r.text()).then(t => { $("#svgdefs").innerHTML = t; return document.fonts.ready; })
+  .then(() => { setProgress(q.has("p") ? +q.get("p") : .633); document.body.dataset.ready = 1; });
+</script>
+</body>
+</html>

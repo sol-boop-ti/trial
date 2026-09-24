@@ -1,0 +1,100 @@
+@import url("../../design/tokens.css");
+
+/* ---- Base ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--pd-bg-0);
+  color: var(--pd-text-1);
+  font-family: var(--pd-font-ui);
+  font-size: var(--pd-fs-body);
+  line-height: var(--pd-lh-body);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  overflow: hidden;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.page { position: relative; width: 100%; height: 100vh; overflow: hidden; isolation: isolate; }
+
+/* Ambient: the horizon. One soft light source low on the canvas + a hairline rim. */
+.horizon { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+/* A planet-scale arc whose rim catches the light: the "horizon" signature. */
+.horizon::before {
+  content: ""; position: absolute; left: 50%; top: var(--horizon-top, 80vh); width: 4400px; height: 4400px; margin-left: -2200px;
+  border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, #050608 96%, #07090d 100%);
+  box-shadow: 0 -1px 0 0 rgba(234,250,255,.55), 0 -2px 18px 0 rgba(159,228,255,.28), 0 -40px 120px -10px rgba(79,182,255,.30), 0 -160px 260px 0 rgba(33,80,255,.13);
+  animation: breathe var(--pd-dur-loop) var(--pd-ease-in-out) infinite alternate;
+}
+.horizon::after { /* soft bloom where the light peaks */
+  content: ""; position: absolute; left: 50%; top: calc(var(--horizon-top, 80vh) - 140px); width: 900px; height: 280px; margin-left: -450px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(159,228,255,.16), rgba(79,182,255,0) 70%); filter: blur(10px);
+}
+.horizon.low::before, .horizon.low::after { opacity: .5; }
+.grain { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 3px 3px; mask-image: radial-gradient(80% 70% at 50% 40%, #000 0%, transparent 100%);
+}
+@keyframes breathe { from { opacity: .8; } to { opacity: 1; } }
+
+/* ---- Top bar ------------------------------------------------------------- */
+.topbar { position: absolute; top: 0; left: 0; right: 0; height: 72px; padding: 0 var(--pd-gutter);
+  display: flex; align-items: center; justify-content: space-between; z-index: 5; }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; font-family: var(--pd-font-display);
+  font-weight: 600; font-size: 19px; letter-spacing: -0.03em; color: var(--pd-text-1); text-decoration: none; }
+.wordmark svg { width: 22px; height: 22px; display: block; }
+.topbar .right { display: flex; align-items: center; gap: 12px; }
+
+.link-quiet { color: var(--pd-text-2); font-size: var(--pd-fs-small); text-decoration: none; }
+
+/* Steps (Link · Style · Video) */
+.steps { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--pd-text-3); }
+.steps .st { display: inline-flex; align-items: center; gap: 8px; }
+.steps .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pd-text-4); }
+.steps .st.done { color: var(--pd-text-2); }
+.steps .st.done .dot { background: var(--pd-text-2); }
+.steps .st.on { color: var(--pd-text-1); }
+.steps .st.on .dot { background: var(--pd-light); box-shadow: 0 0 10px 1px rgba(159,228,255,.7); }
+.steps .sep { width: 20px; height: 1px; background: var(--pd-line-2); }
+
+/* URL chip */
+.chip { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px 0 10px; border-radius: var(--pd-r-pill);
+  background: var(--pd-glass); border: 1px solid var(--pd-line-1); color: var(--pd-text-2); font-size: 13px; white-space: nowrap; }
+.chip .fav { width: 16px; height: 16px; border-radius: 4px; display: grid; place-items: center; }
+.chip b { color: var(--pd-text-1); font-weight: 500; }
+.chip .edit { color: var(--pd-text-3); margin-left: 2px; }
+
+/* ---- Buttons --------------------------------------------------------------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px;
+  border-radius: var(--pd-r-pill); border: 1px solid transparent; font-size: 14px; font-weight: 500; letter-spacing: -0.005em;
+  white-space: nowrap; transition: all var(--pd-dur-1) var(--pd-ease-out); }
+.btn-primary { background: var(--pd-text-1); color: var(--pd-text-inverse);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 8px 30px -6px rgba(159,228,255,.35), inset 0 -1px 0 rgba(0,0,0,.12); }
+.btn-primary:hover, .btn-primary.is-hover { background: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,.3), 0 10px 40px -4px rgba(159,228,255,.55); }
+.btn-primary.is-press { transform: scale(.97); }
+.btn-secondary { background: var(--pd-glass-strong); border-color: var(--pd-line-2); color: var(--pd-text-1); box-shadow: var(--pd-edge); }
+.btn-ghost { background: transparent; color: var(--pd-text-2); }
+.btn .arrow { width: 16px; height: 16px; }
+.btn-l { height: 52px; padding: 0 24px; font-size: 15px; }
+
+/* ---- Segmented tabs -------------------------------------------------------- */
+.tabs { position: relative; display: inline-flex; padding: 4px; gap: 2px; border-radius: var(--pd-r-pill);
+  background: rgba(255,255,255,.03); border: 1px solid var(--pd-line-1); }
+.tab { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px;
+  border-radius: var(--pd-r-pill); border: 0; background: transparent; color: var(--pd-text-3); font-size: 14px; font-weight: 500;
+  transition: color var(--pd-dur-2) var(--pd-ease-out); white-space: nowrap; }
+.tab svg { width: 16px; height: 16px; opacity: .9; }
+.tab.on { color: var(--pd-text-1); }
+.tab-ind { position: absolute; z-index: 0; top: 4px; height: 36px; border-radius: var(--pd-r-pill);
+  background: var(--pd-surface-2); border: 1px solid var(--pd-line-2); box-shadow: var(--pd-edge), 0 4px 16px -6px rgba(0,0,0,.8);
+  transition: left var(--pd-dur-3) var(--pd-ease-out), width var(--pd-dur-3) var(--pd-ease-out); }
+
+/* ---- Utility --------------------------------------------------------------- */
+.mono { font-family: var(--pd-font-mono); }
+.micro { font-family: var(--pd-font-mono); font-size: var(--pd-fs-micro); letter-spacing: var(--pd-tr-micro); text-transform: uppercase; color: var(--pd-text-3); }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pd-live); box-shadow: 0 0 0 3px rgba(126,226,184,.15), 0 0 10px rgba(126,226,184,.6); display: inline-block; }
+.hl { color: var(--pd-text-2); }
+
+/* Demo mode (walkthrough capture): all motion is driven by the timeline. */
+html.demo *, html.demo *::before, html.demo *::after { transition: none !important; }
