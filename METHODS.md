@@ -79,3 +79,21 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **$3k pilot → up to $15k:** scale if the pilot gets ≥10 booked demos at ≤$300 each with ≥25% qualified leads. Kill if it gets <5 demos, <15% qualified, or >20% of renders fail QA.
   - Estimated numbers are marked **[A]**. Budget caps are in dollars because Poolday's credit cost per render is unknown; it gets measured on pilot day 2.
 - **Output:** `deliverables/D5-growth-idea.md` (~2,300 words).
+
+## M7. LinkedIn post prep (D1)
+- **What:** use-case angles, post copy, comment-to-lead process, Poolday brief and metrics for the hiring manager's LinkedIn post.
+- **Tools:** Claude Code sub-agent. Inputs: `BRIEF.md`, `PLAN.md`, `poolday/agent-guide-notes.md`, `poolday/kickoff-prompts.md`, `research/company-picks.md`.
+- **Process:**
+  1. Drafted 3 candidate angles and ranked them on four tests: does the CTA filter leads, do we need another company's permission, does it tie into D2/D3/D5, can it be honest about the ~1h run time.
+  2. Wrote 2 post variants for each of the top 2 angles.
+  3. Mapped comments onto the D3 loop.
+  4. Kept the Poolday brief to intent only (107 words, checked with `wc -w`).
+  5. Wrote metrics with check-ins at 24h, 72h and 14 days.
+- **Decisions & why:**
+  - **#1 "One URL in, brand kit + launch video out":** a comment with a URL is already a lead you can look up, the audience is broad, and it tests the growth idea live.
+  - **Default example is poolday.ai:** no other company's brand is shown without permission. Angle #2 (a prospect's video) waits for that prospect's OK.
+  - **Viral remakes go to X, not LinkedIn:** they bring low-quality leads and carry IP risk on an exec's account.
+  - **CTA "comment VIDEO + your URL, I'll pick [10]":** the cap creates scarcity and limits credit spend.
+  - **Link in the first comment:** links in the post body cut reach.
+  - **Proof points left as placeholders:** they get filled with measured numbers, never invented ones.
+- **Lessons:** the CTA itself is the lead filter.
