@@ -122,16 +122,15 @@ function homeAfter() {
     `<section class="pd-hero d7-hero"><canvas class="pd-halftone" data-cx="0.47" data-cy="0.5"></canvas><div class="pd-hero-inner">
 <h1 class="pd-display">The Media Superintelligence.</h1>
 <p class="pd-lede">An AI agent that edits, generates and assembles on-brand videos.</p>
-<div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span${co(2, 'right')}>${watch()}</span></div>
-<div class="facts"${co(1)}><span>~$5–$25 per finished video</span><i>·</i><span>Month-to-month, no lock-in</span><i>·</i><span>First month $600</span></div>
+<div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span${co(1, 'right')}>${watch()}</span></div>
 ${title2('100M+ video edits made by Poolday.', 'Some examples here.')}${tabs()}</div></section>
 <div class="grid-wrap"><div class="pd-grid">${HOME_TILES.map(t => tile(t)).join('')}</div></div>
-<section class="sec sec-tight center"><div style="display:inline-flex;flex-direction:column;align-items:center"${co(3)}><p class="lede" style="margin-bottom:28px">Your brand, in videos like these. <span style="color:var(--ink-quiet)">It learns your brand once.</span></p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div></section>
-<section class="sec">${title2('Meet Poolday.', 'Not a tool you operate: an agent that plans, makes and fixes the whole video.', co(4))}${steps()}</section>
-<section class="sec">${title2('Trusted by leaders worldwide in every category.', '', '')}<div${co(5)} style="max-width:1180px;margin:0 auto">${logoRow(CUSTOMERS)}<p class="backed">Backed by <b>Daphni</b><b>LocalGlobe</b></p></div></section>
+<section class="sec sec-tight center"><div style="display:inline-flex;flex-direction:column;align-items:center"${co(2)}><p class="lede" style="margin-bottom:28px">Your brand, in videos like these. <span style="color:var(--ink-quiet)">It learns your brand once.</span></p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div></section>
+<section class="sec">${title2('Meet Poolday.', 'Not a tool you operate: an agent that plans, makes and fixes the whole video.', co(3))}${steps()}</section>
+<section class="sec">${title2('Trusted by leaders worldwide in every category.', '', '')}<div${co(4)} style="max-width:1180px;margin:0 auto">${logoRow(CUSTOMERS)}<p class="backed">Backed by <b>Daphni</b><b>LocalGlobe</b></p></div></section>
 <section class="sec">${title2('From the teams running it.')}${quotes()}</section>
 <section class="closing"><canvas class="pd-halftone" data-cy="0.55"></canvas><div class="inner">${title2('See Poolday in action, live on a call.')}
-<div class="callsteps"${co(6)}><div><span>Minute 1</span>You share your website.</div><div><span>Minutes 2–10</span>It builds your brand kit live and drafts a first video.${V}</div><div><span>Minutes 10–15</span>You leave with a plan and your $600 first month.</div></div>
+<div class="callsteps"${co(5)}><div><span>Minute 1</span>You share your website.</div><div><span>Minutes 2–10</span>It builds your brand kit live and drafts a first video.${V}</div><div><span>Minutes 10–15</span>You leave with a plan and your $600 first month.</div></div>
 <div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a>${watch()}</div><div class="facts"><span>~$5–$25 per finished video</span><i>·</i><span>Month-to-month, no lock-in</span><i>·</i><span>First month $600</span></div></div></section>` + foot();
 }
 
@@ -172,7 +171,7 @@ function b2bAfter() {
     `<section class="pd-hero d7-hero" style="padding-bottom:56px"><canvas class="pd-halftone" data-cx="0.47" data-cy="0.55"></canvas><div class="pd-hero-inner">
 <h1 class="pd-display"${co(1)}>Every feature you ship, on video.</h1>
 <p class="pd-lede">Delegate your next video to the agent, while keeping full control. Your colors, your logo, your Figma, your animations.</p>
-<div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span class="url-field"${co(2, 'right')}>${icon('link')}<span class="ph">Paste your URL</span><span class="go">${icon('arrow-right')}</span></span></div>
+<div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><span class="url-field"${co(2, 'right')}><span class="badge">Free · limited</span>${icon('link')}<span class="ph">Paste your URL</span><span class="go">${icon('arrow-right')}</span></span></div>
 <p class="url-note">Not ready for a call? Paste your site and get a free launch video made from it, by email.</p>
 <div${co(3)} style="margin-top:56px">${logoRow([['PostHog', 'mono'], ['Lovable', ''], ['ClickUp', ''], ['Dust', 'caps'], ['Marblism', 'serif'], ['FullEnrich', '']], 'small')}</div></div></section>
 <section class="sec" style="padding-top:64px">${title2('Merge a PR. Get a launch video.', 'Eight more videos your team never has time to make.', co(4))}<p class="sec-sub">Each one starts from something you already have.</p></section>
@@ -195,25 +194,22 @@ function pricingBefore() {
 }
 function pricingAfter() {
   const C = (cells, cls = '') => cells.map((c, i) => `<div class="${i === 0 ? 'rh' : ''}${i === 1 ? ' pd' : ''} ${cls}">${c}</div>`).join('');
-  return head('Poolday pricing, after', 'Proposed redesign · same prices and plan contents · [verify] = not confirmed from the live site', 'After') + nav() +
-    `<section class="pd-hero d7-hero" style="padding-bottom:56px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.4" data-rx="560"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1>
-<p class="pd-lede" style="margin-bottom:0"${co(1)}>Pay for finished videos, not seats. <span style="color:var(--ink-quiet)">~$5–$25 per finished video.</span></p></div></section>
-<div class="pilot"${co(2)}><h2>Start with the $600 pilot month. <span>Month-to-month, no lock-in.</span></h2><ul><li><b>Your agent, configured</b>Brand kit built from your site, logo, fonts, colors and Lottie.</li><li><b>1-1 onboarding</b>Your first videos made together, on a call.</li><li><b>Credits included</b>Amount for the pilot month${V}</li><li><b>Then decide</b>Stay on Business or Enterprise, or stop.</li></ul></div>
+  return head('Poolday pricing, after', 'Proposed redesign · same structure, prices and plan contents · [verify] = not confirmed from the live site', 'After') + nav() +
+    `<section class="pd-hero d7-hero" style="padding-bottom:64px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.3" data-rx="520"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1>
+<p class="pricing-lede"${co(1)}>Pay for finished videos, not seats. <span>~$5–$25 per finished video.</span>${V}</p></div></section>
 <div class="plans">
-<div class="plan"><h3>Business</h3><p class="persona"${co(4)}>For a startup marketing team of 1–3 that ships every week.</p><div class="price">$1,250<small>/mo</small></div><p class="yield"${co(3)}>$1,250 of credits <span>≈ 50–250 finished videos a month</span>${V}</p><ul>${li('1-1 onboarding')}${li('1-business-day support')}</ul><p class="topup"${co(5)}>Need more in a busy month? Top up anytime. Extra credits cost 2× the included rate, so if you top up often, the next plan is cheaper.</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><p class="under">First month $600</p></div>
-<div class="plan"><h3>Enterprise</h3><p class="persona">For teams that need SSO, an MSA, API access and more seats.</p><div class="price"><span class="from">from</span>$2,500<small>/mo</small></div><p class="yield">$2,500+ of credits${V} <span>≈ 100–500+ finished videos a month</span></p><ul><li class="li-head">Everything in Business, plus</li>${li('SSO and an MSA')}${li('A private Slack channel')}${li('API access')}${li('Unlimited users')}</ul><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a><p class="under">First month $600</p></div>
+<div class="plan"><h3>Business</h3><p class="persona-s"${co(3, 'right')}>For a startup team of 1–3 that ships every week.</p><div class="price">$1,250<small>/mo</small></div><p class="yield-s"${co(2, 'right')}>≈ 50–250 finished videos a month${V}</p><ul>${li('$1,250 of credits')}${li('1-1 onboarding')}${li('1-business-day support')}${li('Extra credits at 2× the included rate')}</ul><p class="first"${co(4, 'right')}>First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
+<div class="plan"><h3>Enterprise</h3><p class="persona-s">For teams that need SSO, an MSA and API access.</p><div class="price"><span class="from">from</span>$2,500<small>/mo</small></div><p class="yield-s">≈ 100–500+ finished videos a month${V}</p><ul><li class="li-head">Everything in Business, plus</li>${li('SSO')}${li('MSA')}${li('A private Slack')}${li('API access')}${li('Unlimited users')}</ul><p class="first">First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
 </div>
-<section class="sec sec-tight center"><div${co(8)} style="display:inline-block"><p style="font-size:15px;color:var(--ink-muted)">Teams on Poolday</p>${logoRow(CUSTOMERS.slice(0, 8), 'small')}</div></section>
-<section class="sec">${title2('Poolday vs the usual options.', 'Priced per finished video, not per hour.', co(6))}
-<div class="cmp">${C(['', 'Poolday', 'Agency', 'Freelancer', 'In-house editor'], 'h')}${C(['How you pay', '~$5–$25 per finished video', 'Per project', 'Per video or per hour', 'Salary plus tools'])}${C(['Commitment', 'Month-to-month', 'Project or retainer', 'Per job', 'A full-time hire'])}${C(['Your brand', 'Learned once, pixel-exact', 'Re-briefed each project', 'Re-briefed each job', 'Learned once'])}${C(['Volume', 'One prompt, infinite outputs', 'Limited by team hours', 'Limited by one person', 'One person’s week'])}${C(['Changes', 'Point to edit. Only that changes.', 'Revision rounds', 'Revision rounds', 'Queue behind other work'], 'last').replace('rh last', 'rh').replace(/ pd last/, ' pd last')}</div></section>
-<section class="sec">${title2('Ready for procurement.', 'On Enterprise.', co(7))}<div class="proc"><div>SSO<span>Sign in with your identity provider.</span></div><div>MSA<span>Your contract terms, not a click-through.</span></div><div>Private Slack<span>A direct channel to the team.</span></div><div>API access<span>Trigger videos from your own stack.</span></div><div>Unlimited users<span>Everyone briefs the same agent.</span></div></div><p class="proc-note">Security documentation and data handling: available on request${V}</p></section>
-<section class="sec">${title2('Questions.', 'Before the call.', co(9))}<div class="faq">
+<section class="sec sec-tight center"><div${co(5)} style="display:inline-block"><p style="font-size:15px;color:var(--ink-muted)">Teams on Poolday</p>${logoRow(CUSTOMERS.slice(0, 8), 'small')}</div></section>
+<section class="sec">${title2('Poolday vs the usual options.', 'Priced per finished video.', co(6))}
+<div class="cmp">${C(['', 'Poolday', 'Agency', 'Freelancer', 'In-house editor'], 'h')}${C(['How you pay', '~$5–$25 per finished video', 'Per project', 'Per video or per hour', 'Salary plus tools'])}${C(['Commitment', 'Month-to-month', 'Project or retainer', 'Per job', 'A full-time hire'])}${C(['Your brand', 'Learned once, pixel-exact', 'Re-briefed each project', 'Re-briefed each job', 'Learned once'], 'last').replace('rh last', 'rh')}</div></section>
+<section class="sec center"><p class="proc-line"${co(7)}><b>Ready for procurement on Enterprise:</b> SSO · MSA · private Slack · API access · unlimited users. Security documentation on request${V}</p></section>
+<section class="sec" style="padding-top:96px">${title2('Questions.', 'Before the call.', co(8))}<div class="faq">
 <div><h4>What is a credit?</h4><p>What the agent spends to make a video. A finished video typically uses ~$5–$25 of credits, depending on length and how much footage is generated.${V}</p></div>
-<div><h4>What is the $600 first month?</h4><p>Your first month at $600 instead of the list price: agent configured on your brand, 1-1 onboarding, first videos made together. Month-to-month after that.</p></div>
-<div><h4>What happens if I run out of credits?</h4><p>Top up at 2× the included rate, or move to the next plan if it happens every month.</p></div>
-<div><h4>Can I cancel?</h4><p>Yes. Month-to-month, no lock-in.</p></div>
+<div><h4>What is the $600 first month?</h4><p>A pilot: your agent configured on your brand, 1-1 onboarding, first videos made together. Month-to-month after that, no lock-in.</p></div>
+<div><h4>What happens if I run out of credits?</h4><p>Top up anytime at 2× the included rate. If that happens every month, the next plan is cheaper.</p></div>
 <div><h4>Do we need a designer?</h4><p>No. Teach it your brand once: logo, fonts, colors and Lottie, pixel-exact in every video.</p></div>
-<div><h4>Who owns the videos?</h4><p>Usage rights to the output are stated in the terms.${V}</p></div>
 </div></section>
 <section class="closing"><canvas class="pd-halftone" data-cy="0.55"></canvas><div class="inner">${title2('See Poolday in action, live on a call.')}<div class="cta-row"><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a>${watch()}</div></div></section>` + foot();
 }
