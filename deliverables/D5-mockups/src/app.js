@@ -163,10 +163,10 @@ function drawScreens(t) {
     } else { s.classList.remove("on"); }
   });
   // Entrances of the current screen: words rise on an exponential settle, blocks stagger 3 frames apart.
-  const scr = $("#" + cur), base = te + (prev ? 0.12 : 0.05);
-  $$(".w", scr).forEach((w, i) => { const tau = fr(t, base + i * 3 / 30); w.style.transform = `translateY(${(1 - expo(tau)) * 30}px)`; w.style.opacity = ink(tau, 0.55); });
+  const scr = $("#" + cur), base = te + 0.05;
+  $$(".w", scr).forEach((w, i) => { const tau = fr(t, base + i * 2 / 30); w.style.transform = `translateY(${(1 - expo(tau)) * 30}px)`; w.style.opacity = ink(tau, 0.55); });
   const nw = $$(".w", scr).length;
-  $$("[data-in]", scr).forEach(el => { const k = +el.dataset.in; const tau = fr(t, base + (nw ? nw * 2 / 30 : 0) + k * 3 / 30);
+  $$("[data-in]", scr).forEach(el => { const k = +el.dataset.in; const tau = fr(t, base + (nw ? Math.min(nw, 5) * 2 / 30 : 0) + k * 3 / 30);
     const tr = ` translateY(${(1 - expo(tau, 0.8)) * 26}px)`; el.dataset.inT = tr; if (!el.hasAttribute("data-ai")) el.style.transform = tr; el.style.opacity = ink(tau, 0.42); });
   return { cur, te };
 }
@@ -227,7 +227,7 @@ function drawAsk(t, scr, te) {
   drawAI(t, ai, q, te);
   const hu = H.get(up) ?? 0, ch = last(t, "choose", e => e.q === q);
   halftone($("canvas", up), { cx: up.offsetWidth / 2 + Math.sin(t / 3) * 30, cy: up.offsetHeight / 2, rx: 260, ry: 90, lo: [20, 20, 20], hi: [36 + 14 * hu, 36 + 14 * hu, 40 + 14 * hu], step: 4, row: 8, y0: 4 });
-  up.style.opacity = ch ? 1 - 0.55 * out3(seg(t, ch.t, ch.t + 0.4)) : "";
+  if (ch) up.style.opacity = +up.style.opacity * (1 - 0.55 * out3(seg(t, ch.t, ch.t + 0.4)));
 }
 
 // ---------------------------------------------------------------- S4: styles (launch)
