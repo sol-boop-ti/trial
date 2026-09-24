@@ -1,0 +1,3 @@
+# Mock mode and the dashboard use only the Python standard library (3.10+).
+# API mode needs the Anthropic SDK:
+anthropic>=1.8

@@ -181,19 +181,16 @@ def _call_api(system: str, user: str, schema: dict, max_tokens: int = 4000) -> d
 # --------------------------------------------------------------------------- mock mode
 
 def _mock_angle(lead: dict) -> tuple[str, str]:
+    """Short, intent-level angle (it goes into the Poolday prompt) + the email hook."""
     what = (lead.get("what_they_do") or "").strip()
     moving = re.search(r"moving into ([\w\s-]+)", what, re.I)
     days = lead.get("days_since_round")
     if moving:
         topic = moving.group(1).strip()
-        return (f"what your {topic} launch could look like: a 20s teaser built from your product UI",
-                f"the move into {topic}")
+        return f"what your {topic} launch could look like", f"the {topic} launch"
     if days is not None and days <= 21:
-        return ("your Series B announcement film: a 20s teaser that turns the round into a launch moment",
-                "the Series B announcement")
-    short = what.split("(")[0].split(",")[0].strip().rstrip(".") or "your product"
-    return (f"a 20s product teaser that makes {short[0].lower() + short[1:]} feel inevitable",
-            "the post-raise launch push")
+        return "your Series B announcement film", "the post-raise launch push"
+    return "a 20s launch teaser for your next release", "your next launch"
 
 
 def mock_qualify(lead: dict) -> dict:
@@ -201,12 +198,14 @@ def mock_qualify(lead: dict) -> dict:
 
     total, parts = prescore(lead)
     fit = parts["video_fit"]
+    # An announced expansion ("moving into meetings") means a launch that needs video.
+    expansion = 4 if re.search(r"moving into|launch|new product", lead.get("what_they_do") or "", re.I) else 0
     rubric = {
         "b2b": 20 if parts["b2b"] == 15 else 10,
         "freshness": round(parts["freshness"] / 40 * 20),
         "buyer": round(parts["buyer"] / 25 * 20),
         "visual_product": min(20, fit + 1),
-        "video_need": min(20, fit + (2 if (lead.get("days_since_round") or 999) <= 60 else -2)),
+        "video_need": min(20, fit + expansion + (2 if (lead.get("days_since_round") or 999) <= 60 else -2)),
     }
     score = sum(rubric.values())
     c = lead.get("primary_contact")
@@ -238,7 +237,7 @@ def mock_email(lead: dict, note: str = "") -> dict:
     hook = q.get("launch_hook") or "your next launch"
     body = (
         f"Hi {first},\n\n"
-        f"Congrats on the ${amount}M {lead.get('round') or 'round'}. With {hook} coming, "
+        f"Congrats on the ${amount}M {lead.get('round') or 'round'}. With {hook} ahead, "
         f"I figured the {role} seat is about to need a lot of video, fast.\n\n"
         f"So we made one for {lead['company']} with Poolday, from your site alone, no brief:\n\n"
         f"[VIDEO THUMBNAIL]\n{lead.get('video_url') or '<VIDEO LINK>'}\n\n"

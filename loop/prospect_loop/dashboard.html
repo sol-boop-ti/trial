@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospect Loop</title>
+<style>
+:root {
+  --bg: #f6f6f3; --panel: #ffffff; --ink: #1c1c1a; --muted: #6b6b66; --line: #e3e2dc;
+  --accent: #3b5bdb; --accent-ink: #ffffff; --good: #2b8a3e; --warn: #b35c00; --bad: #c92a2a;
+  --chip: #efeee8; --code: #f3f2ec;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #151514; --panel: #1e1e1c; --ink: #ecebe6; --muted: #9a9993; --line: #33332f;
+    --accent: #7b93f5; --accent-ink: #10131f; --good: #69db7c; --warn: #ffa94d; --bad: #ff8787;
+    --chip: #2a2a27; --code: #262623; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+  border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 2; }
+header h1 { font-size: 16px; margin: 0; letter-spacing: -.01em; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--chip); color: var(--muted); }
+.spacer { flex: 1; }
+button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+  padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.good { background: var(--good); color: #fff; border-color: var(--good); }
+button.bad { color: var(--bad); border-color: var(--bad); background: transparent; }
+button:disabled { opacity: .5; cursor: default; }
+nav.tabs { display: flex; gap: 4px; padding: 10px 20px 0; flex-wrap: wrap; }
+nav.tabs button { border-radius: 6px 6px 0 0; border-bottom: none; font-size: 13px; }
+nav.tabs button.on { background: var(--panel); font-weight: 600; }
+nav.tabs .n { color: var(--muted); margin-left: 4px; }
+main { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 0;
+  border-top: 1px solid var(--line); min-height: calc(100vh - 100px); }
+#list { border-right: 1px solid var(--line); background: var(--panel); overflow-y: auto; }
+.row { padding: 10px 16px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; gap: 10px; align-items: center; }
+.row:hover { background: var(--chip); }
+.row.sel { background: var(--chip); box-shadow: inset 3px 0 0 var(--accent); }
+.score { font-variant-numeric: tabular-nums; font-weight: 700; min-width: 34px; text-align: center;
+  padding: 2px 0; border-radius: 5px; background: var(--chip); }
+.score.hi { color: var(--good); } .score.mid { color: var(--warn); } .score.lo { color: var(--muted); }
+.row .meta { color: var(--muted); font-size: 12px; }
+.status { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+#detail { padding: 20px 28px 60px; max-width: 920px; }
+.empty { color: var(--muted); padding: 40px; }
+h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.02em; }
+h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 24px 0 8px; }
+.facts { color: var(--muted); }
+.facts a { color: var(--accent); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.rubric { display: grid; grid-template-columns: 120px 1fr 32px; gap: 6px 10px; align-items: center; margin: 10px 0; }
+.bar { height: 6px; background: var(--chip); border-radius: 3px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+pre { background: var(--code); border: 1px solid var(--line); border-radius: 6px; padding: 12px;
+  white-space: pre-wrap; margin: 8px 0; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.ptabs { display: flex; gap: 6px; align-items: center; }
+.ptabs button { font-size: 12px; padding: 3px 10px; }
+.ptabs button.on { background: var(--chip); font-weight: 600; }
+input[type=text], input[type=url], textarea { width: 100%; font: inherit; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+textarea { min-height: 70px; resize: vertical; }
+textarea.body { min-height: 260px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.inline { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+.inline input { flex: 1; min-width: 200px; }
+.gate { border: 2px solid var(--accent); }
+.hint { color: var(--muted); font-size: 12px; }
+.log { font-size: 12px; color: var(--muted); }
+.log div { padding: 2px 0; }
+#toast { position: fixed; bottom: 20px; right: 20px; background: var(--ink); color: var(--bg);
+  padding: 10px 14px; border-radius: 6px; opacity: 0; transition: opacity .2s; max-width: 420px; }
+#toast.show { opacity: 1; }
+@media (max-width: 760px) {
+  main { grid-template-columns: 1fr; }
+  #list { max-height: 40vh; border-right: none; border-bottom: 1px solid var(--line); }
+  #detail { padding: 16px; }
+  header { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Prospect loop</h1>
+  <span class="badge" id="mode">…</span>
+  <span class="spacer"></span>
+  <button id="run">Find + qualify leads</button>
+  <button id="export" class="primary">Export approved drafts</button>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main>
+  <section id="list"></section>
+  <section id="detail"><div class="empty">Select a lead.</div></section>
+</main>
+<div id="toast"></div>
+
+<script>
+const VIEWS = [
+  ["qualified", "Awaiting video"], ["in_review", "Review"], ["approved", "Approved"],
+  ["exported", "Exported"], ["rejected", "Rejected"], ["disqualified", "Disqualified"], ["all", "All"],
+];
+let leads = [], view = "qualified", selected = null, promptTab = "command", meta = {};
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 3200); }
+
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : {method: "POST",
+    headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || r.statusText);
+  return data;
+}
+
+async function load() {
+  leads = await api("/api/leads");
+  renderTabs(); renderList();
+  if (selected) await select(selected, false);
+}
+
+function renderTabs() {
+  $("#tabs").innerHTML = VIEWS.map(([k, label]) => {
+    const n = k === "all" ? leads.length : leads.filter(l => l.status === k).length;
+    return `<button class="${k === view ? "on" : ""}" data-v="${k}">${label}<span class="n">${n}</span></button>`;
+  }).join("");
+  $("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => { view = b.dataset.v; renderTabs(); renderList(); });
+}
+
+function cls(s) { return s == null ? "lo" : s >= meta.threshold ? "hi" : s >= 55 ? "mid" : "lo"; }
+
+function renderList() {
+  const rows = leads.filter(l => view === "all" || l.status === view);
+  $("#list").innerHTML = rows.length ? rows.map(l => `
+    <div class="row ${l.id === selected ? "sel" : ""}" data-id="${l.id}">
+      <span class="score ${cls(l.score)}">${l.score ?? "–"}</span>
+      <div><div><b>${esc(l.company)}</b></div>
+        <div class="meta">${esc(l.round)} $${esc(l.round_amount_m)}M · ${l.days_since_round ?? "?"}d ago</div>
+        <div class="status">${esc(l.status.replace("_", " "))}${l.video_version > 1 ? " · v" + l.video_version : ""}</div></div>
+    </div>`).join("") : `<div class="empty">Nothing here.</div>`;
+  $("#list").querySelectorAll(".row").forEach(r => r.onclick = () => select(+r.dataset.id));
+}
+
+async function select(id, rerenderList = true) {
+  selected = id;
+  if (rerenderList) renderList();
+  const l = await api(`/api/leads/${id}`);
+  renderDetail(l);
+}
+
+function renderDetail(l) {
+  const q = l.qualification || {}, c = l.primary_contact, P = l.poolday_prompts || {};
+  if (!P[promptTab]) promptTab = P.revision && l.status === "qualified" ? "revision" : "command";
+  const rubric = q.rubric ? Object.entries(q.rubric).map(([k, v]) => `
+      <span>${k.replace("_", " ")}</span><div class="bar"><i style="width:${v * 5}%"></i></div><b>${v}</b>`).join("") : "";
+  const contacts = (l.contacts || []).map(x =>
+      `${esc(x.name)} · ${esc(x.title)}${x.linkedin ? ` · <a href="${esc(x.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>` : ""}`).join("<br>") || "No named contact";
+
+  let html = `
+    <h2>${esc(l.company)} <span class="score ${cls(l.score)}">${l.score ?? "–"}</span></h2>
+    <div class="facts"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.domain)}</a> ·
+      ${esc(l.round)} $${esc(l.round_amount_m)}M on ${esc(l.round_date)} (${l.days_since_round}d ago) ·
+      ${esc(l.hq)}<br>${esc(l.what_they_do)}<br>${contacts}</div>`;
+
+  if (q.score != null) html += `
+    <h3>Qualification <span class="hint">(${esc(l.qualified_by)}; keep ≥ ${meta.threshold}; pre-score ${l.prescore ?? "–"})</span></h3>
+    <div class="card"><div class="rubric">${rubric}</div>
+      <div>${esc(q.justification)}</div>
+      <div style="margin-top:8px"><b>Video angle:</b> ${esc(q.video_angle)}</div>
+      <div class="hint">For: ${esc(q.audience)} · Hook: ${esc(q.launch_hook)}</div></div>`;
+  else if (l.status === "disqualified") html += `<h3>Qualification</h3><div class="card">Cut by pre-score (${l.score}): not worth an LLM call.</div>`;
+
+  if (P.command) {
+    const tabs = [["command", "/prospect-video"], ["fallback", "Fallback kickoff"]].concat(P.revision ? [["revision", "Revision (v" + l.video_version + ")"]] : []);
+    html += `
+    <h3>1 · Poolday prompt</h3>
+    <div class="ptabs">${tabs.map(([k, n]) => `<button data-p="${k}" class="${k === promptTab ? "on" : ""}">${n}</button>`).join("")}
+      <span class="spacer"></span><button id="copy">Copy</button></div>
+    <pre id="prompt">${esc(P[promptTab])}</pre>
+    <div class="hint">Paste into Poolday (Align mode). No public API yet, so this step is manual.</div>`;
+  }
+
+  if (l.status === "qualified") html += `
+    <h3>2 · Paste the Poolday video link${l.video_version > 1 ? " (v" + l.video_version + ")" : ""}</h3>
+    <div class="inline"><input type="url" id="vurl" placeholder="https://…"><button class="primary" id="vsubmit">Send to review</button></div>`;
+
+  if (l.status === "in_review") html += `
+    <h3>3 · Human validation: is this video good to send?</h3>
+    <div class="card gate">
+      <div>Video v${l.video_version}: <a href="${esc(l.video_url)}" target="_blank" rel="noopener">${esc(l.video_url)}</a></div>
+      <textarea id="note" placeholder="Note. For regenerate, direct with mechanisms: 'hard cut at 0:04, hold logo 2 frames longer'."></textarea>
+      <div class="inline"><button class="good" id="approve">Approve + draft email</button>
+        <button id="regen">Regenerate with note</button><button class="bad" id="reject">Reject</button></div></div>`;
+
+  if (l.email) html += `
+    <h3>4 · Email draft <span class="hint">(${esc(l.email.drafted_by)}${l.email.edited ? ", edited" : ""})</span></h3>
+    <div class="hint">To: ${esc(c?.name)} · ${esc(c?.title)} (address not in the data: add it when sending)</div>
+    <input type="text" id="subj" value="${esc(l.email.subject)}" style="margin-top:6px">
+    <textarea class="body" id="ebody">${esc(l.email.body)}</textarea>
+    <div class="inline"><button class="primary" id="esave">Save edits</button><button id="redraft">Redraft</button>
+      <span class="hint">Then “Export approved drafts” writes .eml + CSV for sending.</span></div>`;
+
+  if (l.status === "rejected") html += `<h3>Rejected</h3><div class="card">${esc(l.reject_note || "No note.")}</div>`;
+
+  html += `<h3>History</h3><div class="log">${(l.events || []).map(e =>
+      `<div>${esc(e.ts.replace("T", " ").slice(0, 16))} · <b>${esc(e.action)}</b> ${esc(e.note || "")}</div>`).join("")}</div>`;
+  $("#detail").innerHTML = html;
+  bind(l);
+}
+
+function act(fn, msg) {
+  return async (ev) => {
+    const btn = ev.currentTarget; btn.disabled = true;
+    try { const l = await fn(); if (msg) toast(msg); await load(); if (l && l.id) renderDetail(l); }
+    catch (e) { toast("⚠ " + e.message); }
+    finally { btn.disabled = false; }
+  };
+}
+
+function bind(l) {
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  document.querySelectorAll(".ptabs button[data-p]").forEach(b => b.onclick = () => { promptTab = b.dataset.p; renderDetail(l); });
+  on("copy", async () => { await navigator.clipboard.writeText($("#prompt").textContent); toast("Prompt copied. Paste it into Poolday."); });
+  const note = () => (document.getElementById("note") || {}).value || "";
+  on("vsubmit", act(() => api(`/api/leads/${l.id}/video`, {url: $("#vurl").value}), "Video sent to review."));
+  on("approve", act(() => api(`/api/leads/${l.id}/approve`, {note: note()}), "Approved. Email drafted."));
+  on("reject", act(() => api(`/api/leads/${l.id}/reject`, {note: note()}), "Rejected."));
+  on("regen", act(() => { promptTab = "revision"; return api(`/api/leads/${l.id}/regenerate`, {note: note()}); },
+     "Revision prompt ready. Paste it into the same Poolday conversation."));
+  on("esave", act(() => api(`/api/leads/${l.id}/email`, {subject: $("#subj").value, body: $("#ebody").value}), "Email saved."));
+  on("redraft", act(() => api(`/api/leads/${l.id}/redraft`, {}), "Email redrafted."));
+}
+
+$("#run").onclick = act(async () => {
+  const r = await api("/api/run", {});
+  toast(`Added ${r.ingest.added} new · qualified ${r.qualify.qualified} · cut ${r.qualify.disqualified + r.qualify.prescore_cut}`);
+});
+$("#export").onclick = act(async () => {
+  const r = await api("/api/export", {});
+  toast(r.count ? `Exported ${r.count} draft(s) to ${r.csv}` : "No approved drafts to export.");
+});
+
+(async () => {
+  meta = await api("/api/meta");
+  $("#mode").textContent = meta.mode === "api" ? "LLM: API mode" : "LLM: mock mode";
+  await load();
+  const first = leads.find(l => l.status === view);
+  if (first) select(first.id);
+})();
+</script>
+</body>
+</html>

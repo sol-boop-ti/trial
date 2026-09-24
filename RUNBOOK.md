@@ -18,7 +18,7 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 | 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ⬜ |
 | 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ⬜ |
 | 0.7 | 🤖 | UGC angles, hooks, scripts, posting plan → `deliverables/D4-ugc-scripts.md` | no | ✅ done (review it) |
-| 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | 🟡 in progress |
+| 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | ✅ done, tests pass (mock mode) |
 | 0.9 | 🤖 | Write the growth idea in full (D5) → `deliverables/D5-growth-idea.md` | no | ✅ done (review it) |
 | 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy (D1) → `deliverables/D1-linkedin.md` | no | ✅ done (pick an angle) |
 | 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | ✅ kit ready, waiting on your chat outputs |

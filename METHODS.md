@@ -129,3 +129,38 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Every recommendation comes with an A/B test:** changes are judged against demos booked, not taste.
   - **"Instant value" criterion in the page review:** it ties D7 to the D5 growth idea.
 - **Lessons:** when the environment can't see the subject, make the reviewer cite visible evidence (a quoted element or a timestamp).
+
+## M10. Agent loop (D3)
+- **What:** a local pipeline: find leads → enrich → qualify → generate the Poolday prompt → a human pastes it into Poolday and pastes back the video link → human validation gate (approve / reject / regenerate with a note) → draft the email → export (.eml + CSV). The hiring manager sends the emails.
+- **Tools:** Claude Code sub-agent (built and tested it). Python 3.11 standard library (SQLite, http.server, email). The Anthropic Python SDK for API mode.
+- **Inputs:** `data/series-b-bay-area.csv`, `research/company-picks.md` (scoring criteria), `poolday/kickoff-prompts.md` + `ref-replicate-skill.md` (prompt style), `poolday/agent-guide-notes.md`.
+- **Process:**
+  1. Pluggable lead sources (the CSV, plus a funding-news stub) → dedupe by domain → drop Higgsfield.
+  2. Enrich: days since the round, the best buyer contact ranked by title, segment and geo flags.
+  3. Deterministic pre-score out of 100 (freshness 40, buyer 25, B2B 15, video fit 20). It cuts weak leads before any LLM call.
+  4. LLM rubric: 5 criteria × 20 points (B2B, freshness, named buyer, visual product, video need), returned as structured JSON with a justification, video angle, launch hook and audience. Keep ≥70.
+  5. Generate a 2-line `/prospect-video` prompt plus a fallback kickoff prompt (intent-level).
+  6. Dashboard: a copy button for the prompt, a field to paste the video link, approve / reject / regenerate-with-note. Regenerate turns the note into a revision prompt for the same Poolday conversation (v2, v3…).
+  7. On approval, an editable email draft → export as .eml + CSV. Every decision is recorded in an event log.
+- **Three LLM modes:**
+  - **Mock:** offline and deterministic, for demos.
+  - **API:** when `ANTHROPIC_API_KEY` is set.
+  - **Claude Code:** the `/process-leads` command has Claude Code do the LLM parts, so no key is needed.
+- **Verification:** `cd loop && make test` (5 end-to-end tests pass: the full loop, dedupe/exclusion, the Claude Code round trip, the feed stub, the dashboard over HTTP) and `make demo`. API request shape was checked against a local fake endpoint. Result on the CSV (mock scoring): 37 leads → 27 passed the pre-score → 5 kept at ≥70: Flam 99, TwelveLabs 83, Blacksmith 79, Wispr Flow 73, Convex 73. This matches the manual picks in M2.
+- **Decisions & why:**
+  - **Standard library only:** the demo runs anywhere with nothing to install.
+  - **Pre-score before the LLM:** saves calls, and the loop works without an LLM.
+  - **Regenerate = a revision in the same Poolday conversation:** follows the agent guide's rule on variants.
+  - **Exports are drafts only:** a human sends them.
+- **Lessons:**
+  - The first rubric scored Wispr Flow at 69 because it missed the "moving into meetings" expansion. Video need now counts product-expansion signals.
+  - Email copy must match the timeline: "post-raise launch push", not "announcement coming".
+  - Testing against a local fake endpoint caught request-shape bugs without spending anything.
+- **Limitations:**
+  - The Poolday step is manual (no public API).
+  - The CSV has no email addresses, so `To:` is blank.
+  - The funding-news source needs a domain resolver.
+  - The mock redraft doesn't apply the reviewer's note.
+  - Gmail drafts are a stub.
+  - The dashboard is local and single-user.
+- **Time/credits:** ~1h build, $0 in Poolday credits, $0 API spend.
