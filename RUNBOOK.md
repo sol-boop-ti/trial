@@ -159,3 +159,18 @@ When the first prospect video is final:
 | UGC (4–19 videos) | 500 |
 | Agent-loop test videos | 300 |
 | Reserve | 200 |
+
+---
+
+## POOLDAY SESSION 1 (live): setup + 5 parallel conversations
+Observed in the app: sidebar Assets / Capabilities / Automations / Apps; composer with `+` (attach), `Auto`, `@`, `</>`, a tier selector (shows **Core**) and a mode selector (shows **Clarify** → switch to **Align**). The account shows "…team · Ent…" (Enterprise? The brand kit says Enterprise includes **API access**).
+
+| # | Conversation | Tier | Mode | Goal |
+|---|---|---|---|---|
+| S0 | none | none | none | Enable notifications. Find the credit balance + API keys (account menu bottom-left, Capabilities) → screenshot to Claude Code |
+| S1 | "Setup: skills" | lowest | Align | Save motion-craft + ref-teaser as skills |
+| S2 | "Brand kit: Wispr Flow" | high | Align | brand:wisprflow |
+| S3 | "Brand kit: Flam" | high | Align | brand:flam + what Flam actually does today |
+| S4 | "UGC: actors" | lowest | Align | 30 actor photos → pick |
+| S5 | "Brand kit: Poolday" | mid | Align | brand:poolday (for LinkedIn/growth videos; compare with the Claude-made kit) |
+Then: prospect videos inside S2/S3 once the kits are done (the v2 kickoff in `poolday/kickoff-prompts.md`).
