@@ -345,3 +345,18 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Growth mockups:** re-skinned from the invented v1 identity to Poolday's kit. The user's asks are reconciled with the brand rules: the "Poolday AI does it for you" button is the one cta pill in view with a halftone shimmer (no neon glow); the progress bar is a thin ink line; colour lives only inside the media ("the videos are the colour").
   - **D7 page rebuilds started:** before (reconstruction) / after for home, b2b-startups and pricing, in the kit. Annotated side-by-sides plus a ranked change list with an A/B test per change.
   - Rules carried over from the critique: never alter factual claims, limit the slogan pattern, mark unverified numbers.
+
+## M23. Page rebuilds, before/after (D7)
+- **What:** before (reconstruction) / after (proposed) of home, /solutions/b2b-startups and /pricing in Poolday's brand kit. Annotated side-by-side comparisons (full page + first screen) and a ranked review with an A/B test per change (primary metric: completed demo bookings per visitor, plus a guardrail).
+- **Tools:** static HTML on the kit's `tokens.css` + `components/bundle.css`; the kit's Halftone algorithm redone without React; Node build + render scripts; Playwright + Chromium, fully offline. Rebuild: `cd deliverables/D7-pages && node src/build.js && NODE_PATH=/opt/node22/lib/node_modules PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node src/render.js`.
+- **Top changes:**
+  - **Pricing** (the biggest lever): price per finished video in the lede ("Pay for finished videos, not seats."); the $600 first month named as a pilot band ("Month-to-month, no lock-in."); credits translated into videos per month; a persona line per plan; honest top-up wording; a qualitative comparison vs agency / freelancer / in-house; a security strip; logos; an FAQ.
+  - **Home:** price facts under the hero CTA; "Watch a 2-min build" as the one secondary link; a demo CTA right after the video grid; "superintelligence" defined; investors split from customers.
+  - **B2B:** H1 "Every feature you ship, on video."; a "Paste your URL" free launch-video field (the D5 growth idea as an entry point); use cases retitled from input to output, with recipe chips.
+- **Decisions & why:**
+  - Every Poolday fact kept word for word.
+  - One secondary action per page.
+  - The slogan pattern used twice in total.
+  - No invented costs in the comparison.
+  - Two made-up metrics that crept into placeholder tiles were caught and removed. Lesson: check placeholder art as strictly as headlines.
+- **Unverified:** "~$5–25 per video" on the live site; Enterprise credits = plan price; the credits included in the $600 month; whether security docs exist; the details of every BEFORE layout. Screenshots of the live pages would make the befores exact.

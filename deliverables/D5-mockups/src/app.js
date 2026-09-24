@@ -14,7 +14,7 @@ const SCRIPT = Q.get("script") || "launch";
 if (DEMO && !Q.has("nocursor")) document.documentElement.classList.add("demo");
 
 // ---------------------------------------------------------------- steps + labels
-const STEP = { "s-link": [1, "Product & link"], "s-rec": [2, "Screen recording"], "s-kit": [3, "Brand kit"], "s-style": [4, "Style"], "s-gen": [5, "Generating"], "s-res": [6, "Your video"], "s-pod": [2, "Clip style"] };
+const STEP = { "s-link": [1, "Product and link"], "s-rec": [2, "Screen recording"], "s-kit": [3, "Brand kit"], "s-style": [4, "Style"], "s-gen": [5, "Making the video"], "s-res": [6, "Your video"], "s-pod": [2, "Clip style"] };
 
 // ---------------------------------------------------------------- event model
 let EV = [];                      // {t, type, ...}
@@ -48,19 +48,19 @@ function scriptLaunch(product = "launch", url = "northwind.ai") {
   push({ t: 6.75, type: "go", to: "s-kit" });
   click(8.55, "#kit-ai", 14, { type: "choose", q: "kit", v: "ai" });
   push({ t: 9.5, type: "go", to: "s-style" });
-  click(12.15, '.card[data-i="0"]', 6, { type: "select", i: 0 });
+  click(12.15, '.tile[data-i="0"]', 6, { type: "select", i: 0 });
   click(13.2, "#go4", 8, { type: "go", to: "s-gen" });
   push({ t: 13.5, type: "gen" });
   push({ t: 13.5 + GEN_DUR + 0.05, type: "go", to: "s-res" });
   click(30.9, "#book", 0, { type: "book" });
   DUR = 33;
   CURSOR = [[0, [1080, 760]], [0.45, [1080, 760]], [0.98, `.tab[data-tab=${product}]`], [1.2, `.tab[data-tab=${product}]`], [1.5, ["#input", -170, 2]],
-    [2.45, ["#input", -150, 4]], [2.9, "#go1"], [3.2, "#go1"], [3.7, ["#rec-up", 40, 30]], [4.35, ["#rec-up", 10, 10]], [4.6, ["#rec-up", 0, 0]],
-    [5.15, ["#rec-ai", -40, 60]], [5.45, ["#rec-ai", 30, 70]], [5.78, ["#rec-ai", 36, 72]], [6.3, ["#rec-ai", 44, 80]],
-    [7.2, ["#kit-ai", 160, 190]], [7.95, ["#kit-ai", 20, 60]], [8.52, ["#kit-ai", 30, 64]], [9.1, ["#kit-ai", 40, 70]],
-    [10.0, [900, 700]], [10.8, ['.card[data-i="0"] .pv', 60, 40]], [11.6, ['.card[data-i="0"] .pv', 80, 34]], [12.12, ['.card[data-i="0"] .pv', 84, 30]],
-    [12.5, ['.card[data-i="0"] .pv', 90, 34]], [13.05, "#go4"], [13.4, "#go4"],
-    [27.6, [1010, 560]], [28.3, [1010, 560]], [29.6, ["#book", 30, 4]], [30.85, ["#book", 34, 3]], [33, ["#book", 36, 4]]];
+    [2.45, ["#input", -150, 4]], [2.9, "#go1"], [3.2, "#go1"], [3.7, ["#rec-up", 120, 40]], [4.35, ["#rec-up", 30, 10]], [4.6, ["#rec-up", 20, 6]],
+    [5.15, ["#rec-ai", -60, 4]], [5.45, ["#rec-ai", 10, 6]], [5.78, ["#rec-ai", 14, 5]], [6.3, ["#rec-ai", 20, 8]],
+    [7.2, ["#kit-ai", 180, 120]], [7.95, ["#kit-ai", 0, 6]], [8.52, ["#kit-ai", 6, 5]], [9.1, ["#kit-ai", 12, 8]],
+    [10.0, [900, 700]], [10.8, ['.tile[data-i="0"] .pv', 60, 40]], [11.6, ['.tile[data-i="0"] .pv', 80, 34]], [12.12, ['.tile[data-i="0"] .pv', 84, 30]],
+    [12.5, ['.tile[data-i="0"] .pv', 90, 34]], [13.05, "#go4"], [13.4, "#go4"],
+    [27.6, [1010, 560]], [28.3, [1010, 560]], [29.6, ["#book", 40, 4]], [30.85, ["#book", 44, 3]], [33, ["#book", 46, 4]]];
   HIDE_CURSOR = [[13.45, 27.75]];
 }
 function scriptPodcast() {
@@ -107,24 +107,51 @@ function pressAmt(t, sel) { const e = last(t, "press", e => e.sel === sel); if (
 
 // ---------------------------------------------------------------- progress bar
 function progressAt(t) {
-  let p = 0, glow = 0, sheenT = null;
-  for (const e of all(t, "fill")) { const tau = fr(t, e.t); p += e.instant ? e.d : e.d * expo(tau, 0.82);
-    const u = t - e.t; const g = (u < 0.06 ? u / 0.06 : Math.exp(-(u - 0.06) / 0.5)) * Math.min(1, e.d / 8); glow = Math.max(glow, g); if (!e.instant) sheenT = e.t; }
+  let p = 0, prevP = 0, trail = 0;
+  for (const e of all(t, "fill")) { const tau = fr(t, e.t); const k = e.instant ? 1 : expo(tau, 0.8); prevP = p; p += e.d * k;
+    if (!e.instant) { const u = t - e.t; trail = u < 0.9 ? 1 - out3(seg(u, 0.25, 0.9)) : 0; LASTFILL = { from: prevP, to: p, a: trail }; } }
   const gs = last(t, "gen"); if (gs) { const u = t - gs.t; p += 42 * genP(u);
-    for (const [, , b] of GEN) { const v = u - b; if (v >= 0 && v < 1.2) glow = Math.max(glow, (v < 0.06 ? v / 0.06 : Math.exp(-(v - 0.06) / 0.45)) * 0.7); if (v >= 0 && v < 0.6) sheenT = gs.t + b; } }
-  return { p: Math.min(100, p), glow, sheenT };
+    for (const [, , b] of GEN) { const v = u - b; if (v >= 0 && v < 0.7) { const pw = 42 * genP(u), p0 = p - pw + 42 * genP(b - 0.35); LASTFILL = { from: Math.max(0, p0), to: p, a: 1 - out3(seg(v, 0.1, 0.7)) }; } } }
+  return Math.min(100, p);
 }
+let LASTFILL = { from: 0, to: 0, a: 0 };
 function genP(u) { return clamp(u / (GEN_DUR - 0.1)); }
 function drawProgress(t, scr) {
-  const { p, glow, sheenT } = progressAt(t), W = 232; // track width px (computed below)
-  const tw = $("#track").getBoundingClientRect().width || W;
-  $("#fill").style.width = p + "%"; $("#head").style.left = p + "%"; $("#bloom").style.left = p + "%";
-  $("#head").style.opacity = p > 0.3 ? 1 : 0; $("#track").style.setProperty("--glow", glow.toFixed(3));
-  if (sheenT != null) { const u = t - sheenT; const fillW = tw * p / 100; $("#sheen").style.transform = `translateX(${out3(seg(u, 0, 0.6)) * (fillW + 60)}px)`; $("#sheen").style.opacity = 1 - seg(u, 0.45, 0.7); } else $("#sheen").style.opacity = 0;
+  LASTFILL = { from: 0, to: 0, a: 0 };
+  const p = progressAt(t);
+  $("#fill").style.width = p + "%";
+  // The newest segment arrives white and cools to ink over ~20 frames (a colour trail, motion manual section 2).
+  const tr = $("#trail"); tr.style.left = LASTFILL.from + "%"; tr.style.width = Math.max(0, Math.min(p, LASTFILL.to) - LASTFILL.from) + "%"; tr.style.opacity = LASTFILL.a;
   const [n, lbl] = STEP[scr]; const tot = scr === "s-pod" ? 4 : 6; $("#progN").innerHTML = `<b>0${n}</b> / 0${tot}`; $("#progL").textContent = lbl;
 }
 
-// ---------------------------------------------------------------- screen transitions + entrances
+// ---------------------------------------------------------------- halftone (Poolday's signature field; logic from the kit's Halftone component)
+function halftone(cv, o) {
+  const dpr = window.devicePixelRatio || 1, w = cv.offsetWidth, h = cv.offsetHeight; if (!w || !h) return;
+  if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+  if (o.bg) { ctx.fillStyle = o.bg; ctx.fillRect(0, 0, w, h); }
+  const lo = o.lo || [16, 16, 18], hi = o.hi || [45, 45, 50], rx = o.rx, ry = o.ry, cx = o.cx, cy = o.cy, R = o.ripple;
+  const step = o.step || 4, row = o.row || 8;
+  for (let y = (o.y0 || 0); y < h; y += row) for (let x = 0; x < w; x += step) {
+    const dx = (x - cx) / rx, dy = (y - cy) / ry; let k = 1 - Math.sqrt(dx * dx + dy * dy);
+    let bump = 0; if (R && R.amp > 0) { const d = Math.hypot((x - R.x) / (R.sx || 1), y - R.y); bump = R.amp * Math.exp(-Math.pow((d - R.r) / (R.w || 36), 2)); }
+    if (k <= 0 && bump < 0.02) continue; k = Math.max(0, k); k = k * k * (3 - 2 * k); k = Math.min(1, k * (o.gain || 1) + bump);
+    ctx.fillStyle = `rgb(${Math.round(lo[0] + (hi[0] - lo[0]) * k)},${Math.round(lo[1] + (hi[1] - lo[1]) * k)},${Math.round(lo[2] + (hi[2] - lo[2]) * k)})`;
+    const dh = 1 + 2 * k; ctx.fillRect(x, y - dh / 2, 1.5 + 0.5 * k, dh);
+  }
+}
+const HT = { "s-link": [0.5, 0.44, 600, 390], "s-rec": [0.5, 0.5, 560, 330], "s-kit": [0.5, 0.5, 560, 330], "s-style": [0.5, 0.25, 620, 170], "s-pod": [0.5, 0.2, 620, 150],
+  "s-gen": [0.16, 0.34, 360, 300], "s-res": [0.83, 0.74, 340, 250] };
+function drawField(t, cur, te, prev) {
+  const cv = $("#ht"), W = cv.offsetWidth, Hh = cv.offsetHeight; const a = HT[prev] || HT[cur], b = HT[cur], k = prev ? out3(seg(t - te, 0, 0.9)) : 1;
+  const P = a.map((v, i) => lerp(v, b[i], k));
+  let ripple = null; const ch = last(t, "choose");
+  if (ch && t - ch.t < 1.6) { const v = t - ch.t, r0 = rectOf("#" + ch.q + "-ai"); ripple = { x: r0.cx, y: r0.cy, r: 40 + 620 * out3(v / 1.6), amp: 0.9 * (1 - seg(v, 0.2, 1.6)), w: 42, sx: 1.5 }; }
+  const bk = last(t, "press", e => e.sel === "#book"); if (bk && t - bk.t < 1.4) { const v = t - bk.t, r0 = rectOf("#book"); ripple = { x: r0.cx, y: r0.cy, r: 30 + 420 * out3(v / 1.4), amp: 0.8 * (1 - seg(v, 0.2, 1.4)), w: 36, sx: 1.4 }; }
+  halftone(cv, { cx: W * P[0] + Math.sin(t / 4) * 24, cy: Hh * P[1], rx: P[2], ry: P[3], ripple });
+}
+
 function splitWords() { $$("[data-words]").forEach(h => { h.querySelectorAll("span").forEach(s => { s.innerHTML = s.textContent.split(" ").map(w => `<span class="w">${w}</span>`).join(" "); }); }); }
 function drawScreens(t) {
   const { cur, te, prev } = screenAt(t), u = t - te;
@@ -140,7 +167,7 @@ function drawScreens(t) {
   $$(".w", scr).forEach((w, i) => { const tau = fr(t, base + i * 3 / 30); w.style.transform = `translateY(${(1 - expo(tau)) * 30}px)`; w.style.opacity = ink(tau, 0.55); });
   const nw = $$(".w", scr).length;
   $$("[data-in]", scr).forEach(el => { const k = +el.dataset.in; const tau = fr(t, base + (nw ? nw * 2 / 30 : 0) + k * 3 / 30);
-    el.style.transform = (el.dataset.baseT || "") + ` translateY(${(1 - expo(tau, 0.8)) * 26}px)`; el.style.opacity = ink(tau, 0.42); });
+    const tr = ` translateY(${(1 - expo(tau, 0.8)) * 26}px)`; el.dataset.inT = tr; if (!el.hasAttribute("data-ai")) el.style.transform = tr; el.style.opacity = ink(tau, 0.42); });
   return { cur, te };
 }
 
@@ -163,7 +190,7 @@ function drawLink(t) {
   if (ty) { const n = Math.floor((t - ty.t) / ty.per) + 1; v = ty.text.slice(0, clamp(n, 0, ty.text.length)); typing = n <= ty.text.length; }
   const inp = $("#input"), ph = $("#ph");
   ph.textContent = v || P.ph; ph.className = v ? "typed" : "ph";
-  $("#field").classList.toggle("focus", focus); $("#field").classList.toggle("has-fav", !!v && !typing && prod !== "podcast");
+  $("#field").classList.toggle("focus", focus); $("#field").classList.toggle("has-fav", !!v && !typing && prod === "launch");
   const blink = typing || (Math.floor(t / 0.53) % 2 === 0); $("#caret").style.opacity = focus && blink ? 1 : 0;
   $("#caret").style.order = v ? 2 : 0;
   if (ty && !typing) { const tau = fr(t, ty.t + ty.text.length * ty.per); $(".field .fav").style.transform = `scale(${0.6 + 0.4 * spring(tau, 0.45, 0.3)})`; }
@@ -175,50 +202,43 @@ function drawLink(t) {
 }
 
 // ---------------------------------------------------------------- S2/S3: the AI option
-const ANG = new Map();
+const DRIFT = new Map();
 function drawAI(t, el, q, te) {
   const h = H.get(el) ?? 0, p = pressAmt(t, "#" + el.id), ch = last(t, "choose", e => e.q === q);
   const dt = lastT == null ? 0 : clamp(t - lastT, 0, 0.1);
-  const a = (ANG.get(el) ?? 200) + dt * (38 + 150 * h + (ch ? 260 * Math.exp(-(t - ch.t) / 0.5) : 0)); ANG.set(el, a);
-  el.style.setProperty("--ai-a", (a % 360).toFixed(1) + "deg");
-  el.style.setProperty("--p", p.toFixed(3));
-  // Shimmer: one sweep every 2.6 s at rest; on hover a quicker sweep starts right away.
-  const body = $(".body", el), bw = body.offsetWidth || 520, u = t - te;
-  const period = 2.6 - 1.2 * h, ph = ((u + 1.8) % period) / period;
-  $(".shim", el).style.left = lerp(-200, bw + 60, inOut3(clamp(ph * 1.6))) + "px";
-  const au = $(".aur", el); au.style.left = (260 + Math.sin(t * 0.7) * 60) + "px"; au.style.top = (-60 + Math.cos(t * 0.5) * 30) + "px";
-  $(".orb svg", el).style.transform = `rotate(${Math.sin(t * 1.2) * 6 + h * 18}deg) scale(${1 + h * 0.08 + Math.sin(t * 2.4) * 0.02})`;
-  // Press flash, then burst + sparks + confirmed state.
-  const fl = $(".flash", el); if (ch) { const v = t - ch.t; fl.style.opacity = v < 0.05 ? v / 0.05 : Math.exp(-(v - 0.05) / 0.25); } else fl.style.opacity = p * 0.5;
-  const bu = $(".burst", el);
-  if (ch) { const v = t - ch.t, k = out3(seg(v, 0, 0.7)); bu.style.opacity = (1 - k) * (v < 0.7 ? 1 : 0); bu.style.transform = `scale(${1 + 0.1 * k}, ${1 + 0.22 * k})`;
-    const dn = $(".done", el), cont = [$(".top", el), $("h3", el), $("p", el), $(".steps3, .kitdots", el), $(".cta", el)].filter(Boolean);
-    const dk = ink(fr(v, 0.12), 0.35); dn.style.opacity = dk; cont.forEach(c => { c.style.opacity = 1 - dk; c.style.filter = dk > 0.02 && dk < 0.98 ? `blur(${dk * 4}px)` : ""; });
-    $(".ok", dn).style.transform = `scale(${0.4 + 0.6 * spring(fr(v, 0.1), 0.42, 0.28)})`;
-    sparks(el, v);
-  } else { bu.style.opacity = 0; $(".done", el).style.opacity = 0; sparks(el, -1); }
-}
-function sparks(el, v) {
-  if (!el._sp) { el._sp = []; for (let i = 0; i < 14; i++) { const s = document.createElement("i"); s.className = "spark"; el.appendChild(s); el._sp.push(s); } }
-  el._sp.forEach((s, i) => { if (v < 0 || v > 0.9) { s.style.opacity = 0; return; }
-    const ang = (i / 14) * Math.PI * 2 + rnd(i) * 0.4, dist = (170 + rnd(i + 3) * 120) * expo(fr(v, 0), 0.84), w = el.offsetWidth / 2, hgt = el.offsetHeight / 2;
-    s.style.transform = `translate(${Math.cos(ang) * dist * (w / 150)}px, ${Math.sin(ang) * dist * (hgt / 150) * 0.9}px) scale(${1 - v})`; s.style.opacity = (1 - seg(v, 0.35, 0.9)); });
+  // Halftone shimmer inside the pill: a dot field drifts through it; hover speeds it up; the click sends a ripple.
+  const x = (DRIFT.get(el) ?? 0) + dt * (70 + 190 * h); DRIFT.set(el, x);
+  const cv = $("canvas", el), W = el.offsetWidth || 480, Hh = el.offsetHeight || 72, span = W + 360;
+  const cx = ((x + 60) % span) - 180;
+  let ripple = null; if (ch) { const v = t - ch.t; ripple = { x: W * 0.12, y: Hh / 2, r: 10 + (W + 60) * out3(v / 0.8), amp: 1.4 * (1 - seg(v, 0.1, 0.8)), w: 22 }; }
+  halftone(cv, { bg: null, cx, cy: Hh / 2, rx: 190 + 60 * h, ry: 60, lo: [242, 242, 242], hi: [196, 196, 202], ripple, step: 4, row: 6, y0: 3, gain: 1 });
+  // Crisp press (3-frame dip), then a springy release with a tiny overshoot.
+  let sc = 1 - 0.045 * p; if (ch) { const v = fr(t, ch.t + 0.12); if (v > 0) sc = 1 + (1 - spring(v, 0.5, 0.28)) * -0.045 + 0.0; }
+  el.style.setProperty("--p", 0); el.style.transform = `${el.dataset.inT || ""} scale(${sc + h * 0.01})`;
+  $(".ic", el).style.transform = `rotate(${Math.sin(t * 1.4) * 5 + h * 14}deg)`;
+  $(".ar", el).style.transform = `translateX(${h * 4 + (ch ? 0 : 0)}px)`;
+  const lbl = $(".lbl", el), ok = $(".ok", el);
+  if (ch) { const v = fr(t, ch.t + 0.1); lbl.style.opacity = 1 - ink(v, 0.55); lbl.style.transform = `translateY(${-expo(v, 0.78) * 14}px)`;
+    ok.style.opacity = ink(fr(t, ch.t + 0.2), 0.5); ok.style.transform = `translateY(${(1 - expo(fr(t, ch.t + 0.2), 0.78)) * 14}px)`;
+  } else { lbl.style.opacity = 1; lbl.style.transform = ""; ok.style.opacity = 0; }
 }
 function drawAsk(t, scr, te) {
   const q = scr === "s-rec" ? "rec" : "kit", ai = $(`#${q}-ai`), up = $(`#${q}-up`);
   drawAI(t, ai, q, te);
-  const ch = last(t, "choose", e => e.q === q); up.style.opacity = ch ? 1 - 0.5 * out3(seg(t, ch.t, ch.t + 0.4)) : "";
-  // kit shimmer dots
-  if (q === "kit") $$(".kitdots i", ai).forEach((d, i) => d.style.backgroundPosition = `${150 - ((t * 0.8 + i * 0.12) % 1) * 250}% 0`);
+  const hu = H.get(up) ?? 0, ch = last(t, "choose", e => e.q === q);
+  halftone($("canvas", up), { cx: up.offsetWidth / 2 + Math.sin(t / 3) * 30, cy: up.offsetHeight / 2, rx: 260, ry: 90, lo: [20, 20, 20], hi: [36 + 14 * hu, 36 + 14 * hu, 40 + 14 * hu], step: 4, row: 8, y0: 4 });
+  up.style.opacity = ch ? 1 - 0.55 * out3(seg(t, ch.t, ch.t + 0.4)) : "";
 }
 
 // ---------------------------------------------------------------- S4: styles (launch)
 const PV = []; // iframe windows
 function drawStyle(t, te) {
   const sel = last(t, "select");
-  $$(".card", $("#grid3")).forEach((c, i) => { const on = sel && sel.i === i; c.classList.toggle("on", on);
-    const ck = $(".check", c); if (on) { const tau = fr(t, sel.t); ck.style.opacity = ink(tau, 0.7); ck.style.transform = `scale(${0.5 + 0.5 * spring(tau, 0.45, 0.3)})`; } else ck.style.opacity = 0;
-    c.style.transform = `translateY(${(c.style.getPropertyValue("--h") || 0) * -3 - pressAmt(t, `.card[data-i="${i}"]`) * -2}px) ${c.dataset.inT || ""}`; });
+  $$(".tile", $("#grid3")).forEach((c, i) => { const on = sel && sel.i === i; const ck = $(".sel", c);
+    if (sel) { const tau = fr(t, sel.t); ck.style.opacity = on ? ink(tau, 0.7) : 0; ck.classList.toggle("on", on); ck.style.transform = on ? `scale(${0.7 + 0.3 * spring(tau, 0.45, 0.3)})` : "";
+      const dk = on ? 0 : out3(seg(t, sel.t, sel.t + 0.4)); $("iframe", c).style.filter = dk ? `brightness(${1 - 0.6 * dk}) saturate(${1 - 0.5 * dk})` : ""; } else { ck.style.opacity = 0; $("iframe", c).style.filter = ""; }
+    const h = H.get(c) ?? 0, pr = pressAmt(t, `.tile[data-i="${i}"]`);
+    $(".pv", c).style.transform = `scale(${1 + h * 0.012 - pr * 0.02})`; });
   $("#go4").style.setProperty("--p", pressAmt(t, "#go4"));
   seekPreviews(t - te, $$("#grid3 iframe"));
 }
@@ -230,53 +250,52 @@ function seekPreviews(u, frames) {
 }
 
 // ---------------------------------------------------------------- S4b: podcast clip styles (guest photo slot)
+// Podcast clip styles, aligned with D5-growth-idea.md. Each tile shows a guest photo slot (assets/guest.jpg).
 const POD = [
-  { k: "hz", name: "Hormozi", tag: "Popular", desc: "Bold caps, colour pops, punch-ins", bg: "radial-gradient(90% 60% at 50% 25%, #3a3632, #141312 70%)", beats: [["MOST", ""], ["FOUNDERS", ""], ["NEVER", "y"], ["SHIP.", "g"]] },
-  { k: "doac", name: "Diary of a CEO", desc: "Outlined words, two cameras", bg: "radial-gradient(70% 50% at 80% 30%, #3b0c0a, #0a0606 60%, #050303)", beats: [["WHY", "host"], ["DID IT", "host"], ["TAKE TEN", ""], ["YEARS?", ""]] },
-  { k: "mb", name: "MrBeast", desc: "Comic type, blue active word", bg: "linear-gradient(180deg, #1c3f8a, #0b1633)", beats: [["WE", ""], ["SPENT", ""], ["$10,000", "b"], ["ON ONE", ""], ["VIDEO", "b"]] },
-  { k: "ali", name: "Ali Abdaal", desc: "Muted grade, handwritten notes", bg: "linear-gradient(180deg, #d8c9b3, #a99479)", beats: [["the 3-step system", ""]] },
-  { k: "iman", name: "Iman Gadzhi", desc: "Dark luxury, fast zooms", bg: "radial-gradient(80% 60% at 50% 20%, #26211b, #0a0907 70%)", beats: [["DISCIPLINE", ""], ["IS", ""], ["FREEDOM", "i"]] },
+  { k: "hz", name: "Hormozi", desc: "1 to 3 word caps, colour pops", recipe: "Episode to bold-caption clips", bg: "radial-gradient(90% 60% at 50% 25%, #3a3632, #141312 70%)", beats: [["MOST", ""], ["FOUNDERS", ""], ["NEVER", "y"], ["SHIP.", "g"]] },
+  { k: "doac", name: "Diary of a CEO", desc: "Outlined words, two cameras", recipe: "Two cameras to one cut", bg: "radial-gradient(70% 50% at 80% 30%, #3b0c0a, #0a0606 60%, #050303)", beats: [["WHY", "host"], ["DID IT", "host"], ["TAKE TEN", ""], ["YEARS?", ""]] },
+  { k: "mb", name: "MrBeast", desc: "Comic type, blue active word", recipe: "Episode + sound effects", bg: "linear-gradient(180deg, #1c3f8a, #0b1633)", beats: [["WE", ""], ["SPENT", ""], ["$10,000", "b"], ["ON ONE", ""], ["VIDEO", "b"]] },
+  { k: "ali", name: "Ali Abdaal", desc: "Muted grade, handwritten notes", recipe: "Episode + one colour pop", bg: "linear-gradient(180deg, #d8c9b3, #a99479)", beats: [["the 3-step", ""]] },
+  { k: "iman", name: "Iman Gadzhi", desc: "Dark luxury grade, fast zooms", recipe: "Episode to premium shorts", bg: "radial-gradient(80% 60% at 50% 20%, #26211b, #0a0907 70%)", beats: [["DISCIPLINE", ""], ["IS", ""], ["FREEDOM", "i"]] },
 ];
 function buildPod() {
-  $("#grid5").innerHTML = POD.map((s, i) => `<div class="card pod" data-in="${i + 2}">
-    <span class="check" style="top:18px;right:18px;width:22px;height:22px"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+  $("#grid5").innerHTML = POD.map((s, i) => `<div class="tile pod" data-in="${i + 2}">
     <div class="pv pod-${s.k}" style="background:${s.bg}"><div class="portrait" data-slot="guest"><img class="ph" src="assets/person.svg" alt=""><img class="photo" src="assets/guest.jpg" alt="" onerror="this.remove()"></div>
-      <div class="cap"></div><div class="segs"><i><b></b></i></div></div>
-    <div class="meta3"><div><h3>${s.name}${s.tag ? ` <span class="pop">${s.tag}</span>` : ""}</h3><p>${s.desc}</p></div></div></div>`).join("");
+      <div class="cap2"></div><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"><i><b></b></i></div></div>
+    <div class="under"><b>${s.name}</b></div><div class="recipe-c">${s.desc}</div></div>`).join("");
   const st = document.createElement("style"); st.textContent = `
-    .pod .cap { font-weight: 900; }
-    .pod-hz .cap { top: 58%; font-family: "Montserrat"; font-size: 30px; line-height: 1; text-transform: uppercase; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; text-shadow: 0 5px 0 rgba(0,0,0,.9); }
+    .pod .cap2 { font-weight: 900; }
+    .pod-hz .cap2 { top: 58%; font-family: "Montserrat"; font-size: 31px; line-height: 1; text-transform: uppercase; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; text-shadow: 0 5px 0 rgba(0,0,0,.9); }
     .pod-hz .y { color: #ffe02e; } .pod-hz .g { color: #3cff6a; }
-    .pod-doac .cap { top: 60%; font-family: "Montserrat"; font-size: 26px; line-height: 1.02; text-transform: uppercase; color: #fff; -webkit-text-stroke: 8px #000; paint-order: stroke fill; }
+    .pod-doac .cap2 { top: 60%; font-family: "Montserrat"; font-size: 27px; line-height: 1.02; text-transform: uppercase; color: #fff; -webkit-text-stroke: 8px #000; paint-order: stroke fill; }
     .pod-doac .host { color: #ffd400; } .pod-doac .bars { position: absolute; left: 0; right: 0; height: 22px; background: #000; z-index: 1; }
-    .pod-mb .cap { top: 56%; font-family: "Bangers"; font-weight: 400; font-size: 40px; letter-spacing: .02em; line-height: 1; color: #fff; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 3px 4px 0 #000; }
+    .pod-mb .cap2 { top: 56%; font-family: "Bangers"; font-weight: 400; font-size: 42px; letter-spacing: .02em; line-height: 1; color: #fff; -webkit-text-stroke: 6px #000; paint-order: stroke fill; text-shadow: 3px 4px 0 #000; }
     .pod-mb .b { color: #33b4ff; }
     .pod-ali .portrait { filter: grayscale(.75) contrast(1.02) brightness(1.05); }
-    .pod-ali .cap { top: 30%; left: 14px; right: auto; text-align: left; font-family: "Caveat"; font-weight: 700; font-size: 30px; line-height: .95; color: #1c1a17; }
-    .pod-ali .cap mark { background: none; color: #e0402a; }
-    .pod-ali .cap svg { display: block; margin: 4px 0 0 30px; }
+    .pod-ali .cap2 { top: 9%; left: 14px; right: auto; text-align: left; font-family: "Caveat"; font-weight: 700; font-size: 31px; line-height: .95; color: #1c1a17; }
+    .pod-ali .cap2 mark { background: none; color: #e0402a; }
+    .pod-ali .cap2 svg { display: block; margin: 4px 0 0 30px; }
     .pod-iman .portrait { filter: contrast(1.1) brightness(.85) saturate(.8); }
-    .pod-iman .cap { top: 64%; font-family: "Instrument Serif"; font-weight: 400; font-size: 30px; letter-spacing: .18em; color: #efe6d6; text-shadow: 0 2px 20px rgba(0,0,0,.7); }
-    .pod-iman .cap i { font-style: italic; letter-spacing: .04em; color: #d9b77a; }
+    .pod-iman .cap2 { top: 64%; font-family: "Instrument Serif"; font-weight: 400; font-size: 30px; letter-spacing: .18em; color: #efe6d6; text-shadow: 0 2px 20px rgba(0,0,0,.7); }
+    .pod-iman .cap2 i { font-style: italic; letter-spacing: .04em; color: #d9b77a; }
     .pod .pv::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 70% at 50% 40%, transparent 55%, rgba(0,0,0,.45)); pointer-events: none; z-index: 1; }`;
   document.head.appendChild(st);
   $(".pod-doac").insertAdjacentHTML("beforeend", `<div class="bars" style="top:0"></div><div class="bars" style="bottom:0"></div>`);
 }
 function drawPod(t, te) {
   const u = t - te, sel = last(t, "select");
-  $$(".card.pod").forEach((c, i) => { const s = POD[i], pv = $(".pv", c), cap = $(".cap", c), por = $(".portrait", c);
-    c.classList.toggle("on", !!sel && sel.i === i); $(".check", c).style.opacity = sel && sel.i === i ? 1 : 0;
-    const L = 3.2, lu = ((u % L) + L) % L, n = s.beats.length, per = (L - 0.4) / n, bi = Math.min(n - 1, Math.floor(lu / per)), bt = lu - bi * per;
+  $$(".tile.pod").forEach((c, i) => { const s = POD[i], pv = $(".pv", c), cap = $(".cap2", c), por = $(".portrait", c);
+    const on = !!sel && sel.i === i; const ck = $(".sel", c); ck.style.opacity = on ? 1 : 0; ck.classList.toggle("on", on);
+    const L = 3.2, lu = (((u + i * 0.37) % L) + L) % L, n = s.beats.length, per = (L - 0.4) / n, bi = Math.min(n - 1, Math.floor(lu / per)), bt = lu - bi * per;
     $(".segs b", c).style.transform = `scaleX(${lu / L})`;
     if (s.k === "hz") { const [w, cl] = s.beats[bi]; cap.innerHTML = `<span class="${cl}">${w}</span>`;
       const tau = fr(bt, 0); cap.style.transform = `scale(${1 + (1 - expo(tau, 0.7)) * 0.35})`; por.style.transform = `scale(${bi % 2 ? 1.14 : 1.0})`; }
     if (s.k === "doac") { const [w, cl] = s.beats[bi]; cap.innerHTML = `<span class="${cl}">${w}</span>`; cap.style.transform = `translateY(${(1 - expo(fr(bt, 0))) * 12}px)`;
-      por.style.transform = cl === "host" ? "scaleX(-1) scale(1.12) translateX(-14px)" : "scale(1.0)"; pv.style.filter = cl === "host" ? "hue-rotate(-10deg) brightness(.9)" : ""; }
+      por.style.transform = cl === "host" ? "scaleX(-1) scale(1.12) translateX(-14px)" : "scale(1.0)"; por.style.filter = cl === "host" ? "hue-rotate(-10deg) brightness(.9)" : ""; }
     if (s.k === "mb") { const [w, cl] = s.beats[bi]; cap.innerHTML = `<span class="${cl}">${w}</span>`; const tau = fr(bt, 0);
       cap.style.transform = `rotate(${(bi % 2 ? 4 : -4) * (1 - expo(tau, 0.75)) - 2}deg) scale(${1 + (1 - expo(tau, 0.68)) * 0.5})`; por.style.transform = `scale(${[1, 1.18, 1.06, 1.24, 1.1][bi]}) translate(${bi % 2 ? 6 : -4}px, ${bi % 2 ? 10 : 0}px)`; }
-    if (s.k === "ali") { const k = clamp(lu / 1.4); const txt = "the 3-step"; const nch = Math.floor(k * 18);
-      const full = `${txt.slice(0, Math.min(nch, 10))}${nch > 10 ? "<br><mark>" + "system".slice(0, nch - 11) + "</mark>" : ""}`;
-      cap.innerHTML = full + `<svg width="70" height="40" viewBox="0 0 70 40"><path d="M4 4 C20 30 40 36 62 30 M52 22 L63 30 L52 37" fill="none" stroke="#1c1a17" stroke-width="3" stroke-linecap="round" stroke-dasharray="120" stroke-dashoffset="${120 - 120 * clamp((lu - 1.3) / 0.5)}"/></svg>`;
+    if (s.k === "ali") { const k = clamp(lu / 1.4); const nch = Math.floor(k * 18);
+      cap.innerHTML = `${"the 3-step".slice(0, Math.min(nch, 10))}${nch > 10 ? "<br><mark>" + "system".slice(0, nch - 11) + "</mark>" : ""}` + `<svg width="70" height="40" viewBox="0 0 70 40"><path d="M4 4 C20 30 40 36 62 30 M52 22 L63 30 L52 37" fill="none" stroke="#1c1a17" stroke-width="3" stroke-linecap="round" stroke-dasharray="120" stroke-dashoffset="${120 - 120 * clamp((lu - 1.3) / 0.5)}"/></svg>`;
       por.style.transform = `scale(${1.02 + lu * 0.01}) translateX(18px)`; }
     if (s.k === "iman") { cap.innerHTML = s.beats.slice(0, bi + 1).map(([w, cl]) => cl === "i" ? `<i>${w.toLowerCase()}</i>` : w).join("<br>");
       const tau = fr(bt, 0); cap.style.opacity = ink(tau, 0.3); por.style.transform = `scale(${1.05 + bi * 0.08 + (1 - expo(tau, 0.85)) * 0.05})`; }
@@ -287,17 +306,17 @@ function drawPod(t, te) {
 const LOG = [["open", "Opening northwind.ai in a browser", "Opened northwind.ai"], ["record", "AI is recording a walkthrough", "Walkthrough recorded"],
   ["brand", "Extracting the brand kit", "Brand kit extracted"], ["script", "Writing the script", "Script written"], ["voice", "Recording the voice-over", "Voice-over"],
   ["board", "Storyboarding", "Storyboard"], ["render", "Rendering", "Rendered"]];
-const BEATS = [["0:00 · HOOK", "Your forecast is <span class='hd'>stale.</span>"], ["0:04 · TURN", "Northwind sees the next quarter while it's still ahead of you."], ["0:12 · PROOF", "Ledger, CRM and payroll. One live model."]];
+const BEATS = [["0:00 Hook", "Your forecast is <span class='hd'>stale.</span>"], ["0:04 Turn", "Northwind sees the next quarter while it's still ahead of you."], ["0:12 Proof", "Ledger, CRM and payroll. One live model."]];
 function buildGen() {
-  $("#log").innerHTML = LOG.map(([k]) => `<li data-k="${k}"><span class="ic"><svg width="11" height="11"><use href="#i-check"/></svg></span><div><div class="row"><span class="lb"></span><span class="dt"></span></div>${k === "brand" ? `<div class="detail"><div class="kit"><span class="lg" data-at="0.4"><svg width="18" height="18"><use href="#i-nw"/></svg></span><span class="sw"><i data-at="1.1" style="background:#0e1116"></i><i data-at="1.2" style="background:#c6f432"></i><i data-at="1.3" style="background:#f4f1ea"></i><i data-at="1.4" style="background:#8a93a3"></i></span><span class="ty" data-at="0.7"><b>Aa</b><span>Manrope · Inter</span></span></div></div>` : ""}</div></li>`).join("");
-  for (let i = 0; i < 6; i++) $("#strip").insertAdjacentHTML("beforeend", `<div class="th empty" data-i="${i}"><svg viewBox="0 0 1600 900" style="display:none"><use href="#nwF${i + 1}"/></svg><span class="n">0${i + 1}</span></div>`);
+  $("#log").innerHTML = LOG.map(([k]) => `<li data-k="${k}"><span class="ic"><svg class="i ck" style="width:14px;height:14px"><use href="#l-check"/></svg><i class="dot"></i></span><div><div class="row"><span class="lb"></span><span class="dt"></span></div>${k === "brand" ? `<div class="detail"><div class="kit"><span class="lg" data-at="0.4"><svg width="16" height="16"><use href="#i-nw"/></svg></span><span class="sw"><i data-at="1.1" style="background:#0e1116"></i><i data-at="1.2" style="background:#c6f432"></i><i data-at="1.3" style="background:#f4f1ea"></i><i data-at="1.4" style="background:#8a93a3"></i></span><span class="ty" data-at="0.7"><b>Aa</b><span>Manrope · Inter</span></span></div></div>` : ""}</div></li>`).join("");
+  for (let i = 0; i < 6; i++) $("#strip").insertAdjacentHTML("beforeend", `<div class="th" data-i="${i}"><svg viewBox="0 0 1600 900" style="display:none"><use href="#nwF${i + 1}"/></svg><span class="n">0${i + 1}</span></div>`);
   $("#beats").innerHTML = BEATS.map(([tc, tx]) => `<div class="beat"><span class="tc">${tc}</span><span class="tx" data-full="${tx.replace(/"/g, "&quot;")}"></span></div>`).join("");
   $("#wave").innerHTML = Array.from({ length: 96 }, (_, i) => { const env = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.37) * Math.sin(i * 0.11 + 1)) * (0.6 + 0.4 * rnd(i)); return `<i style="height:${Math.round(10 + env * 120)}px"></i>`; }).join("");
   $("#vlines").innerHTML = "Your forecast is stale. Northwind sees the next quarter while it's still ahead of you.".split(" ").map(w => `<span>${w}</span>`).join(" ");
 }
 function typeHTML(html, n) { // reveal n visible characters of simple HTML; newest 3 glyphs in the accent colour
   let out = "", c = 0, i = 0; while (i < html.length && c < n) { if (html[i] === "<") { const j = html.indexOf(">", i); out += html.slice(i, j + 1); i = j + 1; continue; }
-    const ch = html[i]; out += c >= n - 3 ? `<span style="color:#c6f432">${ch}</span>` : ch; c++; i++; }
+    const ch = html[i]; out += c >= n - 3 ? `<span style="color:#fff;opacity:.55">${ch}</span>` : ch; c++; i++; }
   // close an open span
   if ((out.match(/<span class='hd'>/g) || []).length > (out.match(/<\/span>/g) || []).length - (out.match(/<span style/g) || []).length) out += "</span>";
   return out;
@@ -310,7 +329,7 @@ function drawGen(t) {
   // log
   $$("#log li").forEach((li, i) => { const [k, act, fin] = LOG[i]; const q = GEN[i]; const isA = u >= q[1] && u < q[2], isD = u >= q[2];
     li.classList.toggle("active", isA); li.classList.toggle("done", isD); $(".lb", li).textContent = isD ? fin : act;
-    li.querySelector(".ic").style.setProperty("--spin", (t * 360 % 360) + "deg");
+    $(".ck", li).style.display = isD ? "" : "none"; $(".dot", li).style.display = isD ? "none" : ""; $(".dot", li).style.transform = isA ? `scale(${1.2 + Math.sin(t * 6) * 0.35})` : "";
     const dt = $(".dt", li); const lu = u - q[1];
     dt.textContent = k === "open" ? (isD ? "14 pages" : isA ? `${Math.floor(clamp(lu / 1.5) * 14)} pages` : "")
       : k === "record" ? (isA ? `REC 00:${String(Math.floor(lu * 6)).padStart(2, "0")}` : isD ? "00:23 · 6 clicks" : "")
@@ -322,7 +341,7 @@ function drawGen(t) {
       $$("[data-at]", det).forEach(el => { const tau = fr(lu, +el.dataset.at); el.style.opacity = ink(tau, 0.5); el.style.transform = `scale(${0.6 + 0.4 * spring(tau, 0.45, 0.3)})`; }); }
   });
   $("#stageLb").textContent = pk === "board" ? `Storyboarding frame ${Math.min(6, Math.floor(pu / 0.4) + 1)} of 6` : u >= 13.8 ? "Final check" : ph[3];
-  $("#stageLb").style.backgroundPosition = `${100 - ((t / 2.4) % 1) * 150}% 0`;
+  
   $("#pct").textContent = Math.floor(g * 100) + "%"; const s = Math.round((1 - g) * 228); $("#left").textContent = s > 90 ? `about ${Math.round(s / 60)} min left` : s > 5 ? `about ${s}s left` : "almost there";
   // canvas layers
   const inBrowser = ["open", "record", "brand"].includes(pk);
@@ -335,8 +354,8 @@ function drawGen(t) {
   if (pk === "board" || pk === "render") drawBoard(u);
   // strip
   $$("#strip .th").forEach((th, i) => { const b = 10.0 + i * 0.4; const filled = u >= b + 0.4, isCur = u >= b && u < b + 0.4;
-    th.classList.toggle("empty", !filled && !isCur); th.classList.toggle("cur", isCur); const sv = $("svg", th); sv.style.display = filled || isCur ? "" : "none"; sv.style.opacity = isCur ? 0.45 : 1;
-    th.style.backgroundPosition = `${150 - ((t / 1.8) % 1) * 250}% 0`; });
+     const sv = $("svg", th); sv.style.display = filled || isCur ? "" : "none"; sv.style.opacity = isCur ? 0.45 : 1;
+    th.style.opacity = filled || isCur ? 1 : 0.55; });
 }
 let BV = null;
 function drawBrowser(t, u, pk, pu) {
@@ -369,7 +388,7 @@ function drawBrowser(t, u, pk, pu) {
   const sl0 = { x: panR.x + 18 + 214 * 0.4, y: panR.y + 18 + 92 }, sl1 = { x: panR.x + 18 + 214 * 0.8, y: sl0.y };
   const res = (p) => p.slider === 0 ? sl0 : p.slider === 1 ? sl1 : p;
   let c = res(K[0][1]); for (let i = 0; i < K.length - 1; i++) { const [t0, a] = K[i], [t1, b] = K[i + 1]; if (u <= t1) { const k = inOut3(seg(u, t0, t1)); const A = res(a), B = res(b); c = { x: lerp(A.x, B.x, k), y: lerp(A.y, B.y, k) }; break; } c = res(b); }
-  const aic = $("#aic"); aic.style.transform = `translate(${c.x - 4}px, ${c.y - 3}px)`; aic.style.opacity = u > 0.9 && u < 5.25 ? ink(fr(u, 0.9), 0.5) * (1 - seg(u, 5.1, 5.25)) : 0;
+  const aic = $("#aic"); aic.style.transform = `translate(${c.x - 5}px, ${c.y - 3}px)`; aic.style.opacity = u > 0.9 && u < 5.25 ? ink(fr(u, 0.9), 0.5) * (1 - seg(u, 5.1, 5.25)) : 0;
   const clicks = [1.5, 2.95, 3.85, 5.1]; const ck = clicks.find(x => u >= x && u < x + 0.45); const cl = $("#clk");
   if (ck != null) { const v = (u - ck) / 0.45, p = K.find(k => k[0] >= ck) ; const P = res(p ? p[1] : K[0][1]); cl.style.left = P.x + "px"; cl.style.top = P.y + "px"; cl.style.opacity = 1 - v; cl.style.transform = `scale(${0.5 + out3(v) * 1.3})`; } else cl.style.opacity = 0;
   // app state
@@ -397,16 +416,15 @@ function drawBoard(u) {
   const render = u >= 12.4; $("#curF").style.filter = render ? "grayscale(1) brightness(.5)" : "";
   $("#nextF").style.clipPath = `inset(0 ${(1 - out3(rev)) * 100}% 0 0)`;
   $("#scan").style.left = (out3(rev) * 100) + "%"; $("#scan").style.display = u >= 13.75 ? "none" : "";
-  $("#gridov").style.clipPath = `inset(0 0 0 ${out3(rev) * 100}%)`; $("#gridov").style.display = u >= 13.75 ? "none" : "";
-  $("#hudA").textContent = render ? "RENDER PASS" : `FRAME 0${next + 1}`; $("#hudB").textContent = u >= 13.75 ? "ENCODING" : render ? `${Math.round(rev * 100)}%` : "COMPOSITING";
-  $("#canvas").style.transform = `scale(${1 + (u - 10) * 0.0015})`;
+  $("#hudA").textContent = render ? "Render pass" : `Frame 0${next + 1}`; $("#hudB").textContent = u >= 13.75 ? "Encoding" : render ? `${Math.round(rev * 100)}%` : "Compositing";
+  
 }
 
 // ---------------------------------------------------------------- S6: result
 function drawResult(t, te) {
   const u = t - te; seekPreviews(u, [$("#s-res iframe")]);
-  const L = 12, lu = ((u % L) + L) % L; $$("#rscrub i").forEach((s, k) => s.firstChild.style.transform = `scaleX(${clamp((lu - k * 3) / 3)})`);
-  const secs = Math.floor(lu / 12 * 30); $("#rtime").innerHTML = `0:${String(secs).padStart(2, "0")} <span>/ 0:30</span>`;
+  const L = 12, lu = ((u % L) + L) % L; $("#rbar").style.width = (lu / L * 100) + "%";
+  const secs = Math.floor(lu / L * 30); $("#rtime").textContent = `0:${String(secs).padStart(2, "0")} / 0:30`;
   $("#book").style.setProperty("--p", pressAmt(t, "#book"));
 }
 
@@ -417,6 +435,7 @@ function seek(t) {
   const { cur, te } = drawScreens(t);
   const c = DEMO ? cursorAt(t) : POINTER;
   hoverUpdate(t, c, cur);
+  drawField(t, cur, te, screenAt(t).prev);
   drawProgress(t, cur);
   const prod = productAt(t), url = last(t, "type");
   $("#urlchip").style.opacity = cur === "s-link" ? 0 : 1; $("#urlchipT").textContent = SCRIPT === "podcast" ? "The Operator Hour · Ep. 212" : (url ? url.text : INIT.url || "northwind.ai");
@@ -450,7 +469,7 @@ function wireLive() {
   on("#go1", () => { const t = liveNow(); const p = productAt(t) || "launch"; if (!productAt(t)) push({ t, type: "tab", tab: "launch" }); click(t, "#go1", 8, { type: "go", to: p === "podcast" ? "s-pod" : "s-rec" }); });
   on("#rec-ai, #rec-up", el => { const t = liveNow(); click(t, "#" + el.id, 14, { type: "choose", q: "rec", v: el.id.endsWith("ai") ? "ai" : "up" }); push({ t: t + 0.95, type: "go", to: "s-kit" }); });
   on("#kit-ai, #kit-up", el => { const t = liveNow(); click(t, "#" + el.id, 14, { type: "choose", q: "kit", v: el.id.endsWith("ai") ? "ai" : "up" }); push({ t: t + 0.95, type: "go", to: "s-style" }); });
-  on("#grid3 .card", el => click(liveNow(), `.card[data-i="${el.dataset.i}"]`, 6, { type: "select", i: +el.dataset.i }));
+  on("#grid3 .tile", el => click(liveNow(), `.tile[data-i="${el.dataset.i}"]`, 6, { type: "select", i: +el.dataset.i }));
   on("#go4", () => { const t = liveNow(); if (!last(t, "select")) push({ t, type: "select", i: 0 }); click(t, "#go4", 8, { type: "go", to: "s-gen" }); push({ t: t + 0.3, type: "gen" }); push({ t: t + 0.3 + GEN_DUR + 0.05, type: "go", to: "s-res" }); });
   on("#book", () => click(liveNow(), "#book", 0, { type: "book" }));
 }
@@ -459,11 +478,13 @@ function wireLive() {
 async function boot() {
   $("#svgdefs").innerHTML = await (await fetch("frames.svg")).text();
   splitWords(); buildPod(); buildGen();
+  $$(".screen").forEach(x => x.classList.add("on"));
+  await Promise.all($$(".tile.pod .portrait").map((el, i) => halftonePortrait(el, { color: POD[i].k === "ali" ? [40, 34, 28] : [245, 240, 232], step: 3, row: 5, dy: 0.06 })));
+  $$(".screen").forEach(x => x.classList.remove("on"));
   $$("iframe[data-src]").forEach(f => f.src = f.dataset.src + "?capture");
   await document.fonts.ready;
   await Promise.all($$("iframe").map(f => new Promise(res => { const chk = () => f.contentDocument?.body?.dataset.ready ? res() : setTimeout(chk, 40); chk(); })));
   // ticks on the progress track at step boundaries
-  [16, 30, 44, 58].forEach(v => $("#track").insertAdjacentHTML("afterbegin", `<i class="tick" style="left:${v}%"></i>`));
   if (SCRIPT === "podcast") scriptPodcast(); else if (SCRIPT === "ad") { scriptLaunch("ad", "lumenbottle.com"); INIT.img = true; } else scriptLaunch();
   $$(".screen").forEach(s => s.classList.add("on")); document.body.offsetWidth; // layout for geometry
   CURSOR.forEach(([, p]) => pt(p)); ["#tabs", ".tab[data-tab=launch]", ".tab[data-tab=podcast]", ".tab[data-tab=ad]"].forEach(rectOf);

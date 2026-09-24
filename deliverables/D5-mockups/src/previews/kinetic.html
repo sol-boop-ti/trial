@@ -113,6 +113,7 @@ function draw(t) {
     const wy = (tt) => -whip(tt, 2.6, 1000, 0.3); $("#k4").style.transform += ` translateY(${wy(u)}px)`; mblur($("#k4"), 0, vel(wy, u));
   }
 }
+window.SCENES = [[0,1.9],[1.9,4.3],[4.3,6.4],[6.4,9]];
 Preview({ loop: 9, init: () => {
   chars($("#stop"), "STOP"); G = chars($("#guess"), "GUESSING."); YF = wordsOf($("#yf"), "YOUR FORECAST IS");
   $("#drum").innerHTML = DRUM.map(w => `<div class="dr"><span>${w}</span></div>`).join("");

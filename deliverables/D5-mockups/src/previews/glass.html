@@ -179,6 +179,7 @@ function draw(t) {
     const st = fr(u, 1.93 + 8 / 30); $("#endSub").style.opacity = ink(st, 0.4) * 0.9; $("#endSub").style.transform = `translateY(${(1 - expo(st)) * 16}px)`;
   }
 }
+window.SCENES = [[0,3],[3,6],[6,9],[9,12]];
 Preview({ loop: 12, init: async () => {
   $("#defs").innerHTML = await (await fetch("../frames.svg")).text();
   WA = words($("#hA"), "See what’s next."); WC = words($("#hC"), "The forecast that updates itself.");

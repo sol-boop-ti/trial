@@ -76,6 +76,7 @@
 </div>
 <script src="../lib/motion.js"></script>
 <script src="preview.js"></script>
+<script src="../lib/portrait.js"></script>
 <script>
 const { clamp, lerp, seg, fr, expo, ink, out3, out5, in3, inOut3 } = M;
 const $ = (s) => document.querySelector(s);
@@ -115,7 +116,9 @@ function draw(t) {
   const dim = seg(t, 8.6, 9.1) * 0.62; $("#camB").style.filter = dim ? `brightness(${1 - dim}) blur(${dim * 5}px)` : "";
   $("#black").style.opacity = t < 0.25 ? 1 - out3(t / 0.25) : seg(t, 9.75, 10);
 }
-Preview({ loop: 10, init: async () => { $("#defs").innerHTML = await (await fetch("../frames.svg")).text(); }, draw });
+window.SCENES = [[0,3],[3,4.8],[4.8,7.2],[7.2,10]];
+Preview({ loop: 10, init: async () => { $("#defs").innerHTML = await (await fetch("../frames.svg")).text();
+  for (const s of ["#pA", "#pB"]) await halftonePortrait($(s), { src: "../assets/person.svg", color: [246, 232, 214], step: 4, row: 7, scale: 0.92 }); }, draw });
 </script>
 </body>
 </html>
