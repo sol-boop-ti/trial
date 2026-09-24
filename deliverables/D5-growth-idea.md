@@ -1,74 +1,106 @@
-# D5. Growth idea: "Paste your URL, get your launch video"
+# D5. Growth idea: "Pick a product, paste a link, get the video"
 
-**The idea.** A one-field page: paste your website, pick a well-known style, get a launch video of your product made by Poolday. We spread it by replying to viral "AI made this in one prompt" posts on X with a real Poolday remake, and every video ends with an offer to book a demo.
+**The idea.** A free page with three products Poolday already makes well: a **launch video** from your URL, **podcast clips** from an episode link, and an **AI product ad** from a URL plus a product photo. One input, one style card, done: the Submagic mechanic (upload → pick "Hormozi" → done), applied to Poolday's best outputs. Every video ends with a booking offer. We spread it on X by remaking viral "AI made this in one prompt" videos for real in Poolday and replying with the run.
 
-*Proposal only. Poolday's credit costs, render times and API aren't known to me. The pilot measures them.*
+*Proposal only. Credit cost per video and render time are measured in the first Poolday runs (stage 0).*
 
-## 1. User flow
+## 1. Flow (four clicks, one field each)
 
-1. Paste your URL.
-2. Pick a style card (a looping preview). The card is the whole prompt, like "Hormozi" in Submagic.
-3. Enter a work email. That's the only field.
-4. Get the video: on the page if renders are fast, by email if they're slow. The design works either way.
-5. Share page. Main button: "Turn this into your real launch video (15 min call)". Second: "Edit it yourself".
+1. **Pick a product:** Launch video · Podcast clips · AI product ad.
+2. **Give the input:** website URL · YouTube link or upload · URL + product image.
+3. **Pick a style:** a looping preview card. The card *is* the prompt.
+4. **Work email**, then the video: shown on the page if renders are fast, emailed if slow. The design works either way.
+5. **Result page.** Main button: "Get the full version with us (15 min call)". Second: "Edit it yourself in Poolday".
 
-## 2. Templates
+## 2. Products and styles
 
-From web search (Sept 2026). View counts not checked: YouTube and X were blocked.
-
-| Style | Why people recognize it | Evidence |
+| Product | Input | Styles (one-line look) |
 |---|---|---|
-| **Apple-style product motion** (incl. Liquid Glass UI) | Best-known "premium" look; asked for by name. | Many 2025–26 YouTube tutorials; paid courses "Master Viral Apple UI Motion Graphics" (Udemy, Skillshare) |
-| **Kinetic typography** | Bold words on the beat; fits any launch | Top 2026 trend (Renderforest, GarageFarm, VideoBolt) |
-| **3D CGI product ad** (Blender style) | "Floating product, orbit camera" ads; for SaaS the UI is the object | TikTok topic "Blender 3D product ads"; tutorials on "viral CGI product animations" |
-| **"One prompt" code motion graphics** | The look of the viral "one prompt" X posts; ties to the replies | "Claude Code + Remotion" tutorials (one reports 15k views); open-source skills on GitHub |
-| **Founder / UGC presenter with bold captions** | Submagic/Hormozi caption style; native to TikTok, Reels, paid social | Well known, not verified here |
+| **Launch video** (20–30s) | Website URL | **Apple:** clean product motion, UI floating on soft gradients, slow camera, hard cuts on the beat. **Kinetic:** bold type animated to the beat, one idea per word. **Storytelling:** problem → turning point → product, founder voiceover, calmer pacing. |
+| **Podcast clips** (5 × 30–60s, 9:16) | YouTube link or upload | **Hormozi:** 1–3 word bold caps, yellow/green keyword pops, punch-in zooms every few seconds. **Diary of a CEO:** 1–3 words, heavy outline, host yellow / guest white, cinematic two-camera cuts. **MrBeast:** comic-style font, blue active word, fast jump cuts, sound effects. **Ali Abdaal:** desaturated grade with one colour pop, handwritten-style captions beside the speaker, calm. **Iman Gadzhi:** fast cuts, minimal "luxury" text overlays, dynamic zooms, dark premium grade. |
+| **AI product ad** (15s) | URL + product image | **3D hero CGI:** product floats and turns in a studio void, macro details, light sweeps. **Faux out-of-home:** giant product placed in a real city (the viral FOOH format). **UGC:** an AI creator holds and reviews the product to camera, captions, phone framing. **Cinematic:** the product in a short lifestyle scene, film grade, one line of copy. |
 
-## 3. Distribution: X replies
+Evidence: Submagic, Kapwing and Choppity sell Hormozi, MrBeast and Ali Abdaal templates by name; how-to guides exist for the Diary of a CEO and Iman Gadzhi looks; FOOH and AI UGC top the 2026 ad trend lists. View counts not checked (X/YouTube blocked) [verify].
 
-**How.** Find viral posts claiming "[model] made this video with one prompt". Give the clip to Poolday as the reference, with a strong brief. Screen-record the run, then reply with a 20–30s cut and the link. Most clips match a template above, so a remake is mostly a clone.
+## 3. What the product looks like
 
-**Where:** recent, high-reach threads about AI video, motion design, SaaS launches or AI tools, preferably ones B2B founders and marketers read. Skip artists showing their own hand-made work.
+Mockups in `deliverables/D5-mockups/`:
+- `01-landing.png`: the three product cards, one line each.
+- `02-style.png`: input field plus the style cards with looping previews.
+- `03-generating.png`: progress screen, with the switch to "we'll email it" if the render is slow.
+- `04-result.png`: the video, share buttons and the booking offer.
+- `walkthrough.gif`: the full path from landing to result.
 
-**Rules:** reply from the official Poolday account. Only post remakes a human judges at least as good as the original. Never accuse anyone of faking. One reply per thread.
+## 4. Why this beats Motion
 
-**Example replies:**
-- *"Tried this one for real in Poolday. Uncut screen recording, reference to final render → [video]. Want one for your product? Paste your URL: [link]"*
-- *"Poolday can actually do it. Here's the full run, no hand edits → [video]. Same style is a template here: [link]"*
+Motion launched "drop a product URL, get a launch video" inside AI assistants on 2 Aug 2026 (their X post) [verify]. So the launch video alone is not new. Our edge:
+- **Three products, not one.** Podcast clips are the high-frequency one: a show ships every week, so users come back weekly. Launch videos happen a few times a year.
+- **Generative ads.** Motion is a motion-design agent. The product-ad track uses AI video, which it doesn't lead on [verify].
+- **A human behind the video.** Qualified leads get a call offer for the full version. Motion's flow ends at self-serve.
+- **Quality shown in public.** The X remakes put the output side by side with the viral clip.
 
-**Precedent:** Motion/Mosaic replied to big threads with "tag @motion.so to get a video explaining this thread". In August 2026 Motion also announced a URL→launch video skill inside Claude.
+## 5. Distribution: "Poolday can actually do it"
 
-## 4. From free video to booked demo
+Find viral posts claiming "[tool] made this video with one prompt". Feed the clip to Poolday as the reference with a strong brief, screen-record the run, and reply with a 20–30s cut plus the link. Reply from the official account, one reply per thread, and only when a human judges the remake at least as good. Never accuse anyone of faking. Skip artists showing hand-made work.
+> *"Poolday can actually do it. Full run, no hand edits → [video]. Same style is one click here: [link]"*
 
-- **Qualified lead:** email domain matches the submitted URL, B2B company of ~10–500 people (via an enrichment tool), founder/marketing/product role.
-- **Qualified leads** get a higher tier, a second variant, and a personal email from sales within 24h offering the full launch version on a call.
-- **Everyone else** gets the standard video and self-serve path. Free-mail and URLs the submitter doesn't own are deprioritized (famous brands refused).
+## 6. Cost model
 
-## 5. How it runs on Poolday, and what's unknown
+**(a) Measured cost (fill from the first runs).** Read the credits used per run in the Poolday UI. Credits appear to be priced 1:1 in dollars: Business is $1,250/mo with $1,250 of credits, extra credits at 2× the rate, and the home page cites ~$5–$25 per finished video (reported [verify]).
+`Cost per delivered video = (credits per run × runs per delivered video) × $ per credit`. Runs per delivered video accounts for re-renders and QA failures.
 
-- **Per request:** "Create a brand kit for [URL]", then clone the saved template with `brand:name` (the guide says a saved /command takes ~2 prompts).
-- **Automation (unknown):** no public API is documented. The pilot uses an operator queue; automation only if Poolday exposes an internal endpoint.
-- **Render time (unknown):** full productions "can take an hour or more"; Light is for fast, small tasks, so a cloned template may be much faster. Measured on days 1–2.
-- **Cost per video (unknown):** measured per template and tier; it sets the daily cap.
+| Product | Tier | Credits/run | Runs per delivered | $/credit | **$/delivered video** |
+|---|---|---|---|---|---|
+| Launch video (25s) | Light / Standard | _ | _ | _ | _ |
+| Podcast clips (5 per episode) | Light / Standard | _ | _ | _ | _ |
+| AI product ad (15s) | Standard | _ | _ | _ | _ |
 
-## 6. Budget and pilot (up to $15k, released in stages)
+**(b) Bottom-up sanity check (public API prices, Sept 2026).** What the building blocks cost Poolday; its price adds margin.
 
-| Stage | Budget (est.) | What happens | Trigger for the next stage |
-|---|---|---|---|
-| **0. Manual pilot** (2 weeks) | ~$2k | Build 5 templates, measure time/cost, videos for ~50 hand-picked ICP companies, 2–3 X remakes/day | ≥5 booked demos, and a known cost per video |
-| **1. Public page** (3–4 weeks) | ~$5k | Public page with daily credit cap; automation if possible | Cost per booked demo ≤ Poolday's current cost per demo (to confirm) |
-| **2. Scale** | ~$8k | Raise cap, add styles, boost best remakes | Same ratio holds as volume grows |
+| Building block | Public price |
+|---|---|
+| AI video: Veo 3.1 (fal.ai) | $0.20–0.40/s |
+| AI video: Seedance 2.0 720p (fal.ai) | $0.24–0.30/s |
+| AI video: Kling 3.0 Pro (fal.ai) | $0.224/s silent, $0.336/s with audio |
+| Images: Seedream / Nano Banana (fal.ai) | $0.035–0.15 per image |
+| Lipsync (fal.ai: VEED, H3) | $0.05–0.08/s |
+| Voiceover: ElevenLabs API | $0.05–0.10 per 1k characters |
+| Transcription: ElevenLabs Scribe / AssemblyAI | ~$0.22–0.37 per hour of audio |
+| Agent LLM: Anthropic API | $2/$10 (mid tier) to $5/$25 (top tier) per M input/output tokens. Cache reads ~0.1× input. |
 
-## 7. Metrics (all targets, to be confirmed with the pilot)
+Assumption for the agent: a templated run uses ~2M input tokens (70% cached) and ~0.1M output tokens, so **$2–6 per run** [est.].
 
-- Page visit → submission: **target ≥20%**
-- Share of submissions that qualify: **target ≥30%**
-- Qualified video → booked demo: **target ≥5%**
-- Cost per booked demo: **target below the current paid channel's cost**
-- X remakes: **target ≥1 reply/week that clearly outperforms normal Poolday posts**
+| Product | What it consumes | **Estimate** |
+|---|---|---|
+| Launch video, 25s | Agent $2–6 · 5 images ~$0.5 · voiceover <$0.05 · optional 10s AI b-roll $2–3.4 · render ~$0.5 | **~$3–10** [est.] |
+| Podcast clips, 5 from a 1h episode | Transcript ~$0.3 · agent $3–8 (moment picking + 5 edits) · b-roll images ~$0.6 · 5 renders ~$1 | **~$5–10 total, ~$1–2 per clip** [est.] |
+| AI product ad, 15s | AI video 15s × $0.20–0.40 × ~3 takes = $9–18 · seed images ~$0.5 · agent $2–6 · UGC lipsync +$1 | **~$12–25** [est.] |
 
-## 8. Real risks
+This lands inside the reported $5–25, so that figure is plausible. Generative video makes the ad the expensive product. A first build (~7 prompts) costs several times a cloned template (~1–2), so every style ships as a saved template.
 
-1. **Quality varies across arbitrary URLs.** A bad video of someone's own product hurts more than none. *Mitigation:* ship only templates that pass a ~10-site test; human check before sending or posting.
-2. **Unknown cost and throughput.** Without an API, volume is capped by operator time; if videos are expensive, only qualified leads get one. *Mitigation:* stage 0 measures both before launch.
-3. **Not novel.** Motion already offers URL→launch video. *Mitigation:* compete on output quality (shown publicly in the remakes) and the human demo offer, not the mechanic.
+**(c) Campaign budget ($15k cap).** Planning mix: 40% launch videos, 30% podcast packs, 30% ads. At mid estimates ($10 / $10 / $25) plus 30% re-renders, the blended cost is **~$19 per delivered video** [est.].
+
+| Stage | Budget | Videos at ~$19 [est.] | Range at $8–30 | Trigger to open the next stage |
+|---|---|---|---|---|
+| **0. Manual pilot** (2 wks) | ~$2k | ~100 | 65–250 | Cost per video measured (table a), ≥5 booked demos |
+| **1. Public page** (3–4 wks) | ~$5k | ~260 | 165–625 | Cost per booked demo ≤ Poolday's current paid cost per demo [verify] |
+| **2. Scale** | ~$8k | ~420 | 265–1,000 | Same ratio holds at higher volume |
+| **Total** | **$15k** | **~790** | 500–1,900 | |
+
+Credits go only to qualified leads (work email on a matching domain, B2B, ~10–500 people). Everyone else joins a queue or gets the cheapest tier. At 5% video → demo, $19 per video is **~$380 per booked demo** [est.].
+
+## 7. How it runs
+
+- **Per request:** "Create a brand kit for [URL]", then clone the saved style template with `brand:name` (~2 prompts per the agent guide).
+- **Automation:** the Enterprise plan reportedly includes API access [verify]. The agent loop (D3) already has a Poolday client waiting for the endpoints. Until then, an operator runs a queue.
+- **Render time:** full productions "can take an hour or more"; cloned templates on Light should be faster. Measured on pilot days 1–2. The measurement decides on-page vs email delivery.
+
+## 8. Targets (confirm in the pilot)
+
+Visit → submission ≥20% · submissions that qualify ≥30% · qualified video → booked demo ≥5% · cost per demo below the current paid channel · ≥1 X remake a week that clearly beats normal Poolday posts.
+
+## 9. Real risks
+
+1. **Uneven quality on arbitrary inputs.** A bad video of someone's own product is worse than none. *Mitigation:* ship only styles that pass a 10-input test; a human checks every video before it goes out.
+2. **AI ad cost.** At ~$12–25 each, ads can eat the budget. *Mitigation:* ads go to qualified leads only, with a daily credit cap per product.
+3. **Motion owns "URL → launch video".** *Mitigation:* lead with podcast clips and ads, prove quality publicly with the X remakes, and sell the human call.

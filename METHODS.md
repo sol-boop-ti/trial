@@ -251,3 +251,17 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **UGC (D4):** the user's Pletor pipeline is recorded in `poolday/pletor-ugc-reference.md` (base character → shock face → image-to-video), with an intent-level Poolday brief that follows the brief's method (30 actor photos → pick → variants). The farm screenshot is kept for the appendix (`deliverables/assets/pletor-ugc-farm.webp`).
 - **Page review (D7):** critiqued the Claude chat draft (`deliverables/D7-review-draft-claude-chat.md`). Pricing is the most impactful part. Never change factual claims in rewrites, cut the repetitive slogan pattern, and verify the cited numbers.
 - **References:** the first reference video received is `references/ref-x-video-1.mp4` (12s, 16:9, beige background; colorful tiles linked by lines → a radial fan of cards → a horizontal carousel of image cards moving in a wave). Frames were extracted with ffmpeg for the analysis.
+
+## M16. Growth idea v3: three products + cost model (D5)
+- **What:** D5 v3 with three products (Launch video, Podcast clips, AI product ad), 4 clicks each: pick a product → one input → a style card → work email → video.
+- **Styles:**
+  - **Launch:** Apple, Kinetic, Storytelling.
+  - **Podcast:** Hormozi, Diary of a CEO, MrBeast, Ali Abdaal, Iman Gadzhi. Picked because each has a documented template or how-to; Modern Wisdom was dropped because no documented style was found.
+  - **Ads:** 3D hero CGI, faux out-of-home (the most-cited viral CGI ad format of 2026), UGC, Cinematic.
+- **Tools:** Claude Code sub-agent. 13 web searches. The claude-api skill for LLM prices. Page fetches (poolday.ai, fal.ai) were blocked, so prices come from search snippets: re-check on fal.ai before quoting.
+- **Cost model:**
+  - **Formula:** $/delivered video = credits per run × runs per delivered video × $/credit. It gets filled from the user's first Poolday runs, reading credits used in the UI.
+  - **Bottom-up [est.]:** launch video 25s ~$3–10; 5 podcast clips ~$5–10; AI product ad 15s ~$12–25 (generative video dominates). All three land inside the reported ~$5–25 per video.
+  - **Budget:** blended ~$19 per video (40/30/30 product mix + 30% re-renders) gives ~790 videos for $15k across 3 stages. At 5% video → demo, that's ~$380 per booked demo [est.]. The AI ad is the product to cap.
+- **Why this beats Motion:** 3 products instead of 1; podcast clips as a weekly repeat use case; generative ads; a human call offer; quality shown in public through the X remakes. Motion's URL → launch video launch (X post, Aug 2 2026) is confirmed in search results.
+- **Finding:** Poolday's Enterprise plan reportedly lists "API access" [verify]. If so, the D3 Poolday client can automate the page.
