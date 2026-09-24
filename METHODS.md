@@ -97,3 +97,20 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Link in the first comment:** links in the post body cut reach.
   - **Proof points left as placeholders:** they get filled with measured numbers, never invented ones.
 - **Lessons:** the CTA itself is the lead filter.
+
+## M8. AI UGC prep (D4)
+- **What:** 4 angles, 15 hooks, 8 scripts (22–29s), a ranked posting plan for the first 5 posts, a measurement and iteration loop, the Poolday production flow, and compliance rules.
+- **Tools:** Claude Code sub-agent. Inputs: `BRIEF.md`, `PLAN.md`, `RUNBOOK.md`, `poolday/agent-guide-notes.md`.
+- **Process:**
+  1. Pulled the constraints: 1–2 posts/day on a new account, ~$500 UGC credit budget, the guide's validation steps.
+  2. Mapped the audiences (marketers, founders, agencies, social managers) to 4 angles: POV pain, "this is AI" reveal, founder/agency confession, steal-my-workflow.
+  3. Wrote 8 scripts at ~2.5 spoken words per second so they land in 15–30s.
+  4. Ranked the first 5 posts so every angle and both CTAs ("link in bio" and "comment VIDEO") get tested within 48h.
+- **Decisions & why:**
+  - **Only product claims documented in the agent guide:** nothing about Poolday is invented.
+  - **The "this is AI" reveal goes first:** disclosure becomes the hook, which is the safest option for a new account and a strong pattern interrupt.
+  - **POV/skit characters, never fake testimonials:** keeps it honest.
+  - **IG "AI info" label on every post, plus "AI-generated with Poolday" in captions and bio:** clear disclosure.
+  - **Iterate by swapping the hook on the same body:** the base is reused in one Poolday conversation, which is the cheapest way to iterate.
+- **Poolday flow:** Align → brand kit → 30 actor photos, pick 3 → 5 voices each, pick 1 → pilot one script (~5–7 prompts) → save as `/ugc-reel` → batch the rest as variants in one conversation → polish in the live editor.
+- **Lessons:** record Poolday screens during the D1/D2 runs. They double as B-roll for the UGC videos.

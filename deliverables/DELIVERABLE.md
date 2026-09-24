@@ -13,7 +13,7 @@
 | D2 | Prospect video: Wispr Flow | [PLACEHOLDER: video link] | [PLACEHOLDER: prompts, render time] |
 | D3 | Agent loop (leads → qualify → video → human gate → email draft) | [PLACEHOLDER: repo link] · [PLACEHOLDER: demo recording] | [PLACEHOLDER: leads processed, emails drafted] |
 | D4 | AI UGC on Instagram | [PLACEHOLDER: @handle] | [PLACEHOLDER: n posts, total views] |
-| D5 | Growth idea: "Enter your URL, watch your launch video" | [PLACEHOLDER: link to full doc] | Pilot $3k, up to $15k |
+| D5 | Growth idea: "Paste your URL, get your launch video" | [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link] | $3k pilot → up to $15k; target ≤$150 per booked demo at scale |
 | D6 | Video review ([PLACEHOLDER: PostHog / Upflow]) | [PLACEHOLDER: link] | Top 3 changes + first-5s rewrite |
 | D7 | Page reviews (home + b2b-startups) | [PLACEHOLDER: link] | [PLACEHOLDER: n prioritized changes] |
 
@@ -60,7 +60,7 @@
 
 ## D1. LinkedIn post + video
 
-- **Use case shown:** [PLACEHOLDER: chosen concept, e.g. "I gave Poolday a company URL, it built their brand kit and a launch video"]
+- **Use case shown:** [PLACEHOLDER: chosen concept; recommended: "One URL in, brand kit + launch video out", see [D1-linkedin.md](D1-linkedin.md)]
 - **Why this angle:** [PLACEHOLDER: why it produces *qualified* leads]
 - **Video:** [PLACEHOLDER: link] · 4:5 · [PLACEHOLDER: length] · hook understood with the sound off
 - **Process:** 5 concept directions from Poolday → picked [PLACEHOLDER] → full brief → [PLACEHOLDER: n] prompts, [PLACEHOLDER: credits]
@@ -139,15 +139,15 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 ---
 
-## D5. Growth idea: "Enter your URL, watch your launch video"
+## D5. Growth idea: "Paste your URL, get your launch video"
 
 **Summary.** A very simple site: paste your website URL, pick a style (Apple-style motion design, Linear-style dark UI, kinetic type, 3D, trending social motion styles), get your launch video. It's the Submagic mechanic (upload → pick a template → done) applied to launch videos. Poolday builds the brand kit from the URL and renders it with a saved template per style. Runs take about an hour, so the video is **emailed**, which captures the lead before the value arrives. Watermarked preview → HD download or edit = sign up → book a demo.
 
 **Distribution: "Poolday can actually do it."** On X, engagement-bait posts claim "an AI model just made this video with one prompt" (often faked). We actually remake the video in Poolday (it pulls the video from the link), screen-record it running, and reply "Poolday can actually do it" + the link. Precedent: Motion/Mosaic replied to big threads with "tag us to get a video explaining this thread".
 
-**Budget:** start at ~$3k, unlock up to $15k in stages when cost per booked demo is below target ([PLACEHOLDER: e.g. $150]) after 2 weeks.
+**Budget:** a $3k pilot, then up to $12k more unlocked in stages when targets are hit (cost per booked demo ≤$300 in the pilot, ≤$150 at scale).
 
-**Full write-up** (flow, feasibility, funnel metrics, budget table, risks): [PLACEHOLDER: link to full doc]
+**Full write-up** (product flow, how it runs on Poolday, distribution, lead routing, budget, metrics, risks): [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link]
 
 ---
 
