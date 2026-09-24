@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Poolday — Walkthrough</title>
+<style>
+  html, body { margin: 0; background: #050608; overflow: hidden; }
+  .scr { position: absolute; left: 0; top: 0; width: 1440px; height: 900px; border: 0; opacity: 0; transform-origin: 50% 50%; }
+  #cursor { position: absolute; left: 0; top: 0; width: 26px; height: 26px; z-index: 10; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+  #ripple { position: absolute; z-index: 9; width: 44px; height: 44px; margin: -22px; border-radius: 50%; border: 1.5px solid rgba(234,250,255,.9); opacity: 0; pointer-events: none; box-shadow: 0 0 16px rgba(159,228,255,.6); }
+</style>
+</head>
+<body>
+<iframe class="scr" id="s1" src="01-landing.html"></iframe>
+<iframe class="scr" id="s2" src="02-style.html"></iframe>
+<iframe class="scr" id="s3" src="03-generating.html"></iframe>
+<iframe class="scr" id="s4" src="04-result.html"></iframe>
+<div id="ripple"></div>
+<svg id="cursor" viewBox="0 0 26 26"><path d="M5 3.5v17.2l4.6-4.4 2.9 6.6 3-1.3-2.9-6.5h6.4z" fill="#fff" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/></svg>
+<script>
+const F = (id) => document.getElementById(id);
+const W = (id) => F(id).contentWindow;
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const io = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const oc = (x) => 1 - Math.pow(1 - x, 3);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+let P = {};
+
+// Cursor path: [time, point]; linear timing between keys, eased.
+function cursorAt(t) {
+  const K = [
+    [0, P.start], [0.35, P.start], [0.95, P.tabPod], [1.45, P.tabPod], [1.95, P.tabLaunch], [2.35, P.tabLaunch], [2.8, P.input],
+    [3.9, P.input], [4.3, P.go1], [4.9, P.go1], [5.6, P.card0Far], [6.05, P.card0], [6.6, P.card0], [7.1, P.go2], [7.6, P.go2],
+    [13.2, P.resultStart], [14.1, P.book], [16, P.book]];
+  for (let i = 0; i < K.length - 1; i++) {
+    const [t0, p0] = K[i], [t1, p1] = K[i + 1];
+    if (t <= t1) { const k = io(seg(t, t0, t1)); return { x: p0.x + (p1.x - p0.x) * k, y: p0.y + (p1.y - p0.y) * k }; }
+  }
+  return K[K.length - 1][1];
+}
+const CLICKS = [1.0, 2.0, 2.85, 4.95, 6.1, 7.65];
+
+function show(id, op, scale = 1, blur = 0) { const e = F(id); e.style.opacity = op; e.style.transform = `scale(${scale})`; e.style.filter = blur ? `blur(${blur}px)` : ""; e.style.visibility = op > 0.001 ? "visible" : "hidden"; }
+function freeze(id, t) { const d = F(id).contentDocument; d.getAnimations().forEach(a => { a.currentTime = t * 1000; }); }
+
+function seek(t) {
+  const L = W("s1").demo, S = W("s2").demo, G = W("s3").demo, R = W("s4").demo;
+  // --- screen 1
+  if (t < 1.0) L.setTab("launch");
+  if (t >= 1.0 && t < 2.0) { L.setTab("podcast"); L.indBetween("launch", "podcast", oc(seg(t, 1.0, 1.35))); }
+  if (t >= 2.0) { L.setTab("launch"); L.indBetween("podcast", "launch", oc(seg(t, 2.0, 2.35))); }
+  const txt = "northwind.ai", n = Math.floor(clamp((t - 2.95) / 0.9) * txt.length);
+  L.setValue(txt.slice(0, n), t >= 2.85);
+  L.hover(t >= 4.4 && t < 5.2); L.press(t >= 4.95 && t < 5.1);
+  // --- screen 2
+  S.select(t >= 6.1 ? 0 : -1); S.hoverCard(t >= 5.7 && t < 6.1 ? 0 : -1);
+  S.hover(t >= 7.2 && t < 7.8); S.press(t >= 7.65 && t < 7.8);
+  // --- screen 3
+  const gp = seg(t, 8.2, 12.6); G.setProgress(gp < 1 ? 0.004 + gp * 0.996 : 0.9999);
+  // --- screen 4
+  R.hover(t >= 14.0);
+  // crossfades
+  const x12 = io(seg(t, 5.05, 5.6)), x23 = io(seg(t, 7.8, 8.35)), x34 = io(seg(t, 12.75, 13.35));
+  show("s1", 1 - x12, 1 - 0.02 * x12, 6 * x12);
+  show("s2", x12 * (1 - x23), (1.02 - 0.02 * x12) - 0.02 * x23, 6 * (1 - x12) + 6 * x23);
+  show("s3", x23 * (1 - x34), (1.02 - 0.02 * x23) - 0.02 * x34, 6 * (1 - x23) + 6 * x34);
+  show("s4", x34, 1.02 - 0.02 * x34, 6 * (1 - x34));
+  ["s1", "s2", "s3", "s4"].forEach(id => freeze(id, t));
+  // cursor
+  const c = cursorAt(t), cur = F("cursor");
+  const hidden = t > 7.95 && t < 13.0;
+  const cop = t < 7.8 ? 1 : t < 7.95 ? 1 - seg(t, 7.8, 7.95) : t < 13.0 ? 0 : seg(t, 13.0, 13.3);
+  cur.style.opacity = hidden ? 0 : cop; cur.style.transform = `translate(${c.x - 5}px, ${c.y - 3}px)`;
+  const rp = F("ripple"); let rk = -1, rc = null;
+  for (const ct of CLICKS) if (t >= ct && t < ct + 0.45) { rk = seg(t, ct, ct + 0.45); rc = cursorAt(ct); }
+  if (rk >= 0) { rp.style.opacity = 1 - rk; rp.style.left = rc.x + "px"; rp.style.top = rc.y + "px"; rp.style.transform = `scale(${0.4 + oc(rk) * 1.1})`; } else rp.style.opacity = 0;
+}
+
+async function init() {
+  await Promise.all(["s1", "s2", "s3", "s4"].map(id => new Promise(res => { const chk = () => F(id).contentDocument?.body?.dataset.ready ? res() : setTimeout(chk, 50); chk(); })));
+  ["s1", "s2", "s3", "s4"].forEach(id => F(id).contentDocument.documentElement.classList.add("demo"));
+  const r1 = W("s1").demo.rect, r2 = W("s2").demo.rect, r4 = W("s4").demo.rect;
+  P = { start: { x: 1080, y: 760 }, tabPod: r1('.tab[data-tab="podcast"]'), tabLaunch: r1('.tab[data-tab="launch"]'),
+    input: (() => { const p = r1("#input"); return { x: p.x + 140, y: p.y + 4 }; })(), go1: r1("#go"),
+    card0Far: (() => { const p = r2('.card[data-i="0"] .pv'); return { x: p.x + 70, y: p.y + 60 }; })(), card0: r2('.card[data-i="0"] .pv'),
+    go2: r2("#go"), resultStart: { x: 1010, y: 560 }, book: (() => { const p = r4("#book"); return { x: p.x + 20, y: p.y + 4 }; })() };
+  window.seek = seek; seek(0); document.body.dataset.ready = 1;
+  if (!/capture/.test(location.search)) { const t0 = performance.now(); const loop = () => { seek(((performance.now() - t0) / 1000) % 15); requestAnimationFrame(loop); }; loop(); }
+}
+init();
+</script>
+</body>
+</html>

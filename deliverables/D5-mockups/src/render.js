@@ -23,7 +23,7 @@ const SHOTS = [
       const ctx = await browser.newContext({ viewport: { width: s.w, height: s.h }, deviceScaleFactor: scale, isMobile: !!s.mobile, hasTouch: !!s.mobile });
       const page = await ctx.newPage();
       await page.goto(BASE + s.url + (s.url.includes("?") ? "&" : "?") + "still=1");
-      await page.waitForSelector("body[data-ready]");
+      await page.waitForSelector("body[data-ready]", { state: "attached" });
       await page.waitForTimeout(400);
       // Freeze ambient loops at a pleasant point so stills are deterministic.
       await page.evaluate(() => document.getAnimations().forEach(a => { a.pause(); a.currentTime = 1800; }));

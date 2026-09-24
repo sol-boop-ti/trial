@@ -294,3 +294,15 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - The agent's default pacing is too slow for SaaS UI → propose a "SaaS UI pacing" Poolday skill with numeric rules plus reference videos.
   - The brand kit captured the identity but not the brand's visual medium → feed it the illustration assets and add a "2D only" usage law.
 - **Output:** `deliverables/D6-video-review/D6-video-review.md`, `upflow-1.5x-quicktest.mp4`, and 2 remake prompts (intent-level) to produce before/after proof in Poolday.
+
+## M19. Growth-tool mockups + design system (D5 visuals)
+- **What:** 4 screens (landing, style, generating, result) + podcast and product-ad variants + mobile, a 15s walkthrough (GIF + MP4), and a reusable dark "superintelligence" design system (`deliverables/design/tokens.css`) for the page rebuilds.
+- **Tools:** WebSearch for 2026 AI-launch aesthetics; static HTML/CSS + inline SVG; bundled fonts (Inter, Inter Tight, Geist Mono) so rendering never needs the network; Playwright + the preinstalled Chromium to render; ffmpeg to encode.
+- **Process:** tokens → shared components → one HTML page per screen → render → look at each PNG → iterate (stronger horizon arc, kinetic-type spacing, speaker silhouettes, bounding boxes placed on real elements, a chart collision). The walkthrough is a time-driven HTML timeline (cursor path, typing, crossfades, progress) captured frame by frame (450 frames at 30fps), not screen-recorded, so timing is exact and gradients stay clean.
+- **Design decisions:**
+  - **The signature is a lit "horizon" arc:** a pool surface at dawn.
+  - **One accent light (cyan), used only for focus and progress.** Orange, asterisks and purple-pink gradients are avoided, so it can't be mistaken for other AI labs.
+  - **Monospace for machine facts:** it makes the agent feel like it's working.
+  - **Customer brand colours stay inside the media:** the UI stays neutral next to any brand.
+- **Placeholders:** "1,284 videos made today" is illustrative; the podcast style names reference real creators (legal check or rename); the logo is a placeholder; Northwind is fictional.
+- **Reproduce:** `cd deliverables && python3 -m http.server 8765 &` then `NODE_PATH=/opt/node22/lib/node_modules node D5-mockups/src/render.js` (and `capture.js` for the walkthrough).

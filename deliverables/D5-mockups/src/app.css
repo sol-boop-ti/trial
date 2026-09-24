@@ -97,4 +97,4 @@ button { cursor: pointer; }
 .hl { color: var(--pd-text-2); }
 
 /* Demo mode (walkthrough capture): all motion is driven by the timeline. */
-html.demo *, html.demo *::before, html.demo *::after { transition: none !important; }
+html.demo *, html.demo *::before, html.demo *::after { transition: none !important; animation-play-state: paused !important; }

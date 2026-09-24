@@ -41,6 +41,7 @@
   .proof .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--pd-text-4); }
 
   @media (max-width: 640px) {
+    :root { --horizon-top: 88vh; }
     .topbar { height: 60px; }
     .stage { justify-content: flex-start; padding-top: 196px; }
     h1 { font-size: 44px; line-height: 1.04; margin-bottom: 36px; letter-spacing: -0.045em; }
@@ -109,7 +110,12 @@ function setValue(v, focus = true) {
   $("#field").classList.toggle("focus", focus);
 }
 document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => setTab(t.dataset.tab)));
-window.demo = { setTab, setValue,
+function indBetween(a, b, k) {
+  const tabs = $("#tabs").getBoundingClientRect();
+  const ra = document.querySelector(`.tab[data-tab=${a}]`).getBoundingClientRect(), rb = document.querySelector(`.tab[data-tab=${b}]`).getBoundingClientRect();
+  $("#ind").style.left = (ra.left + (rb.left - ra.left) * k - tabs.left - 1) + "px"; $("#ind").style.width = (ra.width + (rb.width - ra.width) * k) + "px";
+}
+window.demo = { setTab, setValue, indBetween,
   hover(on) { $("#go").classList.toggle("is-hover", on); },
   press(on) { $("#go").classList.toggle("is-press", on); },
   rect(sel) { const r = document.querySelector(sel).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; } };
