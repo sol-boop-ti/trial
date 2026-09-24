@@ -351,7 +351,7 @@ class HttpPooldayClient(PooldayClient):
         if reference_url:
             if self.req.get("reference_url"):
                 put(body, self.req["reference_url"], reference_url)
-            else:  # no dedicated field: the link goes in the prompt (Poolday reads links)
+            elif reference_url not in prompt:  # no dedicated field: Poolday reads links in the text
                 put(body, self.req.get("prompt", "prompt"), f"{prompt}\nReference: {reference_url}")
         if attachments:
             if not self.ep.get("upload") or not self.req.get("attachments"):

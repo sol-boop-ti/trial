@@ -183,3 +183,25 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Unverified claims cut:** the spam flag, operator throughput, sub-metric percentages.
   - **Budget in stages:** ~$2k manual pilot → ~$5k public page → ~$8k scale, each stage opened by a trigger.
 - **Finding:** search results indicate Motion announced a "paste a URL, get a launch video" capability in Aug 2026, so the mechanic isn't new. The doc treats Motion as both the precedent and the main competitor: Poolday has to win on output quality (proved publicly through the X remakes) and on the human demo offer. *To be verified by opening the source links.*
+
+## M13. LinkedIn rework around current trends (D1 v2)
+- **What:** re-ranked the LinkedIn angles around this week's AI trends, per the user's feedback (only the "remake a viral fake video" angle could go viral).
+- **Tools:** Claude Code sub-agent. 13 web searches (worked); page fetches of X, TechCrunch and others were blocked, so those claims come from search snippets and should be checked before quoting numbers.
+- **Trends found (to verify via the links in the doc):**
+  - Major model launches this month.
+  - A wave of "made with one prompt" motion videos whose fine print admits hours of agent work.
+  - LinkedIn's "Seems like AI slop" button (Jul 30), which cuts reach on flagged posts.
+  - The Sora shutdown, and brands pulling AI ads after backlash.
+  - Motion shipping URL → launch video inside Claude.
+- **Ranking** (virality / lead quality / 48h feasibility):
+  1. **The AI Video Slop Test:** the same B2B launch brief run through the leading video models, a "one prompt" setup, and Poolday, shown side by side with fairness rules fixed up front. This merges the user's "we killed AI slop" and "benchmark" ideas.
+  2. **"One prompt" receipts:** remake a viral video in Poolday with the creator's OK, and show the real prompt, time and credits.
+  3. **"5 tells your launch video is AI slop":** a teardown built from #1's footage.
+  4. **URL → video:** demoted from hook to CTA mechanic because of the Motion overlap. It's still the best filter for qualified leads.
+- **Decisions & why:**
+  - **The comparison is the proof the slop claim needs,** and it attracts people choosing video tools, who are buyers.
+  - **Fairness rules and a "rerun it yourself" invitation** protect credibility with an audience ready to hit the slop button.
+  - **Creator consent before any remake** avoids a "dunking on creators" look from an exec account.
+- **Notes:**
+  - #1 needs a small spend outside Poolday for the other models' clips.
+  - Commenters have no funding date, so set `PRESCORE_GATE=30` when feeding them into the loop.

@@ -139,17 +139,23 @@ def clean_email(data: dict) -> dict:
 
 # --------------------------------------------------------------------------- API mode
 
-def _call_api(system: str, user: str, schema: dict, max_tokens: int = 4000) -> dict:
+# Token usage of every API call in this process (for spend reporting and the event log).
+USAGE: list[dict] = []
+
+
+def _call_api(system: str, user: str, schema: dict, max_tokens: int | None = None) -> dict:
     import anthropic  # imported lazily so mock mode needs no dependency
 
     client = anthropic.Anthropic()
+    output_config: dict = {"format": {"type": "json_schema", "schema": schema}}
+    if config.supports_effort(config.MODEL):
+        output_config["effort"] = config.EFFORT
     kwargs = dict(
         model=config.MODEL,
-        max_tokens=max_tokens,
+        max_tokens=max_tokens or config.MAX_TOKENS,
         system=system,
         messages=[{"role": "user", "content": user}],
-        output_config={"effort": config.EFFORT,
-                       "format": {"type": "json_schema", "schema": schema}},
+        output_config=output_config,
     )
     try:
         if config.MODEL in config.FALLBACK_MODELS:
@@ -170,12 +176,28 @@ def _call_api(system: str, user: str, schema: dict, max_tokens: int = 4000) -> d
     except anthropic.APIConnectionError as exc:
         raise RuntimeError("Could not reach the Anthropic API.") from exc
 
+    u = resp.usage
+    USAGE.append({"model": getattr(resp, "model", config.MODEL),
+                  "input_tokens": u.input_tokens, "output_tokens": u.output_tokens})
     if resp.stop_reason == "refusal":
         raise RuntimeError("The model declined this request.")
     if resp.stop_reason == "max_tokens":
-        raise RuntimeError("Output truncated (max_tokens).")
-    text = next(b.text for b in resp.content if b.type == "text")
-    return json.loads(text)
+        raise RuntimeError(f"Output truncated at max_tokens={kwargs['max_tokens']} (raise LLM_MAX_TOKENS).")
+    text = next((b.text for b in resp.content if b.type == "text"), None)
+    if text is None:
+        raise RuntimeError(f"No text in the response (stop_reason={resp.stop_reason}).")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"Response was not valid JSON: {text[:200]}") from exc
+
+
+def usage_note() -> str:
+    """'in 812 / out 305 tokens' for the last API call (empty outside API mode)."""
+    if not USAGE:
+        return ""
+    u = USAGE[-1]
+    return f"in {u['input_tokens']} / out {u['output_tokens']} tokens"
 
 
 # --------------------------------------------------------------------------- mock mode

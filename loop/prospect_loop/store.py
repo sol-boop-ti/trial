@@ -25,6 +25,19 @@ CREATE TABLE IF NOT EXISTS events (
   action TEXT NOT NULL,
   note TEXT
 );
+CREATE TABLE IF NOT EXISTS api_calls (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  lead_id INTEGER,
+  ts TEXT NOT NULL,
+  service TEXT NOT NULL,
+  op TEXT NOT NULL,
+  method TEXT,
+  path TEXT,
+  http_status INTEGER,
+  ms INTEGER,
+  request TEXT,
+  response TEXT
+);
 """
 
 # Lifecycle: new -> qualified (awaiting video) -> in_review -> approved -> exported
@@ -39,7 +52,7 @@ def now() -> str:
 def connect(path: Path | None = None) -> sqlite3.Connection:
     path = Path(path or config.DB_PATH)
     path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
+    conn = sqlite3.connect(path, timeout=10)  # the dashboard poller writes from another thread
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
     return conn
@@ -93,3 +106,20 @@ def log(conn, lead_id: int, action: str, note: str | None = None) -> None:
 def events(conn, lead_id: int) -> list[dict]:
     return [dict(r) for r in conn.execute(
         "SELECT ts, action, note FROM events WHERE lead_id=? ORDER BY id", (lead_id,))]
+
+
+def log_api(conn, lead_id: int | None, service: str, rec: dict) -> None:
+    """One row per external API call (Poolday): op, method, path, status, latency, bodies.
+    Auth headers are never passed in here."""
+    conn.execute("INSERT INTO api_calls(lead_id, ts, service, op, method, path, http_status, ms, "
+                 "request, response) VALUES(?,?,?,?,?,?,?,?,?,?)",
+                 (lead_id, now(), service, rec.get("op"), rec.get("method"), rec.get("path"),
+                  rec.get("http_status"), rec.get("ms"), rec.get("request"), rec.get("response")))
+    conn.commit()
+
+
+def api_calls(conn, lead_id: int | None = None, limit: int = 200) -> list[dict]:
+    q = "SELECT * FROM api_calls" + (" WHERE lead_id=?" if lead_id is not None else "") + \
+        " ORDER BY id DESC LIMIT ?"
+    args = (lead_id, limit) if lead_id is not None else (limit,)
+    return [dict(r) for r in conn.execute(q, args)][::-1]
