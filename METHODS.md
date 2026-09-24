@@ -322,3 +322,19 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   Why: each input fixes a different failure seen in the review. The reference fixes generic style, the manual fixes template-looking motion and slow holds, the skill fixes lost continuity, and the kit fixes off-brand output.
 - **Aligned** the D6 pacing rules with the manual. The logo lockup is 2–3s including a ≥0.6s *alive* hold, not a static slide.
 - **Files:** `references/README.md`, `poolday/motion-design-for-agents.md`, `poolday/kickoff-prompts.md` (v2 section).
+
+## M21. Reference mapping + growth mockups v2 brief
+- **Mapping (decided with the user):**
+  - Wispr Flow ← Skuve.
+  - Flam ← ImagineArt (motion taste) + ElevenLabs node-canvas videos + "stretching creativity" (collage, serif italic kinetic type, bomb metaphor, colour-dot loader; analysed on a 1 frame/s contact sheet).
+  - Open point: the CSV describes Flam as mixed-reality marketing, the user as a node-based creativity tool. Check the live site before the story brief.
+- **Mockups v2 (user feedback on v1):**
+  - Remove "free, no sign-up".
+  - A progress bar that fills on every click.
+  - New steps: "Do you have a screen recording?" and "Do you have a brand kit?", each with an "upload" option and a highly clickable "Poolday AI does it for you" option.
+  - A longer, more magical generating sequence, including "AI records a walkthrough of your SaaS" (plausible: the Poolday b2b page reportedly lists "The demo records itself" [verify]).
+  - Multi-scene animated style previews: Apple liquid-glass UI, kinetic, founder studio film.
+  - Punchier style names.
+  - Real (CC-licensed) photos in the podcast styles.
+  - All brand values isolated in tokens, so Poolday's real kit can be swapped in.
+- **Blocker:** Poolday's brand. poolday.ai is denied by the environment's egress policy (`connect_rejected`), so the brand comes from the user: allow the domain, or upload the logo, screenshots and font names, or export the kit from Poolday's own brand-kit feature.
