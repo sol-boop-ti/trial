@@ -195,9 +195,9 @@ function pricingBefore() {
 function pricingAfter() {
   const C = (cells, cls = '') => cells.map((c, i) => `<div class="${i === 0 ? 'rh' : ''}${i === 1 ? ' pd' : ''} ${cls}">${c}</div>`).join('');
   return head('Poolday pricing, after', 'Proposed redesign · same structure, prices and plan contents · [verify] = not confirmed from the live site', 'After') + nav() +
-    `<section class="pd-hero d7-hero" style="padding-bottom:64px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.3" data-rx="520"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1>
-<p class="pricing-lede"${co(1)}>Pay for finished videos, not seats. <span>~$5–$25 per finished video.</span>${V}</p></div></section>
-<div class="plans">
+    `<section class="pd-hero d7-hero" style="padding-top:56px;padding-bottom:44px"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.3" data-rx="520"></canvas><div class="pd-hero-inner"><h1 class="pd-display">Simple pricing.</h1>
+<p class="pricing-lede" style="margin-top:22px"${co(1)}>Pay for finished videos, not seats. <span>~$5–$25 per finished video.</span>${V}</p></div></section>
+<div class="plans tight">
 <div class="plan"><h3>Business</h3><p class="persona-s"${co(3, 'right')}>For a startup team of 1–3 that ships every week.</p><div class="price">$1,250<small>/mo</small></div><p class="yield-s"${co(2, 'right')}>≈ 50–250 finished videos a month${V}</p><ul>${li('$1,250 of credits')}${li('1-1 onboarding')}${li('1-business-day support')}${li('Extra credits at 2× the included rate')}</ul><p class="first"${co(4, 'right')}>First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
 <div class="plan"><h3>Enterprise</h3><p class="persona-s">For teams that need SSO, an MSA and API access.</p><div class="price"><span class="from">from</span>$2,500<small>/mo</small></div><p class="yield-s">≈ 100–500+ finished videos a month${V}</p><ul><li class="li-head">Everything in Business, plus</li>${li('SSO')}${li('MSA')}${li('A private Slack')}${li('API access')}${li('Unlimited users')}</ul><p class="first">First month $600 <span class="pilot-s">· a pilot, no lock-in</span></p><p class="cfg">Book a call to get your agent configured</p><a class="pd-btn pd-btn-lg" href="#">Book a 15 min demo</a></div>
 </div>

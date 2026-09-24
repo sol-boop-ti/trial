@@ -164,8 +164,6 @@ a { color: inherit; }
 .pd-glass-chip.snd { flex: none; width: 28px; height: 28px; padding: 0; justify-content: center; }
 
 /* v2 revisions */
-.pd-hero.d7-hero .d7-hero-gap { height: 0; }
-.d7-hero .pd-hero-inner > .pd-btn + .pd-section-title, .d7-hero .cta-row + .pd-section-title { margin-top: 64px; }
 .pricing-lede { margin-top: 28px; font-size: 22px; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
 .pricing-lede span { color: var(--ink-quiet); }
 .plan .persona-s { margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--ink-muted); }
@@ -175,3 +173,9 @@ a { color: inherit; }
 .proc-line b { font-weight: 500; color: var(--ink); }
 .url-field { position: relative; }
 .url-field .badge { position: absolute; top: -11px; right: 22px; padding: 3px 9px; border-radius: var(--radius-pill); background: var(--brand-cyan); color: var(--on-brand-cyan); font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.01em; }
+.plans.tight .plan { padding: 30px 36px; }
+.plans.tight .plan .price { margin-top: 20px; }
+.plans.tight .plan ul { margin-top: 20px; gap: 9px; }
+.plans.tight .plan .first { margin-top: 22px; }
+.plans.tight .plan .pd-btn { margin-top: 20px; }
+.proc-line { text-wrap: balance; }

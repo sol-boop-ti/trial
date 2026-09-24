@@ -12,7 +12,7 @@ fs.mkdirSync(R, { recursive: true }); fs.mkdirSync(CMP, { recursive: true });
 
 const LEGEND = {
   home: ['"Watch a 2-min build" for visitors not ready to call', 'A demo CTA right after the proof grid', '"Superintelligence" defined in one line', 'Customers and investors split', 'What happens in the 15 minutes'],
-  b2b: ['H1 says who it is for and the job', '"Paste your URL" instant-value entry (D5)', 'B2B startup logos in the first screen', 'Input-to-output use cases, launch video first', '"Human-made" claim backed by named videos', 'Onboarding and 95% autonomy as facts', 'Closing line says what happens on the call'],
+  b2b: ['H1 says who it is for and the job', '"Paste your URL" free launch video (D5), tagged "Free · limited"', 'B2B startup logos in the first screen', 'Input-to-output use cases, launch video first', '"Human-made" claim backed by named videos', 'Onboarding and 95% autonomy as facts', 'Closing line says what happens on the call'],
   pricing: ['One-line lede: price per finished video', 'Credits translated into videos per month', 'A persona caption per plan', 'The $600 first month framed as a pilot, no lock-in', 'Customer logos under the plans', 'Short comparison vs agency, freelancer, in-house', 'One-line procurement note', 'Four-question FAQ'],
 };
 const TITLE = { home: 'poolday.ai — Home', b2b: 'poolday.ai/solutions/b2b-startups', pricing: 'poolday.ai/pricing' };
@@ -52,7 +52,7 @@ h1{margin:0 0 6px;font-size:34px;font-weight:500;letter-spacing:-.02em}.sub{colo
 <h1>${TITLE[p]}: before and after${mode === 'fold' ? ' (above the fold)' : ''}</h1><div class="sub">1440px wide, shown at 50%. Before = reconstruction from reported copy and the brand-kit audit. Goal: more demos booked.</div>
 <div class="row"><div class="col"><h2>Before · reconstruction</h2><img src="file://${R}/${p}-before${suf}.png"></div>
 <div class="col after"><h2>After · proposed</h2><img src="file://${R}/${p}-after-annotated${suf}.png"></div>
-<div class="leg"><h2>Changes, ranked</h2>${LEGEND[p].map((t, i) => `<div class="it"><span class="n">${i + 1}</span><span>${t}</span></div>`).join('')}<p class="note">Detail, copy and A/B tests: D7-page-review.md.</p></div></div></body></html>`;
+<div class="leg"><h2>Changes (page order)</h2>${LEGEND[p].map((t, i) => `<div class="it"><span class="n">${i + 1}</span><span>${t}</span></div>`).join('')}<p class="note">Detail, copy and A/B tests: D7-page-review.md.</p></div></div></body></html>`;
       const f = path.join(CMP, `.${p}${suf}.html`);
       fs.writeFileSync(f, html);
       const cp = await ctx.newPage();

@@ -360,3 +360,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - No invented costs in the comparison.
   - Two made-up metrics that crept into placeholder tiles were caught and removed. Lesson: check placeholder art as strictly as headlines.
 - **Unverified:** "~$5–25 per video" on the live site; Enterprise credits = plan price; the credits included in the $600 month; whether security docs exist; the details of every BEFORE layout. Screenshots of the live pages would make the befores exact.
+
+## M24. D7 v2 after user feedback
+- **Pricing:** back to the original 2-card table. The best ideas are kept as one-liners: a lede with the price per video, "≈ N videos a month" under each price, a persona caption per plan, and "First month $600 · a pilot, no lock-in". The big pilot band is removed. The comparison, procurement note and FAQ are trimmed and kept below the fold.
+- **Home:** the 3 price facts under the hero CTA are removed (noise). "Watch a 2-min build" is kept.
+- **B2B:** a tiny cyan "Free · limited" pill on the "Paste your URL" field. It's the only cyan on the page, using the kit's reserved signal colour.
+- **Lesson:** pricing gains have to fit inside the original's simplicity. Extra blocks above the cards cost more clarity than they add persuasion.
