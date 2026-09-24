@@ -33,11 +33,15 @@ Score each criterion 0-20 (total 0-100):
                    announcement, design-led brand)?
 
 Rules: use only the facts given; do not invent customers, metrics or launches. If a fact is
-missing, score conservatively and say so. `justification` is 2-3 short sentences citing the
-facts that drove the score. `video_angle` is one line describing the video to make for them
-(framed around their moment, e.g. "your Series B announcement film" or "what your meetings launch
-could look like"). `launch_hook` is the short noun phrase for their moment (e.g. "the move into
-meetings"). `audience` is who the video is for (role, not a name)."""
+missing, score conservatively and say so. `score` is the sum of the five criteria.
+`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;
+do not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the
+freshness score.
+`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype
+words: it is pasted verbatim into the video brief (e.g. "your Series B announcement film" or
+"what your meetings launch could look like"). `launch_hook` is a short noun phrase for their
+moment, at most 6 words (e.g. "the move into meetings"). `audience` is one role, not a name
+(e.g. "VP of Product Marketing")."""
 
 QUALIFY_SCHEMA = {
     "type": "object",
@@ -63,12 +67,23 @@ EMAIL_GUIDE = """You write short cold emails from someone at Poolday (an AI vide
 agent) to a marketing/creative leader at a company that just raised. We already made them a
 free ~20s video. Constraints:
 - 60-110 words in the body, plain text, no bullet points, no emojis, no hype words.
-- Personalize with: their round (amount + stage), their moment/launch hook, the contact's role.
+- Personalize with: their round (amount + stage, e.g. "$40M Series B"), their moment/launch
+  hook, and why it matters for the contact's role.
+- Say once, plainly, that the video was made with Poolday, an AI video production agent.
 - Include the literal line `[VIDEO THUMBNAIL]` on its own line, then the video link on the next.
-- Exactly one call to action, phrased as a single yes/no question.
+- Exactly one call to action, phrased as a single yes/no question; no other question marks.
 - Greeting uses the first name only. Sign off with the sender name given.
 - Never invent facts, customers, metrics or quotes. Never mention which AI models were used.
-- Subject: under 8 words, specific to them, no clickbait."""
+- Subject: under 8 words, specific to them, no clickbait.
+
+Body shape (blank line between blocks):
+Hi <first name>,
+<2-3 sentences: the round, their moment, why it matters for their role>
+<1 sentence: we made them a ~20s video with Poolday>
+[VIDEO THUMBNAIL]
+<video link>
+<the one yes/no question>
+<sender name>"""
 
 EMAIL_SCHEMA = {
     "type": "object",
@@ -98,8 +113,12 @@ def lead_facts(lead: dict) -> dict:
 
 
 def qualify_prompt(lead: dict) -> str:
+    facts = lead_facts(lead)
+    pts = freshness_points(lead.get("days_since_round"))
+    if pts is not None:
+        facts["freshness_points"] = pts  # computed from the rubric's bands; use as-is
     return ("Qualify this lead against the rubric. Return JSON only.\n\n"
-            + json.dumps(lead_facts(lead), indent=2))
+            + json.dumps(facts, indent=2))
 
 
 def email_prompt(lead: dict, note: str = "") -> str:
@@ -120,12 +139,26 @@ def email_prompt(lead: dict, note: str = "") -> str:
 
 # --------------------------------------------------------------------------- validation
 
-def clean_qualification(data: dict) -> dict:
+def freshness_points(days: int | None) -> int | None:
+    """The rubric's freshness scale, applied in code (models misread the bands)."""
+    if days is None:
+        return None
+    for limit, pts in ((14, 20), (30, 17), (60, 14), (90, 11), (180, 6), (365, 3)):
+        if days <= limit:
+            return pts
+    return 0
+
+
+def clean_qualification(data: dict, lead: dict | None = None) -> dict:
     rubric = {k: max(0, min(20, int(data["rubric"].get(k, 0))))
               for k in ("b2b", "freshness", "buyer", "visual_product", "video_need")}
+    fresh = freshness_points((lead or {}).get("days_since_round"))
+    if fresh is not None:
+        rubric["freshness"] = fresh
     return {
         "rubric": rubric,
-        "score": max(0, min(100, int(data.get("score") or sum(rubric.values())))),
+        # The total is always the sum of the criteria (a model's own total can drift from it).
+        "score": sum(rubric.values()),
         "justification": str(data["justification"]).strip(),
         "video_angle": str(data["video_angle"]).strip(),
         "launch_hook": str(data["launch_hook"]).strip(),
@@ -133,8 +166,52 @@ def clean_qualification(data: dict) -> dict:
     }
 
 
-def clean_email(data: dict) -> dict:
-    return {"subject": str(data["subject"]).strip(), "body": str(data["body"]).strip()}
+def clean_email(data: dict, lead: dict | None = None) -> dict:
+    body = str(data["body"]).strip().replace("\r\n", "\n")
+    # Deterministic layout fix: the thumbnail placeholder and the link each on their own line.
+    body = re.sub(r"[ \t]*\[VIDEO THUMBNAIL\][ \t]*", "\n\n[VIDEO THUMBNAIL]\n", body)
+    body = re.sub(r"\[VIDEO THUMBNAIL\]\n\s*(https?://\S+)[ \t]*", r"[VIDEO THUMBNAIL]\n\1\n\n", body)
+    body = re.sub(r"\n{3,}", "\n\n", body).strip()
+    out = {"subject": str(data["subject"]).strip(), "body": body}
+    if lead is not None:
+        out["checks"] = email_checks(out, lead)
+    return out
+
+
+MODEL_NAMES = re.compile(r"\b(claude|anthropic|gpt|openai|gemini|chatgpt|llm)\b", re.I)
+
+
+def email_checks(email: dict, lead: dict) -> list[str]:
+    """The email guide's hard rules, checked in code. Empty list = passes."""
+    body, issues = email["body"], []
+    c = lead.get("primary_contact") or {}
+    first = c.get("first_name")
+    link = lead.get("video_url")
+    words = [w for w in body.split() if w != "[VIDEO THUMBNAIL]" and not w.startswith("http")]
+    if not 60 <= len(words) <= 110:
+        issues.append(f"body is {len(words)} words (60-110)")
+    if first and not body.startswith(f"Hi {first}"):
+        issues.append(f"greeting should be 'Hi {first},'")
+    lines = body.splitlines()
+    if "[VIDEO THUMBNAIL]" not in lines:
+        issues.append("missing the [VIDEO THUMBNAIL] line")
+    elif link and (lines.index("[VIDEO THUMBNAIL]") + 1 >= len(lines)
+                   or lines[lines.index("[VIDEO THUMBNAIL]") + 1].strip() != link):
+        issues.append("the video link must be on the line after [VIDEO THUMBNAIL]")
+    if body.count("?") != 1:
+        issues.append(f"{body.count('?')} question marks (exactly one yes/no question)")
+    amount = lead.get("round_amount_m")
+    if amount and f"${amount}M" not in body.replace(",", ""):
+        issues.append(f"round amount ${amount}M not mentioned")
+    if "poolday" not in body.lower():
+        issues.append("Poolday not named")
+    if not body.rstrip().endswith(config.SENDER_NAME):
+        issues.append(f"should sign off with '{config.SENDER_NAME}'")
+    if MODEL_NAMES.search(body + " " + email["subject"]):
+        issues.append("mentions an AI model/vendor")
+    if len(email["subject"].split()) >= 8:
+        issues.append("subject is 8+ words")
+    return issues
 
 
 # --------------------------------------------------------------------------- API mode
@@ -276,11 +353,17 @@ def mock_email(lead: dict, note: str = "") -> dict:
 
 def qualify(lead: dict) -> tuple[dict, str]:
     if config.llm_mode() == "api":
-        return clean_qualification(_call_api(ICP_RUBRIC, qualify_prompt(lead), QUALIFY_SCHEMA)), "api"
-    return clean_qualification(mock_qualify(lead)), "mock"
+        return clean_qualification(_call_api(ICP_RUBRIC, qualify_prompt(lead), QUALIFY_SCHEMA), lead), "api"
+    return clean_qualification(mock_qualify(lead), lead), "mock"
 
 
 def draft_email(lead: dict, note: str = "") -> tuple[dict, str]:
     if config.llm_mode() == "api":
-        return clean_email(_call_api(EMAIL_GUIDE, email_prompt(lead, note), EMAIL_SCHEMA)), "api"
-    return clean_email(mock_email(lead, note)), "mock"
+        prompt = email_prompt(lead, note)
+        email = clean_email(_call_api(EMAIL_GUIDE, prompt, EMAIL_SCHEMA), lead)
+        if email["checks"]:  # one repair pass with the failed rules, then the human sees the rest
+            retry = (f"{prompt}\n\nYour previous draft broke these rules: {'; '.join(email['checks'])}."
+                     f"\nPrevious draft:\n{email['body']}\n\nRewrite it so every rule holds.")
+            email = clean_email(_call_api(EMAIL_GUIDE, retry, EMAIL_SCHEMA), lead)
+        return email, "api"
+    return clean_email(mock_email(lead, note), lead), "mock"

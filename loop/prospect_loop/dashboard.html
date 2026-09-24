@@ -70,6 +70,14 @@ textarea.body { min-height: 260px; font: 13px/1.5 ui-monospace, SFMono-Regular, 
 .hint { color: var(--muted); font-size: 12px; }
 .log { font-size: 12px; color: var(--muted); }
 .log div { padding: 2px 0; }
+.chip { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+  padding: 2px 8px; border-radius: 99px; background: var(--chip); color: var(--muted); }
+.chip.running, .chip.queued { color: var(--accent); } .chip.needs_input { color: var(--warn); }
+.chip.done { color: var(--good); } .chip.failed { color: var(--bad); }
+.question { border-left: 3px solid var(--warn); padding: 6px 10px; margin: 8px 0; background: var(--code); }
+details summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+table.calls { width: 100%; border-collapse: collapse; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+table.calls td { border-top: 1px solid var(--line); padding: 3px 6px; vertical-align: top; word-break: break-all; }
 #toast { position: fixed; bottom: 20px; right: 20px; background: var(--ink); color: var(--bg);
   padding: 10px 14px; border-radius: 6px; opacity: 0; transition: opacity .2s; max-width: 420px; }
 #toast.show { opacity: 1; }
@@ -85,6 +93,7 @@ textarea.body { min-height: 260px; font: 13px/1.5 ui-monospace, SFMono-Regular, 
 <header>
   <h1>Prospect loop</h1>
   <span class="badge" id="mode">…</span>
+  <span class="badge" id="pmode">…</span>
   <span class="spacer"></span>
   <button id="run">Find + qualify leads</button>
   <button id="export" class="primary">Export approved drafts</button>
@@ -102,6 +111,8 @@ const VIEWS = [
   ["exported", "Exported"], ["rejected", "Rejected"], ["disqualified", "Disqualified"], ["all", "All"],
 ];
 let leads = [], view = "qualified", selected = null, promptTab = "command", meta = {};
+const ACTIVE = ["queued", "running", "needs_input"];
+const apiOn = () => !!(meta.poolday && meta.poolday.ok && meta.poolday.automatic);
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -139,7 +150,8 @@ function renderList() {
       <span class="score ${cls(l.score)}">${l.score ?? "–"}</span>
       <div><div><b>${esc(l.company)}</b></div>
         <div class="meta">${esc(l.round)} $${esc(l.round_amount_m)}M · ${l.days_since_round ?? "?"}d ago</div>
-        <div class="status">${esc(l.status.replace("_", " "))}${l.video_version > 1 ? " · v" + l.video_version : ""}</div></div>
+        <div class="status">${esc(l.status.replace("_", " "))}${l.video_version > 1 ? " · v" + l.video_version : ""}${
+          l.poolday && l.poolday.status && l.status === "qualified" ? ` · <span class="chip ${esc(l.poolday.status)}">poolday ${esc(l.poolday.status.replace("_", " "))}</span>` : ""}</div></div>
     </div>`).join("") : `<div class="empty">Nothing here.</div>`;
   $("#list").querySelectorAll(".row").forEach(r => r.onclick = () => select(+r.dataset.id));
 }
@@ -169,6 +181,7 @@ function renderDetail(l) {
     <h3>Qualification <span class="hint">(${esc(l.qualified_by)}; keep ≥ ${meta.threshold}; pre-score ${l.prescore ?? "–"})</span></h3>
     <div class="card"><div class="rubric">${rubric}</div>
       <div>${esc(q.justification)}</div>
+      ${l.knockout ? `<div style="color:var(--bad);margin-top:6px">Knock-out: ${esc(l.knockout)}.</div>` : ""}
       <div style="margin-top:8px"><b>Video angle:</b> ${esc(q.video_angle)}</div>
       <div class="hint">For: ${esc(q.audience)} · Hook: ${esc(q.launch_hook)}</div></div>`;
   else if (l.status === "disqualified") html += `<h3>Qualification</h3><div class="card">Cut by pre-score (${l.score}): not worth an LLM call.</div>`;
@@ -179,12 +192,34 @@ function renderDetail(l) {
     <h3>1 · Poolday prompt</h3>
     <div class="ptabs">${tabs.map(([k, n]) => `<button data-p="${k}" class="${k === promptTab ? "on" : ""}">${n}</button>`).join("")}
       <span class="spacer"></span><button id="copy">Copy</button></div>
-    <pre id="prompt">${esc(P[promptTab])}</pre>
-    <div class="hint">Paste into Poolday (Align mode). No public API yet, so this step is manual.</div>`;
+    <pre id="prompt">${esc(P[promptTab])}</pre>`;
+    const pd = l.poolday || {};
+    const inFlight = ACTIVE.includes(pd.status);
+    if (apiOn() && l.status === "qualified") {
+      const revise = pd.production_id && pd.pending_revision;
+      html += `<div class="inline">
+        <button class="primary" id="psend" ${inFlight && !revise ? "disabled" : ""}>${revise ? "Send revision to the same conversation" : pd.production_id && !inFlight ? "Send again (new conversation)" : "Send to Poolday"}</button>
+        <span class="hint">${revise ? "" : "Sends the " + (promptTab === "fallback" ? "fallback kickoff (+ skill file)" : "/prospect-video command")} via the Poolday API (${esc(meta.poolday.client)}, ${esc(meta.poolday.mode || "")} mode, ${esc(meta.poolday.tier || "")} tier).</span></div>`;
+    } else if (l.status === "qualified") {
+      html += `<div class="hint">Paste into Poolday (Align mode), then paste the video link back below.${
+        meta.poolday && meta.poolday.error ? " Poolday API: " + esc(meta.poolday.error) : ""}</div>`;
+    }
+    if (pd.production_id) html += `
+    <div class="card" style="margin-top:10px">
+      <div><b>Poolday production</b> <code>${esc(pd.production_id)}</code> <span class="chip ${esc(pd.status)}">${esc((pd.status || "").replace("_", " "))}</span>
+        <span class="hint">${esc(pd.raw_status || "")} · ${esc(pd.updated_at || "")}</span>
+        ${inFlight ? `<button id="ppoll" style="float:right">Poll now</button>` : ""}</div>
+      ${pd.error ? `<div style="color:var(--bad);margin-top:6px">${esc(pd.error)}</div>` : ""}
+      ${pd.status === "needs_input" && l.status === "qualified" ? `
+        <div class="question"><b>Poolday's agent asks:</b> ${esc(pd.question)}</div>
+        <textarea id="panswer" placeholder="Your answer (e.g. 'go ahead', or a change with mechanisms: hard cut at 0:04)."></textarea>
+        <div class="inline"><button class="primary" id="panswerbtn">Answer</button></div>` : ""}
+      ${pd.video_url ? `<div style="margin-top:6px">Latest output: <a href="${esc(pd.video_url)}" target="_blank" rel="noopener">${esc(pd.video_url)}</a></div>` : ""}
+    </div>`;
   }
 
   if (l.status === "qualified") html += `
-    <h3>2 · Paste the Poolday video link${l.video_version > 1 ? " (v" + l.video_version + ")" : ""}</h3>
+    <h3>2 · ${apiOn() ? "Or paste" : "Paste"} the Poolday video link${l.video_version > 1 ? " (v" + l.video_version + ")" : ""}${apiOn() ? ` <span class="hint">(API mode fills this in when the run finishes)</span>` : ""}</h3>
     <div class="inline"><input type="url" id="vurl" placeholder="https://…"><button class="primary" id="vsubmit">Send to review</button></div>`;
 
   if (l.status === "in_review") html += `
@@ -200,10 +235,17 @@ function renderDetail(l) {
     <div class="hint">To: ${esc(c?.name)} · ${esc(c?.title)} (address not in the data: add it when sending)</div>
     <input type="text" id="subj" value="${esc(l.email.subject)}" style="margin-top:6px">
     <textarea class="body" id="ebody">${esc(l.email.body)}</textarea>
+    ${(l.email.checks || []).length ? `<div class="hint" style="color:var(--warn)">Rule checks: ${l.email.checks.map(esc).join(" · ")}</div>` : `<div class="hint">All email rule checks pass.</div>`}
     <div class="inline"><button class="primary" id="esave">Save edits</button><button id="redraft">Redraft</button>
       <span class="hint">Then “Export approved drafts” writes .eml + CSV for sending.</span></div>`;
 
   if (l.status === "rejected") html += `<h3>Rejected</h3><div class="card">${esc(l.reject_note || "No note.")}</div>`;
+
+  if ((l.api_calls || []).length) html += `
+    <h3>Poolday API calls</h3><details><summary>${l.api_calls.length} call(s): every request is logged for the audit trail</summary>
+    <table class="calls">${l.api_calls.map(c => `<tr><td>${esc(c.ts.slice(11, 19))}</td><td>${esc(c.op)}</td>
+      <td>${esc(c.method)} ${esc(c.path)}</td><td>${esc(c.http_status ?? "-")}</td><td>${esc(c.ms)} ms</td>
+      <td title="${esc(c.response)}">${esc(c.request || "")}</td></tr>`).join("")}</table></details>`;
 
   html += `<h3>History</h3><div class="log">${(l.events || []).map(e =>
       `<div>${esc(e.ts.replace("T", " ").slice(0, 16))} · <b>${esc(e.action)}</b> ${esc(e.note || "")}</div>`).join("")}</div>`;
@@ -229,7 +271,10 @@ function bind(l) {
   on("approve", act(() => api(`/api/leads/${l.id}/approve`, {note: note()}), "Approved. Email drafted."));
   on("reject", act(() => api(`/api/leads/${l.id}/reject`, {note: note()}), "Rejected."));
   on("regen", act(() => { promptTab = "revision"; return api(`/api/leads/${l.id}/regenerate`, {note: note()}); },
-     "Revision prompt ready. Paste it into the same Poolday conversation."));
+     apiOn() ? "Revision sent to the same Poolday conversation." : "Revision prompt ready. Paste it into the same Poolday conversation."));
+  on("psend", act(() => api(`/api/leads/${l.id}/poolday_send`, {prompt: promptTab === "fallback" ? "fallback" : "command"}), "Sent to Poolday. Polling for status."));
+  on("panswerbtn", act(() => api(`/api/leads/${l.id}/poolday_answer`, {answer: $("#panswer").value}), "Answer sent to Poolday."));
+  on("ppoll", act(() => api(`/api/leads/${l.id}/poolday_poll`, {}), null));
   on("esave", act(() => api(`/api/leads/${l.id}/email`, {subject: $("#subj").value, body: $("#ebody").value}), "Email saved."));
   on("redraft", act(() => api(`/api/leads/${l.id}/redraft`, {}), "Email redrafted."));
 }
@@ -246,7 +291,19 @@ $("#export").onclick = act(async () => {
 (async () => {
   meta = await api("/api/meta");
   $("#mode").textContent = meta.mode === "api" ? "LLM: API mode" : "LLM: mock mode";
+  const pd = meta.poolday || {};
+  $("#pmode").textContent = apiOn()
+    ? `Poolday API: ${pd.client}${pd.credits && pd.credits.remaining != null ? " · credits " + pd.credits.remaining : ""}`
+    : pd.client === "manual" ? "Poolday: copy/paste" : "Poolday API: not configured";
+  if (pd.error) $("#pmode").title = pd.error;
   await load();
+  // While a Poolday run is in flight, refresh every 3s (the server-side poller updates the DB).
+  setInterval(async () => {
+    if (!apiOn() || !leads.some(x => x.poolday && ACTIVE.includes(x.poolday.status) && x.status === "qualified")) return;
+    const typing = document.activeElement && ["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)
+      && document.activeElement.value;
+    if (!typing) await load();
+  }, 3000);
   const first = leads.find(l => l.status === view);
   if (first) select(first.id);
 })();

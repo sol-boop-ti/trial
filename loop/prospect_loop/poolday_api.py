@@ -174,13 +174,13 @@ def placeholders(mapping: dict, prefix: str = "") -> list[str]:
 
 
 def dig(data, path: str):
-    """Read a dotted path ('output.video.url', 'items.0.id') from a JSON response."""
+    """Read a dotted path ('output.video.url', 'items.0.id', 'versions.-1.url') from JSON."""
     if not path:
         return None
     cur = data
     for part in path.split("."):
-        if isinstance(cur, list) and part.isdigit() and int(part) < len(cur):
-            cur = cur[int(part)]
+        if isinstance(cur, list) and part.lstrip("-").isdigit() and -len(cur) <= int(part) < len(cur):
+            cur = cur[int(part)]  # "-1" = the last item (e.g. the latest version)
         elif isinstance(cur, dict) and part in cur:
             cur = cur[part]
         else:

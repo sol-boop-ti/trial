@@ -35,7 +35,11 @@ def _apply_qualification(conn, lead: dict, q: dict, mode: str) -> None:
     lead["qualification"] = q
     lead["qualified_by"] = mode
     lead["score"] = q["score"]
-    if q["score"] >= config.QUALIFY_THRESHOLD:
+    # Knock-out: nobody named to send the video to means no outreach, whatever the score.
+    knockout = None if lead.get("primary_contact") else "no named buyer to send it to"
+    if knockout:
+        lead["knockout"] = knockout
+    if q["score"] >= config.QUALIFY_THRESHOLD and not knockout:
         lead["status"] = "qualified"
         lead["poolday_prompts"] = poolday.build(lead)
         lead["video_version"] = 1
@@ -44,7 +48,8 @@ def _apply_qualification(conn, lead: dict, q: dict, mode: str) -> None:
     store.save(conn, lead)
     usage = llm.usage_note() if mode == "api" else ""
     store.log(conn, lead["id"], f"qualified:{mode}",
-              f"score {q['score']} -> {lead['status']}" + (f" ({usage})" if usage else ""))
+              f"score {q['score']} -> {lead['status']}" + (f" (knock-out: {knockout})" if knockout else "")
+              + (f" ({usage})" if usage else ""))
 
 
 def qualify_all(conn, rescore: bool = False, limit: int | None = None,
@@ -90,6 +95,7 @@ def qualify_all(conn, rescore: bool = False, limit: int | None = None,
 # --------------------------------------------------------------------------- 4. human gate
 
 URL_RE = re.compile(r"^https?://\S+$")
+PLACEHOLDER_RE = re.compile(r"<[^<>\n]{3,80}>")  # "<REFERENCE VIDEO LINK>", "<2-3 specific things...>"
 
 
 def submit_video(conn, lead_id: int, url: str, source: str = "human") -> dict:
@@ -179,7 +185,7 @@ def _record(conn, lead: dict, prod: poolday_api.Production, event: str | None = 
 
 def _api_prompt(lead: dict, which: str) -> tuple[str, list[str]]:
     """The prompt text the API sends, and the files to attach."""
-    prompts = lead["poolday_prompts"]
+    prompts = poolday.build(lead)  # rebuilt now, so a REFERENCE_VIDEO set after qualifying is used
     if which == "fallback":
         # Via the API the skill file is an attachment, so the "[drop ...]" line goes.
         text = "\n".join(l for l in prompts["fallback"].splitlines() if not l.startswith("[drop"))
@@ -206,6 +212,11 @@ def send_to_poolday(conn, lead_id: int, which: str | None = None) -> dict:
             raise ValueError(f"Already in production ({pd['production_id']}, {pd['status']}).")
         which = which or config.POOLDAY_PROMPT
         text, files = _api_prompt(lead, which)
+        holes = PLACEHOLDER_RE.findall(text)
+        if holes and client.name != "fake":
+            # Real credits: never send a prompt with unfilled <...> slots.
+            raise ValueError("Fill these before sending (REFERENCE_VIDEO env, or edit the prompt): "
+                             + ", ".join(holes))
         settings = {"title": f"{lead['company']} prospect video v{lead.get('video_version', 1)}"}
         if config.POOLDAY_MODE:
             settings["mode"] = config.POOLDAY_MODE
@@ -217,7 +228,8 @@ def send_to_poolday(conn, lead_id: int, which: str | None = None) -> dict:
                            "started_at": store.now(), "client": client.name}
         return _record(conn, lead, prod, "poolday:sent",
                        f"{prod.id} via {client.name} API ({which} prompt"
-                       + (f", {len(files)} file(s)" if files else "") + ")")
+                       + (f", {len(files)} file(s)" if files else "")
+                       + (f"; unfilled: {', '.join(holes)}" if holes else "") + ")")
 
 
 def _send_revision(conn, lead: dict, client=None) -> dict:
@@ -323,10 +335,18 @@ class Poller(threading.Thread):
 def redraft_email(conn, lead: dict | int, note: str = "") -> dict:
     if isinstance(lead, int):
         lead = store.get(conn, lead)
+    n_calls = len(llm.USAGE)
     email, mode = llm.draft_email(lead, note)
     lead["email"] = {**email, "drafted_by": mode, "edited": False}
     store.save(conn, lead)
-    store.log(conn, lead["id"], f"email_drafted:{mode}", note or None)
+    bits = [note] if note else []
+    if email.get("checks"):
+        bits.append("checks: " + "; ".join(email["checks"]))
+    if mode == "api":
+        calls = llm.USAGE[n_calls:]
+        bits.append(f"{len(calls)} call(s), in {sum(u['input_tokens'] for u in calls)} / "
+                    f"out {sum(u['output_tokens'] for u in calls)} tokens")
+    store.log(conn, lead["id"], f"email_drafted:{mode}", " · ".join(bits) or None)
     return lead
 
 
@@ -335,6 +355,7 @@ def save_email(conn, lead_id: int, subject: str, body: str) -> dict:
     if lead["status"] not in ("approved", "exported"):
         raise ValueError("Approve the video before editing the email.")
     lead["email"] = {**(lead.get("email") or {}), "subject": subject, "body": body, "edited": True}
+    lead["email"]["checks"] = llm.email_checks(lead["email"], lead)
     store.save(conn, lead)
     store.log(conn, lead_id, "email_edited")
     return lead
@@ -437,9 +458,9 @@ def llm_import(conn, path: Path) -> dict:
         if t["task"] == "qualify":
             pre, parts = enrich.prescore(lead)
             lead["prescore"], lead["prescore_parts"] = pre, parts
-            _apply_qualification(conn, lead, llm.clean_qualification(t["result"]), "claude-code")
+            _apply_qualification(conn, lead, llm.clean_qualification(t["result"], lead), "claude-code")
         elif t["task"] == "email":
-            lead["email"] = {**llm.clean_email(t["result"]), "drafted_by": "claude-code", "edited": False}
+            lead["email"] = {**llm.clean_email(t["result"], lead), "drafted_by": "claude-code", "edited": False}
             store.save(conn, lead)
             store.log(conn, lead["id"], "email_drafted:claude-code")
         done += 1

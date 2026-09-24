@@ -1,0 +1,88 @@
+# =====================================================================================
+#  Poolday API mapping. FILL FROM POOLDAY API DOCS.
+#
+#  Every value containing TODO is a placeholder, NOT a real Poolday endpoint or field.
+#  The client refuses to run while any TODO remains (it lists which ones).
+#
+#  1. cp poolday_api.example.toml poolday_api.toml
+#  2. Replace every TODO using the docs (checklist: loop/POOLDAY_API.md)
+#  3. export POOLDAY_API_KEY=...        (never put the key in this file)
+#  4. POOLDAY_API=http make serve       (or `python -m prospect_loop poolday-status`)
+#
+#  Conventions
+#   - endpoints: "METHOD /path"; {id} is replaced by the conversation/job id.
+#     Leave an optional endpoint as "" if the API has no such call.
+#   - request / response fields: dotted paths into the JSON body,
+#     e.g. "settings.mode" writes {"settings": {"mode": ...}},
+#          "output.videos.0.url" reads the first video's url.
+#     Leave a field "" if the API has no such field.
+#  A filled example of this exact structure (for the local fake server) is
+#  FAKE_MAPPING in prospect_loop/poolday_fake.py.
+# =====================================================================================
+
+[api]
+base_url = "TODO https://<poolday api host>"     # e.g. the docs' base URL, no trailing slash
+timeout_s = 30
+
+[auth]
+header = "Authorization"          # TODO confirm: Authorization / X-API-Key / ...
+scheme = "Bearer"                 # value sent is "<scheme> <key>"; "" sends the bare key
+key_env = "POOLDAY_API_KEY"       # environment variable that holds the key
+
+# Extra static headers the docs require (API version, workspace/org id...). Optional.
+[headers]
+# "X-Poolday-Version" = "TODO"
+
+[endpoints]
+start   = "TODO POST /<create conversation or job>"            # required
+message = "TODO POST /<conversation>/{id}/<messages>"          # required: follow-up in the SAME conversation
+status  = "TODO GET /<conversation or job>/{id}"               # required: poll
+answer  = ""        # optional: dedicated "answer the agent's question" call; "" = send as a message
+result  = ""        # optional: separate "get outputs/assets" call; "" = read from the status response
+upload  = ""        # optional: file upload (multipart) for the skill file / reference video
+credits = ""        # optional: credits / usage balance
+
+[request]
+prompt        = "TODO"      # field for the prompt text in the start call, e.g. "message" or "input.text"
+mode          = "TODO"      # field for Build / Clarify / Align, or "" if not settable via API
+tier          = "TODO"      # field for Micro / Light / Standard / Max / Ultra, or ""
+aspect_ratio  = ""          # optional
+title         = ""          # optional conversation title
+reference_url = ""          # optional; "" = the reference link stays inside the prompt text
+attachments   = ""          # field for uploaded file ids in the start call (needs endpoints.upload)
+message_text  = "TODO"      # field for the text of a follow-up message
+answer_text   = ""          # field for the answer text (only if endpoints.answer is set)
+question_id   = ""          # field for the question id when answering, if the API wants it
+upload_file   = "file"      # multipart form field name for uploads
+
+# Static fields merged into every start call (e.g. output type, project/workspace id). Optional.
+[request_extra]
+# type = "video"
+
+# Values sent for mode/tier unless POOLDAY_MODE / POOLDAY_TIER override them.
+# Use the API's own spellings (TODO confirm them in the docs).
+[defaults]
+mode = "align"
+tier = "standard"
+aspect_ratio = "16:9"
+
+[response]
+id            = "TODO"      # conversation/job id in the start response, e.g. "id" or "data.id"
+status        = "TODO"      # status string, e.g. "status" or "job.state"
+question      = "TODO"      # the agent's pending question text (Align/Clarify), or "" if not exposed
+question_id   = ""
+video_url     = "TODO"      # final video URL
+preview_url   = ""
+thumbnail_url = ""
+error         = ""          # failure message
+upload_id     = "id"        # file id in the upload response
+credits_remaining = ""
+credits_used      = ""
+
+# Poolday's status strings -> the loop's five states. Unknown strings count as "running".
+[status_map]
+queued      = ["TODO"]
+running     = ["TODO"]
+needs_input = ["TODO"]
+done        = ["TODO"]
+failed      = ["TODO"]

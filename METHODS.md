@@ -205,3 +205,36 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Notes:**
   - #1 needs a small spend outside Poolday for the other models' clips.
   - Commenters have no funding date, so set `PRESCORE_GATE=30` when feeding them into the loop.
+
+## M14. Agent loop v2: Poolday API client + real LLM run (D3)
+- **What:** the loop can now drive Poolday through an API. The real LLM mode was tested with a real key on a tiny budget.
+- **Tools:** Claude Code sub-agent. Python standard library (urllib, http.server, sqlite, tomllib), the Anthropic Python SDK, a local fake Poolday server, unittest.
+- **Process:**
+  1. Defined a `PooldayClient` interface from what the loop needs (start a production, follow-up message, poll status, answer the agent's question, fetch the result, credits). No endpoints were guessed.
+  2. Put every Poolday-specific detail (base URL, auth, paths, fields, status names) in one mapping file, `loop/poolday_api.example.toml`, marked "FILL FROM POOLDAY API DOCS". The client refuses to run while any TODO is left. `loop/POOLDAY_API.md` lists the questions to answer from the docs.
+  3. Built a fake Poolday server with deliberately different conventions, so the mapping code gets exercised: runs go queued → running → a mid-run question → done; follow-ups make v2; failures and credits are simulated.
+  4. Wired it into the dashboard:
+     - **Send to Poolday** submits the prompt, and a background poller follows the run.
+     - The agent's questions appear with an Answer box.
+     - A finished video lands in **Review**.
+     - **Regenerate with note** posts a revision to the same conversation.
+     - Every API call is logged (auth never logged).
+     - The human gate is unchanged: nothing is sent without approval.
+  5. Real LLM run: 4 leads on the cheaper model, then read the outputs, fixed, and re-ran.
+- **Results (real API):**
+  - **Scores:** Flam 95, TwelveLabs 76 and Wispr Flow 75 qualified. Arcee AI (62) was knocked out for having no named buyer.
+  - **Emails:** all 3 passed the code checks after fixes.
+  - **Cost:** ~$0.045 total, ~$0.003 per qualification and ~$0.003–0.006 per email.
+- **Bugs found by the real run that mock mode couldn't catch:**
+  - The effort parameter is rejected by the cheaper model → now sent per model.
+  - A lead with no buyer qualified → now a code-level knock-out.
+  - The model misapplied the freshness bands and the totals → freshness is computed in code, and the total = the sum of the criteria.
+  - Angles were too long → capped.
+  - Emails broke the style guide → the hard rules are checked in code, with one repair call, and anything still failing is shown to the reviewer.
+- **Decisions & why:**
+  - **A mapping file, not hard-coded endpoints:** filling it takes minutes once the docs arrive, and nothing fake looks real.
+  - **Polling first, webhooks later:** it works on localhost.
+  - **Prompts with unfilled `<…>` slots are refused before any credits are spent.**
+  - **The cheaper model for testing, a stronger model for the real emails:** the wording quality is noticeably better on the stronger model.
+- **Verification:** `cd loop && make test` → 16 tests pass. `make demo-api` runs the whole thing in ~15s. The git history was scanned for the key: none.
+- **Lessons:** a real run surfaces problems a mock can't. Anything that must be exact belongs in code, not in the prompt.

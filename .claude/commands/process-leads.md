@@ -27,7 +27,9 @@ call the API.
    - `email` tasks: `subject` + `body` following the email guide (60-110 words, `[VIDEO THUMBNAIL]`
      line, the video link, one yes/no question, first name only).
    Use only the facts in the task. Do not invent launches, customers or metrics. Never name AI
-   models in any output. Save the file.
+   models in any output. Save the file. (The importer enforces some rules in code: freshness
+   points from the day bands, total = sum of the criteria, no named buyer = knocked out, and the
+   email rule checks, which show up in the dashboard when an email fails them.)
 
 4. **Import the answers.**
    `LLM_MODE=mock python3 -m prospect_loop llm-import`
