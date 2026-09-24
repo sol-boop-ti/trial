@@ -200,7 +200,7 @@ Tie-break: bigger reach first (their public repost of the video is free distribu
 
 ---
 
-## 4. Poolday brief for the top angle (intent only, 106 words)
+## 4. Poolday brief for the top angle (intent only, 107 words)
 
 ```
 Objective: a LinkedIn video for our founder's post proving that one company URL
