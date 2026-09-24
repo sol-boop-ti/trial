@@ -24,7 +24,9 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 | 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | ✅ kit ready, waiting on your chat outputs |
 | 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
 | 0.14 | 🧑 | Get the Poolday API docs (dashboard/settings, or ask the Poolday team on Slack) and paste them here | no | ⬜ |
-| 0.15 | 🧑 | (optional) Allow `poolday.ai` in this cloud environment's network settings so I can read the docs and pages directly | no | ⬜ |
+| 0.15 | 🧑 | **(now important)** Allow `poolday.ai` in this cloud environment's network settings so I can read the docs and screenshot the pages to rebuild them (home, b2b-startups, pricing) | no | ⬜ |
+| 0.16 | 🧑 | Send the full Claude chat review (main part, not only the addenda) | no | ⬜ |
+| 0.17 | 🧑 | Send the reference videos (ImagineArt one, the Skuve one, others) + say which company each is for | no | 🟡 1 received |
 | 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | ✅ skeleton done, fills as we go |
 
 When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.

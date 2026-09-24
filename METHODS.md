@@ -238,3 +238,16 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **The cheaper model for testing, a stronger model for the real emails:** the wording quality is noticeably better on the stronger model.
 - **Verification:** `cd loop && make test` → 16 tests pass. `make demo-api` runs the whole thing in ~15s. The git history was scanned for the key: none.
 - **Lessons:** a real run surfaces problems a mock can't. Anything that must be exact belongs in code, not in the prompt.
+
+## M15. Round 2 of user direction
+- **Growth idea (D5 v3):**
+  - 3 products on arrival: Launch video (styles: Apple, Kinetic, Storytelling), Podcast clips (Hormozi + other famous clip styles), AI product ad.
+  - A cost model per product: measured Poolday credits (credits appear to be priced in dollars; verify) plus a bottom-up sanity check from public model API prices.
+  - Visual mockups: 4 screens + a GIF walkthrough, built as HTML and rendered with Playwright, in a dark, minimal "superintelligence" design system that will be reused for the page rebuilds.
+- **LinkedIn (D1 v3):**
+  1. "Same prompt, 4 apps": Higgsfield, Poolday, Kling, Seedance.
+  2. "Reply with proof" remakes, inspired by Higgsfield's After Effects plugin replies.
+  3. A "your launch video is now free, comment your URL" hook, with an honesty check on any claim that a specific model made the video.
+- **UGC (D4):** the user's Pletor pipeline is recorded in `poolday/pletor-ugc-reference.md` (base character → shock face → image-to-video), with an intent-level Poolday brief that follows the brief's method (30 actor photos → pick → variants). The farm screenshot is kept for the appendix (`deliverables/assets/pletor-ugc-farm.webp`).
+- **Page review (D7):** critiqued the Claude chat draft (`deliverables/D7-review-draft-claude-chat.md`). Pricing is the most impactful part. Never change factual claims in rewrites, cut the repetitive slogan pattern, and verify the cited numbers.
+- **References:** the first reference video received is `references/ref-x-video-1.mp4` (12s, 16:9, beige background; colorful tiles linked by lines → a radial fan of cards → a horizontal carousel of image cards moving in a wave). Frames were extracted with ffmpeg for the analysis.
