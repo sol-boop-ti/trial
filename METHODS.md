@@ -114,3 +114,18 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Iterate by swapping the hook on the same body:** the base is reused in one Poolday conversation, which is the cheapest way to iterate.
 - **Poolday flow:** Align → brand kit → 30 actor photos, pick 3 → 5 voices each, pick 1 → pilot one script (~5–7 prompts) → save as `/ugc-reel` → batch the rest as variants in one conversation → polish in the live editor.
 - **Lessons:** record Poolday screens during the D1/D2 runs. They double as B-roll for the UGC videos.
+
+## M9. Review kit (D6/D7) + deliverable skeleton
+- **What:** paste-ready prompts for Claude chat to run the page reviews (D7) and the video review (D6), plus the skeleton of the final deliverable doc.
+- **Tools:** Claude Code sub-agent. The reviews themselves run in Claude chat (it can browse), because poolday.ai is blocked from the cloud session.
+- **Process:**
+  1. Turned the review criteria into fixed frameworks: 10 criteria for the pages (5-second test, value prop, segment fit, social proof, demo CTA friction, objections, instant-value entry point, video content, speed/mobile, experiments) and 11 for the video (hook 0–3s, arc, pacing, mobile legibility, sound-off, sync, proof, CTA, length…).
+  2. Specified strict output formats:
+     - **Pages:** an ICE-scored table (problem → change → why it books more demos → A/B test), before/after mockups of the top 3 changes, and 2 hero variants per page.
+     - **Video:** timestamped fixes written as mechanisms, the top 3 changes, a rewrite of the first 5s, and an intent-level Poolday prompt to build the improved intro as proof.
+  3. Built the deliverable skeleton from the plan outline, filling in what's already known and marking the rest `[PLACEHOLDER]`.
+- **Decisions & why:**
+  - **"Don't guess" rule, with the user's screenshots and frames as the source of truth:** it avoids made-up findings when a fetch misses JS-rendered content or the video can't be played.
+  - **Every recommendation comes with an A/B test:** changes are judged against demos booked, not taste.
+  - **"Instant value" criterion in the page review:** it ties D7 to the D5 growth idea.
+- **Lessons:** when the environment can't see the subject, make the reviewer cite visible evidence (a quoted element or a timestamp).

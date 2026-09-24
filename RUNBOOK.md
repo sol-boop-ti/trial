@@ -21,9 +21,9 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 | 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | 🟡 in progress |
 | 0.9 | 🤖 | Write the growth idea in full (D5) → `deliverables/D5-growth-idea.md` | no | ✅ done (review it) |
 | 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy (D1) → `deliverables/D1-linkedin.md` | no | ✅ done (pick an angle) |
-| 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | 🟡 in progress |
+| 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | ✅ kit ready, waiting on your chat outputs |
 | 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
-| 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | 🟡 in progress |
+| 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | ✅ skeleton done, fills as we go |
 
 When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.
 
