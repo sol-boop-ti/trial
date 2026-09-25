@@ -427,3 +427,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Flam question settled by Poolday's own research:** Flam is an AI-native interactive content format ("the internet beyond videos"). Its own models (Fable, Fantom, Falcon…) generate photoreal 3D/RGBA visuals and talking visual agents from a prompt, playable instantly with no app, with touch, voice and checkout. Formats: Flicks, Airboards (3D/AR), Visual Agents. The product UI has node cards, so the ImagineArt node-and-card reference fits.
 - **API conversation:** the use-case question is still pending. Answer: "same video, new data each call".
 - **Next:** the prospect videos, using `poolday/prompts/P1-wispr-flow-video.md` and `P2-flam-video.md`.
+
+## M32. Real footage in all three style tiles
+- **Workaround for blocked downloads:** YouTube, X, ssstwitter and ytmp3 are refused by this environment's network (organisation policy), and chat uploads of the two MP4s failed. The user uploaded them to the GitHub branch (Add file → Upload files) and Claude Code pulled them with git.
+- **Apple Motion Style:** LangEase launch ad 0:06–0:18 (3D phones, progress bar, "Done"). **Storytelling Film:** Alex Whedon founder film 0:00–0:14 (lower third, "World's first fully subquadratic LLM", "12,000,000 tokens"). **Kinetic Typo:** "stretching creativity" 0:00–0:14.
+- Converted with `tools/make-footage.sh` into deterministic image sequences. The result page keeps our own Northwind film, since showing another brand's video as "your video" would mislead.
+- Stills and the 40s walkthrough re-rendered.

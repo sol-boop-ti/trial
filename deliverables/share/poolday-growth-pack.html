@@ -1,0 +1,227 @@
+<title>Poolday Growth Pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --ink:#121318; --muted:#5a5f6c; --line:#dde0e6; --accent:#3b3bd6; --accent-soft:#e7e7fb; --warn:#9a5b00;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif; --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0d0e12; --surface:#15161c; --ink:#eceef3; --muted:#9aa0ad; --line:#272a34; --accent:#9d9dff; --accent-soft:#20213a; --warn:#e3a54a; color-scheme:dark; } }
+:root[data-theme="dark"]{ --bg:#0d0e12; --surface:#15161c; --ink:#eceef3; --muted:#9aa0ad; --line:#272a34; --accent:#9d9dff; --accent-soft:#20213a; --warn:#e3a54a; color-scheme:dark; }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;padding-inline:20px;padding-block:0 80px}
+.wrap{max-width:1120px;margin:0 auto}
+.read{max-width:720px}
+header.top{padding-block:56px 32px;border-bottom:1px solid var(--line);display:grid;gap:14px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,60px);line-height:1.04;letter-spacing:-.015em;margin:0;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,38px);line-height:1.1;margin:0;text-wrap:balance}
+h3{font-size:17px;font-weight:600;margin:0}
+p{margin:0}
+.lede{font-size:19px;color:var(--muted);max-width:680px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;display:flex;gap:18px;overflow-x:auto;font-size:14px}
+nav.toc a{color:var(--muted);text-decoration:none;white-space:nowrap}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink)}
+section.item{padding-block:64px 8px;display:grid;gap:28px;border-bottom:1px solid var(--line)}
+.num{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.stack{display:grid;gap:14px}
+figure{margin:0;display:grid;gap:10px}
+figcaption{font-size:14px;color:var(--muted)}
+.frame{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#000}
+.frame img,.frame video{display:block;width:100%;height:auto;max-width:100%}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.grid3,.grid2{grid-template-columns:1fr}}
+ul.clean{margin:0;padding-left:20px;display:grid;gap:8px}
+ol.flow{margin:0;padding-left:22px;display:grid;gap:6px}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.callout{background:var(--accent-soft);border-radius:10px;padding:16px 18px;font-size:15px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--warn);white-space:nowrap}
+.change{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.change b.k{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--accent);padding-top:2px}
+.changes{display:grid;gap:12px}
+.page-block{display:grid;gap:18px;padding-top:12px}
+a{color:var(--accent)}
+.quote{font-family:var(--serif);font-size:20px;line-height:1.4}
+footer{padding-block:40px;color:var(--muted);font-size:14px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Poolday growth assignment · finished pieces</div>
+    <h1>A free video tool, a sharper video review, and three pages rebuilt for more demos.</h1>
+    <p class="lede">Three of the seven assignment items are complete: the growth idea with a working prototype, the review of a Poolday showcase video, and the review of three pages with before and after rebuilds. The prospect videos, the LinkedIn video and the UGC account are in production in Poolday and will follow.</p>
+    <div class="meta"><span>Raphael Gaudin</span><span>September 2026</span><span>Goal throughout: more demos booked</span></div>
+  </header>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#growth">Growth idea</a><a href="#video">Video review</a><a href="#pages">Page reviews</a>
+  </nav>
+
+  <!-- ========================= GROWTH IDEA ========================= -->
+  <section class="item" id="growth">
+    <div class="stack read">
+      <span class="num">Assignment item 5 · Growth idea</span>
+      <h2>Pick a product, paste a link, get the video.</h2>
+      <p>A free page built on three things Poolday already does well: a <b>launch video</b> from a website URL, <b>podcast clips</b> from an episode link, and an <b>AI product ad</b> from a URL and a product photo. One input, one style card, and the video arrives. It is the Submagic mechanic (upload, pick "Hormozi", done) applied to Poolday's best outputs. Every video ends on a booking offer, and credits only go to work emails, so every video is also a qualified lead.</p>
+    </div>
+
+    <figure>
+      <div class="frame"><video src="media/walkthrough.mp4" controls muted playsinline preload="metadata" poster="media/04-style.png"></video></div>
+      <figcaption>Clickable prototype, 40 seconds. Link → screen recording ("Poolday AI records it for you") → brand kit → style → work email (a Gmail address is refused) → the agent at work → result with Share and "Book a 15 min demo".</figcaption>
+    </figure>
+
+    <div class="grid3">
+      <figure><div class="frame"><img src="media/04-style.png" alt="Style picker with Apple Motion Style, Kinetic Typo and Storytelling Film previews" loading="lazy"></div><figcaption>Three launch styles, each a looping preview.</figcaption></figure>
+      <figure><div class="frame"><img src="media/04c-details-personal-email-rejected.png" alt="Details card rejecting a personal Gmail address" loading="lazy"></div><figcaption>Credits are gated to company emails.</figcaption></figure>
+      <figure><div class="frame"><img src="media/06b-result-share.png" alt="Result page with the Share menu open and the demo button" loading="lazy"></div><figcaption>Share to spread it, book a demo to go further.</figcaption></figure>
+    </div>
+
+    <div class="grid2">
+      <div class="stack">
+        <h3>How it works</h3>
+        <ol class="flow">
+          <li>Pick a product and paste the link.</li>
+          <li>Upload a screen recording, or let Poolday AI record a walkthrough.</li>
+          <li>Upload a brand kit, or let Poolday AI build one from the site.</li>
+          <li>Pick a style: Apple Motion Style, Kinetic Typo or Storytelling Film (podcasts: Hormozi, Diary of a CEO, MrBeast, Ali Abdaal, Iman Gadzhi).</li>
+          <li>Work email, role, how they heard about Poolday. "Last step. Your video is already being made."</li>
+          <li>The video plays on the page or arrives by email, depending on render time.</li>
+        </ol>
+      </div>
+      <div class="stack">
+        <h3>How it spreads</h3>
+        <p>Viral posts claim "[tool] made this video with one prompt". We feed the clip to Poolday as a reference, screen-record the run, and reply from Poolday's account with the result and the link: <i>"Poolday can actually do it. Full run, no hand edits."</i> One reply per thread, only when the remake is at least as good, never accusing anyone.</p>
+        <h3>Why it beats Motion</h3>
+        <p>Motion announced "product URL to launch video" on 2 August <span class="tag">[verify]</span>. Our answer is three products instead of one (podcast clips bring people back weekly), generative ads, and a human call behind every qualified video.</p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <h3>Cost and budget</h3>
+      <p class="read">Poolday's site quotes ~$5–$25 per finished video. A bottom-up estimate from public model prices lands in the same range. The real figure comes from the credits used in the first runs.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Product</th><th>Main cost</th><th>Estimate per video</th></tr></thead>
+        <tbody>
+          <tr><td>Launch video, 25s</td><td>Agent run, a few images, voice-over, render</td><td class="n">~$3–10</td></tr>
+          <tr><td>Podcast clips, 5 from one episode</td><td>Transcript, moment picking, 5 edits</td><td class="n">~$5–10 total</td></tr>
+          <tr><td>AI product ad, 15s</td><td>Generative video (~3 takes)</td><td class="n">~$12–25</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Stage</th><th>Budget</th><th>Videos at ~$19</th><th>Opens the next stage when</th></tr></thead>
+        <tbody>
+          <tr><td>0. Manual pilot, 2 weeks</td><td class="n">~$2k</td><td class="n">~100</td><td>Cost per video is measured and 5+ demos are booked</td></tr>
+          <tr><td>1. Public page, 3–4 weeks</td><td class="n">~$5k</td><td class="n">~260</td><td>Cost per booked demo is at or below today's paid channels</td></tr>
+          <tr><td>2. Scale</td><td class="n">~$8k</td><td class="n">~420</td><td>The same ratio holds at volume</td></tr>
+        </tbody>
+      </table></div>
+      <p class="read" style="color:var(--muted);font-size:14.5px">Estimates. At 5% of videos turning into a demo, ~$19 per video means ~$380 per booked demo. Automation runs on Poolday's public API (keys, docs and webhooks under Capabilities → Integrations); until it is wired, an operator runs the queue.</p>
+    </div>
+
+    <div class="stack read">
+      <h3>Real risks</h3>
+      <ul class="clean">
+        <li><b>Uneven quality on random inputs.</b> Only styles that pass a 10-input test ship, and a person checks each video before it goes out.</li>
+        <li><b>AI ad cost.</b> Ads go to qualified leads only, with a daily credit cap per product.</li>
+        <li><b>Motion owns "URL to launch video".</b> Lead with podcast clips and ads, and prove quality publicly with the remakes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================= VIDEO REVIEW ========================= -->
+  <section class="item" id="video">
+    <div class="stack read">
+      <span class="num">Assignment item 6 · Video review</span>
+      <h2>Upflow and PostHog: strong ideas, slowed down by pacing and brand fit.</h2>
+      <p>Both videos were read frame by frame (one frame per second plus cut detection), then written up as timed fixes.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="stack">
+        <h3>Upflow, "faster payments" (23s)</h3>
+        <p>The idea is excellent: one question typed into search ("Did Acme pay invoice #2041 yet?") multiplies into dozens of questions in five languages. Three things hold it back.</p>
+        <ul class="clean">
+          <li><b>The product never appears.</b> The question is never answered. The missing shot: the Upflow UI showing invoice #2041 → Paid, status turning green.</li>
+          <li><b>Holds run long.</b> Four seconds to type one sentence, four more to type a six-letter logo. Every shot should last its reading time plus a beat, for about 15 seconds in total.</li>
+          <li><b>The best proof is micro-text.</b> "WorkMotion cut invoices 31+ days overdue by 79%" deserves its own card.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>PostHog, GenAI launch (24s)</h3>
+        <p>High production value and a clear arc (waiting, ship it, it's live, too many tools, one place). Three fixes:</p>
+        <ul class="clean">
+          <li><b>Off-brand medium.</b> PostHog is flat 2D illustration and hand-drawn hedgehogs. The 3D clay renders read as generic AI.</li>
+          <li><b>The end card is a slide.</b> A static logo over a web footer (six icons, a paragraph, a pill) for 3.5 seconds. It should be an animated sign-off: logo, one line, URL.</li>
+          <li><b>The product shows for two seconds, in tiny tabs.</b> One chart drawing itself at full frame would do more.</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="read">
+      <div class="frame"><video src="media/upflow-1.5x-quicktest.mp4" controls muted playsinline preload="metadata"></video></div>
+      <figcaption>Quick test: Upflow at 1.5× speed. It already feels better, which confirms pacing is the main issue. The right fix is per-shot timing, not a uniform speed-up.</figcaption>
+    </figure>
+
+    <div class="callout read">
+      <b>What I'd change in the agent, not just the video.</b> Both issues repeat, so fix them once. A saved "SaaS UI pacing" skill (hook 1.5–2.5s, average shot ≤1.2s, text held for reading time plus 0.3s, a logo lockup of 2–3s that keeps moving, always answer the opening question with the real product), plus a brand kit that captures the brand's medium (PostHog: "2D, flat, illustrated, no 3D"), not only its colours and logo.
+    </div>
+  </section>
+
+  <!-- ========================= PAGE REVIEWS ========================= -->
+  <section class="item" id="pages">
+    <div class="stack read">
+      <span class="num">Assignment item 7 · Page reviews</span>
+      <h2>Home, B2B startups and pricing, rebuilt for more demos.</h2>
+      <p>Each "before" is the live page. Each "after" keeps the live structure and changes only the numbered items. Every change comes with an A/B test measured on completed demo bookings per visitor.</p>
+    </div>
+
+    <div class="page-block">
+      <h3>Pricing</h3>
+      <figure><div class="frame"><img src="media/pricing-compare.png" alt="Pricing page before and after" loading="lazy"></div></figure>
+      <div class="changes read">
+        <div class="change"><b class="k">1</b><p>A framed credits box in each card, as Submagic does: <b>"$1,250 in credits · ≈ 50–250 finished videos"</b>. It answers "what do I get?" where the price is read.</p></div>
+        <div class="change"><b class="k">2</b><p><b>"Your first month at $600 · no lock-in"</b>: the lowest-risk first step, stated at the price.</p></div>
+        <div class="change"><b class="k">3–5</b><p>Customer logos under the plans, a short comparison against agency, freelancer and in-house editor, and four FAQs built only from facts on the live site.</p></div>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <h3>Home</h3>
+      <figure><div class="frame"><img src="media/home-compare.png" alt="Home page before and after" loading="lazy"></div></figure>
+      <div class="changes read">
+        <div class="change"><b class="k">1</b><p><b>"Watch a 2-min build"</b> next to the demo button, for visitors not ready to call.</p></div>
+        <div class="change"><b class="k">2</b><p>The video feed grouped into use-case rows (launch films, demos and explainers, ads and testimonials, podcasts) so a visitor finds their case in one glance.</p></div>
+        <div class="change"><b class="k">3–4</b><p>"Meet Poolday." gets its definition, <b>"An agent that plans, makes and fixes the whole video."</b>, and a "Book a 15 min demo" button right after the four features.</p></div>
+        <div class="change"><b class="k">5–6</b><p>Customers separated from investors in the logo wall, and the closing card says what happens in the 15 minutes.</p></div>
+      </div>
+      <figure class="read"><div class="frame"><video src="media/home-meet-poolday.mp4" controls muted playsinline loop preload="metadata"></video></div><figcaption>The four "Meet Poolday" features, rebuilt with their animations.</figcaption></figure>
+    </div>
+
+    <div class="page-block">
+      <h3>B2B startups</h3>
+      <figure><div class="frame"><img src="media/b2b-compare.png" alt="B2B startups page before and after" loading="lazy"></div></figure>
+      <div class="changes read">
+        <div class="change"><b class="k">1</b><p>H1 <b>"Every feature you ship, on video."</b>: the startup's job, not the product category.</p></div>
+        <div class="change"><b class="k">2</b><p>"View examples" becomes <b>"Paste your URL"</b>: a free launch video made from the site, marked with a small "NEW" sticker. It is the growth idea above, placed where intent is highest.</p></div>
+        <div class="change"><b class="k">3</b><p>Real customer logos in the first screen: PostHog, Lovable, ClickUp, Dust, Marblism, FullEnrich.</p></div>
+        <div class="change"><b class="k">4</b><p>The nine use cases get animated previews, input turning into output, like the "Meet Poolday" features.</p></div>
+      </div>
+      <figure class="read"><div class="frame"><video src="media/b2b-use-cases.mp4" controls muted playsinline loop preload="metadata"></video></div><figcaption>The nine use-case cards, animated.</figcaption></figure>
+    </div>
+
+    <div class="stack read">
+      <h3>What I kept</h3>
+      <p>The restraint (black ground, off-white buttons, the halftone), the recipe captions that teach the inputs, the "Tech startups use Poolday for" grid with "See the prompt", the "Why tech startups love Poolday" cards, and "Book a 15 min demo" as the one main action.</p>
+      <p style="color:var(--muted);font-size:14.5px">To confirm before shipping: whether the demo call includes a live brand-kit build, and permission to show each customer logo.</p>
+    </div>
+  </section>
+
+  <footer>Built with Claude and Claude Code; the prototype and page rebuilds are HTML rendered to video. Prospect videos, the LinkedIn post and the UGC account are being produced in Poolday.</footer>
+</div>
