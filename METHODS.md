@@ -463,3 +463,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 ## M36. Progress: first UGC reel posted; webhook lives in Automations
 - **D4:** the first AI UGC reel is posted on the new IG account. Track views at +1h / +24h / +48h.
 - **D3:** Poolday's CEO says the webhook is configured from the **Automations** tab. So the inbound URL, the secret and the saved prompt are set in the UI, not by asking the agent in chat. The loop's webhook client and callback stay the same: only where the URL comes from changes.
+
+## M37. Automations webhook (the real UI) + video progress
+- **Automations → New automation:** step 1, choose an Input (Schedule, **Webhook**, or 30+ vendor events such as PostHog, Supabase, Zapier, Airtable…); step 2, write the Prompt. For Webhook, the URL and secret appear after saving. Each run starts a fresh conversation (or one you pick).
+- **Design choice:** the automation's prompt tells the agent to skip the ref-teaser approval step and decide itself, because our pipeline's dashboard is the human gate. Otherwise every automated run would stall waiting for someone. It calls our callback with lead_id, token, version and video_url. Prompt: `poolday/prompts/A1-automation-webhook.md`.
+- **Videos:** Flam is finished. Wispr Flow v3 is delivered and asks whether to merge 3 new reusable pieces into brand:wisprflow (GmailCompose, VideoPlate, an outdoor living-portrait clip). Merging makes future Wispr teasers cheaper.
+- **Skills:** ref-teaser now has an upload fallback when a link is too big to fetch (100 MB or 20 min YouTube cap). Approved with 0 blockers.
