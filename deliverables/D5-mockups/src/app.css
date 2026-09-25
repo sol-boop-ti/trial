@@ -333,3 +333,24 @@ html.demo #cursor { display: block; }
 .dd .di.hl { background: rgba(255,255,255,.08); color: var(--ink); }
 .afoot { justify-content: flex-end !important; }
 .acard .flabel:first-of-type { margin-top: 22px; }
+
+/* ==== v4: Poolday app chrome (sidebar logo, bordered dark pills, grouped panels) ============== */
+.wordmark { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 600; letter-spacing: -0.015em; }
+.wordmark .mark { width: 26px; height: auto; display: block; }
+#app::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(55% 45% at 6% 0%, rgba(126,128,160,.22), transparent 70%); }
+/* The app's pill: near-black fill, bright hairline edge, a soft top highlight. */
+.btn.appbtn { background: color-mix(in srgb, #1c1c21 calc(var(--h, 0) * 100%), #0b0b0e); color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff calc(28% + var(--h, 0) * 20%), transparent), inset 0 1px 0 rgba(255,255,255,.08), 0 0 24px rgba(160,160,210,calc(var(--h, 0) * .18)); }
+.btn.appbtn svg { color: var(--ink); }
+/* Grouped panels, like the app's Workspace list */
+.tabs#tabs { padding: 5px; border-radius: var(--radius-pill); background: rgba(255,255,255,.035); box-shadow: inset 0 0 0 1px var(--hair); }
+.tabs#tabs .tab-ind { top: 5px; }
+.field { box-shadow: inset 0 0 0 1px var(--hair); background: rgba(255,255,255,.05); }
+.rail > .row { padding: 0 14px; margin: 0; }
+.rail { display: flex; flex-direction: column; }
+.rail .row:first-child { border-radius: 18px 18px 0 0; padding-top: 6px; }
+.rail .row { background: rgba(255,255,255,.035); box-shadow: inset 1px 0 0 var(--hair), inset -1px 0 0 var(--hair); height: 50px; }
+.rail .row:first-child { box-shadow: inset 1px 0 0 var(--hair), inset -1px 0 0 var(--hair), inset 0 1px 0 var(--hair); }
+.rail .row:nth-child(3) { border-radius: 0 0 18px 18px; padding-bottom: 6px; box-shadow: inset 1px 0 0 var(--hair), inset -1px 0 0 var(--hair), inset 0 -1px 0 var(--hair); margin-bottom: 14px; }
+.rail .row svg { color: var(--ink-muted); }

@@ -452,3 +452,10 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Tests:** 37 pass, including 21 webhook tests against a fake receiver that behaves the way the paste message asks Poolday's agent to.
 - **Why a message to Poolday's agent instead of invented endpoints:** our field names are ours, and the agent is asked to accept them and echo lead_id, token and version on the callback. The first real callback's shape is checked in `api-log`, and new keys are added by config.
 - **Runs on the user's Mac** (`loop/MAC-SETUP.md`): the cloud session can't reach poolday.ai, and a Cloudflare quick tunnel gives Poolday a public callback address.
+
+## M35. Growth-tool mockups v4: the Poolday app's chrome
+- **User request:** match the Poolday app UI (sidebar screenshot) and use the real logo.
+- **Logo:** the palm-island mark cut from the user's app screenshot (thresholded to a white mark on transparent, `deliverables/design/poolday-app-ui/poolday-logo-mark.png`), next to the lowercase "poolday" wordmark as in the app. No official SVG is published (per Poolday's own kit comparison), so this is a faithful stand-in.
+- **Chrome:** the app's near-black pills with a bright hairline edge (Continue, Generate video, Send me the video), grouped panels like the app's Workspace list (tabs, rail), a faint lavender glow top-left like the app sidebar. "Book a 15 min demo" stays the site's off-white CTA, as the one bright element.
+- **Bug caught:** naming the button class "app" collided with the root `.app` container (buttons stretched full width). Renamed to `appbtn`.
+- Stills and the walkthrough re-rendered.
