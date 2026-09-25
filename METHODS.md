@@ -433,3 +433,11 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Apple Motion Style:** LangEase launch ad 0:06–0:18 (3D phones, progress bar, "Done"). **Storytelling Film:** Alex Whedon founder film 0:00–0:14 (lower third, "World's first fully subquadratic LLM", "12,000,000 tokens"). **Kinetic Typo:** "stretching creativity" 0:00–0:14.
 - Converted with `tools/make-footage.sh` into deterministic image sequences. The result page keeps our own Northwind film, since showing another brand's video as "your video" would mislead.
 - Stills and the 40s walkthrough re-rendered.
+
+## M33. Poolday API is locked for the trial org
+- Capabilities → Integrations shows "Integrations Not Enabled… Contact your administrator." The public API exists, per the agent, but has to be enabled by Poolday for this organisation. The brief itself hints at this ("if you don't know how to activate Poolday via API, write the prompt manually for now").
+- **Plan:**
+  1. Ask Poolday to enable API integrations for the org (message drafted).
+  2. Meanwhile, test the lighter route the agent suggested: an **Automation with an inbound webhook**. The loop POSTs a lead's brief to the webhook URL, and a saved prompt runs it.
+  3. The pipeline's Poolday client stays mapping-driven, so enabling the API later is a config fill, not a rewrite.
+- Logged as product feedback: the agent offered "Create an API key" on a plan where the feature is locked.
