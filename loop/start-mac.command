@@ -51,40 +51,18 @@ setvar PUBLIC_BASE_URL "$URL"
 set -a; . "$ENV"; set +a
 echo "Tunnel: $URL"
 
-# 4. The message for Poolday, filled in and copied to your clipboard
-CALLBACK="$URL/api/poolday/callback"
-MSG=$(cat <<TXT
-I want to trigger my prospect-teaser flow from my own app through a webhook, and get the result posted back to me. Please set this up.
-
-1. Create an inbound webhook endpoint that triggers a saved prompt for this flow. Only accept requests whose header X-Webhook-Secret equals $POOLDAY_WEBHOOK_SECRET. Reply with the webhook URL.
-
-2. Each request is a JSON POST with these fields. Accept all of them and ignore any you don't need: kind ("start", "revision" or "answer"), lead_id, token, version, company, website, brand_kit_name (may be missing), angle, contact_name, contact_role, reference_url, prompt, callback_url. Follow-ups also have note and message (revision), or answer and question (answer).
-
-3. On kind "start": run the prospect-teaser flow for the website, with my ref-teaser skill and my motion-craft skill. Use the brand kit named brand_kit_name if it exists; otherwise build the brand kit from the website first. The reference video is reference_url. The angle is angle. The video is for contact_name (contact_role) at company. prompt holds the same brief as one text. 16:9.
-
-4. On kind "revision": apply the note to the video you made for the same lead_id (in the same conversation if you can), then re-render. On kind "answer": it is my answer to your question for that lead_id, so continue.
-
-5. When the video is done, POST JSON to the callback_url from the request (it is $CALLBACK), with the header X-Webhook-Secret: $POOLDAY_WEBHOOK_SECRET and this body: {"lead_id": <as received>, "token": "<as received>", "version": <as received>, "status": "completed", "video_url": "<shareable link to the final video>", "conversation_url": "<link to this conversation>"}. Echo lead_id, token and version exactly as you received them.
-
-6. If you need a decision from me before building, POST to the same callback_url with "status": "needs_input" and "question": "<your question>", then wait for an "answer" request. If the run fails, POST "status": "failed" and "error": "<why>".
-
-7. If your webhook feature uses a different header name or generates its own secret, tell me the header name and value, and send that same header on the callback.
-TXT
-)
-
+# 4. Connect the Poolday automation (Automations tab → webhook input).
+# The callback address travels inside each lead, so a new tunnel needs no Poolday change.
 if [ -z "${POOLDAY_WEBHOOK_URL:-}" ]; then
-  printf "%s" "$MSG" | pbcopy
-  say "STEP A: The message for Poolday is now in your clipboard."
-  echo "  → In Poolday, open the 'API access & API keys' conversation (or a new one, Align mode), paste (Cmd+V) and send."
-  echo "  → Poolday will reply with a webhook URL."
-  printf "\nPaste the webhook URL Poolday gives you here, then press Enter: "
+  printf "%s" "$POOLDAY_WEBHOOK_SECRET" | pbcopy
+  say "STEP A: your callback secret is now in your clipboard."
+  echo "  → In the Poolday automation prompt, select <SECRET> and paste (Cmd+V) over it. Save the automation."
+  echo "  → Copy the automation's webhook URL."
+  printf "\nPaste the automation's webhook URL here, then press Enter: "
   read -r HOOK
   setvar POOLDAY_WEBHOOK_URL "$HOOK"
 else
-  say "Webhook URL already saved. The callback address changed with this tunnel, so tell Poolday:"
-  echo "  \"My callback URL is now $CALLBACK\""
-  printf "%s" "My callback URL is now $CALLBACK" | pbcopy
-  echo "  (copied to your clipboard)"
+  echo "Poolday automation URL already saved."
 fi
 set -a; . "$ENV"; set +a
 

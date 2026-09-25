@@ -469,3 +469,13 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Design choice:** the automation's prompt tells the agent to skip the ref-teaser approval step and decide itself, because our pipeline's dashboard is the human gate. Otherwise every automated run would stall waiting for someone. It calls our callback with lead_id, token, version and video_url. Prompt: `poolday/prompts/A1-automation-webhook.md`.
 - **Videos:** Flam is finished. Wispr Flow v3 is delivered and asks whether to merge 3 new reusable pieces into brand:wisprflow (GmailCompose, VideoPlate, an outdoor living-portrait clip). Merging makes future Wispr teasers cheaper.
 - **Skills:** ref-teaser now has an upload fallback when a link is too big to fetch (100 MB or 20 min YouTube cap). Approved with 0 blockers.
+
+## M38. Automation form: concrete settings
+- **What:** filled the Poolday Automations webhook form for the pipeline (`poolday/prompts/A1-automation-webhook.md`).
+- **Decisions & why:**
+  - **HMAC off.** Our pipeline authenticates with a shared secret header (X-Webhook-Secret) and a per-lead token, not an HMAC signature. With HMAC required, Poolday would reject every lead.
+  - **No Output.** The prompt itself POSTs the result to callback_url.
+  - **New conversation per lead.**
+  - **Example event.** A sample lead JSON is pasted so "Insert event field" lists the fields. The prompt starts with a Lead block of inserted fields, so the agent sees the real values.
+- **Mac script:** `start-mac.command` no longer asks the agent to build a webhook in chat. It copies the callback secret to the clipboard (to paste over `<SECRET>` in the automation prompt) and asks for the automation's URL. A new tunnel needs no Poolday change, because callback_url travels with each lead.
+- **Lessons:** read the platform's auth options before choosing one. A "secure by default" checkbox (HMAC) can silently block a working client.
