@@ -412,3 +412,8 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Fix:** the user's full-page captures of all three live pages are now the BEFOREs (`deliverables/D7-pages/real/`).
 - **Correction:** our D7 critique said "95% need zero edits" was a distortion of "95% autonomy". The live B2B page actually says "Two weeks in, 95% of your videos need zero edits from your team." Claude chat's wording was faithful, and our objection was wrong.
 - **Lesson:** for any visual review, get a real capture first (screenshot or saved HTML). Never review or redesign a page you haven't seen.
+
+## M30. D7 round 4 finished: real frames in the AFTERs
+- **Approach:** 38 tiles cut from the live screenshots (measured against a pixel-grid overlay, upscaled 3×) fill every unchanged tile in the AFTERs, so the only visual differences are the numbered changes. The B2B layout was corrected to match the live masonry.
+- **Outputs:** `compare/{home,pricing,b2b}-compare(-fold).png`, `video/{b2b-after-scroll,b2b-use-cases,home-meet-poolday}.mp4`, and `D7-page-review.md` (with a "Verified by the live screenshots" section).
+- **Lesson:** when the BEFORE is a real screenshot, placeholders in the AFTER read as a downgrade. Reuse the real frames wherever nothing changes.

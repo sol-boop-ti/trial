@@ -2,7 +2,7 @@
 
 ## Live-page screenshots (BEFOREs)
 
-`real/poolday-home-fullpage-live.webp`, `real/poolday-b2b-startups-fullpage-live.webp` and `real/poolday-pricing-live.webp` were captured by the user from poolday.ai on 2026-09-24/25. The other two files, `real/poolday-home-meet-*.webp`, were used as reference for the Meet Poolday animations, and `real/submagic-pricing.webp` was used as inspiration for the credits box. `render.js` crops the screenshots into `renders/*-before-live*.png`.
+`real/poolday-home-fullpage-live.webp`, `real/poolday-b2b-startups-fullpage-live.webp` and `real/poolday-pricing-live.webp` were captured by the user from poolday.ai on 2026-09-24/25. The other two files, `real/poolday-home-meet-*.webp`, were used as reference for the Meet Poolday animations, and `real/submagic-pricing.webp` was used as inspiration for the credits box. `render.js` crops the screenshots into `renders/*-before-live*.png`. `src/tiles.js` cuts every unchanged customer-video tile (home grid, B2B "Tech startups use Poolday for", "Made in Poolday") out of the same screenshots into `tiles/*.png`, upscaled 3× with high-quality smoothing, so the AFTERs show the same real frames as the live pages. These are Poolday customers' videos, used here as reference only.
 
 ## Customer logos (b2b-after callout 3, pricing-after callout 3, home logo wall)
 

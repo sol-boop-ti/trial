@@ -51,6 +51,7 @@ const realLogoRow = (names) => `<div class="rlogos">${names.map(n => LOGOS[n]())
 function art(a) {
   const bg = a.bg || '#1a1a1a';
   switch (a.k) {
+    case 'img': return `<div class="art"><img src="../tiles/${a.src}.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:${a.pos || 'center'};${a.filter ? 'filter:' + a.filter : ''}"></div>`;
     case 'type': return `<div class="art" style="background:${bg}"><div class="big${a.dots ? ' dots' : ''}" style="color:${a.fg};font-size:${a.size || 120}px;left:${a.x ?? 10}px;bottom:${a.y ?? -10}px">${a.w}</div></div>`;
     case 'head': return `<div class="art" style="background:${bg}"><div class="hd" style="color:${a.fg || '#fff'};font-size:${a.size || 34}px;${a.center ? 'left:0;right:0;text-align:center;top:40%' : 'left:22px;top:22px;right:22px'}">${a.w}</div></div>`;
     case 'arrow': return `<div class="art" style="background:${bg}"><div class="ring" style="border-color:#111"><span style="color:#111">${icon('arrow-up', 42)}</span></div></div>`;
@@ -115,6 +116,10 @@ const GROUPS = [
     { title: 'Podcast to Social Clips', recipe: 'Full episode to snackable content for social', tag: 'Podcasts', tagIcon: 'mic', a: { k: 'face', bg: '#b45347', fg: '#6b3f35', body: '#3f2a26', w: 26 } },
   ]],
 ];
+// Real frames cut from the live home screenshot (src/tiles.js)
+const HOME_IMG = [['h-marblism'], ['h-posthog-ai'], ['h-clickup'], ['h-poolday-founder'], ['h-dust', 'center 40%'], ['h-posthog-pv'], ['h-fullenrich'], ['h-oreo'],
+  ['h-lovable', 'center 6%'], ['h-verde'], ['h-vybe', 'center 30%'], ['h-braavo'], ['h-smart', 'center 64%'], ['h-podcast-man', 'center 40%', 'brightness(1.8) contrast(1.05)'], ['h-comm', 'center 22%'], ['h-woman', 'center 28%']];
+GROUPS.flatMap(g => g[1]).forEach((t, i) => { const [src, pos, filter] = HOME_IMG[i]; t.a = { k: 'img', src, pos, filter }; });
 const groupedGrid = () => `<div class="ggrid">${GROUPS.map(([label, items]) => `<div><h3 class="glabel">${label}</h3><div class="gtiles">${items.map(t => vtile(t)).join('')}</div></div>`).join('')}</div>`;
 
 // Meet Poolday: four animated features in device frames, live copy and line breaks
@@ -165,15 +170,14 @@ ${ctaCard(`<h2>See Poolday in action, live on a call.</h2><p class="cc-sub">${CT
 
 // ===================== B2B STARTUPS =====================
 const B2B_TOP = [
-  [{ title: 'Cal.com – Loom-style video without recording', recipe: '1 screenshot + 1 presenter photo to full animated Loom-style walkthrough', prompt: true, a: { k: 'ui', bg: '#f4f4f5', win: '#fff' } }, 250],
-  [{ title: 'PostHog – Product marketing video', recipe: 'Product UI screenshots + brand kit to typographic marketing video', prompt: true, a: { k: 'logo', bg: 'linear-gradient(135deg,#1e1b4b,#111 45%,#7c2d12)', html: `<span style="display:flex;align-items:center;gap:14px">${svgLogo('posthog.svg', 54)}<b style="font:700 50px Inter;letter-spacing:-.04em">PostHog</b></span>` } }, 230],
-  [{ title: 'Launch video (caption not visible in the live screenshot)', recipe: 'Metrics and feature cards', prompt: true, a: { k: 'stats' } }, 170],
-  [{ title: 'AI creator UGC for SaaS', recipe: 'Talking-head prompt + product images to UGC ad', prompt: true, a: { k: 'face', bg: '#6b7280', fg: '#9a7b67', body: '#374151', txt: 'AND PDF', ts: 22, w: 30, top: 22 } }, 310],
-  [{ title: 'Plausible – Localizations in one workflow', recipe: 'One workflow for localized video versions', prompt: true, a: { k: 'ui', bg: '#e5e7eb', win: '#fff', chart: '#6366f1' } }, 150],
-  [{ title: 'Feature launch, resized for every channel', recipe: 'One prompt to 4 sizes (landscape, square, vertical)', prompt: true, a: { k: 'ui', bg: '#1e1b3a', win: '#2e2a57', line: 'rgba(255,255,255,.18)' } }, 150],
-  [{ title: 'Customer testimonial, from a photo', recipe: '1 photo to lipsynced testimonial', prompt: true, a: { k: 'face', bg: '#d6d3d1', fg: '#8b6f5a', body: '#1e3a5f', w: 24 } }, 150],
+  [{ title: 'Cal.com – Loom-style video without recording', recipe: '1 screenshot + 1 presenter photo to full animated Loom-style walkthrough', prompt: true, a: { k: 'img', src: 'b-cal' } }, 274],
+  [{ title: 'PostHog – Product marketing video', recipe: 'Product UI screenshots + brand kit to typographic marketing video', prompt: true, a: { k: 'img', src: 'b-posthog' } }, 274],
+  [{ title: 'AI creator UGC for SaaS', recipe: 'Talking-head prompt + product images to UGC ad', prompt: true, a: { k: 'img', src: 'b-aicreator' } }, 598],
+  [{ title: 'Plausible – Localizations in one workflow', recipe: 'One workflow for localized video versions', prompt: true, a: { k: 'img', src: 'b-plausible' } }, 160],
+  [{ title: 'Feature launch, resized for every channel', recipe: 'One prompt to 4 sizes (landscape, square, vertical)', prompt: true, a: { k: 'img', src: 'b-feature' } }, 160],
+  [{ title: 'Customer testimonial, from a photo', recipe: '1 photo to lipsynced testimonial', prompt: true, a: { k: 'img', src: 'b-testimonial' } }, 158],
 ];
-const topMasonry = () => { const t = B2B_TOP.map(([x, h]) => vtile(x, h)); return `<div class="mas"><div>${t[0]}${t[1]}</div><div>${t[2]}${t[3]}</div><div>${t[4]}${t[5]}${t[6]}</div></div>`; };
+const topMasonry = () => { const t = B2B_TOP.map(([x, h]) => vtile(x, h)); return `<div class="mas"><div>${t[0]}${t[1]}</div><div>${t[2]}</div><div>${t[3]}${t[4]}${t[5]}</div></div>`; };
 
 // Use cases: live titles + body copy, each with a small animated preview (input -> output)
 const USE = [
@@ -228,6 +232,7 @@ const MADE = [
   ['Marblism – Product Launch Video', 'Made with brand kit + single prompt', { k: 'head', bg: '#ffd21f', fg: '#111', w: 'MEET YOUR<br>EMPLOYEES', size: 30, center: true }],
   ['Oreo – Every Motion Controllable', 'Every motion controllable', { k: 'wood' }],
 ];
+const MADE_IMG = ['posthog-pv', 'fullenrich', 'stars', 'dust', 'braavo', 'vybe', 'adikteev', 'adjust', 'jev', 'upflow', 'poolday-founder', 'clickup', 'posthog-ai', 'verde', 'marblism', 'oreo'];
 function b2bAfter() {
   return head('Poolday for B2B startups, after', 'Proposed redesign on the live page structure · everything unmarked is the live page, kept') + nav() +
     `<section class="pd-hero d7-hero b2b-hero"><canvas class="pd-halftone" data-cx="0.5" data-cy="0.45"></canvas><div class="pd-hero-inner">
@@ -243,7 +248,7 @@ function b2bAfter() {
 <div class="wrapc" style="margin-top:56px">${rule()}</div>
 <section class="wrapc" style="padding-top:48px"><h2 class="lt">Why tech startups love Poolday</h2><div class="why">${WHY.map(([t, b]) => `<div><h4>${t}</h4><p>${b}</p></div>`).join('')}</div></section>
 <div class="wrapc" style="margin-top:56px">${rule()}</div>
-<section class="wrapc" style="padding-top:48px"><h2 class="lt">Made in Poolday</h2><div class="made">${MADE.map(([t, r, a]) => vtile({ title: t, recipe: r, a })).join('')}</div></section>
+<section class="wrapc" style="padding-top:48px"><h2 class="lt">Made in Poolday</h2><div class="made">${MADE.map(([t, r], i) => vtile({ title: t, recipe: r, a: { k: 'img', src: 'm-' + MADE_IMG[i] } })).join('')}</div></section>
 ${ctaCard(`<h2>See Poolday in action, live on a call.</h2><p class="cc-sub">${CTA_SUB}</p><a class="pd-btn pd-btn-lg dark" href="#">Book a 15 min demo</a>`)}` + foot();
 }
 
