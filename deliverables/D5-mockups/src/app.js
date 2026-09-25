@@ -14,7 +14,7 @@ const SCRIPT = Q.get("script") || "launch";
 if (DEMO && !Q.has("nocursor")) document.documentElement.classList.add("demo");
 
 // ---------------------------------------------------------------- steps + labels
-const STEP = { "s-link": [1, "Product and link"], "s-rec": [2, "Screen recording"], "s-kit": [3, "Brand kit"], "s-style": [4, "Style"], "s-gen": [5, "Making the video"], "s-res": [6, "Your video"], "s-pod": [2, "Clip style"] };
+const STEP = { "s-link": [1, "Product and link"], "s-rec": [2, "Screen recording"], "s-kit": [3, "Brand kit"], "s-style": [4, "Style"], "s-lead": [5, "Your details"], "s-gen": [6, "Making the video"], "s-res": [7, "Your video"], "s-pod": [2, "Clip style"] };
 
 // ---------------------------------------------------------------- event model
 let EV = [];                      // {t, type, ...}
@@ -34,7 +34,7 @@ const GEN = [ // phase, start, end, status label
   ["brand", 5.3, 7.4, "Extracting the brand kit"], ["script", 7.4, 8.8, "Writing the script"], ["voice", 8.8, 10.0, "Recording the voice-over"],
   ["board", 10.0, 12.4, "Storyboarding"], ["render", 12.4, 13.8, "Rendering 1080p"]];
 const GEN_DUR = 13.9;
-let CURSOR = [], DUR = 33, INIT = {};
+let CURSOR = [], DUR = 33, INIT = {}, GSTART = 13.5;
 
 function scriptLaunch(product = "launch", url = "northwind.ai") {
   EV = []; INIT = { product: null, url: "" };
@@ -44,24 +44,43 @@ function scriptLaunch(product = "launch", url = "northwind.ai") {
   push({ t: 1.66, type: "type", text: url, per: 0.05 });
   click(3.0, "#go1", 8, { type: "go", to: "s-rec" });
   // S2: glance at upload, then the AI option; hover builds, press, burst.
-  click(5.8, "#rec-ai", 14, { type: "choose", q: "rec", v: "ai" });
+  click(5.8, "#rec-ai", 13, { type: "choose", q: "rec", v: "ai" });
   push({ t: 6.75, type: "go", to: "s-kit" });
-  click(8.55, "#kit-ai", 14, { type: "choose", q: "kit", v: "ai" });
+  click(8.55, "#kit-ai", 13, { type: "choose", q: "kit", v: "ai" });
   push({ t: 9.5, type: "go", to: "s-style" });
   click(12.15, '.tile[data-i="0"]', 6, { type: "select", i: 0 });
-  click(13.2, "#go4", 8, { type: "go", to: "s-gen" });
-  push({ t: 13.5, type: "gen" });
-  push({ t: 13.5 + GEN_DUR + 0.05, type: "go", to: "s-res" });
-  click(30.9, "#book", 0, { type: "book" });
-  DUR = 33;
+  // S4 → S4c: the details card (credits are gated to companies). Personal email is rejected, then corrected.
+  click(13.2, "#go4", 4, { type: "go", to: "s-lead" });
+  const L0 = 13.45;
+  click(L0 + 0.75, "#fEmail", 0, { type: "lfocus", f: "email" });
+  push({ t: L0 + 0.85, type: "ltype", f: "email", text: "alex@gmail.com", per: 0.045 });
+  push({ t: L0 + 1.6, type: "lerr", f: "email" });
+  push({ t: L0 + 2.55, type: "ltype", f: "email", text: "alex@northwind.ai", per: 0.04, clear: true });
+  push({ t: L0 + 3.3, type: "lok", f: "email" });
+  click(L0 + 3.75, "#fRole", 1, { type: "lfocus", f: "role" });
+  push({ t: L0 + 3.85, type: "ltype", f: "role", text: "Head of Marketing", per: 0.035 });
+  click(L0 + 4.9, '.opt[data-o="0"]', 1, { type: "lopt", o: 0 });
+  click(L0 + 5.55, "#goLead", 4, { type: "go", to: "s-gen" });
+  const G0 = L0 + 5.85; GSTART = G0;
+  push({ t: G0, type: "gen" });
+  push({ t: G0 + GEN_DUR + 0.05, type: "go", to: "s-res" });
+  const R0 = G0 + GEN_DUR + 0.05;
+  click(R0 + 2.4, "#share", 0, { type: "share" });
+  push({ t: R0 + 3.1, type: "copied" });
+  click(R0 + 5.1, "#book", 0, { type: "book" });
+  DUR = R0 + 7.2;
   CURSOR = [[0, [1080, 760]], [0.45, [1080, 760]], [0.98, `.tab[data-tab=${product}]`], [1.2, `.tab[data-tab=${product}]`], [1.5, ["#input", -170, 2]],
     [2.45, ["#input", -150, 4]], [2.9, "#go1"], [3.2, "#go1"], [3.7, ["#rec-up", 120, 40]], [4.35, ["#rec-up", 30, 10]], [4.6, ["#rec-up", 20, 6]],
     [5.15, ["#rec-ai", -60, 4]], [5.45, ["#rec-ai", 10, 6]], [5.78, ["#rec-ai", 14, 5]], [6.3, ["#rec-ai", 20, 8]],
     [7.2, ["#kit-ai", 180, 120]], [7.95, ["#kit-ai", 0, 6]], [8.52, ["#kit-ai", 6, 5]], [9.1, ["#kit-ai", 12, 8]],
     [10.0, [900, 700]], [10.8, ['.tile[data-i="0"] .pv', 60, 40]], [11.6, ['.tile[data-i="0"] .pv', 80, 34]], [12.12, ['.tile[data-i="0"] .pv', 84, 30]],
     [12.5, ['.tile[data-i="0"] .pv', 90, 34]], [13.05, "#go4"], [13.4, "#go4"],
-    [27.6, [1010, 560]], [28.3, [1010, 560]], [29.6, ["#book", 40, 4]], [30.85, ["#book", 44, 3]], [33, ["#book", 46, 4]]];
-  HIDE_CURSOR = [[13.45, 27.75]];
+    [L0 + 0.7, ["#fEmail", -200, 2]], [L0 + 2.3, ["#fEmail", -190, 4]], [L0 + 3.7, ["#fRole", -200, 2]], [L0 + 4.4, ["#fRole", -160, 6]],
+    [L0 + 4.85, ['.opt[data-o="0"]', 0, 2]], [L0 + 5.2, ['.opt[data-o="0"]', 6, 4]], [L0 + 5.5, ["#goLead", 10, 2]], [L0 + 5.8, ["#goLead", 12, 3]],
+    [R0 - 0.3, [1010, 560]], [R0 + 1.4, ["#share", 60, 2]], [R0 + 2.35, ["#share", 70, 3]], [R0 + 2.9, ['#shareMenu .mi', -40, 2]], [R0 + 3.6, ['#shareMenu .mi', -30, 4]],
+    [R0 + 4.6, ["#book", 40, 4]], [R0 + 5.05, ["#book", 44, 3]], [DUR, ["#book", 46, 4]]];
+  HIDE_CURSOR = [[G0 - 0.05, R0 - 0.35]];
+  return;
 }
 function scriptPodcast() {
   EV = []; INIT = { product: "podcast", url: "youtu.be/op-hour-212" };
@@ -122,7 +141,7 @@ function drawProgress(t, scr) {
   $("#fill").style.width = p + "%";
   // The newest segment arrives white and cools to ink over ~20 frames (a colour trail, motion manual section 2).
   const tr = $("#trail"); tr.style.left = LASTFILL.from + "%"; tr.style.width = Math.max(0, Math.min(p, LASTFILL.to) - LASTFILL.from) + "%"; tr.style.opacity = LASTFILL.a;
-  const [n, lbl] = STEP[scr]; const tot = scr === "s-pod" ? 4 : 6; $("#progN").innerHTML = `<b>0${n}</b> / 0${tot}`; $("#progL").textContent = lbl;
+  const [n, lbl] = STEP[scr]; const tot = scr === "s-pod" ? 4 : 7; $("#progN").innerHTML = `<b>0${n}</b> / 0${tot}`; $("#progL").textContent = lbl;
 }
 
 // ---------------------------------------------------------------- halftone (Poolday's signature field; logic from the kit's Halftone component)
@@ -142,7 +161,7 @@ function halftone(cv, o) {
   }
 }
 const HT = { "s-link": [0.5, 0.44, 600, 390], "s-rec": [0.5, 0.5, 560, 330], "s-kit": [0.5, 0.5, 560, 330], "s-style": [0.5, 0.25, 620, 170], "s-pod": [0.5, 0.2, 620, 150],
-  "s-gen": [0.16, 0.34, 360, 300], "s-res": [0.83, 0.74, 340, 250] };
+  "s-lead": [0.5, 0.5, 700, 420], "s-gen": [0.16, 0.34, 360, 300], "s-res": [0.83, 0.74, 340, 250] };
 function drawField(t, cur, te, prev) {
   const cv = $("#ht"), W = cv.offsetWidth, Hh = cv.offsetHeight; const a = HT[prev] || HT[cur], b = HT[cur], k = prev ? out3(seg(t - te, 0, 0.9)) : 1;
   const P = a.map((v, i) => lerp(v, b[i], k));
@@ -161,6 +180,9 @@ function drawScreens(t) {
     } else if (id === prev && u < 0.5) { s.classList.add("on"); const k = out3(seg(u, 0, 0.45));
       s.style.opacity = 1 - k; s.style.transform = `scale(${1 - 0.02 * k}) translateY(${-10 * k}px)`; s.style.filter = `blur(${k * 6}px)`;
     } else { s.classList.remove("on"); }
+    if (id === "s-style" && (cur === "s-lead" || (prev === "s-lead" && u < 0.5))) { const g = last(te - 1e-6, "go"); s.classList.add("on");
+      const k = cur === "s-lead" ? out3(seg(u, 0, 0.5)) : 1; const fade = cur === "s-lead" ? 1 : 1 - out3(seg(u, 0, 0.45));
+      s.style.opacity = fade; s.style.transform = ""; s.style.filter = `blur(${k * 14}px) brightness(${1 - 0.55 * k})`; }
   });
   // Entrances of the current screen: words rise on an exponential settle, blocks stagger 3 frames apart.
   const scr = $("#" + cur), base = te + 0.05;
@@ -428,6 +450,40 @@ function drawResult(t, te) {
   $("#book").style.setProperty("--p", pressAmt(t, "#book"));
 }
 
+// ---------------------------------------------------------------- S4c: details card (work email only)
+const PERSONAL = /@(gmail|googlemail|yahoo|outlook|hotmail|live|icloud|me|aol|proton|protonmail|gmx|yandex|mail)\./i;
+function typed(t, f) { const evs = EV.filter(e => e.type === "ltype" && e.f === f && e.t <= t); if (!evs.length) return { v: "", typing: false };
+  const e = evs[evs.length - 1]; const n = Math.floor((t - e.t) / e.per) + 1; return { v: e.text.slice(0, clamp(n, 0, e.text.length)), typing: n <= e.text.length }; }
+function drawLead(t, te) {
+  const u = t - te, card = $("#acard");
+  const k = fr(t, te + 0.08); card.style.transform = `translateY(${(1 - expo(k, 0.8)) * 34}px) scale(${0.97 + 0.03 * expo(k, 0.8)})`; card.style.opacity = ink(k, 0.5);
+  const foc = last(t, "lfocus"), fcs = foc ? foc.f : null;
+  [["email", "#fEmail", "#vEmail", "#cEmail", "you@company.com"], ["role", "#fRole", "#vRole", "#cRole", "e.g. Head of Marketing"]].forEach(([f, fs, vs, cs, ph]) => {
+    const { v, typing } = typed(t, f), on = fcs === f; const vEl = $(vs);
+    vEl.textContent = v || ph; vEl.className = v ? "v" : "v ph";
+    $(fs).style.setProperty("--focus", on ? ink(fr(t, foc.t), 0.6) : 0);
+    $(cs).style.opacity = on && (typing || Math.floor(t / 0.53) % 2 === 0) ? 1 : 0; $(cs).style.order = v ? 2 : 0;
+  });
+  // Personal email: inline rejection that grows in, then clears when a work email is typed.
+  const er = last(t, "lerr"), ok = last(t, "lok"), cleared = EV.find(e => e.type === "ltype" && e.clear && e.t <= t);
+  const showErr = er && !cleared; const eh = showErr ? expo(fr(t, er.t), 0.75) : (er && cleared ? 1 - out3(seg(t, cleared.t, cleared.t + 0.3)) : 0);
+  $("#errEmail").style.height = (eh * 30) + "px"; $("#errEmail").style.opacity = eh; $("#fEmail").classList.toggle("bad", !!showErr);
+  if (showErr) $("#fEmail").style.transform = `translateX(${Math.sin(fr(t, er.t) * 1.9) * 7 * Math.exp(-fr(t, er.t) / 6)}px)`; else $("#fEmail").style.transform = "";
+  const okc = $("#okEmail"); if (ok) { const v = fr(t, ok.t); okc.style.opacity = ink(v, 0.6); okc.style.transform = `scale(${0.6 + 0.4 * spring(v, 0.45, 0.3)})`; } else okc.style.opacity = 0;
+  const op = last(t, "lopt"); $$(".opt").forEach(o => { const on = op && +o.dataset.o === op.o; o.classList.toggle("on", !!on);
+    o.style.transform = on ? `scale(${1 + (1 - spring(fr(t, op.t), 0.5, 0.3)) * -0.04})` : `scale(${1 - pressAmt(t, `.opt[data-o="${o.dataset.o}"]`) * 0.04})`; });
+  $("#goLead").style.setProperty("--p", pressAmt(t, "#goLead"));
+  // Keep the style previews alive behind the blur.
+  const g = last(te - 1e-6, "go"); seekPreviews(t - (g ? g.t : te), $$("#grid3 iframe"));
+}
+function drawShare(t) {
+  const sh = last(t, "share"), m = $("#shareMenu"); $("#share").style.setProperty("--p", pressAmt(t, "#share"));
+  if (!sh) { m.style.opacity = 0; return; }
+  const v = fr(t, sh.t + 0.05); m.style.opacity = ink(v, 0.55); m.style.transform = `translateY(${(1 - expo(v, 0.78)) * -10}px) scale(${0.96 + 0.04 * expo(v, 0.78)})`;
+  const cp = last(t, "copied"); $("#copied").style.opacity = cp ? ink(fr(t, cp.t), 0.6) : 0;
+  const bk = last(t, "press", e => e.sel === "#book"); if (bk) m.style.opacity = +m.style.opacity * (1 - out3(seg(t, bk.t - 0.9, bk.t - 0.4)));
+}
+
 // ---------------------------------------------------------------- frame
 let CUR_T = 0;
 function seek(t) {
@@ -444,9 +500,10 @@ function seek(t) {
   const prev = screenAt(t).prev; if (prev === "s-rec" && t - te < 0.5) drawAsk(t, "s-rec", last(te - 1e-6, "go").t);
   if (prev === "s-kit" && t - te < 0.5) drawAsk(t, "s-kit", last(te - 1e-6, "go").t);
   if (cur === "s-style") drawStyle(t, te);
+  if (cur === "s-lead") drawLead(t, te);
   if (cur === "s-pod") drawPod(t, te);
   if (cur === "s-gen" || prev === "s-gen") drawGen(t);
-  if (cur === "s-res") drawResult(t, te);
+  if (cur === "s-res") { drawResult(t, te); drawShare(t); }
   // demo cursor + click ripple
   if (DEMO) { const cu = $("#cursor"); const hid = HIDE_CURSOR.find(([a, b]) => t >= a - 0.15 && t < b + 0.3);
     let op = 1; for (const [a, b] of HIDE_CURSOR) { if (t >= a - 0.15 && t < a) op = 1 - seg(t, a - 0.15, a); else if (t >= a && t < b) op = 0; else if (t >= b && t < b + 0.3) op = seg(t, b, b + 0.3); }
@@ -470,7 +527,13 @@ function wireLive() {
   on("#rec-ai, #rec-up", el => { const t = liveNow(); click(t, "#" + el.id, 14, { type: "choose", q: "rec", v: el.id.endsWith("ai") ? "ai" : "up" }); push({ t: t + 0.95, type: "go", to: "s-kit" }); });
   on("#kit-ai, #kit-up", el => { const t = liveNow(); click(t, "#" + el.id, 14, { type: "choose", q: "kit", v: el.id.endsWith("ai") ? "ai" : "up" }); push({ t: t + 0.95, type: "go", to: "s-style" }); });
   on("#grid3 .tile", el => click(liveNow(), `.tile[data-i="${el.dataset.i}"]`, 6, { type: "select", i: +el.dataset.i }));
-  on("#go4", () => { const t = liveNow(); if (!last(t, "select")) push({ t, type: "select", i: 0 }); click(t, "#go4", 8, { type: "go", to: "s-gen" }); push({ t: t + 0.3, type: "gen" }); push({ t: t + 0.3 + GEN_DUR + 0.05, type: "go", to: "s-res" }); });
+  on("#go4", () => { const t = liveNow(); if (!last(t, "select")) push({ t, type: "select", i: 0 }); click(t, "#go4", 6, { type: "go", to: "s-lead" }); });
+  on("#fEmail", () => { const t = liveNow(); click(t, "#fEmail", 0, { type: "lfocus", f: "email" }); push({ t: t + 0.1, type: "ltype", f: "email", text: "alex@northwind.ai", per: 0.035 }); push({ t: t + 0.8, type: "lok", f: "email" }); });
+  on("#fRole", () => { const t = liveNow(); click(t, "#fRole", 2, { type: "lfocus", f: "role" }); push({ t: t + 0.1, type: "ltype", f: "role", text: "Head of Marketing", per: 0.035 }); });
+  on(".opt", el => click(liveNow(), `.opt[data-o="${el.dataset.o}"]`, 2, { type: "lopt", o: +el.dataset.o }));
+  on("#goLead", () => { const t = liveNow(); click(t, "#goLead", 6, { type: "go", to: "s-gen" }); push({ t: t + 0.3, type: "gen" }); push({ t: t + 0.3 + GEN_DUR + 0.05, type: "go", to: "s-res" }); });
+  on("#share", () => { const t = liveNow(); click(t, "#share", 0, { type: "share" }); });
+  on("#shareMenu .mi", () => push({ t: liveNow(), type: "copied" }));
   on("#book", () => click(liveNow(), "#book", 0, { type: "book" }));
 }
 
@@ -481,7 +544,9 @@ async function boot() {
   $$(".screen").forEach(x => x.classList.add("on"));
   await Promise.all($$(".tile.pod .portrait").map((el, i) => halftonePortrait(el, { color: POD[i].k === "ali" ? [40, 34, 28] : [245, 240, 232], step: 3, row: 5, dy: 0.06 })));
   $$(".screen").forEach(x => x.classList.remove("on"));
-  $$("iframe[data-src]").forEach(f => f.src = f.dataset.src + "?capture");
+  // Real reference footage replaces a CSS preview when its image sequence exists (tools/make-footage.sh).
+  const HAS = {}; await Promise.all(["apple", "kinetic", "storytelling"].map(async n => { try { HAS[n] = (await fetch(`assets/footage/${n}/manifest.json`)).ok; } catch (e) { HAS[n] = false; } }));
+  $$("iframe[data-src]").forEach(f => { const n = f.dataset.footage; f.src = n && HAS[n] ? `previews/footage.html?name=${n}&capture` : f.dataset.src + "?capture"; });
   await document.fonts.ready;
   await Promise.all($$("iframe").map(f => new Promise(res => { const chk = () => f.contentDocument?.body?.dataset.ready ? res() : setTimeout(chk, 40); chk(); })));
   // ticks on the progress track at step boundaries

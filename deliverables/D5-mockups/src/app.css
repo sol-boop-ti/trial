@@ -275,3 +275,52 @@ html.demo #cursor { display: block; }
   .proof { font-size: 26px; margin-top: var(--space-10); }
   .recipe { flex-direction: column; align-items: center; gap: 6px; }
 }
+
+/* ==== v3: Poolday app UI language (from the product: see ../../design/poolday-app-ui/) =====================
+   Near-black panels with large radii, a hairline edge, faint noise, uppercase micro-labels, and a soft
+   lavender halo around the one active card (the app's Align question card). Colour still lives in media. */
+:root { --panel: #111113; --panel-2: #18181b; --hair: rgba(255,255,255,.07); --halo: rgba(176,176,255,.28); --r-panel: 24px; }
+.drop, .gen .canvas, .docpanel, .rail, .mail { border-radius: var(--r-panel) !important; }
+.drop { background: var(--panel); box-shadow: inset 0 0 0 1px var(--hair); }
+
+/* S4c: the details modal, an Align card over the blurred style screen */
+#s-lead { z-index: 5; }
+.modal-wrap { position: absolute; inset: 0; display: grid; place-items: center; padding-top: 40px; }
+.acard { position: relative; width: 720px; padding: 28px 28px 24px; border-radius: var(--r-panel); background: var(--panel); box-shadow: inset 0 0 0 1px var(--hair), 0 0 0 1px rgba(255,255,255,.02), 0 0 90px 10px var(--halo), 0 30px 80px rgba(0,0,0,.6); }
+.acard::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px); background-size: 3px 3px; }
+.ahead { position: relative; display: flex; align-items: center; gap: 12px; }
+.ahead b { font-weight: 500; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
+.qi { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #1f1f24; color: #c9c9ff; box-shadow: inset 0 0 0 1px rgba(201,201,255,.25); }
+.qi svg { width: 15px; height: 15px; }
+.await { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: var(--radius-pill); background: #0a0a0c; box-shadow: inset 0 0 0 1px var(--hair); font-size: 13px; color: var(--ink-nav); white-space: nowrap; }
+.await i { width: 6px; height: 6px; border-radius: 50%; background: #8b8bd8; }
+.asub { position: relative; margin: 14px 0 22px 42px; font-size: 16px; line-height: 24px; color: var(--ink-muted); }
+.flabel { position: relative; margin: 14px 0 8px 2px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); }
+.afield { position: relative; height: 52px; border-radius: 14px; background: #0b0b0d; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) calc(7% + var(--focus, 0) * 25%), transparent); color: var(--ink-muted); }
+.afield .v { color: var(--ink); font-size: 16px; white-space: nowrap; }
+.afield .v.ph { color: #5d5d63; }
+.afield .caret { width: 1.5px; height: 20px; background: var(--ink); margin-left: -10px; }
+.afield .okc { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-cta); opacity: 0; }
+.afield .okc svg { width: 13px; height: 13px; stroke-width: 3; }
+.afield.bad { box-shadow: inset 0 0 0 1px rgba(255,120,110,.55); }
+.err { position: relative; display: flex; align-items: center; gap: 8px; height: 0; overflow: hidden; font-size: 13px; color: #ff9a8f; opacity: 0; }
+.err svg { width: 14px; height: 14px; }
+.opts { position: relative; display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px 0 12px; border-radius: var(--radius-pill); background: #0b0b0d;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) calc(7% + var(--h, 0) * 12%), transparent); font-size: 15px; color: var(--ink-nav); }
+.opt i { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px #5d5d63; position: relative; }
+.opt.on { background: var(--surface-glass); color: var(--ink); }
+.opt.on i { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.opt.on i::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--ink); }
+.afoot { position: relative; margin-top: 26px; display: flex; align-items: center; justify-content: space-between; }
+
+/* S6: Share, a real secondary CTA (glass pill) with a small menu */
+.share-wrap { position: relative; z-index: 10; margin: 6px 0 4px; }
+.sharebtn { width: 100%; height: 50px; border-radius: var(--radius-pill); display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: color-mix(in srgb, #fff calc(15% + var(--h, 0) * 8%), transparent); color: var(--ink); font-size: 15px; font-weight: 500; transform: scale(calc(1 - var(--p, 0) * .04)); }
+.menu { position: absolute; left: 0; right: 0; top: 58px; z-index: 6; padding: 6px; border-radius: 18px; background: #18181b; box-shadow: inset 0 0 0 1px var(--hair), 0 20px 50px rgba(0,0,0,.6); opacity: 0; pointer-events: none; transform-origin: 50% 0; }
+.menu .mi { display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 12px; border-radius: 12px; font-size: 15px; color: var(--ink-nav); }
+.menu .mi:first-child { background: rgba(255,255,255,.06); color: var(--ink); }
+.menu .mi em { margin-left: auto; font-style: normal; font-size: 13px; color: var(--ink-muted); opacity: 0; }

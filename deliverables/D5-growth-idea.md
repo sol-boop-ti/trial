@@ -16,7 +16,7 @@
 
 | Product | Input | Styles (one-line look) |
 |---|---|---|
-| **Launch video** (20–30s) | Website URL | **Apple:** clean product motion, UI floating on soft gradients, slow camera, hard cuts on the beat. **Kinetic:** bold type animated to the beat, one idea per word. **Storytelling:** problem → turning point → product, founder voiceover, calmer pacing. |
+| **Launch video** (20–30s) | Website URL | **Apple Motion Style:** clean product motion, UI floating on soft gradients, slow camera, hard cuts on the beat. **Kinetic Typo:** bold type animated to the beat, one idea per word. **Storytelling Film:** problem → turning point → product, founder voiceover, calmer pacing. |
 | **Podcast clips** (5 × 30–60s, 9:16) | YouTube link or upload | **Hormozi:** 1–3 word bold caps, yellow/green keyword pops, punch-in zooms every few seconds. **Diary of a CEO:** 1–3 words, heavy outline, host yellow / guest white, cinematic two-camera cuts. **MrBeast:** comic-style font, blue active word, fast jump cuts, sound effects. **Ali Abdaal:** desaturated grade with one colour pop, handwritten-style captions beside the speaker, calm. **Iman Gadzhi:** fast cuts, minimal "luxury" text overlays, dynamic zooms, dark premium grade. |
 | **AI product ad** (15s) | URL + product image | **3D hero CGI:** product floats and turns in a studio void, macro details, light sweeps. **Faux out-of-home:** giant product placed in a real city (the viral FOOH format). **UGC:** an AI creator holds and reviews the product to camera, captions, phone framing. **Cinematic:** the product in a short lifestyle scene, film grade, one line of copy. |
 

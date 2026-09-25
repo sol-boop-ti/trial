@@ -5,7 +5,7 @@ const { chromium } = require("playwright");
 const path = require("path");
 const BASE = "http://127.0.0.1:8765/D5-mockups/src/app.html?capture&nocursor";
 const OUT = path.join(__dirname, "..");
-const G = 13.5; // generation start in the launch script
+const L0 = 13.45, G = L0 + 5.85, R0 = G + 13.9 + 0.05; // must match scriptLaunch() in app.js
 const SHOTS = [
   { name: "01-link", t: 2.6 },
   { name: "01-link-mobile", t: 2.6, w: 390, h: 844, mobile: true },
@@ -15,10 +15,13 @@ const SHOTS = [
   { name: "03-brand-kit", t: 8.35 },
   { name: "04-style", t: 12.9 },
   { name: "04b-style-podcast", t: 1.6, script: "podcast" },
+  { name: "04c-details-personal-email-rejected", t: L0 + 2.3 },
+  { name: "04d-details", t: L0 + 5.4 },
   { name: "05-generating-recording", t: G + 3.3 },
   { name: "05b-generating-brand-kit", t: G + 6.6 },
   { name: "05c-generating-storyboard", t: G + 11.25 },
-  { name: "06-result", t: 30.2 },
+  { name: "06-result", t: R0 + 1.2 },
+  { name: "06b-result-share", t: R0 + 3.6 },
 ];
 (async () => {
   const filter = process.argv[2];

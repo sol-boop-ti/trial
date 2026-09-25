@@ -23,6 +23,11 @@
   <symbol id="l-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
   <symbol id="l-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
   <symbol id="l-link2" viewBox="0 0 24 24"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></symbol>
+  <symbol id="l-share" viewBox="0 0 24 24"><path d="M12 2v13"/><path d="m16 6-4-4-4 4"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/></symbol>
+  <symbol id="l-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="l-x" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+  <symbol id="l-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+  <symbol id="l-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
   <symbol id="l-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></symbol>
   <symbol id="l-volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
   <symbol id="l-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
@@ -69,11 +74,9 @@
   <section class="screen" id="s-rec">
     <div class="ask">
       <h2 class="title" data-words><span>Do you have a screen recording?</span> <span class="quiet">Of your product, in action.</span></h2>
-      <p class="sub" data-in="1">It is what the video shows. Thirty seconds of real clicks is plenty.</p>
       <button class="aibtn" id="rec-ai" data-in="2" data-hover data-ai><canvas></canvas>
         <span class="lbl"><svg class="i ic"><use href="#l-sparkles"/></svg>No. Poolday AI records it for you<svg class="i ar"><use href="#l-arrow-right"/></svg></span>
         <span class="ok"><svg class="i"><use href="#l-check"/></svg>Poolday AI will record it</span></button>
-      <div class="recipe-line" data-in="3">Your URL to a clean 1080p walkthrough</div>
       <div class="or" data-in="4">or</div>
       <button class="drop" id="rec-up" data-in="5" data-hover><canvas></canvas><span class="ic"><svg class="i"><use href="#l-upload"/></svg></span><span class="t"><b>Yes, upload it</b><span>Drop an MP4 or MOV, up to 2 min</span></span></button>
     </div>
@@ -87,7 +90,6 @@
       <button class="aibtn" id="kit-ai" data-in="2" data-hover data-ai><canvas></canvas>
         <span class="lbl"><svg class="i ic"><use href="#l-sparkles"/></svg>Poolday AI builds it from your site<svg class="i ar"><use href="#l-arrow-right"/></svg></span>
         <span class="ok"><svg class="i"><use href="#l-check"/></svg>Brand kit on its way</span></button>
-      <div class="recipe-line" data-in="3">northwind.ai to logo + colours + type</div>
       <div class="or" data-in="4">or</div>
       <button class="drop" id="kit-up" data-in="5" data-hover><canvas></canvas><span class="ic"><svg class="i"><use href="#l-upload"/></svg></span><span class="t"><b>Yes, upload it</b><span>PDF, ZIP or a Figma link</span></span></button>
     </div>
@@ -96,20 +98,19 @@
   <!-- ================= S4: style (launch) ================= -->
   <section class="screen" id="s-style">
     <div class="pick">
-      <h2 class="title" data-words><span>Pick a style.</span> <span class="quiet">Each one is a full brief.</span></h2>
-      <div class="sub" data-in="1"><span class="sw"><i style="background:#0e1116;box-shadow:0 0 0 1px #333"></i><i style="background:#c6f432"></i><i style="background:#f4f1ea"></i></span>Previews already use your brand kit</div>
+      <h2 class="title" data-words><span>Pick a style.</span></h2>
       <div class="grid3" id="grid3">
         <div class="tile" data-i="0" data-in="2" data-hover>
-          <div class="pv"><iframe data-src="previews/glass.html" title="Glass Keynote preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
-          <div class="under"><b>Glass Keynote</b><span>30s · 16:9</span></div><div class="recipe-c">Screen recording to liquid-glass product film</div>
+          <div class="pv"><iframe data-src="previews/glass.html" data-footage="apple" title="Apple Motion Style preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
+          <div class="under"><b>Apple Motion Style</b><span>30s · 16:9</span></div><div class="recipe-c">Screen recording to Apple-style product film</div>
         </div>
         <div class="tile" data-i="1" data-in="3" data-hover>
-          <div class="pv"><iframe data-src="previews/kinetic.html" title="Kinetic Hype preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
-          <div class="under"><b>Kinetic Hype</b><span>20s · 9:16 + 16:9</span></div><div class="recipe-c">Brand kit + single prompt</div>
+          <div class="pv"><iframe data-src="previews/kinetic.html" data-footage="kinetic" title="Kinetic Typo preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
+          <div class="under"><b>Kinetic Typo</b><span>20s · 9:16 + 16:9</span></div><div class="recipe-c">Brand kit + single prompt</div>
         </div>
         <div class="tile" data-i="2" data-in="4" data-hover>
-          <div class="pv"><iframe data-src="previews/founder.html" title="Founder Film preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
-          <div class="under"><b>Founder Film</b><span>45s · 16:9</span></div><div class="recipe-c">Founder photos + voice</div>
+          <div class="pv"><iframe data-src="previews/founder.html" data-footage="storytelling" title="Storytelling Film preview"></iframe><span class="glass-chip sel"><svg class="i" style="width:14px;height:14px"><use href="#l-check"/></svg>Selected</span><div class="segs"></div></div>
+          <div class="under"><b>Storytelling Film</b><span>45s · 16:9</span></div><div class="recipe-c">Founder video + voice</div>
         </div>
       </div>
       <div class="actions" style="width:1304px" data-in="5">
@@ -132,12 +133,32 @@
     </div>
   </section>
 
+  <!-- ================= S4c: work details (credits are gated to companies) ================= -->
+  <section class="screen" id="s-lead">
+    <div class="modal-wrap">
+      <div class="acard" id="acard">
+        <div class="ahead"><span class="qi"><svg class="i"><use href="#l-help"/></svg></span><b>Last step. Your video is already being made.</b><span class="await"><i></i>Awaiting your input</span></div>
+        <p class="asub">Poolday is built for teams. Tell us where to send it.</p>
+        <div class="flabel">Work email</div>
+        <div class="afield" id="fEmail" data-hover><svg class="i"><use href="#l-mail"/></svg><span class="v" id="vEmail"></span><span class="caret" id="cEmail"></span><span class="okc" id="okEmail"><svg class="i"><use href="#l-check"/></svg></span></div>
+        <div class="err" id="errEmail"><svg class="i"><use href="#l-alert"/></svg>Use your work email. Personal addresses can't start a video.</div>
+        <div class="flabel">Your role</div>
+        <div class="afield" id="fRole" data-hover><span class="v" id="vRole"></span><span class="caret" id="cRole"></span></div>
+        <div class="flabel">How did you hear about Poolday?</div>
+        <div class="opts" id="opts">
+          <div class="opt" data-o="0" data-hover><i></i>LinkedIn</div><div class="opt" data-o="1" data-hover><i></i>X</div><div class="opt" data-o="2" data-hover><i></i>A friend or colleague</div><div class="opt" data-o="3" data-hover><i></i>Search</div><div class="opt" data-o="4" data-hover><i></i>Other</div>
+        </div>
+        <div class="afoot"><span class="cap">We only use this to send your video.</span><button class="btn btn-lg" id="goLead" data-hover>Send me the video<svg class="i"><use href="#l-arrow-right"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= S5: generating ================= -->
   <section class="screen" id="s-gen">
     <div class="gen">
       <section>
         <h1 data-in="0">Making your launch video.</h1>
-        <div class="recipe-line" data-in="1">northwind.ai + Glass Keynote · 16:9 · 30s</div>
+        <div class="recipe-line" data-in="1">northwind.ai + Apple Motion Style · 16:9 · 30s</div>
         <ol class="log" id="log" data-in="2"></ol>
         <div class="mail" data-in="3">
           <div class="cap"><svg class="i"><use href="#l-mail"/></svg>It will email you when it's ready.</div>
@@ -177,7 +198,7 @@
             <i class="clk" id="clk"></i>
           </div>
           <div class="layer" id="L-script"><div class="docpanel"><div class="k"><b>Script</b><span>3 beats · 29s</span><span>Tone: calm, confident</span></div><div id="beats"></div></div></div>
-          <div class="layer" id="L-voice"><div class="docpanel"><div class="k"><b>Voice-over</b><span>EN-US · 29.4s</span></div><div class="wave" id="wave"></div><div class="lines" id="vlines"></div><div class="voice"><span class="av"><svg class="i"><use href="#l-mic"/></svg></span><div><b>Warm, mid</b><span>Voice 04, matched to Glass Keynote</span></div></div></div></div>
+          <div class="layer" id="L-voice"><div class="docpanel"><div class="k"><b>Voice-over</b><span>EN-US · 29.4s</span></div><div class="wave" id="wave"></div><div class="lines" id="vlines"></div><div class="voice"><span class="av"><svg class="i"><use href="#l-mic"/></svg></span><div><b>Warm, mid</b><span>Voice 04, matched to Apple Motion Style</span></div></div></div></div>
           <div class="layer" id="L-board">
             <svg class="fr" id="curF" viewBox="0 0 1600 900"><use href="#nwF1"/></svg>
             <svg class="fr" id="nextF" viewBox="0 0 1600 900"><use href="#nwF1"/></svg>
@@ -195,9 +216,9 @@
     <div class="res">
       <div data-in="0">
         <h1>Your launch video is ready.</h1>
-        <div class="meta">Northwind Forecast · Glass Keynote · 0:30 · made in 3 min 48 s</div>
+        <div class="meta">Northwind Forecast · Apple Motion Style · 0:30 · made in 3 min 48 s</div>
         <div class="player">
-          <iframe data-src="previews/glass.html" title="Your video"></iframe>
+          <iframe data-src="previews/glass.html" data-footage="apple" title="Your video"></iframe>
           <div class="ctrl"><span class="glass-chip" id="rtime">0:00 / 0:30</span><span class="glass-chip"><svg class="i" style="width:14px;height:14px"><use href="#l-volume"/></svg>Sound on</span></div>
           <div class="scrubb"><b id="rbar"></b></div>
         </div>
@@ -207,7 +228,14 @@
         <div class="row" data-in="1"><svg class="i"><use href="#l-download"/></svg>Download<em>720p · watermarked</em></div>
         <div class="row" data-in="2"><svg class="i"><use href="#l-layers"/></svg>HD + 3 variants<em>9:16 · 1:1 · 15s</em></div>
         <div class="row" data-in="3"><svg class="i"><use href="#l-refresh"/></svg>Try another style</div>
-        <div class="row" data-in="4"><svg class="i"><use href="#l-link2"/></svg>Copy link</div>
+        <div class="share-wrap" data-in="4">
+          <button class="sharebtn" id="share" data-hover><svg class="i"><use href="#l-share"/></svg>Share your video</button>
+          <div class="menu" id="shareMenu">
+            <div class="mi"><svg class="i"><use href="#l-link2"/></svg>Copy link<em id="copied">Copied</em></div>
+            <div class="mi"><svg class="i"><use href="#l-linkedin"/></svg>LinkedIn</div>
+            <div class="mi"><svg class="i"><use href="#l-x"/></svg>X</div>
+          </div>
+        </div>
         <div class="pitch" data-in="5">
           <h3>Want this for your real launch? <span class="quiet">It takes one call.</span></h3>
           <p>See Poolday in action, live on a call. Your footage, your voice, your date.</p>

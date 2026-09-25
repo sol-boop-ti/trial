@@ -378,3 +378,17 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Home:** the feed is reorganized into 4 use-case rows (Launch films / Feature videos / Podcast clips / Ads), each with identical 16:10 tiles and one caption per tile (customer + recipe). Three alternatives are documented but not built.
 - **B2B:** real customer logos (PostHog, ClickUp, Lovable, Dust, FullEnrich), taken from traceable npm sources (simple-icons CC0, lobehub MIT, Dust's own design-system package, FullEnrich's own n8n node). Marblism falls back to its name in type. Sources are in `deliverables/D7-pages/CREDITS.md`. Poolday should confirm logo permissions before anything goes live.
 - **Lesson:** when websites are blocked, the npm packages companies publish themselves are a reliable source of official logos.
+
+## M27. Growth-tool mockups v3 (built directly after the background task was stopped)
+- **Changes from the user's review:**
+  - Less noise: removed the helper copy on the recording and brand-kit steps, and "Each one is a full brief" / "Previews already use your brand kit" on the style step.
+  - Style names: **Apple Motion Style / Kinetic Typo / Storytelling Film**.
+  - **Real reference footage in the previews:** Kinetic Typo uses the unedited 0:00–0:14 of the "stretching creativity" video (including the bomb). Apple Motion Style (Langease, YouTube) and Storytelling Film (founder video) have ready slots and fall back to our own loops until the files arrive. YouTube is blocked from this environment (yt-dlp → 403).
+  - **New step 5/7, "Last step. Your video is already being made."**: an Align-style card over the blurred style screen with work email (personal domains rejected inline: gmail, yahoo, outlook…), role, and how they heard about Poolday. Why: Poolday is an enterprise product, so free credits go to real companies, and every video becomes a qualified lead. The title keeps people on the page.
+  - **Result:** "Copy link" replaced by a prominent **Share** button (share icon) with a menu (Copy link / LinkedIn / X).
+  - **Visual language aligned with the Poolday app** (screenshots in `deliverables/design/poolday-app-ui/`): dark panels with large radii, hairline edges, faint dot noise, uppercase micro-labels, a lavender halo on the active card.
+- **How:**
+  - Footage becomes a deterministic JPEG sequence (`src/tools/make-footage.sh`, 15 fps, 640px), so frame-accurate capture still works.
+  - The timeline adds the details step (typed personal email → rejection with a shake → corrected work email → role → source → send), then shifts generation and the result.
+  - The share menu opens before the demo CTA is clicked.
+- **Outputs:** 15 stills (+@2x) including `04c-details-personal-email-rejected`, `04d-details` and `06b-result-share`; `walkthrough.mp4/.gif`; `loop-kinetic-typo.mp4`; `CREDITS.md`.

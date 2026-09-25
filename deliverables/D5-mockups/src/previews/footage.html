@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Footage preview</title>
+<link rel="stylesheet" href="preview.css">
+<style>
+  .stage { background: #000; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .grainfx { display: none; }
+</style>
+</head>
+<body>
+<div class="stage"><img id="f" alt=""></div>
+<script src="../lib/motion.js"></script>
+<script src="preview.js"></script>
+<script>
+// Real reference footage as a deterministic image sequence (assets/footage/<name>/, built by tools/make-footage.sh).
+// Seeking picks a frame synchronously, so capture stays frame-accurate. Third-party footage: see ../../CREDITS.md.
+const name = new URLSearchParams(location.search).get("name") || "kinetic";
+const base = `../assets/footage/${name}/`;
+fetch(base + "manifest.json").then(r => r.json()).then(m => {
+  const imgs = Array.from({ length: m.frames }, (_, i) => base + `f${String(i + 1).padStart(4, "0")}.jpg`);
+  const el = document.getElementById("f");
+  const pre = imgs.map(src => new Promise(res => { const im = new Image(); im.onload = im.onerror = () => res(im); im.src = src; }));
+  window.SCENES = [[0, m.frames / m.fps]];
+  Preview({ loop: m.frames / m.fps, init: () => Promise.all(pre), draw: t => { const i = Math.min(m.frames - 1, Math.floor(t * m.fps)); if (el.dataset.i != i) { el.src = imgs[i]; el.dataset.i = i; } } });
+});
+</script>
+</body>
+</html>
