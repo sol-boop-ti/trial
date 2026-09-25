@@ -392,3 +392,17 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - The timeline adds the details step (typed personal email → rejection with a shake → corrected work email → role → source → send), then shifts generation and the result.
   - The share menu opens before the demo CTA is clicked.
 - **Outputs:** 15 stills (+@2x) including `04c-details-personal-email-rejected`, `04d-details` and `06b-result-share`; `walkthrough.mp4/.gif`; `loop-kinetic-typo.mp4`; `CREDITS.md`.
+
+## M28. D7 round 4: real live pages replace the reconstructions
+- **Input:** the user supplied real screenshots of the live home (full page), the Meet Poolday features, and the pricing page, plus Submagic's pricing as inspiration. Saved in `deliverables/D7-pages/real/`.
+- **Verified by the live pages:**
+  - "~$5–$25 per finished video" is on the home page's closing CTA card.
+  - Enterprise credits equal the plan price.
+  - The real pricing layout: a light Business card, a dark Enterprise card, CTA "Book a call to get your agent configured".
+  - The real home structure: masonry video grid, "Meet Poolday" with 4 animated features, logo marquee, testimonials, a light-grey CTA card.
+- **Feedback applied:**
+  - **Home:** remove the post-grid CTA; "Meet Poolday" loses "Not a tool you operate"; add "Book a 15 min demo" right after the features.
+  - **Pricing:** rebuilt on the real page, with a Submagic-style framed box ("$1,250 in credits = ≈ 50–250 finished videos").
+  - **B2B:** a tasteful "NEW" sticker replaces "Free · limited", and the use cases get animated previews like the home features.
+  - **All pages:** legends list only the live changes.
+- **Lesson:** reconstructions are a stopgap. As soon as real captures exist, the "before" must be the real page.
