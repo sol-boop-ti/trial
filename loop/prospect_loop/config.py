@@ -37,7 +37,9 @@ SENDER_NAME = os.environ.get("SENDER_NAME", "[Your name]")
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "you@example.com")
 REFERENCE_VIDEO = os.environ.get("REFERENCE_VIDEO", "<REFERENCE VIDEO LINK>")
 
-# ---- Poolday API (see POOLDAY_API.md). POOLDAY_API = manual | fake | http (auto: see poolday_mode)
+# ---- Poolday API (see POOLDAY_API.md). POOLDAY_API = manual | fake | http | webhook (auto: see poolday_mode)
+# Webhook mode reads POOLDAY_WEBHOOK_URL, POOLDAY_WEBHOOK_SECRET, POOLDAY_WEBHOOK_SECRET_HEADER,
+# PUBLIC_BASE_URL... at call time (poolday_api.webhook_settings), so they can change per run.
 POOLDAY_API_CONFIG = Path(os.environ.get("POOLDAY_API_CONFIG", LOOP_DIR / "poolday_api.toml"))
 POOLDAY_PROMPT = os.environ.get("POOLDAY_PROMPT", "command")   # which prompt the API sends: command | fallback
 POOLDAY_MODE = os.environ.get("POOLDAY_MODE", "")              # override the mapping's default mode (align | build | clarify)
@@ -61,9 +63,12 @@ def llm_mode() -> str:
 
 
 def poolday_mode() -> str:
-    """manual | fake | http. `POOLDAY_API` wins; otherwise http when a mapping file and
+    """manual | fake | http | webhook. `POOLDAY_API` wins; otherwise webhook when
+    POOLDAY_WEBHOOK_URL is set (the recommended path), http when a mapping file and
     POOLDAY_API_KEY both exist, else manual (copy/paste)."""
     mode = os.environ.get("POOLDAY_API", "").strip().lower()
-    if mode in {"manual", "fake", "http"}:
+    if mode in {"manual", "fake", "http", "webhook"}:
         return mode
+    if os.environ.get("POOLDAY_WEBHOOK_URL"):
+        return "webhook"
     return "http" if POOLDAY_API_CONFIG.exists() and os.environ.get("POOLDAY_API_KEY") else "manual"

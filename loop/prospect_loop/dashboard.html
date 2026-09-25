@@ -113,6 +113,7 @@ const VIEWS = [
 let leads = [], view = "qualified", selected = null, promptTab = "command", meta = {};
 const ACTIVE = ["queued", "running", "needs_input"];
 const apiOn = () => !!(meta.poolday && meta.poolday.ok && meta.poolday.automatic);
+const hookOn = () => apiOn() && meta.poolday.pollable === false;  // webhook: status arrives by callback
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -199,7 +200,9 @@ function renderDetail(l) {
       const revise = pd.production_id && pd.pending_revision;
       html += `<div class="inline">
         <button class="primary" id="psend" ${inFlight && !revise ? "disabled" : ""}>${revise ? "Send revision to the same conversation" : pd.production_id && !inFlight ? "Send again (new conversation)" : "Send to Poolday"}</button>
-        <span class="hint">${revise ? "" : "Sends the " + (promptTab === "fallback" ? "fallback kickoff (+ skill file)" : "/prospect-video command")} via the Poolday API (${esc(meta.poolday.client)}, ${esc(meta.poolday.mode || "")} mode, ${esc(meta.poolday.tier || "")} tier).</span></div>`;
+        <span class="hint">${revise ? "" : hookOn()
+          ? "Posts this lead (company, angle, contact, " + (promptTab === "fallback" ? "fallback kickoff" : "/prospect-video command") + ") to Poolday's webhook. The status changes when Poolday calls back."
+          : "Sends the " + (promptTab === "fallback" ? "fallback kickoff (+ skill file)" : "/prospect-video command") + ` via the Poolday API (${esc(meta.poolday.client)}, ${esc(meta.poolday.mode || "")} mode, ${esc(meta.poolday.tier || "")} tier).`}</span></div>`;
     } else if (l.status === "qualified") {
       html += `<div class="hint">Paste into Poolday (Align mode), then paste the video link back below.${
         meta.poolday && meta.poolday.error ? " Poolday API: " + esc(meta.poolday.error) : ""}</div>`;
@@ -208,7 +211,9 @@ function renderDetail(l) {
     <div class="card" style="margin-top:10px">
       <div><b>Poolday production</b> <code>${esc(pd.production_id)}</code> <span class="chip ${esc(pd.status)}">${esc((pd.status || "").replace("_", " "))}</span>
         <span class="hint">${esc(pd.raw_status || "")} · ${esc(pd.updated_at || "")}</span>
-        ${inFlight ? `<button id="ppoll" style="float:right">Poll now</button>` : ""}</div>
+        ${inFlight && !hookOn() ? `<button id="ppoll" style="float:right">Poll now</button>` : ""}</div>
+      ${inFlight && hookOn() ? `<div class="hint" style="margin-top:4px">Waiting for Poolday's callback${pd.last_callback_at ? " (last one " + esc(pd.last_callback_at) + ")" : ""}. If it never comes, paste the video link below and mark it done.</div>` : ""}
+      ${pd.conversation_url ? `<div style="margin-top:6px">Poolday conversation: <a href="${esc(pd.conversation_url)}" target="_blank" rel="noopener">${esc(pd.conversation_url)}</a></div>` : ""}
       ${pd.error ? `<div style="color:var(--bad);margin-top:6px">${esc(pd.error)}</div>` : ""}
       ${pd.status === "needs_input" && l.status === "qualified" ? `
         <div class="question"><b>Poolday's agent asks:</b> ${esc(pd.question)}</div>
@@ -220,7 +225,8 @@ function renderDetail(l) {
 
   if (l.status === "qualified") html += `
     <h3>2 · ${apiOn() ? "Or paste" : "Paste"} the Poolday video link${l.video_version > 1 ? " (v" + l.video_version + ")" : ""}${apiOn() ? ` <span class="hint">(API mode fills this in when the run finishes)</span>` : ""}</h3>
-    <div class="inline"><input type="url" id="vurl" placeholder="https://…"><button class="primary" id="vsubmit">Send to review</button></div>`;
+    <div class="inline"><input type="url" id="vurl" placeholder="https://…"><button class="primary" id="vsubmit">${
+      hookOn() && (l.poolday || {}).production_id ? "Mark done + send to review" : "Send to review"}</button></div>`;
 
   if (l.status === "in_review") html += `
     <h3>3 · Human validation: is this video good to send?</h3>
@@ -267,7 +273,8 @@ function bind(l) {
   document.querySelectorAll(".ptabs button[data-p]").forEach(b => b.onclick = () => { promptTab = b.dataset.p; renderDetail(l); });
   on("copy", async () => { await navigator.clipboard.writeText($("#prompt").textContent); toast("Prompt copied. Paste it into Poolday."); });
   const note = () => (document.getElementById("note") || {}).value || "";
-  on("vsubmit", act(() => api(`/api/leads/${l.id}/video`, {url: $("#vurl").value}), "Video sent to review."));
+  on("vsubmit", act(() => api(`/api/leads/${l.id}/${hookOn() && (l.poolday || {}).production_id ? "poolday_mark_done" : "video"}`,
+     {url: $("#vurl").value}), "Video sent to review."));
   on("approve", act(() => api(`/api/leads/${l.id}/approve`, {note: note()}), "Approved. Email drafted."));
   on("reject", act(() => api(`/api/leads/${l.id}/reject`, {note: note()}), "Rejected."));
   on("regen", act(() => { promptTab = "revision"; return api(`/api/leads/${l.id}/regenerate`, {note: note()}); },
@@ -292,10 +299,11 @@ $("#export").onclick = act(async () => {
   meta = await api("/api/meta");
   $("#mode").textContent = meta.mode === "api" ? "LLM: API mode" : "LLM: mock mode";
   const pd = meta.poolday || {};
-  $("#pmode").textContent = apiOn()
+  $("#pmode").textContent = hookOn() ? "Poolday: webhook" : apiOn()
     ? `Poolday API: ${pd.client}${pd.credits && pd.credits.remaining != null ? " · credits " + pd.credits.remaining : ""}`
     : pd.client === "manual" ? "Poolday: copy/paste" : "Poolday API: not configured";
   if (pd.error) $("#pmode").title = pd.error;
+  if (pd.callback_url) $("#pmode").title = "Callback URL: " + pd.callback_url;
   await load();
   // While a Poolday run is in flight, refresh every 3s (the server-side poller updates the DB).
   setInterval(async () => {

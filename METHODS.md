@@ -441,3 +441,14 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   2. Meanwhile, test the lighter route the agent suggested: an **Automation with an inbound webhook**. The loop POSTs a lead's brief to the webhook URL, and a saved prompt runs it.
   3. The pipeline's Poolday client stays mapping-driven, so enabling the API later is a config fill, not a rewrite.
 - Logged as product feedback: the agent offered "Create an API key" on a plan where the feature is locked.
+
+## M34. Poolday webhook mode (the API is being deprecated, per Poolday's CEO)
+- **CEO guidance:** use connectors, or have the agent create a webhook endpoint and call back a URL with the outputs. We chose the webhook, which is the closest to the loop's design.
+- **Built:**
+  - `WebhookPooldayClient` (POOLDAY_API=webhook) POSTs each lead (lead_id, token, version, company, website, brand kit, angle, contact, reference, prompt, callback_url) with a secret header.
+  - `POST /api/poolday/callback` verifies the secret and the per-lead token, parses flexible payloads (envelopes, outputs lists, nested JSON, deep scan for video links; extra key paths configurable) and moves the lead to the human Review gate. Questions use the needs_input flow; stale versions and duplicates are ignored.
+  - Through the tunnel, only the callback route is reachable. The dashboard, approve and export stay local.
+  - CLI: `webhook-test`, `simulate-callback`, `callback-url`.
+- **Tests:** 37 pass, including 21 webhook tests against a fake receiver that behaves the way the paste message asks Poolday's agent to.
+- **Why a message to Poolday's agent instead of invented endpoints:** our field names are ours, and the agent is asked to accept them and echo lead_id, token and version on the callback. The first real callback's shape is checked in `api-log`, and new keys are added by config.
+- **Runs on the user's Mac** (`loop/MAC-SETUP.md`): the cloud session can't reach poolday.ai, and a Cloudflare quick tunnel gives Poolday a public callback address.

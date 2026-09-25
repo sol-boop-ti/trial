@@ -86,3 +86,32 @@ running     = ["TODO"]
 needs_input = ["TODO"]
 done        = ["TODO"]
 failed      = ["TODO"]
+
+# =====================================================================================
+#  Webhook mode (POOLDAY_API=webhook). The current recommended path: see README
+#  "Poolday via webhook". Everything here is OPTIONAL: the environment variables win, and
+#  the defaults live in prospect_loop/poolday_api.py. Secrets are never read from this file
+#  (POOLDAY_WEBHOOK_SECRET is env only). Nothing here is a Poolday-documented field: these
+#  are the names WE send, and the extra places we look in what Poolday sends back.
+# =====================================================================================
+
+[webhook]
+url = ""                            # Poolday's inbound webhook URL (or POOLDAY_WEBHOOK_URL)
+public_base_url = ""                # our public URL, e.g. the tunnel (or PUBLIC_BASE_URL)
+secret_header = "X-Webhook-Secret"  # header carrying the shared secret, both directions
+secret_field = "secret"             # body field accepted instead of the header on callbacks
+timeout_s = 30
+
+# Static fields merged into every payload we POST (if Poolday's webhook wants them).
+[webhook.extra]
+# source = "prospect-loop"
+
+# Extra dotted paths to look for in callbacks, tried BEFORE the built-in ones.
+# "*" means every item of a list: "outputs.*.url". Keys: lead_id, token, status, video_url,
+# thumbnail_url, conversation_url, question, message, error, production_id, version.
+[webhook.keys]
+# video_url = ["deliverable.mp4"]
+
+# Extra status strings -> our states (queued, running, needs_input, done, failed).
+[webhook.status_map]
+# done = ["rendered"]

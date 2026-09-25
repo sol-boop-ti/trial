@@ -1,5 +1,28 @@
 # Poolday API: what we need from the docs, and how to plug them in
 
+> **Update: the webhook is the path now.** Poolday's CEO says the public API is being
+> deprecated. Instead, the Poolday agent creates an inbound webhook that triggers a saved
+> prompt, and calls a URL of ours back with the outputs when the conversation is done. The
+> loop supports this as `POOLDAY_API=webhook`. For the setup, the message to paste into Poolday,
+> the env vars and a 5-step test, see **README.md → "Poolday via webhook (current recommended
+> path)"**.
+>
+> The rest of this page (the `http` mapping) stays for reference, in case a documented API
+> comes back. Webhook mode needs none of it: no API key, no endpoint mapping, no polling.
+>
+> What webhook mode does and does not assume about Poolday:
+> - It assumes only that Poolday's webhook accepts a JSON POST with a secret header, and that
+>   the agent can POST JSON to our callback URL. Both come from what we ask the agent to do in
+>   the pasted message, not from Poolday docs.
+> - Our outbound field names are ours (documented in the README). The callback parser accepts
+>   many shapes (`video_url`, `url`, `outputs[].url`, `result.video`, `assets[]`, envelopes like
+>   `data` or `payload`, lookup by `token` alone). More key paths can be added with
+>   `POOLDAY_CALLBACK_KEYS` or `[webhook.keys]` in `poolday_api.toml`, without code changes.
+> - Still to confirm on the first real run: the header name Poolday's webhook feature really
+>   uses (`POOLDAY_WEBHOOK_SECRET_HEADER`), whether it answers synchronously with a run id
+>   (logged if so), the real callback shape (check `api-log`), and whether the video link is
+>   shareable and stable (the email needs that).
+
 The loop already drives Poolday through an API. Every Poolday-specific detail (host, auth
 header, endpoint paths, field names, status strings) sits in one mapping file. Right now that
 file is a template of `TODO`s, because we don't have the docs yet. Nothing in the code is a
@@ -11,13 +34,16 @@ status strings and auth header, so the mapping machinery is exercised exactly as
 with the real one.
 
 ```
-pipeline ──▶ PooldayClient ──┬─ HttpPooldayClient ◀── poolday_api.toml (filled from the docs)
+pipeline ──▶ PooldayClient ──┬─ WebhookPooldayClient ──POST──▶ Poolday inbound webhook
+                             │     ▲ POST /api/poolday/callback (server.py) ◀── Poolday agent
+                             ├─ HttpPooldayClient ◀── poolday_api.toml (filled from the docs; API being deprecated)
                              ├─ FakePooldayClient  ◀── FAKE_MAPPING ──▶ local fake server
-                             └─ ManualPooldayClient   (copy/paste: today's fallback)
+                             └─ ManualPooldayClient   (copy/paste fallback)
 ```
 
-`POOLDAY_API=manual|fake|http` picks the client. The default is `http` when `poolday_api.toml`
-and `POOLDAY_API_KEY` both exist, otherwise `manual`.
+`POOLDAY_API=webhook|manual|fake|http` picks the client. The default is `webhook` when
+`POOLDAY_WEBHOOK_URL` is set, else `http` when `poolday_api.toml` and `POOLDAY_API_KEY` both
+exist, otherwise `manual`.
 
 ## What the loop needs from Poolday (the interface)
 
@@ -55,7 +81,7 @@ and `POOLDAY_API_KEY` both exist, otherwise `manual`.
 **Status and webhooks**
 - [ ] Status endpoint, and the full list of status strings (map them in `[status_map]`).
 - [ ] How a pending question shows up (field path for its text and id).
-- [ ] Webhooks: events, payload, signature header. The loop polls today; a webhook would add a `POST /api/poolday/webhook` route to `server.py` that calls the same `_record` / `submit_video` path.
+- [x] Webhooks: done differently from what we planned here. The agent-created webhook plus our `POST /api/poolday/callback` route (`pipeline.handle_callback` → the same `_record` / `submit_video` path) is built. See the README.
 - [ ] Recommended polling interval (runs take ~1h; `POOLDAY_POLL_S` defaults to 5 s, which is too fast for real runs. Set 30-60 s.)
 
 **Results**

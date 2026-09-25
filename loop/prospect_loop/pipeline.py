@@ -4,7 +4,9 @@ from __future__ import annotations
 import csv
 import json
 import re
+import secrets
 import threading
+import urllib.parse
 from email.message import EmailMessage
 from email.utils import formatdate
 from pathlib import Path
@@ -147,9 +149,12 @@ def regenerate(conn, lead_id: int, note: str) -> dict:
     pd = lead.get("poolday") or {}
     if pd.get("production_id"):
         # API mode: the revision goes to the SAME Poolday conversation automatically.
-        pd["pending_revision"] = True
-        store.save(conn, lead)
-        lead = _send_revision(conn, lead)
+        # Under LOCK: in webhook mode the callback may arrive before this returns.
+        with LOCK:
+            pd["pending_revision"] = True
+            pd["revision_note"] = note.strip()
+            store.save(conn, lead)
+            lead = _send_revision(conn, lead)
     return lead
 
 
@@ -194,9 +199,24 @@ def _api_prompt(lead: dict, which: str) -> tuple[str, list[str]]:
     return prompts["command"], []
 
 
-def send_to_poolday(conn, lead_id: int, which: str | None = None) -> dict:
+def _lead_context(lead: dict, **extra) -> dict:
+    """Lead details for clients that send structured payloads (webhook mode)."""
+    c = lead.get("primary_contact") or {}
+    q = lead.get("qualification") or {}
+    pd = lead.get("poolday") or {}
+    ctx = {"lead_id": lead["id"], "token": pd.get("callback_token"),
+           "version": lead.get("video_version", 1), "company": lead.get("company"),
+           "website": lead.get("url"), "brand_kit_name": lead.get("brand_kit_name"),
+           "angle": q.get("video_angle"), "contact_name": c.get("name"),
+           "contact_role": c.get("title")}
+    ctx.update(extra)
+    return ctx
+
+
+def send_to_poolday(conn, lead_id: int, which: str | None = None, force: bool = False) -> dict:
     """Submit the generated prompt through the API (new conversation), or, when a
-    revision is pending, send it to the existing conversation."""
+    revision is pending, send it to the existing conversation. `force` re-sends even
+    though a production is still marked in flight (e.g. a webhook callback never came)."""
     with LOCK:
         lead = store.get(conn, lead_id)
         if lead["status"] != "qualified":
@@ -208,7 +228,7 @@ def send_to_poolday(conn, lead_id: int, which: str | None = None) -> dict:
         pd = lead.get("poolday") or {}
         if pd.get("production_id") and pd.get("pending_revision"):
             return _send_revision(conn, lead, client)
-        if pd.get("production_id") and pd.get("status") in poolday_api.ACTIVE:
+        if pd.get("production_id") and pd.get("status") in poolday_api.ACTIVE and not force:
             raise ValueError(f"Already in production ({pd['production_id']}, {pd['status']}).")
         which = which or config.POOLDAY_PROMPT
         text, files = _api_prompt(lead, which)
@@ -223,9 +243,16 @@ def send_to_poolday(conn, lead_id: int, which: str | None = None) -> dict:
         if config.POOLDAY_TIER:
             settings["tier"] = config.POOLDAY_TIER
         ref = config.REFERENCE_VIDEO if URL_RE.match(config.REFERENCE_VIDEO) else None
-        prod = client.start_production(text, attachments=files, reference_url=ref, settings=settings)
+        # Per-lead token: Poolday echoes it back on the callback, which proves the callback
+        # is about this lead (on top of the shared secret).
+        token = secrets.token_urlsafe(18)
+        ctx = _lead_context(lead, token=token)
+        prod = client.start_production(text, attachments=files, reference_url=ref, settings=settings,
+                                       context=ctx)
         lead["poolday"] = {"prompt_kind": which, "sent_prompt": text, "attachments": files,
-                           "started_at": store.now(), "client": client.name}
+                           "started_at": store.now(), "client": client.name, "callback_token": token}
+        if getattr(client, "callback_url", None):
+            lead["poolday"]["callback_url"] = client.callback_url
         return _record(conn, lead, prod, "poolday:sent",
                        f"{prod.id} via {client.name} API ({which} prompt"
                        + (f", {len(files)} file(s)" if files else "")
@@ -237,7 +264,8 @@ def _send_revision(conn, lead: dict, client=None) -> dict:
     text = lead["poolday_prompts"]["revision"]
     try:
         client = client or poolday_client(conn, lead["id"])
-        prod = client.send_message(pd["production_id"], text)
+        prod = client.send_message(pd["production_id"], text,
+                                   context=_lead_context(lead, note=pd.get("revision_note") or text))
     except poolday_api.PooldayError as exc:
         pd["error"] = f"revision not sent: {exc}"
         store.save(conn, lead)
@@ -259,7 +287,8 @@ def answer_poolday(conn, lead_id: int, answer: str) -> dict:
         if pd.get("status") != "needs_input":
             raise ValueError("Poolday is not waiting for an answer on this lead.")
         client = poolday_client(conn, lead_id)
-        prod = client.answer_question(pd["production_id"], answer.strip(), pd.get("question_id"))
+        prod = client.answer_question(pd["production_id"], answer.strip(), pd.get("question_id"),
+                                      context=_lead_context(lead, question=pd.get("question")))
         if prod.status == "needs_input" and prod.question == pd.get("question"):
             prod.status, prod.question = "running", None  # answered; next poll tells the truth
         return _record(conn, lead, prod, "poolday:answered", answer.strip())
@@ -269,6 +298,11 @@ def poll_poolday(conn, lead_id: int | None = None) -> dict:
     """One polling pass over every lead with a production in flight. A finished video
     goes to the human validation gate (in_review), never further."""
     stats = {"polled": 0, "changed": 0, "to_review": 0, "errors": 0}
+    try:
+        if not poolday_api.get_client().pollable:
+            return {**stats, "skipped": "webhook mode: status arrives by callback"}
+    except poolday_api.PooldayError:
+        pass  # surfaces per lead below
     leads = [store.get(conn, lead_id)] if lead_id else store.all_leads(conn, "qualified")
     for lead in leads:
         pd = lead.get("poolday") or {}
@@ -307,6 +341,143 @@ def poll_poolday(conn, lead_id: int | None = None) -> dict:
                 else:
                     store.log(conn, fresh["id"], "poolday:error", "done but no video URL in the result")
     return stats
+
+
+def mark_poolday_done(conn, lead_id: int, url: str) -> dict:
+    """Manual "mark done": the human pastes the finished video link (e.g. the callback never
+    arrived). The lead goes to the Review gate, like a callback would put it."""
+    url = (url or "").strip()
+    if not URL_RE.match(url):
+        raise ValueError("Paste a full http(s) link to the Poolday video.")
+    with LOCK:
+        lead = store.get(conn, lead_id)
+        if lead["status"] != "qualified":
+            raise ValueError(f"Lead is '{lead['status']}', not awaiting a video.")
+        pd = lead.setdefault("poolday", {})
+        pd.update(status="done", raw_status="marked done by hand", video_url=url, question=None,
+                  error=None, updated_at=store.now())
+        store.save(conn, lead)
+        store.log(conn, lead_id, "poolday:marked_done", url)
+        return submit_video(conn, lead_id, url, source="manual mark done")
+
+
+# --------------------------------------------------------------------------- 4c. webhook callback
+
+def _parse_body(raw: bytes, content_type: str):
+    text = raw.decode("utf-8", "replace")
+    if "form-urlencoded" in (content_type or ""):
+        return dict(urllib.parse.parse_qsl(text))
+    try:
+        return json.loads(text) if text.strip() else {}
+    except json.JSONDecodeError:
+        return {"text": text}
+
+
+def handle_callback(conn, raw: bytes, headers, query: dict | None = None) -> tuple[int, dict]:
+    """POST /api/poolday/callback: Poolday reports on a lead. Returns (HTTP code, JSON body).
+
+    Checks the shared secret (header, `Authorization: Bearer`, a body field or ?secret=),
+    then the per-lead token. Every call, accepted or not, is logged raw with secrets
+    redacted in api_calls. A video URL moves the lead to the human Review gate and stops
+    there: nothing is approved or emailed automatically."""
+    st = poolday_api.webhook_settings()
+    query = {k: v for k, v in (query or {}).items()}
+    raw_headers = dict(headers.items())
+    headers = {k.lower(): v for k, v in raw_headers.items()}  # case-insensitive lookups
+    payload = _parse_body(raw, headers.get("content-type", ""))
+    parsed = poolday_api.parse_callback(payload, st)
+    token = parsed["token"] or query.get("token")
+    lead_id = parsed["lead_id"]
+    if lead_id is None and str(query.get("lead_id", "")).isdigit():
+        lead_id = int(query["lead_id"])
+    expected = st["callback_secret"]
+    auth = headers.get("authorization") or ""
+    got = (headers.get(st["secret_header"].lower()) or (auth[7:].strip() if auth.lower().startswith("bearer ") else "")
+           or parsed["secret"] or query.get("secret"))
+    hidden = [expected, st["secret"], token or "", got or ""]
+    secret_header = st["secret_header"].lower()
+
+    def log(code: int, resp: dict, lid: int | None = None) -> tuple[int, dict]:
+        hdrs = {k: ("[redacted]" if k.lower() == secret_header or poolday_api.SENSITIVE_KEYS.search(k) else v)
+                for k, v in raw_headers.items()}
+        rec = {"headers": poolday_api.redact(hdrs, hidden), "query": poolday_api.redact(query, hidden),
+               "body": poolday_api.redact(payload, hidden)}
+        store.log_api(conn, lid, "poolday:webhook",
+                      {"op": "callback", "method": "POST", "path": poolday_api.CALLBACK_PATH,
+                       "http_status": code, "ms": 0,
+                       "request": poolday_api._truncate(rec, 8000),
+                       "response": poolday_api._truncate(resp)})
+        return code, resp
+
+    if not expected:
+        return log(503, {"error": "callback secret not configured on our side (POOLDAY_WEBHOOK_SECRET)"})
+    if not poolday_api.secrets_equal(got, expected):
+        print(f"[callback] rejected: bad or missing secret (header {st['secret_header']})", flush=True)
+        return log(401, {"error": f"bad or missing secret (send it in the {st['secret_header']} header)"})
+
+    with LOCK:
+        lead = None
+        if lead_id is not None:
+            try:
+                lead = store.get(conn, lead_id)
+            except KeyError:
+                return log(404, {"error": f"unknown lead_id {lead_id}"})
+        elif token:
+            lead = next((l for l in store.all_leads(conn)
+                         if poolday_api.secrets_equal((l.get("poolday") or {}).get("callback_token"), token)),
+                        None)
+            if lead is None:
+                return log(404, {"error": "no lead matches this token"})
+        else:
+            return log(400, {"error": "send lead_id and token (as received in our payload)"})
+        lid = lead["id"]
+        pd = lead.setdefault("poolday", {})
+        if not poolday_api.secrets_equal(token, pd.get("callback_token")):
+            store.log(conn, lid, "poolday:callback_rejected", "token missing or wrong")
+            return log(403, {"error": "token missing or does not match this lead"}, lid)
+
+        pd["last_callback_at"] = store.now()
+        for k in ("conversation_url", "remote_id"):
+            if parsed[k]:
+                pd[k] = str(parsed[k])
+        video = parsed["video_url"]
+        summary = " · ".join(x for x in (
+            parsed["raw_status"] and f"status {parsed['raw_status']}",
+            video and f"video {video}", parsed["conversation_url"] and f"conversation {parsed['conversation_url']}",
+            parsed["question"] and f"question: {parsed['question'][:200]}",
+            parsed["error"] and f"error: {parsed['error'][:200]}") if x) or "no recognizable fields"
+        version = lead.get("video_version", 1)
+        if parsed["version"] and parsed["version"] < version:
+            store.save(conn, lead)
+            store.log(conn, lid, "poolday:callback", f"ignored, stale v{parsed['version']} (now v{version}): {summary}")
+            return log(200, {"ok": True, "ignored": f"stale version {parsed['version']}, now v{version}"}, lid)
+        if lead["status"] != "qualified":
+            if video and video == lead.get("video_url"):
+                return log(200, {"ok": True, "ignored": "duplicate, already in review"}, lid)
+            pd.setdefault("late_callbacks", []).append({"at": store.now(), "status": parsed["raw_status"],
+                                                        "video_url": video})
+            store.save(conn, lead)
+            store.log(conn, lid, "poolday:callback", f"ignored, lead is {lead['status']}: {summary}")
+            return log(200, {"ok": True, "ignored": f"lead is {lead['status']}"}, lid)
+
+        status = parsed["status"] or "running"
+        if video and status != "failed":
+            status = "done"
+        if status == "done" and not video:
+            _record(conn, lead, poolday_api.Production(id=None, status="running", raw_status=parsed["raw_status"],
+                                                       error="done but no video URL in the callback"),
+                    "poolday:callback", summary)
+            store.log(conn, lid, "poolday:error", "callback says done but has no video URL")
+            return log(422, {"error": "no video URL found; send it as video_url",
+                             "accepted_keys": st["keys"]["video_url"][:8]}, lid)
+        prod = poolday_api.Production(id=None, status=status, raw_status=parsed["raw_status"],
+                                      question=parsed["question"] if status == "needs_input" else None,
+                                      video_url=video, thumbnail_url=parsed["thumbnail_url"],
+                                      error=parsed["error"] if status == "failed" else None, raw=payload)
+        _record(conn, lead, prod, "poolday:callback", summary)
+        if status == "done":
+            lead = submit_video(conn, lid, video, source="Poolday webhook")
+        return log(200, {"ok": True, "lead_id": lid, "lead_status": lead["status"], "poolday_status": status}, lid)
 
 
 class Poller(threading.Thread):

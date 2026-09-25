@@ -1,8 +1,14 @@
-"""Local review dashboard (stdlib only). http://127.0.0.1:8765"""
+"""Local review dashboard (stdlib only). http://127.0.0.1:8765
+
+Webhook mode exposes this server through a tunnel so Poolday can call
+POST /api/poolday/callback. Requests that arrive through a tunnel or proxy (a non-local
+Host header, or forwarding headers) can reach ONLY that callback route: the dashboard
+and its actions stay local."""
 from __future__ import annotations
 
 import json
 import re
+import urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -10,7 +16,10 @@ from . import config, pipeline, poolday_api, store
 
 PAGE = Path(__file__).with_name("dashboard.html")
 ROUTE = re.compile(r"^/api/leads/(\d+)/(video|approve|reject|regenerate|email|redraft|"
-                   r"poolday_send|poolday_answer|poolday_poll)$")
+                   r"poolday_send|poolday_answer|poolday_poll|poolday_mark_done)$")
+LOCAL_HOSTS = {"127.0.0.1", "localhost", "[::1]", "::1"}
+PROXY_HEADERS = {"cf-connecting-ip", "cf-ray", "x-forwarded-for", "x-forwarded-host", "forwarded"}
+MAX_CALLBACK_BYTES = 1_000_000
 POLLER: pipeline.Poller | None = None
 
 
@@ -31,7 +40,37 @@ class Handler(BaseHTTPRequestHandler):
         n = int(self.headers.get("Content-Length") or 0)
         return json.loads(self.rfile.read(n) or b"{}") if n else {}
 
+    def _external(self) -> bool:
+        """True when the request came through a tunnel/proxy rather than from this machine."""
+        if {k.lower() for k in self.headers.keys()} & PROXY_HEADERS:
+            return True
+        host = (self.headers.get("Host") or "").strip().lower()
+        host = host.split("]")[0] + "]" if host.startswith("[") else host.split(":")[0]
+        return host not in LOCAL_HOSTS
+
+    def _route(self) -> tuple[str, dict]:
+        u = urllib.parse.urlsplit(self.path)
+        return u.path, dict(urllib.parse.parse_qsl(u.query))
+
+    def _callback(self):
+        n = int(self.headers.get("Content-Length") or 0)
+        if n > MAX_CALLBACK_BYTES:
+            return self._send(413, {"error": "payload too large"})
+        raw = self.rfile.read(n) if n else b""
+        _, query = self._route()
+        conn = store.connect()
+        try:
+            code, body = pipeline.handle_callback(conn, raw, self.headers, query)
+        finally:
+            conn.close()
+        self._send(code, body)
+
     def do_GET(self):
+        path, _ = self._route()
+        if path == poolday_api.CALLBACK_PATH:  # reachability check through the tunnel
+            return self._send(200, {"ok": True, "hint": "POST the Poolday callback here (JSON)."})
+        if self._external():
+            return self._send(404, {"error": "not found"})
         conn = store.connect()
         try:
             if self.path in ("/", "/index.html"):
@@ -65,6 +104,10 @@ class Handler(BaseHTTPRequestHandler):
             conn.close()
 
     def do_POST(self):
+        if self._route()[0] == poolday_api.CALLBACK_PATH:
+            return self._callback()
+        if self._external():
+            return self._send(404, {"error": "not found"})
         conn = store.connect()
         try:
             body = self._body()
@@ -97,6 +140,8 @@ class Handler(BaseHTTPRequestHandler):
             return pipeline.send_to_poolday(conn, lid, body.get("prompt") or None)
         if action == "poolday_answer":
             return pipeline.answer_poolday(conn, lid, body.get("answer", ""))
+        if action == "poolday_mark_done":
+            return pipeline.mark_poolday_done(conn, lid, body.get("url", ""))
         if action == "poolday_poll":
             pipeline.poll_poolday(conn, lid)
             return store.get(conn, lid)
@@ -117,10 +162,14 @@ def serve(port: int = 8765) -> None:
     global POLLER
     httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     pd = poolday_api.status_line()
-    if pd.get("ok") and pd.get("automatic"):
+    if pd.get("ok") and pd.get("automatic") and pd.get("pollable", True):
         POLLER = pipeline.Poller()
         POLLER.start()
     print(f"Dashboard: http://127.0.0.1:{port}  (llm mode: {config.llm_mode()}, db: {config.DB_PATH})")
+    if pd.get("client") == "webhook":
+        st = poolday_api.webhook_settings()
+        print(f"Poolday webhook: callback {st['callback_url'] or '(set PUBLIC_BASE_URL)'}, "
+              f"secret header {st['secret_header']}, secret {'set' if st['callback_secret'] else 'NOT SET'}")
     print(f"Poolday: {pd.get('client')}" + (f" at {pd['base_url']}, polling every {POLLER.interval:g}s"
                                              if POLLER else "") + (f"  ({pd['error']})" if pd.get("error") else ""))
     try:

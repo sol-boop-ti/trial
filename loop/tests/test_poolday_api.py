@@ -113,7 +113,7 @@ class MappingTest(unittest.TestCase):
         with self.assertRaises(poolday_api.PooldayNotConfigured):
             poolday_api.HttpPooldayClient(m, api_key="k")
         # same structure as the filled fake mapping
-        self.assertEqual(set(m) - {"headers"}, set(poolday_fake.FAKE_MAPPING))
+        self.assertEqual(set(m) - {"headers", "webhook"}, set(poolday_fake.FAKE_MAPPING))
 
     def test_dig_put(self):
         body = {}
