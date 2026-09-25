@@ -1,6 +1,7 @@
 // Vanilla port of the brand kit's Halftone component (same algorithm as components/bundle.js),
 // plus the numbered annotation overlay shown when the URL has ?annotate.
 (function () {
+  if (/still/.test(location.search)) document.documentElement.classList.add('still');
   function readColor(name, fb) {
     var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     var m = /^#([0-9a-f]{6})$/i.exec(v); if (!m) return fb;
