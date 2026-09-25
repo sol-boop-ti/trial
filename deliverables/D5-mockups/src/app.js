@@ -57,11 +57,14 @@ function scriptLaunch(product = "launch", url = "northwind.ai") {
   push({ t: L0 + 1.6, type: "lerr", f: "email" });
   push({ t: L0 + 2.55, type: "ltype", f: "email", text: "alex@northwind.ai", per: 0.04, clear: true });
   push({ t: L0 + 3.3, type: "lok", f: "email" });
-  click(L0 + 3.75, "#fRole", 1, { type: "lfocus", f: "role" });
-  push({ t: L0 + 3.85, type: "ltype", f: "role", text: "Head of Marketing", per: 0.035 });
-  click(L0 + 4.9, '.opt[data-o="0"]', 1, { type: "lopt", o: 0 });
-  click(L0 + 5.55, "#goLead", 4, { type: "go", to: "s-gen" });
-  const G0 = L0 + 5.85; GSTART = G0;
+  click(L0 + 3.75, "#fRole", 0, { type: "ddopen", f: "Role" });
+  push({ t: L0 + 4.3, type: "ddhl", f: "Role", i: 1 });
+  click(L0 + 4.6, "#ddRole .di:nth-child(2)", 1, { type: "ddpick", f: "Role", i: 1 });
+  click(L0 + 5.05, "#fSrc", 0, { type: "ddopen", f: "Src" });
+  push({ t: L0 + 5.4, type: "ddhl", f: "Src", i: 0 });
+  click(L0 + 5.65, "#ddSrc .di:nth-child(1)", 1, { type: "ddpick", f: "Src", i: 0 });
+  click(L0 + 6.2, "#goLead", 4, { type: "go", to: "s-gen" });
+  const G0 = L0 + 6.5; GSTART = G0;
   push({ t: G0, type: "gen" });
   push({ t: G0 + GEN_DUR + 0.05, type: "go", to: "s-res" });
   const R0 = G0 + GEN_DUR + 0.05;
@@ -75,8 +78,9 @@ function scriptLaunch(product = "launch", url = "northwind.ai") {
     [7.2, ["#kit-ai", 180, 120]], [7.95, ["#kit-ai", 0, 6]], [8.52, ["#kit-ai", 6, 5]], [9.1, ["#kit-ai", 12, 8]],
     [10.0, [900, 700]], [10.8, ['.tile[data-i="0"] .pv', 60, 40]], [11.6, ['.tile[data-i="0"] .pv', 80, 34]], [12.12, ['.tile[data-i="0"] .pv', 84, 30]],
     [12.5, ['.tile[data-i="0"] .pv', 90, 34]], [13.05, "#go4"], [13.4, "#go4"],
-    [L0 + 0.7, ["#fEmail", -200, 2]], [L0 + 2.3, ["#fEmail", -190, 4]], [L0 + 3.7, ["#fRole", -200, 2]], [L0 + 4.4, ["#fRole", -160, 6]],
-    [L0 + 4.85, ['.opt[data-o="0"]', 0, 2]], [L0 + 5.2, ['.opt[data-o="0"]', 6, 4]], [L0 + 5.5, ["#goLead", 10, 2]], [L0 + 5.8, ["#goLead", 12, 3]],
+    [L0 + 0.7, ["#fEmail", -200, 2]], [L0 + 2.3, ["#fEmail", -190, 4]], [L0 + 3.7, ["#fRole", 180, 2]], [L0 + 3.95, ["#fRole", 184, 3]],
+    [L0 + 4.3, ["#ddRole .di:nth-child(2)", -120, 1]], [L0 + 4.65, ["#ddRole .di:nth-child(2)", -116, 2]], [L0 + 5.0, ["#fSrc", 180, 2]], [L0 + 5.2, ["#fSrc", 184, 3]],
+    [L0 + 5.4, ["#ddSrc .di:nth-child(1)", -150, 1]], [L0 + 5.7, ["#ddSrc .di:nth-child(1)", -146, 2]], [L0 + 6.1, ["#goLead", 10, 2]], [L0 + 6.45, ["#goLead", 12, 3]],
     [R0 - 0.3, [1010, 560]], [R0 + 1.4, ["#share", 60, 2]], [R0 + 2.35, ["#share", 70, 3]], [R0 + 2.9, ['#shareMenu .mi', -40, 2]], [R0 + 3.6, ['#shareMenu .mi', -30, 4]],
     [R0 + 4.6, ["#book", 40, 4]], [R0 + 5.05, ["#book", 44, 3]], [DUR, ["#book", 46, 4]]];
   HIDE_CURSOR = [[G0 - 0.05, R0 - 0.35]];
@@ -457,8 +461,8 @@ function typed(t, f) { const evs = EV.filter(e => e.type === "ltype" && e.f === 
 function drawLead(t, te) {
   const u = t - te, card = $("#acard");
   const k = fr(t, te + 0.08); card.style.transform = `translateY(${(1 - expo(k, 0.8)) * 34}px) scale(${0.97 + 0.03 * expo(k, 0.8)})`; card.style.opacity = ink(k, 0.5);
-  const foc = last(t, "lfocus"), fcs = foc ? foc.f : null;
-  [["email", "#fEmail", "#vEmail", "#cEmail", "you@company.com"], ["role", "#fRole", "#vRole", "#cRole", "e.g. Head of Marketing"]].forEach(([f, fs, vs, cs, ph]) => {
+  const foc = last(t, "lfocus"), dd0 = last(t, "ddopen"), fcs = foc && !(dd0 && dd0.t > foc.t) ? foc.f : null;
+  [["email", "#fEmail", "#vEmail", "#cEmail", "you@company.com"]].forEach(([f, fs, vs, cs, ph]) => {
     const { v, typing } = typed(t, f), on = fcs === f; const vEl = $(vs);
     vEl.textContent = v || ph; vEl.className = v ? "v" : "v ph";
     $(fs).style.setProperty("--focus", on ? ink(fr(t, foc.t), 0.6) : 0);
@@ -470,8 +474,16 @@ function drawLead(t, te) {
   $("#errEmail").style.height = (eh * 30) + "px"; $("#errEmail").style.opacity = eh; $("#fEmail").classList.toggle("bad", !!showErr);
   if (showErr) $("#fEmail").style.transform = `translateX(${Math.sin(fr(t, er.t) * 1.9) * 7 * Math.exp(-fr(t, er.t) / 6)}px)`; else $("#fEmail").style.transform = "";
   const okc = $("#okEmail"); if (ok) { const v = fr(t, ok.t); okc.style.opacity = ink(v, 0.6); okc.style.transform = `scale(${0.6 + 0.4 * spring(v, 0.45, 0.3)})`; } else okc.style.opacity = 0;
-  const op = last(t, "lopt"); $$(".opt").forEach(o => { const on = op && +o.dataset.o === op.o; o.classList.toggle("on", !!on);
-    o.style.transform = on ? `scale(${1 + (1 - spring(fr(t, op.t), 0.5, 0.3)) * -0.04})` : `scale(${1 - pressAmt(t, `.opt[data-o="${o.dataset.o}"]`) * 0.04})`; });
+  // Dropdown selects: open on click, highlight follows the pointer, pick closes and fills the field.
+  const PH = { Role: "Select your role", Src: "Select one" };
+  ["Role", "Src"].forEach(f => { const dd = $("#dd" + f), fld = $("#f" + f), v = $("#v" + f);
+    const o = last(t, "ddopen", e => e.f === f), pk = last(t, "ddpick", e => e.f === f), hl = last(t, "ddhl", e => e.f === f);
+    const open = o && (!pk || pk.t < o.t); const items = $$(".di", dd);
+    if (open) { const k = fr(t, o.t + 0.04); dd.style.opacity = ink(k, 0.55); dd.style.transform = `translateY(${(1 - expo(k, 0.78)) * -8}px) scale(${0.97 + 0.03 * expo(k, 0.78)})`; }
+    else if (pk) { const k = out3(seg(t, pk.t, pk.t + 0.18)); dd.style.opacity = 1 - k; dd.style.transform = `scale(${1 - 0.02 * k})`; } else dd.style.opacity = 0;
+    items.forEach((it, i) => it.classList.toggle("hl", !!(hl && hl.i === i && (!pk || pk.t < hl.t || (pk.t >= hl.t && t < pk.t + 0.18)))));
+    if (pk && pk.t >= (o ? o.t : 0)) { v.textContent = items[pk.i].textContent; v.className = "v"; } else { v.textContent = PH[f]; v.className = "v ph"; }
+    fld.style.setProperty("--focus", open ? 1 : 0); fld.style.transform = `scale(${1 - pressAmt(t, "#f" + f) * 0.02})`; });
   $("#goLead").style.setProperty("--p", pressAmt(t, "#goLead"));
   // Keep the style previews alive behind the blur.
   const g = last(te - 1e-6, "go"); seekPreviews(t - (g ? g.t : te), $$("#grid3 iframe"));
@@ -529,8 +541,8 @@ function wireLive() {
   on("#grid3 .tile", el => click(liveNow(), `.tile[data-i="${el.dataset.i}"]`, 6, { type: "select", i: +el.dataset.i }));
   on("#go4", () => { const t = liveNow(); if (!last(t, "select")) push({ t, type: "select", i: 0 }); click(t, "#go4", 6, { type: "go", to: "s-lead" }); });
   on("#fEmail", () => { const t = liveNow(); click(t, "#fEmail", 0, { type: "lfocus", f: "email" }); push({ t: t + 0.1, type: "ltype", f: "email", text: "alex@northwind.ai", per: 0.035 }); push({ t: t + 0.8, type: "lok", f: "email" }); });
-  on("#fRole", () => { const t = liveNow(); click(t, "#fRole", 2, { type: "lfocus", f: "role" }); push({ t: t + 0.1, type: "ltype", f: "role", text: "Head of Marketing", per: 0.035 }); });
-  on(".opt", el => click(liveNow(), `.opt[data-o="${el.dataset.o}"]`, 2, { type: "lopt", o: +el.dataset.o }));
+  on("#fRole, #fSrc", el => click(liveNow(), "#" + el.id, 0, { type: "ddopen", f: el.id.slice(1) }));
+  on(".dd .di", el => { const f = el.parentElement.id.slice(2), i = [...el.parentElement.children].indexOf(el); click(liveNow(), `#dd${f} .di:nth-child(${i + 1})`, 1, { type: "ddpick", f, i }); });
   on("#goLead", () => { const t = liveNow(); click(t, "#goLead", 6, { type: "go", to: "s-gen" }); push({ t: t + 0.3, type: "gen" }); push({ t: t + 0.3 + GEN_DUR + 0.05, type: "go", to: "s-res" }); });
   on("#share", () => { const t = liveNow(); click(t, "#share", 0, { type: "share" }); });
   on("#shareMenu .mi", () => push({ t: liveNow(), type: "copied" }));

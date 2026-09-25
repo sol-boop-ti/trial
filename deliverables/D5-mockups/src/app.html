@@ -28,6 +28,7 @@
   <symbol id="l-x" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
   <symbol id="l-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
   <symbol id="l-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+  <symbol id="l-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="l-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></symbol>
   <symbol id="l-volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
   <symbol id="l-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
@@ -137,18 +138,17 @@
   <section class="screen" id="s-lead">
     <div class="modal-wrap">
       <div class="acard" id="acard">
-        <div class="ahead"><span class="qi"><svg class="i"><use href="#l-help"/></svg></span><b>Last step. Your video is already being made.</b><span class="await"><i></i>Awaiting your input</span></div>
-        <p class="asub">Poolday is built for teams. Tell us where to send it.</p>
+        <div class="ahead"><span class="qi"><svg class="i"><use href="#l-help"/></svg></span><b>Last step. Your video is already being made.</b></div>
         <div class="flabel">Work email</div>
         <div class="afield" id="fEmail" data-hover><svg class="i"><use href="#l-mail"/></svg><span class="v" id="vEmail"></span><span class="caret" id="cEmail"></span><span class="okc" id="okEmail"><svg class="i"><use href="#l-check"/></svg></span></div>
         <div class="err" id="errEmail"><svg class="i"><use href="#l-alert"/></svg>Use your work email. Personal addresses can't start a video.</div>
         <div class="flabel">Your role</div>
-        <div class="afield" id="fRole" data-hover><span class="v" id="vRole"></span><span class="caret" id="cRole"></span></div>
+        <div class="fw"><div class="afield sel" id="fRole" data-hover><span class="v ph" id="vRole">Select your role</span><svg class="i chev"><use href="#l-chev"/></svg></div>
+          <div class="dd" id="ddRole"><div class="di">Founder / CEO</div><div class="di">Head of Marketing</div><div class="di">Product Marketing</div><div class="di">Growth / Demand gen</div><div class="di">Other</div></div></div>
         <div class="flabel">How did you hear about Poolday?</div>
-        <div class="opts" id="opts">
-          <div class="opt" data-o="0" data-hover><i></i>LinkedIn</div><div class="opt" data-o="1" data-hover><i></i>X</div><div class="opt" data-o="2" data-hover><i></i>A friend or colleague</div><div class="opt" data-o="3" data-hover><i></i>Search</div><div class="opt" data-o="4" data-hover><i></i>Other</div>
-        </div>
-        <div class="afoot"><span class="cap">We only use this to send your video.</span><button class="btn btn-lg" id="goLead" data-hover>Send me the video<svg class="i"><use href="#l-arrow-right"/></svg></button></div>
+        <div class="fw"><div class="afield sel" id="fSrc" data-hover><span class="v ph" id="vSrc">Select one</span><svg class="i chev"><use href="#l-chev"/></svg></div>
+          <div class="dd" id="ddSrc"><div class="di">LinkedIn</div><div class="di">X</div><div class="di">A friend or colleague</div><div class="di">Search</div><div class="di">Podcast</div><div class="di">Other</div></div></div>
+        <div class="afoot"><button class="btn btn-lg" id="goLead" data-hover>Send me the video<svg class="i"><use href="#l-arrow-right"/></svg></button></div>
       </div>
     </div>
   </section>
