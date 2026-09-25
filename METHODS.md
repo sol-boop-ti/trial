@@ -459,3 +459,7 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Chrome:** the app's near-black pills with a bright hairline edge (Continue, Generate video, Send me the video), grouped panels like the app's Workspace list (tabs, rail), a faint lavender glow top-left like the app sidebar. "Book a 15 min demo" stays the site's off-white CTA, as the one bright element.
 - **Bug caught:** naming the button class "app" collided with the root `.app` container (buttons stretched full width). Renamed to `appbtn`.
 - Stills and the walkthrough re-rendered.
+
+## M36. Progress: first UGC reel posted; webhook lives in Automations
+- **D4:** the first AI UGC reel is posted on the new IG account. Track views at +1h / +24h / +48h.
+- **D3:** Poolday's CEO says the webhook is configured from the **Automations** tab. So the inbound URL, the secret and the saved prompt are set in the UI, not by asking the agent in chat. The loop's webhook client and callback stay the same: only where the URL comes from changes.
