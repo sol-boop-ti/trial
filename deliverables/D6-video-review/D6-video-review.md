@@ -4,6 +4,22 @@ Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/
 
 ---
 
+## The editor's take (first watch, before any frame analysis)
+
+**Upflow: great ideas, lost rhythm.**
+- Most scenes run **1–2 seconds too long**, so the rhythm dies. Simply watching it at **1.5× speed** already makes it better (tested: `upflow-1.5x-quicktest.mp4`).
+- Root cause: the agent doesn't know what a great SaaS-UI video *feels* like. Give it **more examples of the best videos in this style**, as references and as a saved pacing skill, so fast becomes the default.
+
+**PostHog: beautiful, but not PostHog.**
+- The visuals are great, but **not on brand**. PostHog is a **2D** brand (flat illustration, hand-drawn hedgehogs), so a 2D video would fit it far better than 3D clay renders.
+- The **footer at the end looks like PowerPoint**, the typical "AI made this" slide: a static logo plus a web footer. It should be an animated sign-off.
+
+**Is brand extraction the problem?** Poolday does have brand-kit extraction, and it's an important part of the job. It captured PostHog's logo, colours and fonts, but not its visual medium (2D illustration). Feeding the kit the brand's real illustration assets, plus a rule like "2D only", fixes that.
+
+The frame-by-frame analysis below confirms each point with timestamps.
+
+---
+
 ## 1. Upflow: "faster payments" (23.3s, 16:9)
 
 **What works:** the idea is strong. It opens on one question typed into search ("Did Acme pay invoice #2041 yet?"), then it multiplies into dozens of questions in 5 languages. That captures the real chaos of accounts receivable in one image. The brand is tight: Upflow blue, the right font, a restrained palette.
