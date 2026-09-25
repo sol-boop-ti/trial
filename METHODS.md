@@ -417,3 +417,13 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Approach:** 38 tiles cut from the live screenshots (measured against a pixel-grid overlay, upscaled 3×) fill every unchanged tile in the AFTERs, so the only visual differences are the numbered changes. The B2B layout was corrected to match the live masonry.
 - **Outputs:** `compare/{home,pricing,b2b}-compare(-fold).png`, `video/{b2b-after-scroll,b2b-use-cases,home-meet-poolday}.mp4`, and `D7-page-review.md` (with a "Verified by the live screenshots" section).
 - **Lesson:** when the BEFORE is a real screenshot, placeholders in the AFTER read as a downgrade. Reuse the real frames wherever nothing changes.
+
+## M31. Poolday session progress (user-reported, with screenshots in `deliverables/assets/poolday-session/`)
+- **Done:**
+  - S1: skills saved. motion-craft (checklist pointer fixed) and ref-teaser, which now points to `guided-product-launch-video`, skips the missing 21st-dev connector instead of blocking, and accepts link or upload [to align rule 1].
+  - S2: brand:wisprflow.
+  - S3: brand:flam, specVersion 3, with animatable node cards, stat blocks, format tabs, model cards, 18 imagery assets and motion/sound guidelines. It warns that the perfume-bottle shots are another company's products.
+  - S5: the Poolday kit compared with the Claude-made kit and enriched (a comparison report plus a single-file kit).
+- **Flam question settled by Poolday's own research:** Flam is an AI-native interactive content format ("the internet beyond videos"). Its own models (Fable, Fantom, Falcon…) generate photoreal 3D/RGBA visuals and talking visual agents from a prompt, playable instantly with no app, with touch, voice and checkout. Formats: Flicks, Airboards (3D/AR), Visual Agents. The product UI has node cards, so the ImagineArt node-and-card reference fits.
+- **API conversation:** the use-case question is still pending. Answer: "same video, new data each call".
+- **Next:** the prospect videos, using `poolday/prompts/P1-wispr-flow-video.md` and `P2-flam-video.md`.
