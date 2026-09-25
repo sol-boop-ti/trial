@@ -406,3 +406,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **B2B:** a tasteful "NEW" sticker replaces "Free · limited", and the use cases get animated previews like the home features.
   - **All pages:** legends list only the live changes.
 - **Lesson:** reconstructions are a stopgap. As soon as real captures exist, the "before" must be the real page.
+
+## M29. Why the B2B "before" was wrong (and a correction)
+- **Cause:** poolday.ai is blocked by this environment's network policy (`connect_rejected`), so Claude Code never saw the live pages. The first BEFOREs were rebuilt from Claude chat's text summary of the copy plus the brand kit's homepage audit. Text can't carry layout: the masonry grids, "See the prompt" pills, the 3×3 use-case cards and the "Made in Poolday" grid were all invisible to us. The images were labelled "reconstruction", but the gap was bigger than that label suggested.
+- **Fix:** the user's full-page captures of all three live pages are now the BEFOREs (`deliverables/D7-pages/real/`).
+- **Correction:** our D7 critique said "95% need zero edits" was a distortion of "95% autonomy". The live B2B page actually says "Two weeks in, 95% of your videos need zero edits from your team." Claude chat's wording was faithful, and our objection was wrong.
+- **Lesson:** for any visual review, get a real capture first (screenshot or saved HTML). Never review or redesign a page you haven't seen.
