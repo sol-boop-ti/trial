@@ -103,6 +103,35 @@ class LoopTest(unittest.TestCase):
         flam = self.by_domain("flamapp.ai")
         self.assertEqual((flam["status"], flam["qualified_by"], flam["score"]), ("qualified", "claude-code", 96))
 
+    def test_rescore_file_imports_into_another_database_and_keeps_human_state(self):
+        # machine A: mock-qualified, one lead already has a video and is approved
+        pipeline.ingest(self.conn)
+        pipeline.qualify_all(self.conn)
+        flam = self.by_domain("flamapp.ai")
+        pipeline.submit_video(self.conn, flam["id"], "https://poolday.ai/v/flam-v1")
+        pipeline.approve(self.conn, flam["id"])
+        prompt_before = self.by_domain("flamapp.ai")["poolday_prompts"]
+        # machine B answers a --rescore export (ids may differ: matching is by domain)
+        path = Path(self.tmp.name) / "rescore.json"
+        out = pipeline.llm_export(self.conn, path, rescore=True)
+        data = json.loads(path.read_text())
+        self.assertTrue(all("domain" in t for t in data["tasks"]))
+        kinds = {(t["domain"], t["task"]) for t in data["tasks"]}
+        self.assertIn(("flamapp.ai", "qualify"), kinds)
+        self.assertIn(("flamapp.ai", "email"), kinds)  # approved with a mock email
+        for t in data["tasks"]:
+            t["lead_id"] = 99999  # would break an id-based import
+            if t["domain"] == "flamapp.ai" and t["task"] == "qualify":
+                t["result"] = {"rubric": {"b2b": 20, "freshness": 20, "buyer": 20, "visual_product": 19,
+                                          "video_need": 19}, "score": 98, "justification": "test",
+                               "video_angle": "a different angle", "launch_hook": "the round",
+                               "audience": "CMO"}
+        path.write_text(json.dumps(data))
+        self.assertEqual(pipeline.llm_import(self.conn, path)["imported"], 1)
+        flam = self.by_domain("flamapp.ai")
+        self.assertEqual((flam["status"], flam["qualified_by"], flam["score"]), ("approved", "claude-code", 98))
+        self.assertEqual(flam["poolday_prompts"], prompt_before)  # the video already made stays valid
+
     def test_funding_news_stub_parses_rss(self):
         rss = """<rss><channel>
           <item><title>Example Corp raises $30M Series B to build widgets</title>

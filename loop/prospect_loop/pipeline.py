@@ -660,23 +660,38 @@ def export_gmail_drafts(conn) -> None:
 
 # --------------------------------------------------------------------------- Claude Code mode
 
-def llm_export(conn, path: Path) -> dict:
-    """Write pending LLM tasks (prompts + schemas) for Claude Code to answer."""
+# Past these statuses a lead has a video (or a human decision): re-scoring it must not
+# reset its status, its Poolday prompt or its video version.
+IN_PRODUCTION = ("in_review", "approved", "exported", "rejected")
+
+
+def _in_production(lead: dict) -> bool:
+    return lead["status"] in IN_PRODUCTION or bool(lead.get("poolday"))
+
+
+def llm_export(conn, path: Path, rescore: bool = False) -> dict:
+    """Write pending LLM tasks (prompts + schemas) for Claude Code to answer.
+    `rescore` also re-asks leads that were only scored by the offline mock."""
+    todo = store.all_leads(conn, "new")
+    if rescore:
+        todo += [l for l in store.all_leads(conn) if l["status"] != "new"
+                 and l.get("qualified_by") == "mock"]
     tasks = []
-    for lead in store.all_leads(conn, "new"):
+    for lead in todo:
         pre, parts = enrich.prescore(lead)
         if pre < config.PRESCORE_GATE:  # same cheap cut as qualify_all
-            lead.update(status="disqualified", score=pre, prescore=pre, prescore_parts=parts)
-            store.save(conn, lead)
-            store.log(conn, lead["id"], "prescore_cut", f"prescore {pre} < {config.PRESCORE_GATE}")
+            if lead["status"] == "new":
+                lead.update(status="disqualified", score=pre, prescore=pre, prescore_parts=parts)
+                store.save(conn, lead)
+                store.log(conn, lead["id"], "prescore_cut", f"prescore {pre} < {config.PRESCORE_GATE}")
             continue
-        tasks.append({"lead_id": lead["id"], "company": lead["company"], "task": "qualify",
-                      "system": llm.ICP_RUBRIC, "prompt": llm.qualify_prompt(lead),
+        tasks.append({"lead_id": lead["id"], "domain": lead["domain"], "company": lead["company"],
+                      "task": "qualify", "system": llm.ICP_RUBRIC, "prompt": llm.qualify_prompt(lead),
                       "schema": llm.QUALIFY_SCHEMA, "result": None})
     for lead in store.all_leads(conn, "approved"):
         if (lead.get("email") or {}).get("drafted_by") == "mock":
-            tasks.append({"lead_id": lead["id"], "company": lead["company"], "task": "email",
-                          "system": llm.EMAIL_GUIDE, "prompt": llm.email_prompt(lead),
+            tasks.append({"lead_id": lead["id"], "domain": lead["domain"], "company": lead["company"],
+                          "task": "email", "system": llm.EMAIL_GUIDE, "prompt": llm.email_prompt(lead),
                           "schema": llm.EMAIL_SCHEMA, "result": None})
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"instructions": "Fill each task's `result` with JSON matching "
@@ -686,17 +701,30 @@ def llm_export(conn, path: Path) -> dict:
 
 
 def llm_import(conn, path: Path) -> dict:
+    """Load answered tasks. Leads are matched by domain when the task has one, so a file
+    answered on one machine imports into another machine's database."""
     data = json.loads(Path(path).read_text())
     done = skipped = 0
     for t in data["tasks"]:
         if not t.get("result"):
             skipped += 1
             continue
-        lead = store.get(conn, t["lead_id"])
+        lead = store.get_by_domain(conn, t["domain"]) if t.get("domain") else None
+        if lead is None and not t.get("domain"):
+            lead = store.get(conn, t["lead_id"])
+        if lead is None:
+            skipped += 1
+            continue
         if t["task"] == "qualify":
             pre, parts = enrich.prescore(lead)
             lead["prescore"], lead["prescore_parts"] = pre, parts
-            _apply_qualification(conn, lead, llm.clean_qualification(t["result"], lead), "claude-code")
+            q = llm.clean_qualification(t["result"], lead)
+            if _in_production(lead):  # keep the human's state, the prompt and the video
+                lead.update(qualification=q, qualified_by="claude-code", score=q["score"])
+                store.save(conn, lead)
+                store.log(conn, lead["id"], "requalified:claude-code", f"score {q['score']} (status kept: {lead['status']})")
+            else:
+                _apply_qualification(conn, lead, q, "claude-code")
         elif t["task"] == "email":
             lead["email"] = {**llm.clean_email(t["result"], lead), "drafted_by": "claude-code", "edited": False}
             store.save(conn, lead)

@@ -305,6 +305,9 @@ $("#export").onclick = act(async () => {
   if (pd.error) $("#pmode").title = pd.error;
   if (pd.callback_url) $("#pmode").title = "Callback URL: " + pd.callback_url;
   await load();
+  // Leads answered in Claude Code (llm-import) are not mock output: say so in the header.
+  if (meta.mode !== "api" && leads.some(x => x.qualified_by === "claude-code"))
+    $("#mode").textContent = "LLM: answered in Claude Code";
   // While a Poolday run is in flight, refresh every 3s (the server-side poller updates the DB).
   setInterval(async () => {
     if (!apiOn() || !leads.some(x => x.poolday && ACTIVE.includes(x.poolday.status) && x.status === "qualified")) return;

@@ -77,6 +77,7 @@ def main(argv=None):
     s.add_argument("--port", type=int, default=8765)
     s = sub.add_parser("llm-export", help="Claude Code mode: dump pending LLM tasks")
     s.add_argument("--file", default=str(config.LOOP_DIR / "work" / "llm_tasks.json"))
+    s.add_argument("--rescore", action="store_true", help="also re-ask leads scored by the offline mock")
     s = sub.add_parser("llm-import", help="Claude Code mode: load answered LLM tasks")
     s.add_argument("--file", default=str(config.LOOP_DIR / "work" / "llm_tasks.json"))
     sub.add_parser("reset", help="delete the local database")
@@ -229,7 +230,7 @@ def main(argv=None):
     elif a.cmd == "export":
         print(json.dumps(pipeline.export(conn, include_exported=a.all), indent=2))
     elif a.cmd == "llm-export":
-        print(pipeline.llm_export(conn, Path(a.file)))
+        print(pipeline.llm_export(conn, Path(a.file), a.rescore))
     elif a.cmd == "llm-import":
         print(pipeline.llm_import(conn, Path(a.file)))
 

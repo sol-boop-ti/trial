@@ -1,0 +1,2166 @@
+{
+  "instructions": "Answered in Claude Code on 2026-09-26: real qualification of the 27 leads that pass the pre-score gate, plus the Wispr Flow email. Import on any machine from loop/: python3 -m prospect_loop llm-import --file answers/claude-qualification-2026-09-26.json (matched by domain; leads already in review or approved keep their status and their video).",
+  "tasks": [
+    {
+      "lead_id": 1,
+      "domain": "wisprflow.ai",
+      "company": "Wispr Flow",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Wispr Flow\",\n  \"url\": \"https://wisprflow.ai\",\n  \"what_they_do\": \"AI voice dictation & note-taking tool (moving into meetings)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"280\",\n  \"round_date\": \"2026-08-17\",\n  \"days_since_round\": 40,\n  \"total_funding_musd\": \"361\",\n  \"notes\": \"Med \\u2014 SEGMENT FLAG: prosumer/productivity AI dictation (sells to individuals + businesses)\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Carolyn\",\n      \"title\": \"VP of Product Marketing\"\n    },\n    {\n      \"first_name\": \"Kimberly\",\n      \"title\": \"Head of Design, Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 14\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 10,
+          "freshness": 14,
+          "buyer": 20,
+          "visual_product": 14,
+          "video_need": 18
+        },
+        "score": 76,
+        "justification": "The $280M Series B and the move into meetings give marketing a launch to amplify. Carolyn runs product marketing and a design lead sits in marketing. The audience mixes individuals and businesses, and the product is mostly text appearing in apps.",
+        "video_angle": "what your meetings launch could look like",
+        "launch_hook": "the move into meetings",
+        "audience": "VP of Product Marketing"
+      }
+    },
+    {
+      "lead_id": 2,
+      "domain": "arcee.ai",
+      "company": "Arcee AI",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Arcee AI\",\n  \"url\": \"https://arcee.ai\",\n  \"what_they_do\": \"Open-weight foundation models + tooling for enterprises\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"150\",\n  \"round_date\": \"2026-09-16\",\n  \"days_since_round\": 10,\n  \"total_funding_musd\": \"~194 (est)\",\n  \"notes\": \"High stage/date; total funding approximate. B2B-borderline: sells open-weight models to enterprises/gov\",\n  \"contacts\": [],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 20\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 20,
+          "buyer": 0,
+          "visual_product": 6,
+          "video_need": 12
+        },
+        "score": 58,
+        "justification": "Fresh $150M Series B selling to enterprises and government, but no marketing contact is named, so there is nobody to send the video to. Open-weight models and tooling offer little to show on screen.",
+        "video_angle": "your Series B announcement film",
+        "launch_hook": "the $150M Series B",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 4,
+      "domain": "langchain.com",
+      "company": "LangChain",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"LangChain\",\n  \"url\": \"https://langchain.com\",\n  \"what_they_do\": \"Platform for building/observing AI agents (LangSmith/LangGraph)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"125\",\n  \"round_date\": \"2025-10-20\",\n  \"days_since_round\": 341,\n  \"total_funding_musd\": \"160\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Jess\",\n      \"title\": \"Head of Marketing\"\n    },\n    {\n      \"first_name\": \"Mohammad\",\n      \"title\": \"Head of Marketing Operations & GTM Analytics\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 12,
+          "video_need": 10
+        },
+        "score": 65,
+        "justification": "Clear B2B platform with a named Head of Marketing. The Series B is almost a year old, so there is no fresh moment to anchor a video; LangSmith's tracing UI gives usable but technical visuals.",
+        "video_angle": "what your next LangSmith launch film could look like",
+        "launch_hook": "LangSmith and LangGraph",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 5,
+      "domain": "twelvelabs.io",
+      "company": "TwelveLabs",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"TwelveLabs\",\n  \"url\": \"https://twelvelabs.io\",\n  \"what_they_do\": \"Video-understanding / 'video intelligence' foundation models & APIs\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"100\",\n  \"round_date\": \"2026-07-01\",\n  \"days_since_round\": 87,\n  \"total_funding_musd\": \"207\",\n  \"notes\": \"High \\u2014 strong video fit (video-understanding AI)\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Maninder\",\n      \"title\": \"Head of Growth\"\n    },\n    {\n      \"first_name\": \"Tom\",\n      \"title\": \"Head of Sales - Ads, Marketing & SaaS Ecosystem\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 11\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 11,
+          "buyer": 13,
+          "visual_product": 19,
+          "video_need": 16
+        },
+        "score": 79,
+        "justification": "Their product is about video itself, so a short film shows it at its best, and the $100M Series B is recent enough to amplify. The closest buyer is growth rather than brand marketing.",
+        "video_angle": "your video search, shown in a 20-second film",
+        "launch_hook": "the $100M Series B",
+        "audience": "Head of Growth"
+      }
+    },
+    {
+      "lead_id": 6,
+      "domain": "parallel.ai",
+      "company": "Parallel Web Systems",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Parallel Web Systems\",\n  \"url\": \"https://parallel.ai\",\n  \"what_they_do\": \"Web search/research APIs for AI agents\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"100\",\n  \"round_date\": \"2026-04-29\",\n  \"days_since_round\": 150,\n  \"total_funding_musd\": \"230\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Lukas\",\n      \"title\": \"Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 6,
+          "buyer": 11,
+          "visual_product": 6,
+          "video_need": 8
+        },
+        "score": 51,
+        "justification": "B2B API company, but the round is five months old and the only contact has a generic marketing title. Search APIs for agents are hard to show beyond code and results.",
+        "video_angle": "your research API, explained in 20 seconds",
+        "launch_hook": "the $100M Series B",
+        "audience": "Marketing lead"
+      }
+    },
+    {
+      "lead_id": 8,
+      "domain": "flex.one",
+      "company": "Flex",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Flex\",\n  \"url\": \"https://flex.one\",\n  \"what_they_do\": \"AI-native private banking / finance platform for business owners\",\n  \"round\": \"Series B1\",\n  \"round_amount_musd\": \"70\",\n  \"round_date\": \"2026-07-14\",\n  \"days_since_round\": 74,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Med \\u2014 SEGMENT FLAG: AI-native business banking (fintech/neobank for HNW business owners), borderline vs pure B2B SaaS\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Kelsey\",\n      \"title\": \"Creative Director\"\n    },\n    {\n      \"first_name\": \"Ann-Rachel\",\n      \"title\": \"Sr. Demand Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 11\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 12,
+          "freshness": 11,
+          "buyer": 20,
+          "visual_product": 10,
+          "video_need": 14
+        },
+        "score": 67,
+        "justification": "A Creative Director and a demand marketer are named and the Series B1 is recent. Private banking for business owners mixes personal and business finance, and a finance app offers modest visual material. Close call.",
+        "video_angle": "your Series B1 brand film",
+        "launch_hook": "the $70M Series B1",
+        "audience": "Creative Director"
+      }
+    },
+    {
+      "lead_id": 9,
+      "domain": "gamma.app",
+      "company": "Gamma",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Gamma\",\n  \"url\": \"https://gamma.app\",\n  \"what_they_do\": \"AI presentations/visual storytelling (PROSUMER-flag)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"68\",\n  \"round_date\": \"2025-11-10\",\n  \"days_since_round\": 320,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Jean\",\n      \"title\": \"Head of Marketing\"\n    },\n    {\n      \"first_name\": \"Ravish\",\n      \"title\": \"Head of Growth Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 10,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 18,
+          "video_need": 11
+        },
+        "score": 62,
+        "justification": "A very visual product and a named Head of Marketing, but the round is almost a year old and the audience is largely prosumer.",
+        "video_angle": "your presentations, shown as a launch film",
+        "launch_hook": "AI visual storytelling",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 10,
+      "domain": "orkes.io",
+      "company": "Orkes",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Orkes\",\n  \"url\": \"https://orkes.io\",\n  \"what_they_do\": \"Agentic/durable workflow orchestration platform\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"60\",\n  \"round_date\": \"2026-04-23\",\n  \"days_since_round\": 156,\n  \"total_funding_musd\": \"80\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Amit\",\n      \"title\": \"Head of Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 6,
+          "buyer": 20,
+          "visual_product": 7,
+          "video_need": 8
+        },
+        "score": 61,
+        "justification": "B2B with a named Head of Marketing, but the round is five months old. Durable workflow orchestration is backend infrastructure with little to show beyond diagrams.",
+        "video_angle": "your orchestration platform, explained in 20 seconds",
+        "launch_hook": "agentic workflow orchestration",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 11,
+      "domain": "convex.dev",
+      "company": "Convex",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Convex\",\n  \"url\": \"https://convex.dev\",\n  \"what_they_do\": \"Reactive backend / application-development platform for AI-era apps\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"57\",\n  \"round_date\": \"2026-08-04\",\n  \"days_since_round\": 53,\n  \"total_funding_musd\": \"110.5\",\n  \"notes\": \"High\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Liz\",\n      \"title\": \"Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 14\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 14,
+          "buyer": 12,
+          "visual_product": 9,
+          "video_need": 12
+        },
+        "score": 67,
+        "justification": "Recent $57M Series B and a clear developer audience. The contact is a marketing manager rather than a marketing head, and a backend platform gives mostly code and dashboards to film. Close call.",
+        "video_angle": "your Series B announcement film",
+        "launch_hook": "the $57M Series B",
+        "audience": "Marketing Manager"
+      }
+    },
+    {
+      "lead_id": 13,
+      "domain": "numeric.io",
+      "company": "Numeric",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Numeric\",\n  \"url\": \"https://numeric.io\",\n  \"what_they_do\": \"AI accounting-close automation\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"51\",\n  \"round_date\": \"2025-11-19\",\n  \"days_since_round\": 311,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Tierney\",\n      \"title\": \"Head of Marketing\"\n    },\n    {\n      \"first_name\": \"Erin\",\n      \"title\": \"Product Marketing Manager, MCP\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 6,
+          "video_need": 8
+        },
+        "score": 57,
+        "justification": "Named Head of Marketing and a product marketer, but the round is ten months old and accounting-close automation is finance-ops software with little visual material.",
+        "video_angle": "your close automation, explained in 20 seconds",
+        "launch_hook": "AI accounting close",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 15,
+      "domain": "livekit.io",
+      "company": "LiveKit",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"LiveKit\",\n  \"url\": \"https://livekit.io\",\n  \"what_they_do\": \"Realtime voice-AI agent infra\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"45\",\n  \"round_date\": \"2025-04-10\",\n  \"days_since_round\": 534,\n  \"total_funding_musd\": \"83\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Michelle\",\n      \"title\": \"Vice President Marketing\"\n    },\n    {\n      \"first_name\": \"Niharika\",\n      \"title\": \"Founding Product Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 0\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 0,
+          "buyer": 20,
+          "visual_product": 8,
+          "video_need": 8
+        },
+        "score": 56,
+        "justification": "A VP Marketing and a founding product marketer are named, but the Series B is over a year old. Realtime voice infrastructure is mostly SDKs and audio, hard to show on screen.",
+        "video_angle": "your voice-agent infrastructure, explained in 20 seconds",
+        "launch_hook": "realtime voice AI",
+        "audience": "VP of Marketing"
+      }
+    },
+    {
+      "lead_id": 16,
+      "domain": "joinforage.com",
+      "company": "Forage",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Forage\",\n  \"url\": \"https://joinforage.com\",\n  \"what_they_do\": \"Financial-infrastructure / payments platform enabling benefits acceptance\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2026-06-03\",\n  \"days_since_round\": 115,\n  \"total_funding_musd\": \"75\",\n  \"notes\": \"Med \\u2014 SEGMENT FLAG: B2B payments infra for retailers (SNAP/WIC/EBT) + a consumer app; core is B2B infra\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Kimberlyn\",\n      \"title\": \"Head of Growth\"\n    },\n    {\n      \"first_name\": \"John\",\n      \"title\": \"Head of Communications and Content\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 16,
+          "freshness": 6,
+          "buyer": 13,
+          "visual_product": 6,
+          "video_need": 8
+        },
+        "score": 49,
+        "justification": "Mostly B2B payments infrastructure with a consumer app on the side. The contacts are growth and communications, the round is almost four months old, and payments rails are hard to film.",
+        "video_angle": "your retail payments story in 20 seconds",
+        "launch_hook": "benefits acceptance for retailers",
+        "audience": "Head of Growth"
+      }
+    },
+    {
+      "lead_id": 17,
+      "domain": "flamapp.ai",
+      "company": "Flam",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Flam\",\n  \"url\": \"https://flamapp.ai\",\n  \"what_they_do\": \"AI interactive-content / mixed-reality platform for enterprise marketing\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2026-09-14\",\n  \"days_since_round\": 12,\n  \"total_funding_musd\": \"62\",\n  \"notes\": \"Med \\u2014 GEO FLAG: SF HQ per company/SiliconANGLE + Apollo, but Indian founders/Bengaluru roots. Strong video/AR-content fit\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Karthik\",\n      \"title\": \"CMO, Head of Product\"\n    },\n    {\n      \"first_name\": \"Tejas\",\n      \"title\": \"Creative Director\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 20\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 20,
+          "buyer": 20,
+          "visual_product": 20,
+          "video_need": 19
+        },
+        "score": 99,
+        "justification": "The $40M Series B landed 12 days ago and both the CMO and a Creative Director are named. Mixed-reality content for enterprise marketing is visual by nature, and they sell to marketers who buy video.",
+        "video_angle": "your Series B announcement film",
+        "launch_hook": "the $40M Series B",
+        "audience": "CMO"
+      }
+    },
+    {
+      "lead_id": 18,
+      "domain": "browserbase.com",
+      "company": "Browserbase",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Browserbase\",\n  \"url\": \"https://browserbase.com\",\n  \"what_they_do\": \"Browser infra for AI agents\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2025-06-17\",\n  \"days_since_round\": 466,\n  \"total_funding_musd\": \"66\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Lindsay\",\n      \"title\": \"Head of Growth\"\n    },\n    {\n      \"first_name\": \"Madison\",\n      \"title\": \"Manager, Revenue Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 0\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 0,
+          "buyer": 13,
+          "visual_product": 9,
+          "video_need": 7
+        },
+        "score": 49,
+        "justification": "B2B developer infrastructure, but the Series B is over a year old and the contacts are growth and revenue marketing. Browser sessions for agents give some screen material, little story.",
+        "video_angle": "your browser infrastructure, explained in 20 seconds",
+        "launch_hook": "browser infra for agents",
+        "audience": "Head of Growth"
+      }
+    },
+    {
+      "lead_id": 19,
+      "domain": "foxglove.dev",
+      "company": "Foxglove",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Foxglove\",\n  \"url\": \"https://foxglove.dev\",\n  \"what_they_do\": \"Data/observability platform for robotics (Physical AI)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2025-11-11\",\n  \"days_since_round\": 319,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Sanket\",\n      \"title\": \"Vice President Marketing\"\n    },\n    {\n      \"first_name\": \"Sunny\",\n      \"title\": \"Head of Growth Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 17,
+          "video_need": 9
+        },
+        "score": 69,
+        "justification": "A VP Marketing is named and robotics data visualization is rich video material. The round is almost a year old and no launch is known, so it misses the bar narrowly: a strong nurture lead.",
+        "video_angle": "your robotics data, visualized in a 20-second film",
+        "launch_hook": "Physical AI observability",
+        "audience": "VP of Marketing"
+      }
+    },
+    {
+      "lead_id": 20,
+      "domain": "squint.ai",
+      "company": "Squint",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Squint\",\n  \"url\": \"https://squint.ai\",\n  \"what_they_do\": \"AI manufacturing-intelligence (AR for operators)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2025-08-12\",\n  \"days_since_round\": 410,\n  \"total_funding_musd\": \"59\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Vanessa\",\n      \"title\": \"Head of Marketing\"\n    },\n    {\n      \"first_name\": \"Nina\",\n      \"title\": \"Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 0\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 0,
+          "buyer": 20,
+          "visual_product": 17,
+          "video_need": 9
+        },
+        "score": 66,
+        "justification": "Named Head of Marketing and a visual AR product for factory operators, but the Series B is over a year old with no known launch to amplify.",
+        "video_angle": "your AR operator guidance, shown in 20 seconds",
+        "launch_hook": "AR for manufacturing operators",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 21,
+      "domain": "unifygtm.com",
+      "company": "Unify",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Unify\",\n  \"url\": \"https://unifygtm.com\",\n  \"what_they_do\": \"AI go-to-market / sales+marketing platform\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"40\",\n  \"round_date\": \"2025-07-14\",\n  \"days_since_round\": 439,\n  \"total_funding_musd\": \"52\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Luke\",\n      \"title\": \"Marketing Manager\"\n    },\n    {\n      \"first_name\": \"Adara\",\n      \"title\": \"Growth & Creative Content\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 0\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 0,
+          "buyer": 13,
+          "visual_product": 10,
+          "video_need": 9
+        },
+        "score": 52,
+        "justification": "B2B go-to-market software, but the round is over a year old and the contacts are a marketing manager and a content lead rather than a marketing head.",
+        "video_angle": "your go-to-market platform in 20 seconds",
+        "launch_hook": "AI go-to-market",
+        "audience": "Growth & Creative Content lead"
+      }
+    },
+    {
+      "lead_id": 24,
+      "domain": "afresh.com",
+      "company": "Afresh",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Afresh\",\n  \"url\": \"https://afresh.com\",\n  \"what_they_do\": \"AI demand-forecasting / supply-chain platform for grocery & retail\",\n  \"round\": \"Series B-II\",\n  \"round_amount_musd\": \"34\",\n  \"round_date\": \"2026-04-21\",\n  \"days_since_round\": 158,\n  \"total_funding_musd\": \"174\",\n  \"notes\": \"High \\u2014 latest round labeled 'Series B - II' (extension of 2022 Series B)\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Allanah\",\n      \"title\": \"Head of Marketing, Director\"\n    },\n    {\n      \"first_name\": \"Rebecca\",\n      \"title\": \"Product Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 6,
+          "buyer": 20,
+          "visual_product": 10,
+          "video_need": 9
+        },
+        "score": 65,
+        "justification": "Named Head of Marketing and a clear B2B buyer in grocery. The latest round is an extension from five months ago, and forecasting dashboards give moderate visual material.",
+        "video_angle": "fresher grocery shelves, told in 20 seconds",
+        "launch_hook": "the Series B-II extension",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 25,
+      "domain": "consensus.app",
+      "company": "Consensus",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Consensus\",\n  \"url\": \"https://consensus.app\",\n  \"what_they_do\": \"AI academic/research search & workspace for researchers & universities\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"30\",\n  \"round_date\": \"2026-05-11\",\n  \"days_since_round\": 138,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Med \\u2014 GEO FLAG: Apollo/prior-list tag SF, but MGMT Boston calls it 'Boston-founded'. Verify HQ. Segment = research/edu B2B\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Connor\",\n      \"title\": \"Founding Product Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 14,
+          "freshness": 6,
+          "buyer": 16,
+          "visual_product": 10,
+          "video_need": 9
+        },
+        "score": 55,
+        "justification": "A founding product marketer is named, but the audience mixes individual researchers and universities, the round is four months old and HQ is unconfirmed (SF vs Boston).",
+        "video_angle": "your research workspace, shown in 20 seconds",
+        "launch_hook": "AI research search",
+        "audience": "Product Marketing Manager"
+      }
+    },
+    {
+      "lead_id": 27,
+      "domain": "delightree.com",
+      "company": "Delightree",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Delightree\",\n  \"url\": \"https://delightree.com\",\n  \"what_they_do\": \"AI operating system for franchise & multi-unit brands (ops/training/compliance)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"25\",\n  \"round_date\": \"2026-08-04\",\n  \"days_since_round\": 53,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"Med \\u2014 GEO FLAG: company PR datelines SF & Apollo tags SF, but FinSMEs lists Denver CO. Verify HQ before outreach\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Dan\",\n      \"title\": \"Head of Marketing\"\n    },\n    {\n      \"first_name\": \"Doug\",\n      \"title\": \"Head of Growth\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 14\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 14,
+          "buyer": 20,
+          "visual_product": 10,
+          "video_need": 13
+        },
+        "score": 77,
+        "justification": "A $25M Series B in August and a named Head of Marketing. Franchise operators buy on clear demos, so a short film of the operations app fits. HQ is unconfirmed (SF vs Denver): verify before outreach.",
+        "video_angle": "your Series B story for franchise operators",
+        "launch_hook": "the $25M Series B",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 29,
+      "domain": "standardmetrics.io",
+      "company": "Standard Metrics",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Standard Metrics\",\n  \"url\": \"https://standardmetrics.io\",\n  \"what_they_do\": \"AI-driven portfolio-management / IR platform for VC & PE firms\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"20\",\n  \"round_date\": \"2026-08-24\",\n  \"days_since_round\": 33,\n  \"total_funding_musd\": \"~50\",\n  \"notes\": \"High \\u2014 B2B SaaS selling to VC/PE firms (not itself a fund)\",\n  \"contacts\": [],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 14\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 14,
+          "buyer": 0,
+          "visual_product": 8,
+          "video_need": 11
+        },
+        "score": 53,
+        "justification": "Recent Series B and a clear B2B market in VC and PE firms, but no marketing contact is named, so there is nobody to send the video to.",
+        "video_angle": "your Series B announcement film",
+        "launch_hook": "the $20M Series B",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 30,
+      "domain": "reducto.ai",
+      "company": "Reducto",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Reducto\",\n  \"url\": \"https://reducto.ai\",\n  \"what_they_do\": \"AI document-intelligence platform\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"75\",\n  \"round_date\": \"2025-10-14\",\n  \"days_since_round\": 347,\n  \"total_funding_musd\": \"108\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Ken\",\n      \"title\": \"Vice President Marketing\"\n    },\n    {\n      \"first_name\": \"Livia\",\n      \"title\": \"Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 10,
+          "video_need": 9
+        },
+        "score": 62,
+        "justification": "A VP Marketing is named and documents turning into structured data can be shown on screen. The Series B is almost a year old with no known launch.",
+        "video_angle": "your document parsing, shown in 20 seconds",
+        "launch_hook": "AI document intelligence",
+        "audience": "VP of Marketing"
+      }
+    },
+    {
+      "lead_id": 31,
+      "domain": "campfire.ai",
+      "company": "Campfire",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Campfire\",\n  \"url\": \"https://campfire.ai\",\n  \"what_they_do\": \"AI ERP for finance teams\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"65\",\n  \"round_date\": \"2025-10-15\",\n  \"days_since_round\": 346,\n  \"total_funding_musd\": \"103.5\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Katrina\",\n      \"title\": \"VP, Marketing\"\n    },\n    {\n      \"first_name\": \"Emma\",\n      \"title\": \"Product Marketing Manager\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 3\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 3,
+          "buyer": 20,
+          "visual_product": 6,
+          "video_need": 8
+        },
+        "score": 57,
+        "justification": "A VP Marketing is named, but the round is almost a year old and an ERP for finance teams offers little visual material.",
+        "video_angle": "your AI ERP, explained in 20 seconds",
+        "launch_hook": "AI ERP for finance teams",
+        "audience": "VP of Marketing"
+      }
+    },
+    {
+      "lead_id": 32,
+      "domain": "vapi.ai",
+      "company": "Vapi",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Vapi\",\n  \"url\": \"https://vapi.ai\",\n  \"what_they_do\": \"Voice-AI developer platform for building/deploying voice agents\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"50\",\n  \"round_date\": \"2026-05-12\",\n  \"days_since_round\": 137,\n  \"total_funding_musd\": \"72\",\n  \"notes\": \"High \\u2014 YC W21 confirmed via ycombinator.com/companies/vapi\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Sharrifah\",\n      \"title\": \"Head of Marketing and Partnerships\"\n    },\n    {\n      \"first_name\": \"Aash\",\n      \"title\": \"Director of Demand Generation\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 6,
+          "buyer": 20,
+          "visual_product": 8,
+          "video_need": 9
+        },
+        "score": 63,
+        "justification": "Named Head of Marketing and Partnerships and a demand-gen director. The round is over four months old and a voice-agent platform is mostly audio and code.",
+        "video_angle": "your voice agents, shown in 20 seconds",
+        "launch_hook": "voice agents for developers",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 34,
+      "domain": "blacksmith.sh",
+      "company": "Blacksmith",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Blacksmith\",\n  \"url\": \"https://blacksmith.sh\",\n  \"what_they_do\": \"Cloud CI / code-validation platform for AI-generated code\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"45\",\n  \"round_date\": \"2026-08-12\",\n  \"days_since_round\": 45,\n  \"total_funding_musd\": \"58.5\",\n  \"notes\": \"Med-High \\u2014 round closed ~Mar 2026, announced 2026-08-12 (announce date used); YC W24 confirmed\",\n  \"contacts\": [\n    {\n      \"first_name\": \"John\",\n      \"title\": \"Creative Director\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 14\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 14,
+          "buyer": 20,
+          "visual_product": 8,
+          "video_need": 15
+        },
+        "score": 77,
+        "justification": "The $45M Series B was announced in August and the named contact is a Creative Director, a rare design-led signal for developer infrastructure. CI is mostly terminals and dashboards, so the film has to carry the brand.",
+        "video_angle": "your Series B announcement film",
+        "launch_hook": "the $45M Series B",
+        "audience": "Creative Director"
+      }
+    },
+    {
+      "lead_id": 36,
+      "domain": "usepylon.com",
+      "company": "Pylon",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Pylon\",\n  \"url\": \"https://usepylon.com\",\n  \"what_they_do\": \"AI operating system for B2B post-sales support\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"31\",\n  \"round_date\": \"2025-08-19\",\n  \"days_since_round\": 403,\n  \"total_funding_musd\": \"51\",\n  \"notes\": \"Stage+date+geo verified from dated source; funding=public knowledge\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Brandon\",\n      \"title\": \"Head of Growth\"\n    },\n    {\n      \"first_name\": \"Cassie\",\n      \"title\": \"Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 0\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 0,
+          "buyer": 13,
+          "visual_product": 9,
+          "video_need": 8
+        },
+        "score": 50,
+        "justification": "B2B support software, but the Series B is over a year old and the contacts are growth and general marketing rather than a marketing head.",
+        "video_angle": "your support platform in 20 seconds",
+        "launch_hook": "AI post-sales support",
+        "audience": "Head of Growth"
+      }
+    },
+    {
+      "lead_id": 37,
+      "domain": "vori.com",
+      "company": "Vori",
+      "task": "qualify",
+      "system": "You qualify B2B leads for Poolday, an AI video production agent that makes\nlaunch films, product teasers and ads. We send each qualified lead a free,\npersonalized ~20s video made for them, then a short email.\n\nScore each criterion 0-20 (total 0-100):\n1. b2b           - sells to businesses (20); mixed prosumer+business (10); consumer (0).\n2. freshness     - latest round recency: <=14 days 20, <=30 17, <=60 14, <=90 11, <=180 6, older 0-3.\n                   A fresh round means budget, hiring and a launch/announcement to amplify.\n3. buyer         - a named marketing/creative decision-maker we can send the video to\n                   (CMO, VP/Head of Marketing, Product Marketing, Creative Director, Head of Design: 16-20;\n                   growth/demand/content: 10-15; none: 0).\n4. visual_product- the product/UI/experience makes rich video material (UI, 3D, visual output: high;\n                   pure backend/finance ops: low).\n5. video_need    - would their marketing team plausibly buy video now (upcoming launch, new product line,\n                   announcement, design-led brand)?\n\nRules: use only the facts given; do not invent customers, metrics or launches. If a fact is\nmissing, score conservatively and say so. `score` is the sum of the five criteria.\n`justification` is 2-3 short sentences (60 words max) citing the facts that drove the score;\ndo not repeat the per-criterion numbers in it. When `freshness_points` is given, use it as the\nfreshness score.\n`video_angle` is at most 10 words, addressed to them, framed around their moment, with no hype\nwords: it is pasted verbatim into the video brief (e.g. \"your Series B announcement film\" or\n\"what your meetings launch could look like\"). `launch_hook` is a short noun phrase for their\nmoment, at most 6 words (e.g. \"the move into meetings\"). `audience` is one role, not a name\n(e.g. \"VP of Product Marketing\").",
+      "prompt": "Qualify this lead against the rubric. Return JSON only.\n\n{\n  \"company\": \"Vori\",\n  \"url\": \"https://vori.com\",\n  \"what_they_do\": \"Operating system / POS + inventory software for independent grocers\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"22\",\n  \"round_date\": \"2026-05-06\",\n  \"days_since_round\": 143,\n  \"total_funding_musd\": \"\",\n  \"notes\": \"High \\u2014 YC W20 confirmed via ycombinator.com/companies/vori. Note LinkedIn lists SF HQ + Palo Alto offices\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Jesse\",\n      \"title\": \"Head of Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"freshness_points\": 6\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "rubric": {
+            "type": "object",
+            "properties": {
+              "b2b": {
+                "type": "integer"
+              },
+              "freshness": {
+                "type": "integer"
+              },
+              "buyer": {
+                "type": "integer"
+              },
+              "visual_product": {
+                "type": "integer"
+              },
+              "video_need": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "b2b",
+              "freshness",
+              "buyer",
+              "visual_product",
+              "video_need"
+            ],
+            "additionalProperties": false
+          },
+          "score": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "video_angle": {
+            "type": "string"
+          },
+          "launch_hook": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rubric",
+          "score",
+          "justification",
+          "video_angle",
+          "launch_hook",
+          "audience"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "rubric": {
+          "b2b": 20,
+          "freshness": 6,
+          "buyer": 20,
+          "visual_product": 12,
+          "video_need": 9
+        },
+        "score": 67,
+        "justification": "Named Head of Marketing and a product that lives in real grocery stores, which films well. The round is almost five months old and no launch is known. Close call.",
+        "video_angle": "your grocery POS, shown in a real store",
+        "launch_hook": "software for independent grocers",
+        "audience": "Head of Marketing"
+      }
+    },
+    {
+      "lead_id": 1,
+      "domain": "wisprflow.ai",
+      "company": "Wispr Flow",
+      "task": "email",
+      "system": "You write short cold emails from someone at Poolday (an AI video production\nagent) to a marketing/creative leader at a company that just raised. We already made them a\nfree ~20s video. Constraints:\n- 60-110 words in the body, plain text, no bullet points, no emojis, no hype words.\n- Personalize with: their round (amount + stage, e.g. \"$40M Series B\"), their moment/launch\n  hook, and why it matters for the contact's role.\n- Say once, plainly, that the video was made with Poolday, an AI video production agent.\n- Include the literal line `[VIDEO THUMBNAIL]` on its own line, then the video link on the next.\n- Exactly one call to action, phrased as a single yes/no question; no other question marks.\n- Greeting uses the first name only. Sign off with the sender name given.\n- Never invent facts, customers, metrics or quotes. Never mention which AI models were used.\n- Subject: under 8 words, specific to them, no clickbait.\n\nBody shape (blank line between blocks):\nHi <first name>,\n<2-3 sentences: the round, their moment, why it matters for their role>\n<1 sentence: we made them a ~20s video with Poolday>\n[VIDEO THUMBNAIL]\n<video link>\n<the one yes/no question>\n<sender name>",
+      "prompt": "Draft the email. Return JSON only.\n\n{\n  \"company\": \"Wispr Flow\",\n  \"url\": \"https://wisprflow.ai\",\n  \"what_they_do\": \"AI voice dictation & note-taking tool (moving into meetings)\",\n  \"round\": \"Series B\",\n  \"round_amount_musd\": \"280\",\n  \"round_date\": \"2026-08-17\",\n  \"days_since_round\": 40,\n  \"total_funding_musd\": \"361\",\n  \"notes\": \"Med \\u2014 SEGMENT FLAG: prosumer/productivity AI dictation (sells to individuals + businesses)\",\n  \"contacts\": [\n    {\n      \"first_name\": \"Carolyn\",\n      \"title\": \"VP of Product Marketing\"\n    },\n    {\n      \"first_name\": \"Kimberly\",\n      \"title\": \"Head of Design, Marketing\"\n    }\n  ],\n  \"site_title\": null,\n  \"site_description\": null,\n  \"recipient_first_name\": \"Carolyn\",\n  \"recipient_title\": \"VP of Product Marketing\",\n  \"video_angle\": \"what your meetings launch could look like\",\n  \"launch_hook\": \"the move into meetings\",\n  \"video_link\": \"https://s3.us-east-2.amazonaws.com/remotionlambda-useast2-mc8aovqok2/renders/djin4e487j/out.mp4\",\n  \"sender_name\": \"[Your name]\"\n}",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "subject",
+          "body"
+        ],
+        "additionalProperties": false
+      },
+      "result": {
+        "subject": "Your meetings launch, as a 20-second film",
+        "body": "Hi Carolyn,\n\nCongrats on the $280M Series B. With Wispr Flow moving into meetings, product marketing is about to need a launch story that shows the product working, not just describes it.\n\nSo we made you a ~20-second film of what that launch could look like. It was made with Poolday, an AI video production agent, from your site and brand.\n\n[VIDEO THUMBNAIL]\nhttps://s3.us-east-2.amazonaws.com/remotionlambda-useast2-mc8aovqok2/renders/djin4e487j/out.mp4\n\nWant the editable version for the meetings launch?\n\n[Your name]"
+      }
+    }
+  ]
+}

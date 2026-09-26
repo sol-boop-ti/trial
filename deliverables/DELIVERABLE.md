@@ -225,18 +225,38 @@ I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The
 
 ---
 
-### Credits by deliverable
+### Time and credits (Poolday, 24–26 Sep 2026)
+**Credits: 835,270 spent of 2,000,000 (≈ $835 of the $2,000 budget, 42%). 1,164,730 left.**
+- By day: 24 Sep ≈ 25k (setup), 25 Sep ≈ 400k (read from the Usage chart), 26 Sep 409,800 (exact, 328 events).
+- By category: Agents 639,531 (77%). The other 23% sits in categories the screenshot doesn't break down.
+- Source: Settings → Usage (30 days), 26 Sep evening.
 
-| Deliverable | Credits | Prompts | Notes |
-|---|---|---|---|
-| D1 LinkedIn | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D2 Flam | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D2 Wispr Flow | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D2 A/B test (threejs) | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D3 loop test videos | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D4 UGC | [PLACEHOLDER] | [PLACEHOLDER] | |
-| D6 intro remake | [PLACEHOLDER] | [PLACEHOLDER] | optional |
-| **Total** | **[PLACEHOLDER] / $2,000** | | |
+**Agent working time: 5h01m across 9 conversations.** This is Poolday's own estimate: the sum of gaps between the agent's activity timestamps, with pauses over 10 min left out.
+
+| Poolday conversation | Deliverable | Agent time | Messages | Outputs |
+|---|---|---|---|---|
+| Opus 5.5 + Poolday: Infinite UGC farm (15s LinkedIn) | D1 (the CEO's post) | 56m | 2 | 4 |
+| Wispr Flow brand kit | D2 Wispr Flow (brand kit + teaser v1–v3) | 55m | 3 | 3 |
+| Poolday AI UGC Reels (8x) | D4 (8 reels) | 52m | 6 | 11 |
+| Flam brand kit | D2 Flam (brand kit + teaser) | 50m | 2 | 1 |
+| Poolday founder LinkedIn teaser: free launch video | D1 (angle #2 teaser) | 49m | 1 | 1 |
+| Create motion-craft + ref-teaser skills | Setup (2 org skills) | 25m | 3 | 0 |
+| Poolday brand kit compare + enrich | Setup (Poolday kit) | 7m | 1 | 2 |
+| New order → product clip: incoming webhook | D3 (automated run from the loop) | 4m | 1 | 1 |
+| API access & API keys | D3 (research) | 3m | 2 | 0 |
+
+**What the numbers say:**
+- Poolday doesn't expose credits per conversation (its agent can't see billing). Pro-rata on agent time, the average is ≈ 2,800 credits per agent-minute. That makes a first video with its brand kit, skills and iterations ≈ 140k credits (≈ $140).
+- **The automated D3 run, which reused the Wispr kit and composition, took 4 minutes, ≈ 11k credits (≈ $11).** That's inside the site's "~$5–$25 per finished video".
+- So the first video per brand is expensive, and every video after it is cheap. That's the case for the loop and for saved kits and skills. These per-conversation credit figures are estimates; only the totals above are exact.
+
+**Built in Poolday:**
+- 3 brand kits: Flam (Golos Text + Geist Mono, 34 colours), Poolday (Inter + Fraunces, 24 colours), Wispr Flow (EB Garamond + Figtree, 22 colours).
+- 2 org skills: motion-craft, ref-teaser.
+- 10 memories.
+- 1 webhook automation.
+
+Screenshots: `assets/poolday-final/`.
 
 ---
 

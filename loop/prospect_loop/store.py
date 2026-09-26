@@ -83,6 +83,11 @@ def get(conn, lead_id: int) -> dict:
     return _row(r)
 
 
+def get_by_domain(conn, domain: str) -> dict | None:
+    r = conn.execute("SELECT * FROM leads WHERE domain=?", (domain,)).fetchone()
+    return _row(r) if r else None
+
+
 def all_leads(conn, status: str | None = None) -> list[dict]:
     q = "SELECT * FROM leads" + (" WHERE status=?" if status else "") + \
         " ORDER BY COALESCE(score,-1) DESC, id"
