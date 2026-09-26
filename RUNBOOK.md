@@ -11,22 +11,22 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 
 | # | Who | Task | Needs Poolday? | Status |
 |---|---|---|---|---|
-| 0.1 | 🧑 | Warm up IG account (A2): 10–15 min/day, no posts yet | no | 🟡 in progress |
-| 0.2 | 🧑 | Pick 2 reference videos (any SaaS/motion-design video you love that fits the brand) + 2–3 "what I love" lines each (A3) | no | ⬜ |
-| 0.3 | 🧑 | Page reviews: paste `deliverables/PROMPT-A-page-review.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ⬜ |
-| 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run `deliverables/PROMPT-B-video-review.md` in Claude chat | no | ⬜ |
-| 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ⬜ |
-| 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ⬜ |
-| 0.7 | 🧑 | UGC: your own Pletor/Casey AI format (shock face + iPhone product demo), made in Poolday the intended way. Send me the Pletor image/video prompts + models so we adapt them to Poolday | no | ⬜ |
+| 0.1 | 🧑 | Warm up IG account (A2): 10–15 min/day, no posts yet | no | ✅ warm-up done; posting started 26 Sep (@natecreates99) |
+| 0.2 | 🧑 | Pick 2 reference videos (any SaaS/motion-design video you love that fits the brand) + 2–3 "what I love" lines each (A3) | no | ✅ references picked (`references/`) |
+| 0.3 | 🧑 | Page reviews: paste `deliverables/PROMPT-A-page-review.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ✅ page reviews done (D7) |
+| 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run `deliverables/PROMPT-B-video-review.md` in Claude chat | no | ✅ video review done (D6) + remakes |
+| 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ✅ key given; final qualification answered in Claude Code (M50) |
+| 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ✅ `deliverables/assets/pletor-ugc-farm.webp` |
+| 0.7 | 🧑 | UGC: your own Pletor/Casey AI format (shock face + iPhone product demo), made in Poolday the intended way. Send me the Pletor image/video prompts + models so we adapt them to Poolday | no | ✅ 8 reels made in Poolday ("Poolday AI UGC Reels (8x)") |
 | 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | ✅ done, tests pass (mock mode) |
 | 0.9 | 🤖 | Write the growth idea in full (D5) → `deliverables/D5-growth-idea.md` | no | ✅ done (review it) |
 | 0.10 | 🤖 | Draft 3 LinkedIn use-case angles + post copy (D1) → `deliverables/D1-linkedin.md` | no | ✅ done (pick an angle) |
 | 0.11 | 🤖 | Review kit for Claude chat (D6/D7) → `deliverables/D6-D7-review-kit.md`; polish the final reviews once 0.3/0.4 come back | no | ✅ kit ready, waiting on your chat outputs |
-| 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ⬜ |
-| 0.14 | 🧑 | Get the Poolday API docs (dashboard/settings, or ask the Poolday team on Slack) and paste them here | no | ⬜ |
-| 0.15 | 🧑 | **(now important)** Allow `poolday.ai` in this cloud environment's network settings so I can read the docs and screenshot the pages to rebuild them (home, b2b-startups, pricing) | no | ⬜ |
-| 0.16 | 🧑 | Send the full Claude chat review (main part, not only the addenda) | no | ⬜ |
-| 0.17 | 🧑 | Send the reference videos (ImagineArt one, the Skuve one, others) + say which company each is for | no | 🟡 1 received |
+| 0.12 | 🤖 | Final Poolday prompts with your reference links, once 0.2 arrives | no | ✅ prompts written (`poolday/prompts/`) |
+| 0.14 | 🧑 | Get the Poolday API docs (dashboard/settings, or ask the Poolday team on Slack) and paste them here | no | ✅ API deprecated per the CEO → Automations webhook (M36–M46) |
+| 0.15 | 🧑 | **(now important)** Allow `poolday.ai` in this cloud environment's network settings so I can read the docs and screenshot the pages to rebuild them (home, b2b-startups, pricing) | no | ⛔ still blocked; worked around with your screenshots |
+| 0.16 | 🧑 | Send the full Claude chat review (main part, not only the addenda) | no | ✅ received |
+| 0.17 | 🧑 | Send the reference videos (ImagineArt one, the Skuve one, others) + say which company each is for | no | ✅ received |
 | 0.13 | 🤖 | Deliverable doc skeleton → `deliverables/DELIVERABLE.md` | no | ✅ skeleton done, fills as we go |
 
 When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (≈45 min), then Phases D–F.
@@ -45,7 +45,7 @@ When 0.2 and 0.12 are done, open Poolday and run A1 → Phase B in one sitting (
 - **DO:** spend 10 min warming it up: follow about 20 accounts in the AI and marketing niche, and like and comment on a few posts. **Don't post yet.**
 - **EXPECT:** new accounts can post only **~1–2 times per day** before reach drops or the account gets flagged. This goes in the deliverable.
 - **REPORT:** `done A2 — handle @___`
-- **STATUS:** 🟡 warm-up started
+- **STATUS:** ✅ @natecreates99, warmed up; first reels posted 26 Sep
 
 ### A3 🧑 Pick 2 reference videos (your taste = the biggest quality lever)
 The skill copies the **cuts, rhythm and look** of the reference, so this choice matters more than any prompt.
@@ -143,11 +143,11 @@ When the first prospect video is final:
 ---
 
 ## Later phases (explicit steps get added here as we reach them)
-- **G:** UGC production + posting schedule (1–2 posts/day, and log views at +24h)
-- **H:** LinkedIn video final + post copy (I draft, you pick)
-- **I:** agent loop end-to-end demo on 3 leads + screen recording
-- **J:** reviews written (D6, D7) + growth idea final
-- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix)
+- **G:** UGC production + posting schedule (1–2 posts/day, and log views at +24h). 🟡 2 of ≥4 posted on 26 Sep (M51)
+- **H:** LinkedIn video final + post copy (I draft, you pick). ✅ the CEO's UGC-farm video + caption (D1 §8)
+- **I:** agent loop end-to-end demo on 3 leads + screen recording. ✅ live run on Wispr Flow (`deliverables/D3-loop/`), no recording by choice
+- **J:** reviews written (D6, D7) + growth idea final. ✅
+- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix). 🟡 in progress (waiting on the MP4 uploads)
 
 ---
 

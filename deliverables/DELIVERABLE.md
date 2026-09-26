@@ -122,20 +122,20 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 ## D4. AI UGC on Instagram
 
-- **Account:** [PLACEHOLDER: @handle] (new account, Creator mode for view stats)
+- **Account:** [@natecreates99](https://www.instagram.com/natecreates99/). New account, professional mode (reel insights). Warmed up before posting: 8 followers, 45 following on 26 Sep.
 - **Posting limit:** a new IG account can only post about **1–2 times per day** before reach drops or the account gets flagged, so **about 4–5 posts fit in 48 hours**. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
-- **Method:** reused my AI UGC method from Pletor (see appendix), inside Poolday: actor photos → pick → voices → pick → scripts → batch as variants in one conversation.
+- **Method:** reused my AI UGC method from Pletor (see appendix), inside Poolday: actor photos → pick → voices → pick → scripts → batch as variants in one conversation. The Poolday run "Poolday AI UGC Reels (8x)" produced 8 reels (52 min of agent time).
 
-| # | Hook (first 2s) | Posted | Views at +24h | Views at submission |
-|---|---|---|---|---|
-| 1 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 2 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 3 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 4 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 5 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| # | Hook (first 2s) | Posted | Views at +12h | Views at +24h | Views at submission |
+|---|---|---|---|---|---|
+| 1 | "it did the $5K part from ONE link" (laptop showing the Poolday UI) | [26 Sep, morning](https://www.instagram.com/reel/DdvmblCsJN1/) | 0 (avg watch 9s: stats not settled) | [PLACEHOLDER] | [PLACEHOLDER] |
+| 2 | "to the tech guy who told me [I] could launch your startup from a URL" (face, reaction) | [26 Sep, 21:15](https://www.instagram.com/reel/DdwHhNmMUNj/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| 3 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| 4 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
 
 - **Total views:** [PLACEHOLDER] · **Best hook:** [PLACEHOLDER] · **Leads/profile clicks:** [PLACEHOLDER]
-- [PLACEHOLDER: IG insights screenshot]
+- **Early read (+12h):** a 2-day-old account's first reel gets almost no distribution. Check Account Status → recommendations eligibility before calling it a shadowban. The fixes for the next posts: Trial reels (shown to non-followers first), a face plus text hook in frame 1, IG library audio, fewer follows per day, and the "AI info" label on.
+- Screenshots: `assets/d4/`.
 
 ---
 

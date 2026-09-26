@@ -592,3 +592,13 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - The slop was "ok tier, not really bad": it's now the generic AI motion-design look (gradient, flare, "WORK SMARTER. GROW FASTER.", glass chart, wrong logo), all in grey. The top shrinks to ≈30% for the old-vs-new effect.
   - The brand kit is now smaller and superposed on the Poolday frame, tagged "built by AI from lumen.com", with a URL bar → arrow so the URL-to-kit mechanic is explicit.
   - Copy changed so the labels don't read "AI SLOP MADE WITH POOLDAY": "Other AI video tools" vs the Poolday logo, headline "Your URL in. Your brand out."
+
+## M51. D4: first two reels live, early reach
+- **Account:** @natecreates99 (professional; 8 followers, 45 following).
+  - Reel 1, 26 Sep morning: https://www.instagram.com/reel/DdvmblCsJN1/ ("it did the $5K part from ONE link", laptop with the Poolday UI). At ~+12h: 0 views, 0 likes, average watch 9s.
+  - Reel 2, 26 Sep 21:15: https://www.instagram.com/reel/DdwHhNmMUNj/ ("to the tech guy who told me… launch your startup from a URL", face reaction).
+- **Read:** "0 views" alongside a 9s average watch means the stats aren't final. A new account's first reel is also throttled.
+- **Diagnose before assuming a shadowban:** Profile → ☰ → Account status → whether content can be recommended to non-followers.
+- **Changes for the next posts:** Trial reels if available (non-followers first); a face plus text hook in frame 1 (reel 2 has it, reel 1 opens on a laptop); IG library audio; follows slowed to ~10/day plus real niche activity; no delete-and-repost; the "AI info" label on; seed each reel to Story and DMs.
+- **Plan:** post 2 more tomorrow (morning, evening) so n = 4 meets 3 < n < 20, a 5th if time allows. Read views at +12/+24h.
+- **Output:** `DELIVERABLE.md` D4 table; screenshots in `deliverables/assets/d4/`.
