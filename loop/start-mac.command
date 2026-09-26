@@ -75,10 +75,18 @@ set -a; . "$ENV"; set +a
 # 5. Dashboard
 [ -f work/leads.db ] || { say "Preparing the lead list (first time)…"; python3 -m prospect_loop run >/dev/null; }
 say "Starting the dashboard: http://localhost:8765"
+# Free the port if another program (e.g. an old "python3 -m http.server 8765") holds it
+OLD=$(lsof -ti tcp:8765 2>/dev/null || true)
+[ -n "$OLD" ] && { echo "Port 8765 was busy (process $OLD): closing it."; kill $OLD 2>/dev/null; sleep 1; }
 python3 -m prospect_loop serve >/tmp/poolday-dashboard.log 2>&1 &
 SERVER_PID=$!
 trap 'kill $SERVER_PID $TUNNEL_PID 2>/dev/null; echo; echo "Stopped."' EXIT
-sleep 2; open "http://localhost:8765"
+for _ in $(seq 1 20); do curl -s http://localhost:8765/api/meta >/dev/null 2>&1 && break; sleep 0.5; done
+if ! curl -s http://localhost:8765/api/meta >/dev/null 2>&1; then
+  say "The dashboard didn't start. Details:"; tail -20 /tmp/poolday-dashboard.log; exit 1
+fi
+if curl -s "$URL/api/poolday/callback" | grep -q '"ok"'; then echo "Tunnel → dashboard: OK"; else echo "Warning: the tunnel doesn't reach the dashboard yet (it can take ~30s)."; fi
+open "http://localhost:8765"
 
 # 6. Test lead
 printf "\nSend one test lead (Wispr Flow) to Poolday now? Start your screen recording first. [y/N] "

@@ -536,3 +536,8 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Recorded in:** `DELIVERABLE.md` (top of D6), `PRODUCT-FEEDBACK.md` (high impact), `D6-video-review.md`.
 - **Recommendation:** a default "social pacing" preset: meaningful content in frame 1, no blur or fade openers, average shot ≤1.2s, the hook stated by 2s. Evidence: the D6 side-by-side compares.
 - The LinkedIn post itself wasn't viewable from this environment; this relies on the user's viewing.
+
+## M45. Mac run 2: port 8765 taken by another server
+- **Symptom:** localhost:8765 showed "Error response 404: No permission to list directory". That's Python's plain `http.server`, not our dashboard (ours never lists directories). A stray `python3 -m http.server 8765` was holding the port, so our dashboard couldn't start, and the tunnel would have sent Poolday's callbacks to the wrong server.
+- **Fix:** `start-mac.command` now frees port 8765 before starting, waits until `/api/meta` answers (or prints the log and stops), and checks that the tunnel reaches the callback endpoint.
+- **Security note:** the Poolday trigger token appeared in a user screenshot. Rotate it in Poolday after the test and update `POOLDAY_WEBHOOK_URL`.
