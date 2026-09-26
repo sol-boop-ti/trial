@@ -26,3 +26,8 @@ It shows in all three videos I looked at: the PostHog and Upflow reviews, and a 
   - the hook is fully stated by 2s.
 - **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow reaches the product at 4s instead of never, and the original still hasn't shown it at 8.5s.
 
+
+## Automations can be triggered from outside but can't report back (high impact for API users)
+- **Seen:** a webhook-triggered automation ran perfectly: it received the lead, reused the Wispr Flow composition and rendered the video. But the agent **couldn't POST the result back**: "this environment has no outbound network, none of your connectors can make HTTP requests." It then printed the callback JSON in the chat instead.
+- **Why it matters:** "trigger by webhook" without "notify by webhook" means every integration needs a human to relay the result, or has to poll an API that is being deprecated.
+- **Fix:** a built-in **Output → Webhook** that POSTs a structured result to a URL when the run finishes (run id, status, video URL, conversation URL, plus fields echoed from the triggering event), signed with the automation's secret.
