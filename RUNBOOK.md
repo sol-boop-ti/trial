@@ -143,7 +143,7 @@ When the first prospect video is final:
 ---
 
 ## Later phases (explicit steps get added here as we reach them)
-- **G:** UGC production + posting schedule (1–2 posts/day, and log views at +24h). 🟡 2 of ≥4 posted on 26 Sep (M51)
+- **G:** UGC production + posting schedule (1–2 posts/day, and log views at +24h). 🟡 3 posted on 26 Sep (M51, M55); the 4th on 27 Sep (3 < n needs 4). Max 1 a day from now on. Stats at +24h
 - **H:** LinkedIn video final + post copy (I draft, you pick). ✅ the CEO's UGC-farm video + caption (D1 §8)
 - **I:** agent loop end-to-end demo on 3 leads + screen recording. ✅ live run on Wispr Flow (`deliverables/D3-loop/`), no recording by choice
 - **J:** reviews written (D6, D7) + growth idea final. ✅

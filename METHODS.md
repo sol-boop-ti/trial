@@ -671,3 +671,15 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   cd ~/poolday-trial && bash loop/start-mac.command
   ```
 - **Decision & why:** anyone holding a leaked trigger URL can start Poolday runs on the account's credits. Rotation kills the old token. A key pasted in chat should be treated as exposed.
+
+## M55. D4: third reel live; posting rule from the user's experience
+- **What:** reel 3 posted on 26 Sep at about 21:40: https://www.instagram.com/reel/DdwK82gsVSt/.
+  - Hook #7 of the batch, "when the founder wants a launch video "by Friday"" (the grey-haired creator).
+  - Cover caption on the laptop shot: "done before lunch. from one URL".
+  - Post caption: "it was so fast im genuinely shocked lol". IG library audio: Total Eclipse of the Heart (applies the M51 advice).
+- **Inputs:** two phone screenshots, saved as `deliverables/assets/d4/profile-3-reels.png` (profile: 3 reels in the grid, 8 followers, 45 following; the post counter still read 2) and `reel3-by-friday.png`.
+- **User rule:** "from my experience, a new account shouldn't post more than once a day" (read as "shouldn't"; the message said "should", which contradicts its first sentence). The user stopped at 3 on day 1 to avoid a shadowban. The DELIVERABLE posting-limit line now states this rule instead of "1–2 a day".
+- **Count:** the brief says 3 < n < 20, so n = 3 is one short. Reel 4 goes up on 27 Sep.
+- **Correction to M51:** the grid and the stats page show each reel's cover, which is the laptop shot, not frame 1. Reel 3 opens on a face (the screenshot of it playing), so reel 1 probably does too. Its frame-1 hook is marked "to confirm" (probably #3, the "$5K" one) instead of "opens on a laptop".
+- **Output:** DELIVERABLE D4 (table rows 1–4, posting rule, format note); RUNBOOK G.
+

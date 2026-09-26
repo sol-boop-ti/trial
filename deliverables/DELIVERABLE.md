@@ -153,7 +153,7 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 ## D4. AI UGC on Instagram
 
 - **Account:** [@natecreates99](https://www.instagram.com/natecreates99/). New account, professional mode (reel insights). Warmed up before posting: 8 followers, 45 following on 26 Sep.
-- **Posting limit:** a new IG account can only post about **1–2 times per day** before reach drops or the account gets flagged, so **about 4–5 posts fit in 48 hours**. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
+- **Posting limit:** from my experience, a new account shouldn't post more than **once a day**, or it risks a shadowban. I posted 3 on day 1 to fit the 48 hours, then stopped. The 4th goes up the next day. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
 - **Method:** reused my AI UGC method from Pletor (see appendix), inside Poolday: actor photos → pick → voices → pick → scripts → batch as variants in one conversation. The Poolday run "Poolday AI UGC Reels (8x)" produced 8 reels (52 min of agent time).
 - **All 8 reels, in Poolday:** [conversation "Poolday AI UGC Reels (8x)"](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a). They are 12s each, in 9:16, with 3 AI creators and 8 different hooks.
 
@@ -171,15 +171,16 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
   - Poolday made a smart call at every step of this batch.
   - The AI creator **turns the camera around and films the Poolday demo** on the laptop. I didn't think that was possible. Before (see the appendix), I generated only the hook with AI and filmed the demo part myself, by hand, with my iPhone pointed at my Mac. Here, the whole reel comes out of one conversation, with no manual filming.
 
-| # | Hook (first 2s) | Posted | Views at +12h | Views at +24h | Views at submission |
+| # | Hook (frame 1) · cover caption (the laptop demo) | Posted | Views at +12h | Views at +24h | Views at submission |
 |---|---|---|---|---|---|
-| 1 | "it did the $5K part from ONE link" (laptop showing the Poolday UI) | [26 Sep, morning](https://www.instagram.com/reel/DdvmblCsJN1/) | 0 (avg watch 9s: stats not settled) | [PLACEHOLDER] | [PLACEHOLDER] |
-| 2 | "to the tech guy who told me [I] could launch your startup from a URL" (face, reaction) | [26 Sep, 21:15](https://www.instagram.com/reel/DdwHhNmMUNj/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 3 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 4 | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| 1 | [to confirm: probably "POV: you built your SaaS but it's time to pay $5K for a launch video 👀"] · "it did the $5K part from ONE link" | [26 Sep, morning](https://www.instagram.com/reel/DdvmblCsJN1/) | 0 (avg watch 9s: stats not settled) | [PLACEHOLDER] | [PLACEHOLDER] |
+| 2 | "to the tech guy who told me u could launch your startup from a URL" (face, reaction) | [26 Sep, 21:15](https://www.instagram.com/reel/DdwHhNmMUNj/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| 3 | "when the founder wants a launch video "by Friday"" · "done before lunch. from one URL". Caption "it was so fast im genuinely shocked lol", IG library audio (Total Eclipse of the Heart) | [26 Sep, ~21:40](https://www.instagram.com/reel/DdwK82gsVSt/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
+| 4 | [PLACEHOLDER: 27 Sep, needed for 3 < n] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
 
 - **Total views:** [PLACEHOLDER] · **Best hook:** [PLACEHOLDER] · **Leads/profile clicks:** [PLACEHOLDER]
-- **Early read (+12h):** a 2-day-old account's first reel gets almost no distribution. Check Account Status → recommendations eligibility before calling it a shadowban. The fixes for the next posts: Trial reels (shown to non-followers first), a face plus text hook in frame 1, IG library audio, fewer follows per day, and the "AI info" label on.
+- **Early read (+12h):** a 2-day-old account's first reel gets almost no distribution. Check Account Status → recommendations eligibility before calling it a shadowban. The fixes for the next posts: Trial reels (shown to non-followers first), a face plus text hook in frame 1, IG library audio (applied on reel 3), fewer follows per day, and the "AI info" label on.
+- **Format note:** each reel opens on the AI creator's face with the hook, then the creator turns the camera to the laptop running Poolday. The covers show that laptop shot, so the profile grid reads as product demos (`assets/d4/profile-3-reels.png`).
 - Screenshots: `assets/d4/`.
 
 ---
