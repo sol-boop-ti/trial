@@ -9,38 +9,17 @@
 | Attach files from events | Leave as is | We send no files, so it changes nothing. |
 | Output | **Add nothing** | The prompt itself posts the result back to our pipeline (callback_url). |
 | Prompt | **New conversation** | One conversation per lead, so a revision stays readable. |
-| Example event | Paste the JSON below | This makes the fields appear in "Insert event field". |
-
-## Example event (paste into "Example event")
-```json
-{"kind": "start", "lead_id": 1, "token": "test-token", "version": 1,
- "company": "Wispr Flow", "website": "https://wisprflow.ai", "brand_kit_name": "Wispr Flow",
- "angle": "Voice typing that is 4x faster than your keyboard",
- "contact_name": "Tanay Kothari", "contact_role": "CEO",
- "reference_url": "https://www.instagram.com/reels/DdERJulgHrV/",
- "prompt": "Make a 20s prospect teaser for Wispr Flow.",
- "callback_url": "https://example.trycloudflare.com/api/poolday/callback"}
-```
+| Example event | Nothing to do | It is read-only: it only shows what an incoming request looks like (body, headers, files, query). |
 
 ## The prompt
-Paste it, then replace each `[field]` with **Insert event field → field** (select `[kind]`, click Insert event field, choose kind, and so on). If the menu offers the whole event/body in one item, you can insert that once instead of the Lead block.
+Select everything in the Prompt box, delete, then paste this whole block. `{{event.body}}` is the only field needed: "Insert event field" offers body, files, headers and query, and body holds the whole lead JSON.
 
 ```
-A lead from my prospect pipeline just arrived.
-Lead:
-- kind: [kind]
-- lead_id: [lead_id]
-- token: [token]
-- version: [version]
-- company: [company]
-- website: [website]
-- brand_kit_name: [brand_kit_name]
-- angle: [angle]
-- contact_name: [contact_name]
-- contact_role: [contact_role]
-- reference_url: [reference_url]
-- prompt: [prompt]
-- callback_url: [callback_url]
+A lead from my prospect pipeline just arrived. Here is its JSON:
+{{event.body}}
+
+Its fields: kind, lead_id, token, version, company, website, brand_kit_name,
+angle, contact_name, contact_role, reference_url, prompt, callback_url.
 
 If kind is "start": make a ~20s 16:9 prospect teaser for the company with my
 ref-teaser and motion-craft skills. Use the brand kit named brand_kit_name if it
