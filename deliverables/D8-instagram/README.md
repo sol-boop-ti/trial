@@ -1,12 +1,14 @@
 # D8 (bonus): Poolday's Instagram
 
 ## 0. The static story ad (`poolday-static-ad.png`, 1080×1920; `@2x` for print)
-One 9:16 image, split screen, almost no copy:
-- **Top (42%, greyed): "AI Slop".** A slides app: WordArt "LUMEN 2.0!!!", clip-art, bullet points, a stretched logo.
-- **Bottom (58%): the Poolday mark + "Made with Poolday".**
-  - A paused frame (0:07 / 0:15) of a professional motion-design video: the Apple-style "phone tunnel" from the user's motion reference, rebuilt for the demo brand **Lumen** (Lumen app screens on every phone, "Plan. Ship. **Grow.**", grain, a motion trail on two phones).
-  - Under it, 📎 **"Inspiration attached · Lumen brand kit"**: a 16:9 one-page brand guide (like the user's reference). It has a stacked outline/filled wordmark hero, logo variants, a colour palette with names and hex (Moss, Ember, Sky, Night, Sand), and typography (Bricolage + Inter) with a button. It reads "From lumen.com".
-- Poolday's side stays on its brand: black, Inter, the scan-dot halftone. The colour comes only from the customer's video. Lumen is fictional, so there are no rights issues.
+Old vs new in one 9:16 image: **grey = the others, colour = Poolday.**
+- **Top (≈30%, greyed): "Other AI video tools".** A paused frame of the generic motion design every AI tool outputs: purple-cyan gradient, lens flare, "WORK SMARTER. GROW FASTER.", a glassy bar chart, a gradient "Get Started Today!" button, sparkles, and a stock hexagon "LUMEN" logo, because the brand was never used.
+- **"vs."**
+- **Bottom (≈70%, colour): the Poolday logo.**
+  - A paused frame of a professional motion-design video for the demo brand Lumen: the Apple-style phone tunnel with Lumen app screens, "Plan. Ship. **Grow.**", grain and motion trails.
+  - **Superposed, smaller:** the 16:9 Lumen brand guide, tagged ✦ **"Brand kit, built by AI from lumen.com"**, with a URL bar "lumen.com → Go" and an arrow into it, so it's obvious the kit came from just entering the URL.
+- **Copy:** "Your URL in. Your brand out." CTA: "Try it with your URL" · poolday.ai. There's no label pair that reads as one sentence (v2 read "AI Slop / Made with Poolday").
+- The Poolday side stays on its brand (black, Inter, scan-dot halftone, cream pill). The colour comes from the customer's video. Lumen is fictional.
 
 ## 1. Animated version (`poolday-ad.mp4`, 9:16, 14.4s, with sound)
 **The original** (`original-ig-ad-screenshot.png`): a static card, "No AI slop. Just your videos, edited well. Poolday learns your brand and edits every video to it." The idea is right, but:

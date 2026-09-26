@@ -588,3 +588,7 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - New test; 40 pass.
 - **Deviation from the skill:** `process-leads` says "don't commit / don't edit METHODS". Here the answers must reach the user's Mac, so only the answer file is committed (`loop/answers/claude-qualification-2026-09-26.json`, no database), and this entry follows CLAUDE.md.
 - **Mac import:** `cd ~/poolday-trial && git pull && cd loop && python3 -m prospect_loop llm-import --file answers/claude-qualification-2026-09-26.json`, then refresh the dashboard. Dry-run on a simulated Mac database: Wispr stays approved with the new email; Convex out, Delightree in.
+- **Update 3 (user feedback on v2):**
+  - The slop was "ok tier, not really bad": it's now the generic AI motion-design look (gradient, flare, "WORK SMARTER. GROW FASTER.", glass chart, wrong logo), all in grey. The top shrinks to ≈30% for the old-vs-new effect.
+  - The brand kit is now smaller and superposed on the Poolday frame, tagged "built by AI from lumen.com", with a URL bar → arrow so the URL-to-kit mechanic is explicit.
+  - Copy changed so the labels don't read "AI SLOP MADE WITH POOLDAY": "Other AI video tools" vs the Poolday logo, headline "Your URL in. Your brand out."

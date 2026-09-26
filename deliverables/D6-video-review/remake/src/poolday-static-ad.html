@@ -3,30 +3,39 @@
 <style>
 @font-face{font-family:Inter;font-weight:100 900;src:url(_assets/poolday/inter.woff2) format("woff2")}
 @font-face{font-family:Bricolage;font-weight:200 800;src:url(_assets/lumen/bricolage-400.woff2) format("woff2")}
-:root{--night:#15130F;--ember:#FF6B2C;--sand:#EFE6D8;--sky:#A9C7FF;--moss:#2F4A3A}
+:root{--night:#15130F;--ember:#FF6B2C;--sand:#EFE6D8;--sky:#A9C7FF;--moss:#2F4A3A;--mute:#8a8a8a}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:Inter,sans-serif;color:#F5F5F5;-webkit-font-smoothing:antialiased}
-.label{position:absolute;left:0;right:0;text-align:center;font-weight:400;letter-spacing:-.035em;z-index:4}
-/* ---------------- TOP (42%): AI slop, greyed ---------------- */
-#top{position:absolute;left:0;right:0;top:0;height:800px;background:#cfcfcf;overflow:hidden}
-#top .in{position:absolute;inset:0;filter:grayscale(1) contrast(.9) brightness(.95)}
-#top .label{top:46px;font-size:92px;color:#1a1a1a}
-.app{position:absolute;left:70px;right:70px;top:190px;height:560px;background:#f2f2f2;border:2px solid #b9b9b9;border-radius:14px;overflow:hidden;box-shadow:0 18px 36px rgba(0,0,0,.18);font-family:Arial,Helvetica,sans-serif}
-.ribbon{height:70px;background:#e3e3e3;border-bottom:2px solid #c6c6c6;display:flex;align-items:center;gap:12px;padding:0 18px}
-.ribbon i{display:block;width:40px;height:40px;border-radius:6px;background:#cdcdcd}
-.slide{position:absolute;left:26px;right:26px;top:94px;bottom:26px;background:linear-gradient(180deg,#8ecbff,#fff7a8);border:2px solid #aaa;overflow:hidden}
-.wordart{position:absolute;left:0;right:0;top:20px;text-align:center;font-family:"Times New Roman",serif;font-weight:900;font-style:italic;font-size:86px;color:#ffe100;-webkit-text-stroke:3px #c2410c;text-shadow:6px 6px 0 #7c2d12;transform:scaleY(1.2)}
-.bul{position:absolute;left:40px;top:170px;font-size:34px;color:#1e3a8a;line-height:1.4}
-.clip{position:absolute;right:46px;top:160px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 12%,#ffb3b3 13% 40%,#e11d48 41%)}
-.stretch{position:absolute;left:44px;bottom:18px;font-weight:900;font-size:38px;color:#111;transform:scaleX(2.3);transform-origin:left}
-/* ---------------- BOTTOM (58%): made with Poolday ---------------- */
-#bot{position:absolute;left:0;right:0;top:800px;bottom:0;background:#000;overflow:hidden}
-#ht{position:absolute;inset:0;opacity:.75}
-#bot .label{top:44px;font-size:76px;display:flex;justify-content:center;align-items:center;gap:22px}
-#bot .label img{height:74px;margin-top:-6px}
-/* the paused motion-design frame (Apple-style phone tunnel, rebranded Lumen) */
-.player{position:absolute;left:60px;right:60px;top:150px;height:540px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 90px rgba(255,107,44,.16)}
-.frame{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,#FBF6EE,#EAE0D0);perspective:700px;perspective-origin:50% 50%;overflow:hidden}
+/* ================= TOP (old, grey): a generic AI motion-design frame ================= */
+#top{position:absolute;left:0;right:0;top:0;height:600px;background:#d2d2d2;overflow:hidden}
+#top .tag{position:absolute;left:0;right:0;top:34px;text-align:center;font-size:34px;letter-spacing:.01em;color:#555}
+.old{position:absolute;left:150px;top:100px;width:780px;height:439px;border-radius:14px;overflow:hidden;filter:grayscale(1) contrast(.9) brightness(1.02);box-shadow:0 16px 34px rgba(0,0,0,.2)}
+.gen{position:absolute;inset:0;background:radial-gradient(60% 80% at 70% 20%,#7b3cff 0,transparent 60%),radial-gradient(50% 70% at 10% 90%,#00c2ff 0,transparent 60%),linear-gradient(135deg,#1a1147,#0a1a3d)}
+.flare{position:absolute;left:520px;top:40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,255,255,.6) 12%,transparent 60%)}
+.flare2{position:absolute;left:300px;top:150px;width:400px;height:6px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:rotate(-18deg)}
+.gl{position:absolute;left:40px;top:34px;display:flex;align-items:center;gap:10px;font-family:"DejaVu Sans",Arial,sans-serif;font-weight:700;font-size:22px;letter-spacing:.2em;color:#fff}
+.gl i{width:30px;height:30px;background:linear-gradient(135deg,#a855f7,#06b6d4);clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)}
+.gh{position:absolute;left:0;right:0;top:92px;text-align:center;font-family:"DejaVu Sans",Arial,sans-serif;font-weight:800;font-size:66px;line-height:1.02;letter-spacing:-.01em;color:#fff;text-shadow:0 0 24px rgba(168,85,247,.9),0 4px 0 #3b1d7a}
+.gh span{background:linear-gradient(90deg,#c084fc,#22d3ee);-webkit-background-clip:text;color:transparent;text-shadow:none}
+.gcard{position:absolute;left:210px;top:262px;width:360px;height:150px;border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.35);transform:perspective(700px) rotateX(24deg) rotateZ(-4deg);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.gcard i{position:absolute;bottom:18px;width:34px;border-radius:6px;background:linear-gradient(#22d3ee,#a855f7)}
+.spk{position:absolute;width:30px;height:30px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+.gbtn{position:absolute;left:600px;top:320px;padding:12px 22px;border-radius:999px;background:linear-gradient(90deg,#a855f7,#06b6d4);font-family:"DejaVu Sans",Arial;font-weight:700;font-size:18px;color:#fff;box-shadow:0 0 20px rgba(168,85,247,.8)}
+.octrl{position:absolute;left:0;right:0;bottom:0;height:52px;background:linear-gradient(transparent,rgba(0,0,0,.6));display:flex;align-items:center;gap:12px;padding:0 18px;font-size:16px;color:#fff}
+.octrl .pb{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.35);position:relative}
+.octrl .pb i{position:absolute;left:0;top:0;bottom:0;width:47%;background:#fff}
+.tri{width:0;height:0;border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}
+/* ================= VS ================= */
+#vs{position:absolute;left:0;right:0;top:566px;display:flex;justify-content:center;z-index:6}
+#vs span{background:#000;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;padding:12px 30px;font-size:32px;letter-spacing:-.01em}
+/* ================= BOTTOM (new, colour): made from your brand ================= */
+#bot{position:absolute;left:0;right:0;top:600px;bottom:0;background:#000;overflow:hidden}
+#ht{position:absolute;inset:0;opacity:.7}
+.brand{position:absolute;left:0;right:0;top:66px;display:flex;justify-content:center;align-items:center;gap:18px;font-size:60px;letter-spacing:-.035em}
+.brand img{height:64px;margin-top:-4px}
+.glow{position:absolute;left:140px;top:250px;width:800px;height:460px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,107,44,.34),transparent);filter:blur(30px)}
+.player{position:absolute;left:40px;top:170px;width:1000px;height:562px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.frame{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,#FBF6EE,#EAE0D0);perspective:700px;overflow:hidden}
 .phone{position:absolute;width:210px;height:430px;border-radius:34px;background:#111;padding:9px;box-shadow:0 30px 50px rgba(21,19,15,.28)}
 .scr{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#fff;position:relative;font-family:Bricolage,sans-serif}
 .scr .top{height:54px;display:flex;align-items:center;padding:0 16px;font-size:20px;letter-spacing:-.03em;color:var(--night)}
@@ -35,84 +44,98 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
 .scr .bars{display:flex;align-items:flex-end;gap:7px;height:80px;margin-top:8px}
 .scr .bars i{flex:1;border-radius:5px 5px 2px 2px;background:var(--ember)}
 .scr .row{height:10px;border-radius:5px;background:#e5dccd;margin:8px 0}
-.center{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-family:Bricolage,sans-serif;font-weight:700;font-size:64px;letter-spacing:-.045em;color:var(--night);z-index:3}
+.center{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-family:Bricolage,sans-serif;font-weight:700;font-size:66px;letter-spacing:-.045em;color:var(--night);z-index:3}
 .center em{font-style:normal;color:var(--ember)}
 .streak{position:absolute;filter:blur(10px);opacity:.55}
 .grain{position:absolute;inset:0;opacity:.14;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
-.ctrl{position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(transparent,rgba(0,0,0,.55));display:flex;align-items:center;gap:16px;padding:0 22px;font-size:20px;color:#fff;font-variant-numeric:tabular-nums;z-index:5}
+.ctrl{position:absolute;left:0;right:0;bottom:0;height:66px;background:linear-gradient(transparent,rgba(0,0,0,.5));display:flex;align-items:center;gap:16px;padding:0 22px;font-size:20px;color:#fff;font-variant-numeric:tabular-nums;z-index:5}
 .ctrl .pb{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.35);position:relative}
 .ctrl .pb i{position:absolute;left:0;top:0;bottom:0;width:47%;background:#fff;border-radius:3px}
 .ctrl .pb b{position:absolute;left:47%;top:50%;width:15px;height:15px;margin:-7.5px;border-radius:50%;background:#fff}
 .pause{display:flex;gap:6px}.pause i{width:6px;height:20px;background:#fff;border-radius:1px}
-/* the 16:9 brand kit, attached as inspiration */
-.attach{position:absolute;left:0;right:0;top:712px;display:flex;justify-content:center}
-.chip{display:flex;align-items:center;gap:12px;background:#161616;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:12px 24px;font-size:28px;letter-spacing:-.01em}
-.chip svg{width:26px;height:26px}
-.kit{position:absolute;left:190px;top:785px;width:700px;height:394px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 26px 60px rgba(0,0,0,.6);transform:scale(.8) rotate(-2deg);transform-origin:50% 0;font-family:Bricolage,sans-serif;color:var(--night);display:grid;grid-template-columns:1.25fr 1fr}
-.kh{background:var(--moss);color:var(--sand);position:relative;padding:18px 20px}
-.kh .meta{display:flex;justify-content:space-between;font-family:Inter;font-size:9px;opacity:.8;letter-spacing:.02em}
-.stack{position:absolute;left:20px;top:78px;line-height:.86;font-weight:800;font-size:78px;letter-spacing:-.05em}
-.stack .o{color:transparent;-webkit-text-stroke:1.4px var(--sand)}
+/* URL → AI brand kit, superposed on the video */
+.url{position:absolute;left:40px;top:790px;width:500px;height:92px;border-radius:999px;background:#101010;border:1.5px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:16px;padding:0 14px 0 30px;font-size:38px;letter-spacing:-.02em;z-index:7;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.url svg{width:30px;height:30px;flex:none}
+.url .go{margin-left:auto;height:64px;padding:0 22px;border-radius:999px;background:#F2F2F2;color:#050505;display:flex;align-items:center;gap:10px;font-size:26px}
+.url .go svg{width:22px;height:22px}
+.flow{position:absolute;left:432px;top:752px;width:140px;height:110px;z-index:8}
+.kitwrap{position:absolute;left:560px;top:600px;width:480px;z-index:7;transform:rotate(-3deg);transform-origin:50% 50%}
+.aitag{position:absolute;left:18px;top:-24px;z-index:2;display:flex;align-items:center;gap:10px;background:#0c0c0c;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 18px;font-size:22px;white-space:nowrap}
+.aitag svg{width:20px;height:20px}
+.kit{width:480px;height:270px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.7),0 0 0 6px rgba(255,255,255,.08);font-family:Bricolage,sans-serif;color:var(--night);display:grid;grid-template-columns:1.2fr 1fr}
+.kh{background:var(--moss);color:var(--sand);position:relative;padding:12px 14px}
+.kh .meta{display:flex;justify-content:space-between;font-family:Inter;font-size:7px;opacity:.8}
+.stack{position:absolute;left:14px;top:56px;line-height:.86;font-weight:800;font-size:54px;letter-spacing:-.05em}
+.stack .o{color:transparent;-webkit-text-stroke:1.1px var(--sand)}
 .stack .f{color:var(--ember)}
-.badge{position:absolute;right:22px;top:72px;width:64px;height:64px;border-radius:50%;background:var(--sand);display:grid;place-items:center}
-.badge i{width:30px;height:15px;border-radius:30px 30px 0 0;background:var(--ember);margin-top:10px}
-.kr{padding:12px 12px;display:grid;grid-template-rows:auto auto 1fr;gap:8px;background:#fff}
-.ttl{font-family:Inter;font-size:9px;letter-spacing:.12em;color:#8a8375}
-.cols{display:flex;height:96px;border-radius:6px;overflow:hidden}
-.cols div{flex:1;padding:6px;font-family:Inter;font-size:8px;display:flex;flex-direction:column;justify-content:space-between}
-.types{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.tb{border:1px solid #eee4d6;border-radius:6px;padding:8px;font-size:11px;line-height:1.2}
-.tb b{display:block;font-size:34px;font-weight:700;letter-spacing:-.04em;margin-top:4px}
-.logos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.logos div{height:44px;border-radius:6px;display:grid;place-items:center;font-size:19px;font-weight:800;letter-spacing:-.05em}
-.btn{display:inline-block;margin-top:4px;background:var(--night);color:var(--sand);border-radius:999px;padding:4px 10px;font-size:9px;font-family:Inter}
+.badge{position:absolute;right:14px;top:48px;width:44px;height:44px;border-radius:50%;background:var(--sand);display:grid;place-items:center}
+.badge i{width:20px;height:10px;border-radius:20px 20px 0 0;background:var(--ember);margin-top:7px}
+.kr{padding:8px;display:grid;grid-template-rows:auto auto 1fr;gap:6px;background:#fff}
+.ttl{font-family:Inter;font-size:7px;letter-spacing:.12em;color:#8a8375}
+.cols{display:flex;height:66px;border-radius:5px;overflow:hidden}
+.cols div{flex:1;padding:4px;font-family:Inter;font-size:6px;display:flex;flex-direction:column;justify-content:space-between}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tb{border:1px solid #eee4d6;border-radius:5px;padding:6px;font-size:8px;line-height:1.2}
+.tb b{display:block;font-size:24px;font-weight:700;letter-spacing:-.04em;margin-top:2px}
+.logos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.logos div{height:30px;border-radius:5px;display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:-.05em}
+/* copy */
+.hl{position:absolute;left:40px;right:40px;top:955px;font-size:90px;line-height:1;letter-spacing:-.045em}
+.hl span{color:#8a8a8a}
+.cta{position:absolute;left:40px;bottom:56px;display:flex;align-items:center;gap:22px}
+.cta .pill{background:#F2F2F2;color:#050505;border-radius:999px;padding:20px 34px;font-size:32px}
+.cta .dom{font-size:32px;color:#9a9a9a}
 </style></head>
 <body>
-<div id="top"><div class="in">
-  <div class="app">
-    <div class="ribbon"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="slide">
-      <div class="wordart">LUMEN 2.0!!!</div>
-      <div class="bul">• Our product is GREAT<br>• Very fast &amp; smart<br>• Buy now!!</div>
-      <div class="clip"></div>
-      <div class="stretch">lumen</div>
-    </div>
-  </div></div>
-  <div class="label">AI Slop</div>
+<!-- OLD: what generic AI video tools give you -->
+<div id="top">
+  <div class="tag">Other AI video tools</div>
+  <div class="old"><div class="gen"></div><div class="flare"></div><div class="flare2"></div>
+    <div class="gl"><i></i>LUMEN</div>
+    <div class="gh">WORK SMARTER.<br><span>GROW FASTER.</span></div>
+    <div class="gcard"><i style="left:24px;height:40px"></i><i style="left:70px;height:66px"></i><i style="left:116px;height:52px"></i><i style="left:162px;height:92px"></i><i style="left:208px;height:112px"></i><i style="left:254px;height:80px"></i></div>
+    <div class="gbtn">Get Started Today!</div>
+    <div class="spk" style="left:90px;top:220px"></div><div class="spk" style="left:690px;top:120px;transform:scale(.7)"></div><div class="spk" style="left:620px;top:250px;transform:scale(.5)"></div>
+    <div class="octrl"><span class="tri"></span><span>0:07 / 0:15</span><span class="pb"><i></i></span></div>
+  </div>
 </div>
+<div id="vs"><span>vs.</span></div>
 
-<div id="bot"><canvas id="ht" width="1080" height="1120"></canvas>
-  <div class="label"><img src="_assets/poolday/mark.svg">Made with Poolday</div>
+<!-- NEW: Poolday, built from the brand kit it made from one URL -->
+<div id="bot"><canvas id="ht" width="1080" height="1320"></canvas>
+  <div class="brand"><img src="_assets/poolday/mark.svg">poolday</div>
+  <div class="glow"></div>
+  <div class="player"><div class="frame" id="frame"><div class="center">Plan. Ship. <em>Grow.</em></div><div class="grain"></div></div>
+    <div class="ctrl"><span class="pause"><i></i><i></i></span><span>0:07 / 0:15</span><span class="pb"><i></i><b></b></span></div></div>
 
-  <div class="player"><div class="frame" id="frame">
-    <div class="center">Plan. Ship. <em>Grow.</em></div>
-    <div class="grain"></div>
-  </div>
-    <div class="ctrl"><span class="pause"><i></i><i></i></span><span>0:07 / 0:15</span><span class="pb"><i></i><b></b></span></div>
-  </div>
-
-  <div class="attach"><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5 12.6 20a5.5 5.5 0 0 1-7.8-7.8l8.9-8.9a3.7 3.7 0 0 1 5.2 5.2l-8.9 8.9a1.8 1.8 0 0 1-2.6-2.6l8.2-8.2"/></svg>Inspiration attached · Lumen brand kit</span></div>
-  <div class="kit">
-    <div class="kh">
-      <div class="meta"><span>Brand Guidelines<br>Lumen</span><span>From lumen.com<br>V1.0</span></div>
-      <div class="stack"><div class="o">lumen.</div><div class="f">lumen.</div><div class="o">lumen.</div></div>
-      <div class="badge"><i></i></div>
-      <div style="position:absolute;left:20px;bottom:16px;font-family:Inter;font-size:9px;opacity:.8">Tone: calm, sure, no hype</div>
+  <div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2" stroke-linecap="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>lumen.com
+    <span class="go">Go<svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  <svg class="flow" viewBox="0 0 140 110" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"><path d="M8 100 C 50 100, 90 80, 118 30"/><path d="M104 34 L119 27 L121 44" stroke-dasharray="0"/></svg>
+  <div class="kitwrap">
+    <div class="aitag"><svg viewBox="0 0 24 24" fill="#F5F5F5"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg>Brand kit, built by AI from lumen.com</div>
+    <div class="kit">
+      <div class="kh">
+        <div class="meta"><span>Brand Guidelines<br>Lumen</span><span>lumen.com<br>V1.0</span></div>
+        <div class="stack"><div class="o">lumen.</div><div class="f">lumen.</div><div class="o">lumen.</div></div>
+        <div class="badge"><i></i></div>
+      </div>
+      <div class="kr">
+        <div class="logos"><div style="background:var(--sand)">lumen<span style="color:var(--ember)">.</span></div><div style="background:var(--night);color:var(--sand)">lumen<span style="color:var(--ember)">.</span></div><div style="background:var(--ember);color:var(--night)">lumen.</div></div>
+        <div><div class="ttl">COLOUR PALETTE</div><div class="cols" style="margin-top:4px">
+          <div style="background:var(--moss);color:var(--sand)"><b>Moss</b><span>#2F4A3A</span></div>
+          <div style="background:var(--ember)"><b>Ember</b><span>#FF6B2C</span></div>
+          <div style="background:var(--sky)"><b>Sky</b><span>#A9C7FF</span></div>
+          <div style="background:var(--night);color:var(--sand)"><b>Night</b><span>#15130F</span></div>
+          <div style="background:var(--sand)"><b>Sand</b><span>#EFE6D8</span></div></div></div>
+        <div class="types"><div class="tb">Display · Bricolage<b>Aa</b></div><div class="tb" style="font-family:Inter">Text · Inter<b style="font-family:Inter;font-weight:400">Aa</b></div></div>
+      </div>
     </div>
-    <div class="kr">
-      <div class="logos"><div style="background:var(--sand)">lumen<span style="color:var(--ember)">.</span></div><div style="background:var(--night);color:var(--sand)">lumen<span style="color:var(--ember)">.</span></div><div style="background:var(--ember);color:var(--night)">lumen.</div></div>
-      <div><div class="ttl">COLOUR PALETTE</div><div class="cols" style="margin-top:6px">
-        <div style="background:var(--moss);color:var(--sand)"><b>Moss</b><span>#2F4A3A</span></div>
-        <div style="background:var(--ember)"><b>Ember</b><span>#FF6B2C</span></div>
-        <div style="background:var(--sky)"><b>Sky</b><span>#A9C7FF</span></div>
-        <div style="background:var(--night);color:var(--sand)"><b>Night</b><span>#15130F</span></div>
-        <div style="background:var(--sand)"><b>Sand</b><span>#EFE6D8</span></div></div></div>
-      <div class="types"><div class="tb">Display · Bricolage<b>Aa</b>The quick brown fox.</div><div class="tb" style="font-family:Inter">Text · Inter<b style="font-family:Inter;font-weight:400">Aa</b><span class="btn">Get started</span></div></div>
-    </div>
   </div>
+
+  <div class="hl">Your URL in.<br><span>Your brand out.</span></div>
+  <div class="cta"><span class="pill">Try it with your URL</span><span class="dom">poolday.ai</span></div>
 </div>
 <script>
-// ---- the phone tunnel (Lumen app screens), like the Apple-style reference, paused mid-move ----
 const screens = [
   `<div class="top">lumen<b>.</b></div><div class="card"><b>This week</b><div class="bars"><i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i><i style="height:100%"></i></div></div><div class="card" style="background:#fff;border:1px solid #eee"><div class="row" style="width:70%"></div><div class="row" style="width:45%"></div></div>`,
   `<div class="top">Roadmap</div><div class="card"><b>Q4 launch</b><div class="row" style="width:80%;background:#FF6B2C"></div><div class="row" style="width:55%"></div></div><div class="card" style="background:#A9C7FF"><b>Design review</b><div class="row" style="width:60%;background:#fff"></div></div><div class="card"><b>Ship v2</b></div>`,
@@ -120,7 +143,6 @@ const screens = [
   `<div class="top">Goals</div><div class="card" style="background:#2F4A3A;color:#EFE6D8"><b style="font-size:34px">82%</b><br>on track</div><div class="card"><div class="row" style="width:90%"></div><div class="row" style="width:60%"></div><div class="row" style="width:75%"></div></div>`,
   `<div class="top">Calendar</div><div class="card" style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px">${Array.from({length:20},(_,i)=>`<i style="height:22px;border-radius:5px;background:${[3,8,14].includes(i)?'#FF6B2C':'#fff'}"></i>`).join("")}</div><div class="card"><b>Standup · 9:30</b></div>`,
   `<div class="top">lumen<b>.</b></div><div class="card" style="background:#FF6B2C;color:#15130F"><b style="font-size:26px">Grow.</b><br>+38% this month</div><div class="card"><div class="bars"><i style="height:30%"></i><i style="height:50%"></i><i style="height:70%"></i><i style="height:100%"></i></div></div>`];
-// positions around the centre, tilted toward it (a tunnel seen head-on)
 const P = [[70, -175, 55, 0, -8], [640, -185, 55, 0, 8], [-110, 55, 0, 58, 4], [860, 45, 0, -58, -4], [120, 250, -55, 0, 7], [610, 262, -55, 0, -7]];
 const fr = document.getElementById("frame");
 P.forEach(([x, y, rx, ry, rz], i) => {
@@ -130,11 +152,10 @@ P.forEach(([x, y, rx, ry, rz], i) => {
   d.innerHTML = `<div class="scr">${screens[i]}</div>`; fr.appendChild(d);
   if (i === 1 || i === 3) { const s = d.cloneNode(true); s.classList.add("streak"); s.style.transform += " translateX(-40px)"; fr.insertBefore(s, d); }
 });
-// Poolday's scan-dot halftone behind the bottom half
 const g = document.getElementById("ht").getContext("2d");
-for (let y = 0; y < 1120; y += 8) for (let x = 0; x < 1080; x += 8) {
-  const r = 1 - Math.min(1, Math.hypot((x - 540) / 640, (y - 520) / 560)); if (r <= 0) continue;
-  const v = Math.round(10 + 32 * r); g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.arc(x, y, .6 + 1.4 * r, 0, 6.283); g.fill();
+for (let y = 0; y < 1320; y += 8) for (let x = 0; x < 1080; x += 8) {
+  const r = 1 - Math.min(1, Math.hypot((x - 540) / 640, (y - 520) / 620)); if (r <= 0) continue;
+  const v = Math.round(10 + 30 * r); g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.arc(x, y, .6 + 1.4 * r, 0, 6.283); g.fill();
 }
 document.fonts.ready.then(() => document.body.dataset.ready = 1);
 </script>
