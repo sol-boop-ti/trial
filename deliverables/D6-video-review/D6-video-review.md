@@ -96,3 +96,11 @@ as the stage). No 3D renders. Replace the end card with a 1.5s animated sign-off
 logo + one line + posthog.com. First show me 3 style frames for approval.
 ```
 Then put before/after side by side in the deliverable.
+
+## 5. Done: both videos remade (`remake/`)
+To show the fixes instead of only describing them, I rebuilt both videos, 100% on brand:
+- **Upflow, 15.4s** (was 23.3s): the question hooks in 1s; the swarm is 2s shorter; one "Something simple." card; **the product answers the question** (invoice #2041 flips to "Paid · 3 days early", with the activity timeline); **−79%** gets its own card; the logo lands in under 0.8s, and the period drops in last.
+- **PostHog, 19.4s** (was 24.4s): the same story in PostHog's real medium. It uses **2D hand-drawn hedgehogs** from PostHog's own brand library (no 3D, no AI hogs), the RoundHog and Squeak fonts, PostHog OS windows, three real product beats (analytics with a launch annotation, a session replay with 47 rage clicks, a feature flag rolling out), and **the 2026 logo doing the app's own logomark jump** instead of a slide footer. The original also used the **old** PostHog logo, which the brand book forbids.
+
+Files: `remake/upflow-remake.mp4`, `remake/posthog-remake.mp4`, before/after `remake/*-compare.mp4`. Brand kits and sources: `remake/BRAND-KITS.md`. Shot lists: `remake/README.md`.
+
