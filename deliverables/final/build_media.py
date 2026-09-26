@@ -25,7 +25,6 @@ VIDEOS = {
     "d6-posthog-compare": ("D6-video-review/remake/posthog-compare.mp4", "scale=1280:720", 27, 12.0),
     "d7-home-meet": ("D7-pages/video/home-meet-poolday.mp4", "scale=1280:800", 27, 4.0),
     "d7-b2b-use-cases": ("D7-pages/video/b2b-use-cases.mp4", "scale=1280:800", 27, 11.0),
-    "d8-ad": ("D8-instagram/poolday-ad.mp4", "scale=720:1280", 26, 0.9),
 }
 # name: (source, max width)
 IMAGES = {
@@ -41,7 +40,6 @@ IMAGES = {
     "d7-pricing": ("D7-pages/compare/pricing-compare-fold.png", 1800),
     "d8-static-ad": ("D8-instagram/poolday-static-ad.png", 900),
     "d8-original": ("D8-instagram/original-ig-ad-screenshot.png", 600),
-    "d8-profile-pic": ("D8-instagram/profile-picture-proposal.png", 900),
     "appendix-pletor": ("assets/pletor-ugc-farm.webp", 1600),
 }
 

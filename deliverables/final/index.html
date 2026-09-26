@@ -62,6 +62,7 @@ section.part{padding-block:72px 24px;scroll-margin-top:48px}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .g-d1{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
 .g-d4{grid-template-columns:minmax(0,3fr) minmax(0,1fr)}
+.g4.g-d8{grid-template-columns:repeat(2,minmax(0,340px))}
 @media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.g2,.g-d1,.g-d4{grid-template-columns:minmax(0,1fr)}}
 
@@ -296,18 +297,12 @@ Want the exact prompt? Comment "UGC" and I'll send it.</pre>
 
     <div class="out" id="d8">
       <div class="out-head"><span class="tag">D8</span><h3>Bonus: Poolday's own Instagram</h3>
-        <p>I saw your story ad while scrolling. Here's my remake, plus a fix for the profile picture.</p></div>
-      <div class="grid g4">
+        <p>I saw your story ad while scrolling. Here's my remake.</p></div>
+      <div class="grid g4 g-d8">
         <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-static-ad.jpg" width="900" height="1600" alt="The remade static ad: other AI video tools versus Poolday">
           <figcaption><b>The ad, remade (static)</b><span>9:16 · grey vs colour, one big VS</span></figcaption></figure>
-        <figure class="card">
-          <video controls preload="none" playsinline poster="media/d8-ad.jpg" width="720" height="1280" src="media/d8-ad.mp4"></video>
-          <figcaption><b>The ad, remade (animated)</b><span>14s · 9:16 · with sound</span></figcaption>
-        </figure>
         <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-original.jpg" width="600" height="1301" alt="The current Poolday story ad">
           <figcaption><b>The current ad</b><span>A static text card</span></figcaption></figure>
-        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-profile-pic.jpg" width="900" height="900" alt="Proposed profile picture: the mark alone, centered">
-          <figcaption><b>Profile picture fix</b><span>Today the circle cuts the logo ("Poolday.a")</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -328,7 +323,7 @@ Want the exact prompt? Comment "UGC" and I'll send it.</pre>
       <div class="tl"><span class="tag">D5</span><p><b>"Paste a link. Watch the video."</b> A free page: pick a launch video, podcast clips or a product ad, paste a link, get your video, book a demo. $15k in 3 stages, each opened only if the last one works.</p></div>
       <div class="tl"><span class="tag">D6</span><p><b>I reviewed both videos and remade them.</b> The main problem is pacing: scenes are too slow and the first 3 seconds are wasted. I saw the same thing on a video from your LinkedIn.</p></div>
       <div class="tl"><span class="tag">D7</span><p><b>15 changes to the pages, each with an A/B test.</b> The biggest: a "Paste your URL" field on the B2B hero, and "Watch a 2-min build" next to "Book a demo" for people not ready to call.</p></div>
-      <div class="tl"><span class="tag">D8</span><p><b>Bonus:</b> a remake of your Instagram story ad, a profile-picture fix, and 12 ideas for short use-case videos.</p></div>
+      <div class="tl"><span class="tag">D8</span><p><b>Bonus:</b> a remake of your Instagram story ad, and 12 ideas for short use-case videos.</p></div>
     </div>
     <div class="nums">
       <div class="num"><b>$835</b><span>of the $2,000 Poolday credits (42%)</span></div>
@@ -407,11 +402,6 @@ Want the exact prompt? Comment "UGC" and I'll send it.</pre>
       </table></div>
       <h4>How they were made</h4>
       <p>Brand kit from the website → my two skills + a reference video I chose → Poolday's approval step → iterations. Wispr Flow went from v1 to v3: real-looking footage and a Gmail screen were added.</p>
-      <h4>What I'd still fix</h4>
-      <ul>
-        <li><b>Flam:</b> from 0:08 to 0:12 the grid holds for 4 seconds with only a cursor moving. It should be 1.5 seconds.</li>
-        <li><b>Wispr Flow:</b> the "meetings" angle only shows at 0:14, and the ending is 7 seconds long. Fine in an email, too long for social.</li>
-      </ul>
       <h4>The emails, ready to send</h4>
       <div class="grid g2">
         <div class="mail"><p class="subj">To Karthik (Flam) · Subject: <b>A 25-second film for Flam's Series B</b></p>
@@ -474,6 +464,7 @@ Want the editable version for the meetings launch?
       <ul>
         <li><b>Account:</b> @natecreates99. New account, warmed up with normal activity (following, liking, commenting) before the first post.</li>
         <li><b>Why only 3 posted:</b> I stopped at 3. From my experience, Instagram's anti-spam filter shadowbans a new account that keeps posting more than once a day. The other 5 reels are ready.</li>
+        <li><b>Why no 4th reel:</b> 3 posts in one day was already the limit for a brand-new account. A 4th would have risked the shadowban and killed the reach of the first 3, so I kept the other reels for the next days.</li>
         <li><b>How:</b> my own format (a shocked face, then the product demo), made in Poolday: pick the actors → pick the voices → scripts → the batch. 6 messages, 52 minutes of agent time.</li>
       </ul>
       <p class="quote">"The AI creator turns the camera around and films the Poolday demo on the laptop. I didn't think that was possible. Before, I made only the hook with AI and filmed the demo myself with my iPhone."</p>
@@ -586,8 +577,7 @@ Want the editable version for the meetings launch?
       <h3>D8 · Bonus: Poolday's Instagram</h3>
       <ul>
         <li><b>The current story ad</b> is a static text card ("No AI slop. Just your videos, edited well."), set in monospace and cyan, which isn't Poolday's own style. Nothing happens in the first 3 seconds.</li>
-        <li><b>The remake shows it instead of saying it:</b> grey "other AI video tools" against a colourful Poolday frame, with a brand kit built from a URL. The animated version opens on an "AI SLOP" stamp in the first second, flips to the same ad done well, and ends on Poolday's real end card. The "LOCAL AI SLOP" sign is a third-party image, so replace it before running the ad.</li>
-        <li><b>Profile picture:</b> the circle cuts the wordmark ("Poolday.a"). Use the mark alone, centered.</li>
+        <li><b>The remake shows it instead of saying it:</b> grey "other AI video tools" against a colourful Poolday frame, with a brand kit built from a URL. The "LOCAL AI SLOP" sign is a third-party image, so replace it before running the ad.</li>
         <li><b>12 short videos to feed the account,</b> one a day, named "&lt;input&gt; to &lt;output&gt;": your URL to a launch film · one podcast to 10 clips · a screen recording to a product demo · your logo to a brand kit in 30s · a viral ad to your ad · one video to 5 formats · English to 6 languages · one prompt to a UGC farm · a lead to a prospect video · a changelog to a release video · photos + voice to a founder story · a webinar to 3 teasers.</li>
       </ul>
     </div>

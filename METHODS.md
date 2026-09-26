@@ -743,3 +743,4 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - The source (`final/index.html`, `final/build_media.py`) is in the repo. The media folder is git-ignored and rebuilt by the script.
   - `DELIVERABLE.md` is updated with the same answers and links to the page.
 - **Left:** the reel view counts (marked "[views]" on the page), and sharing the page with the CEO from its Share menu.
+- **Update (user, before sending):** removed the animated ad and the profile-picture fix from the D8 outputs, and removed "What I'd still fix" from D2 ("it's the final deliverable"). Added a line in D4 on why there's no 4th reel (3 in one day was already the limit for a new account; a 4th risked a shadowban). Republished to the same link (version 2), and the build script no longer makes those media.
