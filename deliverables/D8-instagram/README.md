@@ -1,12 +1,12 @@
 # D8 (bonus): Poolday's Instagram
 
 ## 0. The static story ad (`poolday-static-ad.png`, 1080×1920; `@2x` for print)
-One 9:16 image, split screen, readable in about 1 second:
-- **Top (greyed): "Your launch video, the usual way".** A slides app with WordArt "LUMEN 2.0!!!", clip-art, bullet points, a stretched logo, "Exporting video… 3%" and a sticky note "it's due tomorrow". This is the PowerPoint/slop feeling.
-- **Bottom: the Poolday logo · "same video, made from your brand".** A paused frame of a professional motion-design video (kinetic headline with a motion trail, a 3D-tilted product dashboard, grain, the brand's orange light, player at 0:07/0:15). Next to it, the **brand kit it was built from: "from one URL"** (lumen.com → logo, colors, type, voice, product UI), with an arrow from the kit into the video.
-- **Copy:** "Paste your URL. Get a video that's actually yours." CTA: "Try it with your URL" · poolday.ai.
-- On Poolday's brand: black, Inter 400, the scan-dot halftone, the cream pill CTA. The colour comes only from the customer's video.
-
+One 9:16 image, split screen, almost no copy:
+- **Top (42%, greyed): "AI Slop".** A slides app: WordArt "LUMEN 2.0!!!", clip-art, bullet points, a stretched logo.
+- **Bottom (58%): the Poolday mark + "Made with Poolday".**
+  - A paused frame (0:07 / 0:15) of a professional motion-design video: the Apple-style "phone tunnel" from the user's motion reference, rebuilt for the demo brand **Lumen** (Lumen app screens on every phone, "Plan. Ship. **Grow.**", grain, a motion trail on two phones).
+  - Under it, 📎 **"Inspiration attached · Lumen brand kit"**: a 16:9 one-page brand guide (like the user's reference). It has a stacked outline/filled wordmark hero, logo variants, a colour palette with names and hex (Moss, Ember, Sky, Night, Sand), and typography (Bricolage + Inter) with a button. It reads "From lumen.com".
+- Poolday's side stays on its brand: black, Inter, the scan-dot halftone. The colour comes only from the customer's video. Lumen is fictional, so there are no rights issues.
 
 ## 1. Animated version (`poolday-ad.mp4`, 9:16, 14.4s, with sound)
 **The original** (`original-ig-ad-screenshot.png`): a static card, "No AI slop. Just your videos, edited well. Poolday learns your brand and edits every video to it." The idea is right, but:
