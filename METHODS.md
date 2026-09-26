@@ -512,3 +512,8 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - **Motion blur fix:** v1's 3-sample tmix left ghost copies on fast moves. Now 5 samples over a 180° shutter, captured by 4 parallel Playwright workers as JPEG (~2 min per video).
   - **Soundtrack:** `sound.py` (numpy, all synthesized: kick, hats, bass with sidechain, pads, whoosh, riser, impact, pops, clicks, keys, ding) from the page's `window.CUES`, normalized with loudnorm to −14 LUFS (the first mix was −9.8).
   - **Before/after:** `compare.sh` puts the original and the remake side by side. The local ffmpeg has no drawtext, so the labels are PIL PNG overlays.
+
+## M41. Growth note: the "AI motion designer" trend
+- **User input:** an X screenshot (@tdinh_me, 26 Sep: "paid ~$1,000+ for a video like this a year ago, made it with Opus 5.5 in <30 min", 4k views in 4h; a reply shares the prompt). The user wants this in the final doc: an easy growth lever is to post incredible motion-design videos, because that's the trend and it shows how strong AI motion design is.
+- **Decision:** added to `DELIVERABLE.md` §D5 as a quick win. Format: before/after remakes of known brands plus the prompt, 2–3 a week. The D6 remakes are the proof of concept. Guardrails: name the model only if verified; get brand consent before publishing remakes.
+- **Output:** `deliverables/DELIVERABLE.md` (D5 "Quick win"), `deliverables/assets/trend-opus-motion-design-tweet.png`.

@@ -145,6 +145,11 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 **Distribution: "Poolday can actually do it."** On X, engagement-bait posts claim "an AI model just made this video with one prompt" (often faked). We actually remake the video in Poolday (it pulls the video from the link), screen-record it running, and reply "Poolday can actually do it" + the link. Precedent: Motion/Mosaic replied to big threads with "tag us to get a video explaining this thread".
 
+**Quick win: ride the "AI motion designer" trend.** It's the format of the week on X: "I paid $1,000 for a video like this a year ago. Now I made it with Opus 5.5 in 30 minutes" (e.g. @tdinh_me, 4k views in 4h; replies share the prompt: *"Make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are… visit the pages first to learn about the product, then write the video yourself"*). Screenshot: `assets/trend-opus-motion-design-tweet.png`.
+- **The play:** post incredible motion-design videos made with Poolday for well-known brands, 2–3 a week, with the before/after and the prompt, e.g. "We gave Poolday one prompt: make [brand]'s launch video better." Each post shows people how good AI motion design has become, and that Poolday does it without code.
+- **Proof it works:** my D6 remakes (PostHog and Upflow, rebuilt 100% on brand, with 3D cameras, brand match cuts and a synced soundtrack) are exactly this format.
+- **Honesty rule:** name the model ("Opus 5.5") only if Poolday confirms it runs on it for that video; otherwise "made with Poolday". Only publish another brand's remake with their OK (PostHog's hedgehogs are licensed art), or use our own brand or consenting customers.
+
 **Budget:** a $3k pilot, then up to $12k more unlocked in stages when targets are hit (cost per booked demo ≤$300 in the pilot, ≤$150 at scale).
 
 **Full write-up** (product flow, how it runs on Poolday, distribution, lead routing, budget, metrics, risks): [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link]
