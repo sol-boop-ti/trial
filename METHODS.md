@@ -506,3 +506,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Rights:** PostHog assets are under PolyForm Strict (view-only) and hogs need permission for marketing. The assets are kept out of the repo (`src/_assets` is git-ignored; `fetch-assets.sh` rebuilds it), and the video is labeled a private spec piece.
 - **Output:** `deliverables/D6-video-review/remake/` (`upflow-remake.mp4`, `posthog-remake.mp4`, compare videos, `BRAND-KITS.md`, `README.md`).
 - **Lessons:** when a brand's site is blocked, its GitHub is often the richest brand source (PostHog ships its whole brand as a package). A brand's own video is a usable color and logo source when nothing else is reachable.
+- **v2 (user: "make it incredible and dynamic"):**
+  - **Upflow:** rebuilt around Upflow's period as the hero: a caret macro pull-back; a CSS-3D swarm (perspective, dolly and orbit); an implosion into the brand dot; the dot floods the frame; the period of "simple." becomes a hole match-cut; the app swings in from a 38° tilt; the dot travels the payment timeline on the beat and stamps "Paid"; odometer reels; the dot lands as the logo's period.
+  - **PostHog:** 24 chat windows popping on the beat; a button drop with squash, then shockwave and a rocket chase-cam; Squeak letters slamming with shake; 40 notes raining with rising tremble; whip-pans inside the app; the logomark landing part by part.
+  - **Motion blur fix:** v1's 3-sample tmix left ghost copies on fast moves. Now 5 samples over a 180° shutter, captured by 4 parallel Playwright workers as JPEG (~2 min per video).
+  - **Soundtrack:** `sound.py` (numpy, all synthesized: kick, hats, bass with sidechain, pads, whoosh, riser, impact, pops, clicks, keys, ding) from the page's `window.CUES`, normalized with loudnorm to −14 LUFS (the first mix was −9.8).
+  - **Before/after:** `compare.sh` puts the original and the remake side by side. The local ffmpeg has no drawtext, so the labels are PIL PNG overlays.

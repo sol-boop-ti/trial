@@ -1,0 +1,318 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>PostHog remake</title>
+<style>
+@font-face{font-family:RoundHog;font-weight:400;src:url(_assets/posthog/RoundHog.woff2)}
+@font-face{font-family:RoundHog;font-weight:500;src:url(_assets/posthog/RoundHog-Medium.woff2)}
+@font-face{font-family:RoundHog;font-weight:600;src:url(_assets/posthog/RoundHog-SemiBold.woff2)}
+@font-face{font-family:RoundHog;font-weight:700;src:url(_assets/posthog/RoundHog-Bold.woff2)}
+@font-face{font-family:Squeak;font-weight:700;src:url(_assets/posthog/squeak-bold-webfont.woff2)}
+:root{--bg:#EEEFE9;--text:#151515;--accent:#E5E7E0;--div:#D0D1C9;--red:#F54E00;--yellow:#F1A82C;--blue:#1D4AFF;--gray:#BFBFBC;--win:#FDFDF8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);font-family:RoundHog,sans-serif;color:rgba(21,21,21,.9);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden;background:var(--bg)}
+.hog{position:absolute;transform-origin:50% 100%}
+.win{position:absolute;background:var(--win);border:1.5px solid #BFC1B7;border-radius:8px;box-shadow:0 10px 30px rgba(21,21,21,.08);overflow:hidden}
+.bar{height:44px;background:var(--accent);border-bottom:1.5px solid #D0D1C9;display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:18px;color:var(--text);gap:10px}
+.bar .ctl{margin-left:auto;display:flex;gap:14px;color:#8a8b83;font-weight:600}
+h1.hl{position:absolute;font-weight:800;font-weight:700;color:var(--text);letter-spacing:-1px}
+/* S1 */
+.msg{display:flex;gap:16px;align-items:flex-start;padding:14px 24px;transform-origin:0 50%}
+.av{flex:none;width:48px;height:48px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:20px}
+.msg b{display:block;font-size:19px;color:var(--text)}
+.msg b i{font-style:normal;font-weight:500;color:#8a8b83;font-size:16px;margin-left:8px}
+.msg span{display:block;font-size:30px;font-weight:500;margin-top:2px;color:var(--text)}
+/* S2 */
+#ship{position:absolute;left:50%;top:50%;width:660px;height:200px;margin:-100px 0 0 -330px}
+#btn{position:absolute;inset:0;background:var(--yellow);border:3px solid var(--text);border-radius:14px;display:grid;place-items:center;font-weight:700;font-size:104px;color:var(--text);letter-spacing:-2px}
+#btnsh{position:absolute;inset:0;top:12px;bottom:-12px;background:var(--text);border-radius:14px}
+#cursorA,#cursorB{position:absolute;width:56px;height:56px;left:0;top:0;z-index:20;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+/* S3 */
+#live{position:absolute;left:0;right:0;top:300px;text-align:center;font-family:Squeak;font-weight:700;font-size:290px;line-height:1;color:var(--text);letter-spacing:-.02em;white-space:nowrap}
+#live span{display:inline-block;transform-origin:50% 80%}
+.conf{position:absolute;width:16px;height:30px;border-radius:3px}
+/* S4 */
+.note{position:absolute;width:330px;min-height:230px;padding:30px 30px;background:#FFEBA3;font-weight:700;font-size:40px;line-height:1.12;color:var(--text);box-shadow:0 14px 26px rgba(21,21,21,.14);transform-origin:50% 0}
+.note:before{content:"";position:absolute;left:50%;top:-14px;width:120px;height:30px;margin-left:-60px;background:rgba(255,255,255,.55);transform:rotate(-3deg)}
+/* S5 */
+#app{left:160px;top:170px;width:1600px;height:860px}
+#app .bar{font-size:18px}
+#appbody{position:absolute;top:44px;left:0;right:0;bottom:0;display:grid;grid-template-columns:300px 1fr}
+#nav{border-right:1.5px solid var(--div);padding:22px 16px;background:#F6F6F1}
+.ni{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:8px;font-size:21px;font-weight:600;color:var(--text);margin-bottom:4px;position:relative}
+.ni .ic{width:26px;height:26px;border-radius:6px}
+#hilite{position:absolute;left:16px;width:268px;height:50px;border-radius:8px;background:#fff;border:1.5px solid #D0D1C9}
+#pane{position:relative}
+.beat{position:absolute;inset:0;padding:34px 44px;display:none}
+.beat h3{font-size:30px;font-weight:700;color:var(--text)}
+.beat .sub{font-size:19px;color:#6f7068;font-weight:500;margin-top:6px}
+#chart{position:absolute;left:44px;top:140px;width:1160px;height:520px}
+.big{font-weight:700;color:var(--text)}
+#page{position:absolute;left:44px;top:120px;width:1160px;height:560px;border:1.5px solid var(--div);border-radius:8px;background:#fff;overflow:hidden}
+#tl{position:absolute;left:44px;top:700px;width:1160px;height:40px}
+.flagrow{display:grid;grid-template-columns:1fr 140px;align-items:center;border:1.5px solid var(--div);border-radius:8px;background:#fff;padding:26px 30px;margin-top:22px}
+.tog{width:88px;height:48px;border-radius:999px;background:#D0D1C9;position:relative;border:2px solid var(--text)}
+.tog i{position:absolute;top:4px;left:4px;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--text)}
+#roll{height:30px;border-radius:999px;background:var(--accent);border:1.5px solid var(--div);margin-top:18px;overflow:hidden}
+#rollf{height:100%;width:10%;background:var(--blue)}
+.toast{position:absolute;right:44px;top:30px;background:var(--text);color:#fff;font-weight:600;font-size:21px;padding:16px 22px;border-radius:8px}
+/* S6 */
+#logo{position:absolute;left:50%;top:420px;width:760px;margin-left:-380px}
+#tag{position:absolute;left:0;right:0;top:620px;text-align:center;font-size:46px;font-weight:600;color:rgba(21,21,21,.9)}
+#url{position:absolute;left:0;right:0;top:696px;text-align:center;font-size:32px;font-weight:600;color:var(--red)}
+.wipe{position:absolute;inset:0;z-index:40;visibility:hidden;background:var(--text)}
+</style></head>
+<body>
+<!-- S1 waiting -->
+<div class="scene" id="s1">
+  <h1 class="hl" id="h1a" style="left:150px;top:130px;font-size:92px">Launch day.</h1>
+  <div class="win" id="chat" style="left:150px;top:290px;width:900px;height:480px">
+    <div class="bar"># launch<span class="ctl">– □ ×</span></div>
+    <div id="msgs" style="padding-top:14px"></div>
+  </div>
+  <img class="hog" id="hog1" src="_assets/posthog/hourglass.svg" style="left:1200px;top:300px;width:560px">
+</div>
+<!-- S2 ship it -->
+<div class="scene" id="s2">
+  <img class="hog" id="rocket" src="_assets/posthog/rocket.svg" style="left:780px;top:260px;width:360px">
+  <div id="ship"><div id="btnsh"></div><div id="btn">Ship it</div></div>
+  <svg id="cursorA" viewBox="0 0 24 24"><path d="M5 3l14 8.2-6.3 1.4-3.3 5.9z" fill="#151515" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+</div>
+<!-- S3 it's live -->
+<div class="scene" id="s3"><div id="conf"></div>
+  <div id="live"></div>
+  <img class="hog" id="mega" src="_assets/posthog/megaphone.svg" style="left:1400px;top:560px;width:420px">
+</div>
+<!-- S4 questions -->
+<div class="scene" id="s4">
+  <h1 class="hl" id="h4" style="left:150px;top:110px;font-size:92px">Then the questions start.</h1>
+  <div id="notes"></div>
+  <img class="hog" id="panic" src="_assets/posthog/panic.svg" style="left:1430px;top:590px;width:400px">
+</div>
+<!-- S5 one place -->
+<div class="scene" id="s5">
+  <h1 class="hl" id="h5" style="left:160px;top:52px;font-size:80px">Every answer, in one place.</h1>
+  <div class="win" id="app">
+    <div class="bar"><span id="mk" style="width:44px;display:inline-block"></span>PostHog<span class="ctl">– □ ×</span></div>
+    <div id="appbody">
+      <div id="nav"><div id="hilite"></div>
+        <div class="ni"><span class="ic" style="background:#1D4AFF"></span>Product analytics</div>
+        <div class="ni"><span class="ic" style="background:#F54E00"></span>Session replay</div>
+        <div class="ni"><span class="ic" style="background:#30ABC6"></span>Feature flags</div>
+        <div class="ni"><span class="ic" style="background:#B62AD9"></span>Experiments</div>
+        <div class="ni"><span class="ic" style="background:#F1A82C"></span>Surveys</div>
+        <div class="ni"><span class="ic" style="background:#8567FF"></span>Data warehouse</div>
+      </div>
+      <div id="pane">
+        <div class="beat" id="b1"><h3>New onboarding · daily active users</h3><div class="sub">Last 14 days · compared to previous period</div>
+          <svg id="chart" viewBox="0 0 1160 520">
+            <g stroke="#D0D1C9" stroke-dasharray="4 8" stroke-width="1.5"><path d="M0 130H1160M0 260H1160M0 390H1160"/></g>
+            <path id="prev" d="" fill="none" stroke="#BFBFBC" stroke-width="4" stroke-dasharray="10 10"/>
+            <path id="area" d="" fill="rgba(29,74,255,.08)"/>
+            <path id="line" d="" fill="none" stroke="#1D4AFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <g id="ann"><line x1="580" y1="40" x2="580" y2="500" stroke="#151515" stroke-width="2" stroke-dasharray="6 6"/><rect x="532" y="6" width="96" height="40" rx="6" fill="#151515"/><text x="580" y="33" text-anchor="middle" fill="#fff" font-family="RoundHog" font-weight="700" font-size="20">Launch</text></g>
+            <g id="endl"><circle id="dotend" r="11" fill="#1D4AFF" stroke="#fff" stroke-width="4"/><text id="endtxt" font-family="RoundHog" font-weight="700" font-size="44" fill="#151515" text-anchor="end">12,408</text><text id="endsub" font-family="RoundHog" font-weight="600" font-size="20" fill="#6f7068" text-anchor="end">users tried it</text></g>
+          </svg>
+        </div>
+        <div class="beat" id="b2"><h3>Why did upgrades drop?</h3><div class="sub">Session replay · hogflix.com/pricing</div>
+          <div id="page">
+            <div style="height:56px;border-bottom:1.5px solid #eee;display:flex;align-items:center;padding:0 24px;font-weight:700;font-size:22px;gap:30px">Hogflix<span style="font-weight:500;color:#888;font-size:18px">Browse</span><span style="font-weight:500;color:#888;font-size:18px">Pricing</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;padding:44px">
+              <div style="border:1.5px solid #e4e4df;border-radius:10px;padding:26px;height:330px"><b style="font-size:26px">Basic</b><div style="font-size:48px;font-weight:700;margin:14px 0">$5</div><div style="height:10px;background:#eee;border-radius:5px;margin:12px 0;width:80%"></div><div style="height:10px;background:#eee;border-radius:5px;width:60%"></div></div>
+              <div style="border:2px solid #151515;border-radius:10px;padding:26px;height:330px;position:relative"><b style="font-size:26px">Premium</b><div style="font-size:48px;font-weight:700;margin:14px 0">$12</div><div style="height:10px;background:#eee;border-radius:5px;margin:12px 0;width:80%"></div>
+                <div id="upg" style="position:absolute;left:26px;right:26px;bottom:26px;height:62px;border-radius:8px;background:#151515;color:#fff;display:grid;place-items:center;font-weight:700;font-size:24px">Upgrade</div><div id="ripple" style="position:absolute;width:40px;height:40px;border-radius:50%;border:4px solid #F54E00;left:0;top:0"></div></div>
+              <div style="border:1.5px solid #e4e4df;border-radius:10px;padding:26px;height:330px"><b style="font-size:26px">Family</b><div style="font-size:48px;font-weight:700;margin:14px 0">$18</div><div style="height:10px;background:#eee;border-radius:5px;margin:12px 0;width:80%"></div><div style="height:10px;background:#eee;border-radius:5px;width:60%"></div></div>
+            </div>
+            <svg id="cursorB" viewBox="0 0 24 24"><path d="M5 3l14 8.2-6.3 1.4-3.3 5.9z" fill="#151515" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <div id="rage" style="position:absolute;right:30px;top:78px;background:#F54E00;color:#fff;font-weight:700;font-size:26px;padding:12px 20px;border-radius:8px">Rage click · <span id="rc">0</span>×</div>
+          </div>
+          <svg id="tl" viewBox="0 0 1160 40"><rect x="0" y="16" width="1160" height="8" rx="4" fill="#E5E7E0"/><rect id="tlp" x="0" y="16" width="0" height="8" rx="4" fill="#F54E00"/><g fill="#151515"><circle cx="260" cy="20" r="6"/><circle cx="520" cy="20" r="6"/><circle cx="700" cy="20" r="6"/></g><circle id="head" cx="0" cy="20" r="12" fill="#fff" stroke="#151515" stroke-width="3"/></svg>
+        </div>
+        <div class="beat" id="b3"><h3>Ship the fix to everyone</h3><div class="sub">Feature flags · rolled out gradually, no deploy</div>
+          <div class="flagrow" style="margin-top:40px;width:1160px;border:2px solid #151515"><div><div style="font-size:36px;font-weight:700;color:#151515;font-family:ui-monospace,Menlo,monospace">upgrade-button-fix</div><div style="font-size:23px;color:#6f7068;margin-top:10px">Release condition: <b id="pct" style="color:#151515">10%</b> of users</div><div id="roll"><div id="rollf"></div></div></div><div class="tog" id="tog"><i></i></div></div>
+          <div class="flagrow" style="width:1160px;opacity:.55"><div><div style="font-size:28px;font-weight:700;color:#151515;font-family:ui-monospace,Menlo,monospace">new-onboarding</div><div style="font-size:20px;color:#6f7068;margin-top:8px">100% of users · since launch day</div></div><div class="tog" style="background:#30ABC6"><i style="transform:translateX(40px)"></i></div></div>
+          <div class="flagrow" style="width:1160px;opacity:.55"><div><div style="font-size:28px;font-weight:700;color:#151515;font-family:ui-monospace,Menlo,monospace">annual-plan-banner</div><div style="font-size:20px;color:#6f7068;margin-top:8px">Experiment · 50 / 50 split</div></div><div class="tog" style="background:#30ABC6"><i style="transform:translateX(40px)"></i></div></div>
+          <div class="toast" id="toast">Rolled out to 100% of users</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img class="hog" id="hB1" src="_assets/posthog/chart.svg" style="left:1480px;top:640px;width:380px">
+  <img class="hog" id="hB2" src="_assets/posthog/director.svg" style="left:1480px;top:640px;width:380px">
+  <img class="hog" id="hB3" src="_assets/posthog/experiment.svg" style="left:1500px;top:600px;width:360px">
+</div>
+<!-- S6 end -->
+<div class="scene" id="s6"><div id="endg" style="position:absolute;inset:0">
+  <div id="logo"></div>
+  <div id="tag">One platform for people who build things.</div>
+  <div id="url">posthog.com</div>
+</div></div>
+<div class="wipe" id="w1"></div><div class="wipe" id="w2"></div><div class="wipe" id="w3"></div><div class="wipe" id="w4"></div>
+
+<script src="lib.js"></script>
+<script>
+(async () => {
+  // ---------- logo: official 2026 lockup, with the logomark split into its 4 jumping parts ----------
+  const land = await fetch("_assets/posthog/logo-landscape-gradient.svg").then(r => r.text());
+  const parts = await fetch("_assets/posthog/logomark-parts.json").then(r => r.json());
+  const tmp = document.createElement("div"); tmp.innerHTML = land;
+  const lsvg = tmp.querySelector("svg");
+  // keep only the wordmark paths (they start right of the logomark, x > 55)
+  lsvg.querySelectorAll("path").forEach(p => { const m = /^M\s*([\d.]+)/.exec(p.getAttribute("d") || ""); if (m && +m[1] < 55) p.remove(); });
+  const partSvg = (w, idp) => `<svg viewBox="0 0 52 28" width="${w}" style="overflow:visible;position:absolute;left:0;top:0">${["blue", "red", "yellow", "head"].map(k => `<g data-p="${k}" id="${idp}${k}">${parts[k]}</g>`).join("")}${parts.defs}</svg>`;
+  const lw = 760, sc = lw / 160;
+  $("#logo").innerHTML = `<div style="position:relative;width:${lw}px;height:${28 * sc}px">${partSvg(52 * sc, "L")}<div id="wmk" style="position:absolute;inset:0">${lsvg.outerHTML.replace("<svg", `<svg width="${lw}" style="overflow:visible"`)}</div></div>`;
+  $("#mk").innerHTML = `<div style="position:relative;width:44px;height:24px">${partSvg(44, "M")}</div>`;
+  const JE = E.bez(.6, 0, .2, .8);
+  // official jump: up then down with the app's easing; head first, then yellow, red, blue (stagger = airtime/15)
+  function jump(prefix, t, t0, h, air = .6) {
+    const order = ["head", "yellow", "red", "blue"], st = air / 15;
+    order.forEach((k, i) => {
+      const el = document.getElementById(prefix + k); if (!el) return;
+      const u = (t - t0 - i * st) / air; let y = 0;
+      if (u > 0 && u < 1) y = u < .5 ? -h * JE(u * 2) : -h * (1 - JE((u - .5) * 2));
+      el.style.transform = `translateY(${y}px)`;
+    });
+  }
+
+  // ---------- S1 messages ----------
+  const MS = [["Kim", "#1D4AFF", "is it live yet?"], ["Raj", "#F54E00", "when does it launch??"], ["Ana", "#30ABC6", "refreshing every 5 minutes"], ["Leo", "#DC9300", "where is the launch?"], ["Max", "#B62AD9", "👀"]];
+  $("#msgs").innerHTML = MS.slice(0, 4).map(([n, c, m], i) => `<div class="msg"><div class="av" style="background:${c}">${n[0]}</div><div><b>${n}<i>9:0${i + 1} AM</i></b><span>${m}</span></div></div>`).join("");
+  const msgs = $$(".msg");
+  // ---------- S3 letters + confetti ----------
+  const LIVE = "IT'S LIVE.";
+  $("#live").innerHTML = [...LIVE].map(c => `<span>${c === " " ? "&nbsp;" : c}</span>`).join("");
+  const letters = $$("#live span");
+  const R = rng(5), conf = [];
+  for (let i = 0; i < 26; i++) { const d = document.createElement("div"); d.className = "conf"; d.style.background = ["#F54E00", "#1D4AFF", "#F1A82C", "#151515"][i % 4]; $("#conf").appendChild(d); conf.push({ d, x: 150 + R() * 1620, v: .6 + R() * .6, r: R() * 360, w: (R() - .5) * 700, del: R() * .25 }); }
+  // ---------- S4 notes ----------
+  const NT = [["Did anyone actually use it?", 170, 330, -5], ["Where do people drop off?", 560, 380, 4], ["Why did upgrades dip?", 950, 320, -3], ["Is the new flow better?", 300, 650, 3],
+    ["Which dashboard is right??", 700, 690, -4], ["Another tool??", 1090, 640, 5]];
+  $("#notes").innerHTML = NT.map(([s, x, y, r]) => `<div class="note" style="left:${x}px;top:${y}px" data-r="${r}">${s}</div>`).join("");
+  const notes = $$(".note");
+  // ---------- S5 chart ----------
+  const pts = [], prev = [];
+  for (let i = 0; i <= 13; i++) {
+    const x = i * (1100 / 13) + 10;
+    const base = 400 - i * 6 - Math.sin(i * 1.3) * 16;
+    const y = i < 7 ? base : base - (i - 6) * 42 - 60 * (1 - Math.exp(-(i - 6)));
+    pts.push([x, y]); prev.push([x, 405 - i * 5 + Math.cos(i * 1.1) * 14]);
+  }
+  const pathOf = a => a.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join("");
+  $("#line").setAttribute("d", pathOf(pts)); $("#prev").setAttribute("d", pathOf(prev));
+  $("#area").setAttribute("d", pathOf(pts) + `L${pts[13][0]} 520L${pts[0][0]} 520Z`);
+  const line = $("#line"), LEN = line.getTotalLength();
+  line.style.strokeDasharray = LEN;
+  const end = pts[13];
+  $("#dotend").setAttribute("cx", end[0]); $("#dotend").setAttribute("cy", end[1]);
+  $("#endtxt").setAttribute("x", end[0] - 26); $("#endtxt").setAttribute("y", end[1] - 30);
+  $("#endsub").setAttribute("x", end[0] - 26); $("#endsub").setAttribute("y", end[1] + 2);
+  const ann = pts[6];
+  $("#ann").setAttribute("transform", `translate(${ann[0] - 580},0)`);
+
+  function scene(id, t, a, b) { const on = t >= a && t < b; show($(id), on); return on; }
+  function wipe(id, t, a, d, dir = 1) { const el = $(id), k = P(t, a, d, E.inOutQuint); show(el, t > a && t < a + d); tf(el, `translateX(${L(100, -100, k) * dir}%)`); }
+  // puppet-style entrance: rises from its feet, overshoots, settles; tiny idle breathing afterwards
+  function hog(el, t, a, idle = true) {
+    const k = P(t, a, .7, E.spring), o = P(t, a, .12, E.lin);
+    const breath = idle && t > a + .7 ? Math.sin((t - a) * 3.2) * .012 : 0;
+    tf(el, `translateY(${L(80, 0, P(t, a, .45, E.outCubic))}px) scale(${L(.4, 1, k) + breath}, ${L(.4, 1, k) - breath}) rotate(${L(-8, 0, k)}deg)`); op(el, o);
+  }
+
+  function render(t) {
+    // S1 0–2.45 ---------------------------------------------------------
+    if (scene("#s1", t, 0, 2.45)) {
+      const k = P(t, .05, .6, E.outExpo); op($("#h1a"), k); tf($("#h1a"), `translateY(${L(30, 0, k)}px)`);
+      const w = P(t, .15, .6, E.outExpo); op($("#chat"), w); tf($("#chat"), `translateY(${L(40, 0, w)}px)`);
+      msgs.forEach((m, i) => { const q = P(t, .45 + i * .3, .45, E.outBack); op(m, P(t, .45 + i * .3, .1, E.lin)); tf(m, `scale(${L(.7, 1, q)})`); });
+      hog($("#hog1"), t, .55);
+      // hourglass tips over slowly while we wait
+      $("#hog1").style.rotate = `${Math.max(0, t - 1.4) * 5}deg`;
+    }
+    wipe("#w1", t, 2.25, .4);
+    // S2 2.45–4.35 ------------------------------------------------------
+    if (scene("#s2", t, 2.45, 4.35)) {
+      const b = P(t, 2.5, .5, E.spring); tf($("#ship"), `scale(${L(.6, 1, b)})`);
+      const c = P(t, 2.7, .55, E.outCubic), press = t > 3.28 && t < 3.44;
+      const cx = L(1500, 1060, c), cy = L(900, 590, c);
+      $("#cursorA").style.left = cx + "px"; $("#cursorA").style.top = cy + "px"; tf($("#cursorA"), `scale(${press ? .85 : 1})`);
+      tf($("#btn"), `translateY(${press ? 12 : 0}px)`);
+      // rocket launches from behind the button after the click
+      const r = P(t, 3.4, .9, E.inCubic);
+      op($("#rocket"), t > 3.36 ? 1 : 0);
+      tf($("#rocket"), `translateY(${L(40, -1100, r)}px) scale(${L(.8, 1.1, r)})`);
+      const shake = t > 3.4 && t < 3.8 ? Math.sin(t * 90) * 5 * (1 - P(t, 3.4, .4)) : 0;
+      tf($("#s2"), `translate(${shake}px,${shake * .6}px)`);
+    }
+    wipe("#w2", t, 4.12, .42, -1);
+    // S3 4.35–5.85 ------------------------------------------------------
+    if (scene("#s3", t, 4.35, 5.85)) {
+      letters.forEach((s, i) => { const a = 4.42 + i * .045, k = P(t, a, .55, E.spring); op(s, P(t, a, .08, E.lin)); tf(s, `translateY(${L(120, 0, P(t, a, .35, E.outCubic))}px) scale(${L(.3, 1, k)}) rotate(${L(i % 2 ? 14 : -14, 0, k)}deg)`); });
+      hog($("#mega"), t, 4.85);
+      conf.forEach(c => { const u = Math.max(0, t - 4.7 - c.del); c.d.style.left = c.x + c.w * u * .3 + "px"; c.d.style.top = -60 + u * u * 900 * c.v + u * 200 + "px"; tf(c.d, `rotate(${c.r + u * 400}deg)`); op(c.d, t > 4.7 + c.del ? 1 : 0); });
+    }
+    wipe("#w3", t, 5.62, .42);
+    // S4 5.85–8.9 -------------------------------------------------------
+    if (scene("#s4", t, 5.85, 8.9)) {
+      const k = P(t, 5.9, .6, E.outExpo); op($("#h4"), k); tf($("#h4"), `translateY(${L(30, 0, k)}px)`);
+      notes.forEach((n, i) => {
+        const a = 6.25 + i * .28, q = P(t, a, .5, E.spring), r = +n.dataset.r;
+        op(n, P(t, a, .06, E.lin)); tf(n, `translateY(${L(-60, 0, P(t, a, .25, E.outCubic))}px) scale(${L(1.35, 1, q)}) rotate(${L(r * 3, r, q)}deg)`);
+      });
+      hog($("#panic"), t, 7.2);
+      // everything gets swept away at the end
+      const sw = P(t, 8.5, .4, E.inExpo); tf($("#notes"), `translateX(${-sw * 2200}px)`); tf($("#panic"), $("#panic").style.transform + ` translateX(${sw * 900}px)`);
+    }
+    // S5 8.75–15.2 ------------------------------------------------------
+    if (scene("#s5", t, 8.75, 15.2)) {
+      $("#s5").style.zIndex = 2;
+      const k = P(t, 8.75, .7, E.outExpo);
+      tf($("#app"), `translateY(${L(700, 0, k)}px)`);
+      const h = P(t, 8.95, .6, E.outExpo); op($("#h5"), h); tf($("#h5"), `translateY(${L(30, 0, h)}px)`);
+      jump("M", t, 9.45, 10);
+      const beats = [9.3, 11.35, 13.35];
+      const bi = t < beats[1] ? 0 : t < beats[2] ? 1 : 2;
+      ["#b1", "#b2", "#b3"].forEach((id, i) => { $(id).style.display = i === bi ? "block" : "none"; $(id).style.visibility = "inherit"; });
+      // nav highlight glides between items
+      const hy = L(L(22, 22 + 58, P(t, beats[1] - .15, .4, E.inOutCubic)), 22 + 116, P(t, beats[2] - .15, .4, E.inOutCubic));
+      $("#hilite").style.top = hy + "px";
+      const bk = P(t, beats[bi], .5, E.outExpo); tf($("#" + ["b1", "b2", "b3"][bi]), `translateY(${L(24, 0, bk)}px)`); op($("#" + ["b1", "b2", "b3"][bi]), bk);
+      // beat 1: chart draws, then the number lands
+      const d = P(t, 9.45, 1.1, E.inOutCubic);
+      line.style.strokeDashoffset = LEN * (1 - d); op($("#area"), P(t, 10.2, .5)); op($("#prev"), P(t, 9.4, .4));
+      op($("#ann"), P(t, 9.95, .25)); const ek = P(t, 10.45, .5, E.outBack); op($("#endl"), P(t, 10.45, .1, E.lin));
+      $("#endtxt").textContent = Math.round(12408 * P(t, 10.45, .6, E.outExpo)).toLocaleString("en-US");
+      $("#dotend").setAttribute("r", 11 * ek);
+      // beat 2: rage clicks on Upgrade
+      const cb = P(t, 11.5, .5, E.outCubic);
+      $("#cursorB").style.left = L(900, 575, cb) + "px"; $("#cursorB").style.top = L(470, 440, cb) + "px";
+      const clicks = t < 11.95 ? 0 : Math.min(47, Math.floor((t - 11.95) * 60));
+      $("#rc").textContent = clicks; op($("#rage"), P(t, 12.0, .15, E.lin)); tf($("#rage"), `scale(${L(.5, 1, P(t, 12.0, .45, E.spring))})`);
+      const ph = ((t - 11.95) * 7) % 1, rp = $("#ripple");
+      rp.style.left = 150 + "px"; rp.style.top = 250 + "px"; op(rp, t > 11.95 && t < 13.2 ? 1 - ph : 0); tf(rp, `scale(${.5 + ph * 1.6})`);
+      tf($("#cursorB"), `translate(${t > 11.95 ? Math.sin(t * 70) * 3 : 0}px,0) scale(${t > 11.95 && ph < .3 ? .88 : 1})`);
+      const tp = P(t, 11.35, 1.9, E.lin); $("#tlp").setAttribute("width", 1160 * L(.2, .62, tp)); $("#head").setAttribute("cx", 1160 * L(.2, .62, tp));
+      // beat 3: flag on, rollout 10 → 100
+      const on = P(t, 13.65, .35, E.outBack);
+      $("#tog").style.background = t > 13.65 ? "#30ABC6" : "#D0D1C9"; tf($("#tog i"), `translateX(${40 * on}px)`);
+      const pc = Math.round(L(10, 100, P(t, 13.95, .8, E.inOutCubic)));
+      $("#pct").textContent = pc + "%"; $("#rollf").style.width = pc + "%";
+      const ts = P(t, 14.75, .4, E.spring); op($("#toast"), P(t, 14.75, .1, E.lin)); tf($("#toast"), `translateY(${L(-20, 0, ts)}px) scale(${L(.8, 1, ts)})`);
+      // hedgehog per beat
+      [["#hB1", 9.9, 11.35], ["#hB2", 11.7, 13.35], ["#hB3", 13.75, 99]].forEach(([id, a, z]) => { if (t < z) hog($(id), t, a); else op($(id), 1 - P(t, z, .15, E.lin)); });
+    }
+    wipe("#w4", t, 15.0, .45);
+    // S6 15.2–19.4 ------------------------------------------------------
+    if (scene("#s6", t, 15.2, 99)) {
+      // logomark jumps in (the app's jump, doubled height), wordmark follows
+      jump("L", t, 15.3, 70, .75);
+      const pk = P(t, 15.28, .18, E.lin); op($("#logo"), pk);
+      const wk = P(t, 15.55, .6, E.outExpo); op($("#wmk"), wk); tf($("#wmk"), `translateX(${L(-24, 0, wk)}px)`);
+      jump("L", t, 17.3, 26, .6);
+      const g = P(t, 15.95, .6, E.outExpo); op($("#tag"), g); tf($("#tag"), `translateY(${L(24, 0, g)}px)`);
+      const u = P(t, 16.2, .6, E.outExpo); op($("#url"), u); tf($("#url"), `translateY(${L(24, 0, u)}px)`);
+    }
+  }
+  boot(19.4, render);
+})();
+</script>
+</body></html>

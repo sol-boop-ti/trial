@@ -4,38 +4,45 @@ The review (`../D6-video-review.md`) says what's wrong. These two remakes show t
 
 | | Original | Remake |
 |---|---|---|
-| Upflow | 23.3s, scenes 1–2s too long, the product never appears, the proof is micro-text | **15.4s** · `upflow-remake.mp4` · `upflow-compare.mp4` |
-| PostHog | 24.4s, 3D clay renders (off-brand), the old logo, a slide-style end card | **19.4s** · `posthog-remake.mp4` · `posthog-compare.mp4` |
+| Upflow | 23.3s, scenes 1–2s too long, the product never appears, the proof is micro-text | **16.4s** · `upflow-remake.mp4` · `upflow-compare.mp4` |
+| PostHog | 24.4s, 3D clay renders (off-brand), the old logo, a slide-style end card | **19.8s** · `posthog-remake.mp4` · `posthog-compare.mp4` |
 
-## Upflow: every fix from the review, applied
-| Time | Shot | Fixes |
-|---|---|---|
-| 0.0–1.4 | The question is already half-typed and finishes at ~26 characters/s | No empty first second; the hook reads in ~1s |
-| 1.4–3.7 | The swarm grows outward in 6 languages (a golden-angle spiral), the camera pulls back, then a whip | Same idea, 2s shorter, denser |
-| 3.7–4.6 | "Something simple." as **one** card, the words masked up | 3s and 2 cards → 0.9s and 1 card |
-| 4.6–10.3 | **The payoff:** the Upflow app. The same question typed in search → Acme Corp → invoice #2041 → the activity timeline (reminder sent automatically → portal opened → paid) → the chip flips from "Due in 3 days" to **"Paid · 3 days early"**; slow push-in | The missing beat: the product answers the opening question |
-| 10.3–12.3 | **−79%** counts up, "invoices 31+ days overdue · WorkMotion, with Upflow" | The best line in the video, promoted from footer micro-text to a hero card |
-| 12.3–15.4 | The wordmark rises, **the period drops in last**, the divider draws, the tagline and upflow.io; a slow drift | Logo in ≤0.8s and alive, not typed over 4s |
+Version 2 (current) is built to show off: 3D cameras, match cuts on brand elements, a synthesized soundtrack with every hit on its frame, and real 180° motion blur. Version 1 (calmer) is kept in `src/*-v1.html`.
 
-## PostHog: same story, in PostHog's own medium
+## Upflow: "the dot" (Upflow's period is the hero)
+| Time | Shot |
+|---|---|
+| 0.0–1.5 | Macro on the caret; the camera pulls back as "Did Acme pay invoice #2041 yet?" types (key clicks on every letter) |
+| 1.5–3.6 | A 3D dolly back with a slow orbit: 64 questions in 6 languages pop into a deep field around it, the beat kicks in, then doubles |
+| 3.6–4.0 | **Implosion:** the whole swarm is sucked into one point, and it becomes Upflow's blue dot |
+| 4.0–5.9 | The dot swallows the frame blue → "Something simple." The period of "simple." grows into a hole that reveals the next scene (dot-to-dot match cut) |
+| 5.9–10.6 | The Upflow app swings in from a 38° 3D tilt; the question types in search; results cascade; **the brand dot travels the payment journey** (sent → reminder → portal → paid), lighting each step on the beat; it turns green, arcs up and **stamps the chip: "Paid · 3 days early"** (ding + ring); push-in |
+| 10.6–12.6 | Whip pan to navy: **−79%** on odometer reels with motion blur; 6 "overdue" bars shrink by 79%; WorkMotion credit |
+| 12.6–16.4 | A blue dot drops, squashes, and floods the frame; the wordmark rises; **a white dot falls and lands exactly on Upflow's period**; divider, tagline, upflow.io |
+
+## PostHog: "launch day" in PostHog OS
 | Time | Shot | Brand rule it follows |
 |---|---|---|
-| 0.0–2.45 | "Launch day." A `# launch` chat window ("is it live yet?", "where is the launch?") + the **hourglass hog**, slowly tipping | PostHog OS windows; a real hog, puppet-style entrance |
-| 2.45–4.35 | A big 3D "Ship it" button (hard shadow, a real press), the cursor clicks, the **rocket hog** launches, a small camera shake | "Pressing down" button feel from the brand's interaction rules |
-| 4.35–5.85 | **IT'S LIVE.** in Squeak (uppercase, with the **megaphone hog**) + flat brand-color confetti | Squeak only uppercase and only next to hog art |
-| 5.85–8.9 | "Then the questions start." Sticky notes slap in ("Where do people drop off?", "Which dashboard is right??", "Another tool??") + the **panic hog**; everything gets swept away | The original's "so many tools" beat, in 2D |
-| 8.9–15.2 | "Every answer, in one place." One PostHog window whose nav highlight glides through 3 products: **Product analytics** (the line draws, a "Launch" annotation, 12,408 users labeled directly on the line), **Session replay** (Hogflix pricing page, **rage click ×47** on Upgrade), **Feature flags** (the fix rolls out 10% → 100%). One hog per beat (chart, director, experiment) | "Show, don't tell"; synthetic data that tells a story (their handbook's own 47-clicks example); charts labeled directly, annotated at the launch |
-| 15.2–19.4 | The **official 2026 logo**, the logomark doing the app's own jump (head first), the wordmark, "One platform for people who build things.", posthog.com in link red; a second small jump, then still | Never the old logo; approved motion only; ends on a still frame |
+| 0.0–2.55 | Close on one "is it live yet?" DM; the camera pulls back as 24 chat windows pop open on the beat around the **hourglass hog**, which slowly tips; then everything is flung off-screen | PostHog OS windows; real hog, puppet-style |
+| 2.55–4.4 | The "Ship it" button drops and squashes; cursor click → shockwave → the **rocket hog** launches; the camera chases it up through speed lines | The brand's "pressing-down" button |
+| 4.4–5.9 | **IT'S LIVE.** Squeak letters slam down one per beat with camera shake; the **megaphone hog** blasts sound rings and brand-color confetti | Squeak uppercase, only next to hog art |
+| 5.9–9.0 | "Then the questions start." 40 sticky notes rain down faster and faster; the frame trembles; the **panic hog**; then the PostHog window whips in and shoves the pile away | The original's "too many tools" beat, in 2D |
+| 9.0–15.3 | "Every answer, in one place." Whip-pans inside one PostHog window: **analytics** (the line draws with a live dot; the "Launch" flag drops; 12,408 counts up), **session replay** (Hogflix pricing, **rage click ×47** with shake and ripples), **feature flags** (the fix rolls out 10% → 100%; toast). One hog per beat | Real product UI, synthetic data that tells a story (the handbook's own 47-clicks example), direct labels, an annotation at the launch |
+| 15.3–19.8 | **The official 2026 logomark lands part by part on the beat, head first** (the landing half of the app's own jump); wordmark; tagline; posthog.com in link red; one real logomark jump, then still | The current logo only; approved motion; ends on a still frame |
+
+## Soundtrack
+`src/sound.py` synthesizes everything from the page's cue list (`window.CUES`): a 120 bpm bed (kick, hats, bass, sidechain pump, pads), whooshes, risers, impacts, UI pops, clicks, keystrokes and a "paid" ding. Every hit sits on its frame. It's normalized to −14 LUFS. No samples or licensed music are used. A pro music bed would still be swapped in for a public version.
 
 ## Rebuild
 ```bash
 bash fetch-assets.sh                                  # brand assets → src/_assets (git-ignored)
 cd src && python3 -m http.server 8777 &
 NODE_PATH=/opt/node22/lib/node_modules node capture.js upflow posthog
+bash compare.sh upflow; bash compare.sh posthog     # before/after side by side
 open http://127.0.0.1:8777/upflow.html                # live preview loop
 ```
 
 ## Honest limits
-- **No music or sound design.** Both would be added in the edit, cut on the beats above.
+- **The soundtrack is synthesized** (tight to the picture, but not a composer's work).
 - **The Upflow UI is a reconstruction.** Swap in real product screens for a public version.
 - **PostHog's hedgehogs are licensed art.** This is a private spec piece; don't post it without PostHog's OK.

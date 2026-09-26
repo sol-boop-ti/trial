@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>Upflow remake</title>
+<html><head><meta charset="utf-8"><title>Upflow remake v2</title>
 <link rel="stylesheet" href="_assets/upflow/fonts.css">
 <style>
 :root{--blue:#3936DC;--navy:#191A4C;--paper:#FAFAF7;--ink:#191A4C;--mute:#6E6F8C;--line:#E9E9F1;--tint:#EEEEFD;--green:#0E8A55;--greenbg:#E4F6EC;--amber:#A86300;--amberbg:#FFF3DC}
@@ -7,23 +7,23 @@
 html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);font-family:Figtree,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
 .scene{position:absolute;inset:0;overflow:hidden;visibility:hidden}
 svg{display:block}
-/* S1–S2: the question */
-#s1{background:var(--paper)}
-#cam{position:absolute;left:50%;top:50%;width:0;height:0}
-.pill{position:absolute;display:flex;align-items:center;gap:.5em;white-space:nowrap;background:#fff;border:1px solid #E4E4EC;border-radius:999px;box-shadow:0 1px 2px rgba(25,26,76,.06),0 8px 24px rgba(25,26,76,.06);color:var(--ink);font-weight:500;transform-origin:center}
+.pill{position:absolute;display:flex;align-items:center;gap:.5em;white-space:nowrap;background:#fff;border:1px solid #E4E4EC;border-radius:999px;box-shadow:0 1px 2px rgba(25,26,76,.06),0 10px 30px rgba(25,26,76,.08);color:var(--ink);font-weight:500;left:0;top:0}
 .pill svg{flex:none;width:.9em;height:.9em}
-#main{font-size:46px;padding:.55em 1em .55em .8em;left:0;top:0}
-.sp{font-size:25px;padding:.5em .95em .5em .75em}
-.caret{display:inline-block;width:3px;height:1.05em;background:var(--blue);margin-left:2px;vertical-align:-.15em}
-/* S3 */
-#s3{background:var(--blue);display:grid;place-items:center;color:#fff}
-#s3 h1{font-size:150px;font-weight:600;letter-spacing:-4px;display:flex;gap:.26em}
-.mask{display:inline-block;overflow:hidden;padding:0 .02em .12em;margin-bottom:-.12em}
+.caret{display:inline-block;width:.07em;height:1.05em;background:var(--blue);margin-left:2px;vertical-align:-.15em}
+#s1{background:var(--paper);perspective:1300px;perspective-origin:50% 50%}
+#field{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+#main{font-size:46px;padding:.55em 1em .55em .8em}
+.sp{font-size:30px;padding:.5em .95em .5em .75em}
+#dot{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:var(--blue);z-index:5}
+#s3{background:var(--blue);color:#fff}
+#s3 h1{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);font-size:160px;font-weight:600;letter-spacing:-5px;display:flex;justify-content:center;gap:.26em}
+.mask{display:inline-block;overflow:hidden;padding:0 .02em .14em;margin-bottom:-.14em}
 .mask>span{display:inline-block}
-/* S4: the app */
-#s4{background:var(--paper)}
-#appcam{position:absolute;inset:0;transform-origin:0 0}
-#app{position:absolute;left:140px;top:80px;width:1640px;height:920px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 100px rgba(25,26,76,.13),0 4px 12px rgba(25,26,76,.05);overflow:hidden;display:grid;grid-template-columns:260px 1fr}
+#wdot{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:#fff;margin-left:.02em}
+#hole{position:absolute;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:var(--paper);z-index:6}
+#s4{background:var(--paper);perspective:2400px;perspective-origin:50% 40%}
+#appcam{position:absolute;inset:0;transform-style:preserve-3d}
+#app{position:absolute;left:140px;top:80px;width:1640px;height:920px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 50px 120px rgba(25,26,76,.18),0 4px 12px rgba(25,26,76,.05);overflow:hidden;display:grid;grid-template-columns:260px 1fr}
 #side{border-right:1px solid var(--line);padding:34px 22px;background:#FCFCFE}
 #side .wm{width:122px;color:var(--navy);margin:0 0 42px 12px}
 .nav{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:12px;font-size:20px;font-weight:500;color:var(--mute);margin-bottom:4px}
@@ -31,64 +31,66 @@ svg{display:block}
 .nav.on{background:var(--tint);color:var(--blue);font-weight:600}
 #mainc{display:flex;flex-direction:column}
 #top{height:92px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 36px;gap:18px}
-#search{flex:none;width:760px;height:54px;border:1.5px solid #E1E1EA;border-radius:999px;display:flex;align-items:center;gap:14px;padding:0 22px;font-size:22px;font-weight:500;color:var(--ink);background:#fff}
-#search.focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(57,54,220,.12)}
+#search{flex:none;width:760px;height:56px;border:1.5px solid #E1E1EA;border-radius:999px;display:flex;align-items:center;gap:14px;padding:0 22px;font-size:23px;font-weight:500;color:var(--ink);background:#fff}
+#search.focus{border-color:var(--blue);box-shadow:0 0 0 5px rgba(57,54,220,.13)}
 #search svg{width:22px;height:22px}
 #search .ph{color:#A3A4B8}
 .avatar{margin-left:auto;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:600;font-size:17px}
-#body{padding:34px 40px;display:grid;grid-template-columns:1fr 560px;gap:28px;align-content:start}
+#body{position:relative;padding:34px 40px;display:grid;grid-template-columns:1fr 560px;gap:28px;align-content:start}
 .crumb{grid-column:1/-1;font-size:18px;color:var(--mute);font-weight:500}
 .cust{grid-column:1/-1;display:flex;align-items:center;gap:18px;margin:-6px 0 4px}
 .cust .lg{width:56px;height:56px;border-radius:14px;background:#0F1030;color:#fff;display:grid;place-items:center;font-weight:700;font-size:26px}
 .cust h2{font-size:40px;font-weight:700;letter-spacing:-.5px}
 .cust .tag{font-size:17px;font-weight:600;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:5px 13px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative}
 .inv-h{display:flex;align-items:center;justify-content:space-between}
 .inv-h .n{font-size:22px;font-weight:600;color:var(--mute)}
 .amt{font-size:64px;font-weight:700;letter-spacing:-1.5px;margin:10px 0 22px}
 .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;border-top:1px solid var(--line);padding-top:22px}
 .meta b{display:block;font-size:16px;color:var(--mute);font-weight:500;margin-bottom:6px}
 .meta span{font-size:22px;font-weight:600}
-.chip{position:relative;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 18px;border-radius:999px;font-size:20px;font-weight:600;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 19px;border-radius:999px;font-size:21px;font-weight:600;white-space:nowrap;position:absolute;right:0;top:0}
 .chip.due{background:var(--amberbg);color:var(--amber)}
-.chip.paid{background:var(--greenbg);color:var(--green);position:absolute;right:0;top:0}
+.chip.paid{background:var(--greenbg);color:var(--green)}
 .chip svg{width:20px;height:20px}
-#chipwrap{position:relative;height:44px;width:300px;display:flex;justify-content:flex-end}
-#chipwrap .due{position:absolute;right:0;top:0}
+#chipwrap{position:relative;height:46px;width:320px}
+#ring{position:absolute;right:120px;top:23px;width:10px;height:10px;margin:-5px -5px 0 0;border-radius:50%;border:4px solid #18B26B}
 .others{margin-top:22px}
 .others h4{font-size:17px;color:var(--mute);font-weight:600;margin:0 0 10px 4px}
 .row{display:grid;grid-template-columns:110px 1fr 150px 200px;align-items:center;padding:15px 6px;border-top:1px solid var(--line);font-size:19px;font-weight:500}
 .row .s{font-size:16px;font-weight:600;justify-self:start;padding:5px 12px;border-radius:999px;background:#F1F1F6;color:var(--mute)}
 .act h3{font-size:22px;font-weight:700;margin-bottom:20px}
 .ev{position:relative;display:grid;grid-template-columns:34px 1fr;gap:6px;padding-bottom:26px}
-.ev .dot{width:14px;height:14px;border-radius:50%;margin-top:6px;background:#C9CAD8;position:relative;z-index:1}
-.ev .ln{position:absolute;left:6px;top:24px;width:2px;height:calc(100% - 18px);background:var(--line);transform-origin:top}
+.ev .dt{width:14px;height:14px;border-radius:50%;margin-top:6px;background:#D5D6E2;position:relative;z-index:1}
 .ev p{font-size:20px;font-weight:600;line-height:1.3}
 .ev small{display:block;font-size:16px;color:var(--mute);font-weight:500;margin-top:3px}
-.ev.blue .dot{background:var(--blue)}
-.ev.green .dot{background:#18B26B}
-#cursor{position:absolute;width:42px;height:42px;left:0;top:0;z-index:20;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
-/* S5 */
-#s5{background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center}
-#big{font-size:330px;font-weight:700;letter-spacing:-12px;line-height:.9;font-variant-numeric:tabular-nums}
-#s5 p{font-size:54px;font-weight:500;margin-top:26px;letter-spacing:-.5px}
-#s5 small{display:block;font-size:30px;font-weight:500;opacity:.62;margin-top:22px}
-/* S6 */
-#s6{background:var(--blue);color:#fff}
-#endg{position:absolute;inset:0;transform-origin:50% 50%}
-#wmend{position:absolute;left:150px;top:448px;width:560px;overflow:visible}
-#wmmask{position:absolute;left:140px;top:420px;width:620px;height:230px;overflow:hidden}
+#rail{position:absolute;width:2px;background:var(--line)}
+#railf{position:absolute;left:0;top:0;width:2px;background:var(--blue)}
+#trav{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--blue);z-index:8;box-shadow:0 0 0 6px rgba(57,54,220,.18)}
+#cursor{position:absolute;width:44px;height:44px;left:0;top:0;z-index:20;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+#s5{background:var(--navy);color:#fff}
+#num{position:absolute;left:0;right:0;top:150px;display:flex;justify-content:center;font-size:330px;font-weight:700;letter-spacing:-10px;line-height:1}
+.reel{display:inline-block;height:1em;overflow:hidden;line-height:1}
+.reel>div{display:flex;flex-direction:column}
+#bars{position:absolute;left:50%;top:610px;width:880px;height:150px;margin-left:-440px;display:flex;align-items:flex-end;gap:22px}
+#bars i{flex:1;height:150px;background:rgba(255,255,255,.92);border-radius:8px 8px 3px 3px;transform-origin:bottom}
+#cap{position:absolute;left:0;right:0;top:810px;text-align:center;font-size:54px;font-weight:500;letter-spacing:-.5px}
+#cap small{display:block;font-size:30px;opacity:.62;margin-top:14px}
+#s6{background:var(--navy);color:#fff}
+#bigdot{position:absolute;left:50%;top:50%;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;background:var(--blue)}
+#endg{position:absolute;inset:0}
+#wmmask{position:absolute;left:140px;top:420px;width:640px;height:240px;overflow:hidden}
+#wmend{position:absolute;left:10px;top:28px}
+#fdot{position:absolute;border-radius:50%;background:#fff}
 #divl{position:absolute;left:958px;top:540px;width:3px;height:0;background:#fff;transform:translateY(-50%)}
-.tl{position:absolute;left:1030px;font-size:52px;font-weight:500;letter-spacing:-.5px;line-height:1.1}
-#url{position:absolute;left:1030px;top:668px;font-size:30px;font-weight:500;opacity:.75}
-.wipe{position:absolute;inset:0;z-index:30;visibility:hidden}
+.tl{position:absolute;left:1030px;font-size:54px;font-weight:500;letter-spacing:-.5px;line-height:1.1;white-space:nowrap}
+#url{position:absolute;left:1030px;top:672px;font-size:30px;font-weight:500}
 </style></head>
 <body>
-<!-- S1–S2 -->
-<div class="scene" id="s1"><div id="cam"><div class="pill" id="main"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="mq"></span><span class="caret" id="caret"></span></div></div></div>
-<!-- S3 -->
-<div class="scene" id="s3"><h1><span class="mask"><span>Something</span></span><span class="mask"><span>simple.</span></span></h1></div>
-<!-- S4 -->
+<div class="scene" id="s1"><div id="field"><div class="pill" id="main"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="mq"></span><span class="caret" id="caret"></span></div></div><div id="dot"></div></div>
+
+<div class="scene" id="s3"><h1><span class="mask"><span>Something</span></span><span class="mask"><span>simple<span id="wdot"></span></span></span></h1><div id="hole"></div></div>
+
 <div class="scene" id="s4"><div id="appcam">
   <div id="app">
     <aside id="side"><div class="wm" id="wmside"></div>
@@ -100,15 +102,15 @@ svg{display:block}
       <div class="nav"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Insights</div>
     </aside>
     <section id="mainc">
-      <div id="top"><div id="search"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="sq"></span><span class="caret" id="caret2"></span></div><div class="avatar">MC</div></div>
+      <div id="top"><div id="search"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="sq"></span><span class="caret" id="caret2" style="width:3px"></span></div><div class="avatar">MC</div></div>
       <div id="body">
         <div class="crumb r0">Customers / Acme Corp</div>
         <div class="cust r0"><div class="lg">A</div><h2>Acme Corp</h2><span class="tag">Net 30</span></div>
         <div class="r1">
-          <div class="card">
+          <div class="card" id="invcard">
             <div class="inv-h"><span class="n">Invoice #2041</span>
               <div id="chipwrap"><span class="chip due" id="due"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Due in 3 days</span>
-              <span class="chip paid" id="paid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Paid · 3 days early</span></div>
+              <span class="chip paid" id="paid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Paid · 3 days early</span><div id="ring"></div></div>
             </div>
             <div class="amt">€12,400.00</div>
             <div class="meta"><div><b>Issued</b><span>Aug 28</span></div><div><b>Due</b><span>Sep 30</span></div><div><b>Paid</b><span id="pdate">—</span></div></div>
@@ -118,159 +120,203 @@ svg{display:block}
             <div class="row"><span>#2043</span><span>Initech</span><span>€8,950</span><span class="s">Due Oct 12</span></div>
           </div>
         </div>
-        <div class="card act r1"><h3>Activity</h3>
-          <div class="ev"><div class="dot"></div><div class="ln"></div><div><p>Invoice sent</p><small>Aug 28 · by email</small></div></div>
-          <div class="ev blue"><div class="dot"></div><div class="ln"></div><div><p>Reminder sent automatically</p><small>Sep 20 · Friendly reminder workflow</small></div></div>
-          <div class="ev blue"><div class="dot"></div><div class="ln"></div><div><p>Acme opened the payment portal</p><small>Sep 26 · 2 min on page</small></div></div>
-          <div class="ev green"><div class="dot"></div><div><p>Paid by bank transfer · €12,400</p><small>Sep 27 · reconciled automatically</small></div></div>
+        <div class="card act r1" id="actcard"><h3>Activity</h3><div id="rail"><div id="railf"></div></div>
+          <div class="ev"><div class="dt"></div><div><p>Invoice sent</p><small>Aug 28 · by email</small></div></div>
+          <div class="ev"><div class="dt"></div><div><p>Reminder sent automatically</p><small>Sep 20 · Friendly reminder workflow</small></div></div>
+          <div class="ev"><div class="dt"></div><div><p>Acme opened the payment portal</p><small>Sep 26 · 2 min on page</small></div></div>
+          <div class="ev"><div class="dt"></div><div><p>Paid by bank transfer · €12,400</p><small>Sep 27 · reconciled automatically</small></div></div>
         </div>
       </div>
     </section>
+    <div id="trav"></div>
   </div>
   <svg id="cursor" viewBox="0 0 24 24"><path d="M5 3l14 8.2-6.3 1.4-3.3 5.9z" fill="#111" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
 </div></div>
-<!-- S5 -->
-<div class="scene" id="s5"><div id="proof"><div id="big">−0%</div><p>invoices 31+ days overdue</p><small>WorkMotion, with Upflow</small></div></div>
-<!-- S6 -->
-<div class="scene" id="s6"><div id="endg">
-  <div id="wmmask"><div id="wmend" style="position:absolute;left:10px;top:28px"></div></div>
+
+<div class="scene" id="s5"><div id="proofg" style="position:absolute;inset:0">
+  <div id="num"><span id="minus">−</span><span class="reel" id="r1"><div></div></span><span class="reel" id="r2"><div></div></span><span>%</span></div>
+  <div id="bars"></div>
+  <div id="cap">fewer invoices 31+ days overdue<small>WorkMotion, with Upflow</small></div>
+</div></div>
+
+<div class="scene" id="s6"><div id="bigdot"></div><div id="endg">
+  <div id="wmmask"><div id="wmend"></div></div><div id="fdot"></div>
   <div id="divl"></div>
-  <div class="tl" id="tl1" style="top:468px">faster payments.</div>
-  <div class="tl" id="tl2" style="top:526px">stronger relationships.</div>
+  <div class="tl" id="tl1" style="top:470px">faster payments.</div>
+  <div class="tl" id="tl2" style="top:530px">stronger relationships.</div>
   <div id="url">upflow.io</div>
 </div></div>
-<div class="wipe" id="w1" style="background:var(--blue)"></div>
-<div class="wipe" id="w2" style="background:var(--navy)"></div>
-<div class="wipe" id="w3" style="background:var(--blue)"></div>
 
 <script src="lib.js"></script>
 <script>
 (async () => {
   const get = f => fetch("_assets/upflow/" + f).then(r => r.text());
-  const [vb, lett, dot] = await Promise.all([get("wm-vb.txt"), get("wm-letters.txt"), get("wm-dot.txt")]);
-  const wm = (w, dotId) => `<svg viewBox="${vb}" width="${w}" style="overflow:visible"><path fill="currentColor" fill-rule="evenodd" d="${lett}"/><path ${dotId ? `id="${dotId}"` : ""} fill="currentColor" d="${dot}" style="transform-box:fill-box;transform-origin:50% 100%"/></svg>`;
-  $("#wmside").innerHTML = wm(122);
-  $("#wmend").innerHTML = wm(560, "enddot");
+  const [vb, lett, dotp] = await Promise.all([get("wm-vb.txt"), get("wm-letters.txt"), get("wm-dot.txt")]);
+  const vbn = vb.split(" ").map(Number);
+  $("#wmside").innerHTML = `<svg viewBox="${vb}" width="122"><path fill="currentColor" fill-rule="evenodd" d="${lett}"/><path fill="currentColor" d="${dotp}"/></svg>`;
+  $("#wmend").innerHTML = `<svg viewBox="${vb}" width="580"><path fill="currentColor" fill-rule="evenodd" d="${lett}"/></svg>`;
+  // where Upflow's real period sits in the end lockup, so the white dot lands exactly on it
+  const dn = dotp.match(/-?\d+\.?\d*/g).map(Number), dxs = dn.filter((_, i) => i % 2 == 0), dys = dn.filter((_, i) => i % 2);
+  const sc = 580 / vbn[2];
+  const DOT = { x: 140 + 10 + (Math.min(...dxs) - vbn[0]) * sc, y: 420 + 28 + (Math.min(...dys) - vbn[1]) * sc, d: (Math.max(...dxs) - Math.min(...dxs)) * sc };
+  $("#fdot").style.width = $("#fdot").style.height = DOT.d + "px";
 
-  // ---------- swarm ----------
+  const CUES = [], cue = (k, t, o = {}) => CUES.push({ k, t, ...o });
+
+  // ---------- A/B: the question, then a 3D swarm ----------
   const Q = "Did Acme pay invoice #2041 yet?";
+  for (let i = 0; i < Q.length; i++) cue("type", 0.06 + i / 27, { g: .9 });
   const qs = ["Relance envoyée au client ?", "Which invoices are 30+ days late?", "Who owns the Globex account?", "Was the reminder sent?",
     "支払いはまだですか？", "¿Cuándo vence la factura 1187?", "Is this invoice disputed?", "Perché il DSO è salito?", "Hat Umbrella schon bezahlt?",
     "Where's the remittance for €12,400?", "Can we pause dunning for Initech?", "What's our DSO this month?", "Did anyone call Hooli?",
     "Qui relance Stark Industries ?", "¿Quién aprobó el descuento?", "Which customers pay late every month?", "Is Wayne on a payment plan?",
     "Mahnung schon raus?", "La facture 2039 est payée ?", "Why is cash flow down?", "Who promised to pay Friday?", "Il cliente ha ricevuto la fattura?",
     "¿Pagó Soylent?", "What's overdue in Germany?"];
-  const R = rng(11), pts = [], N = 54;
-  for (let i = 0; i < N; i++) {           // golden-angle spiral: even spread, grows outward
-    const a = i * 2.39996 + R() * .35, r = 300 + 1550 * Math.sqrt((i + .5) / N);
-    let x = Math.cos(a) * r * 1.05, y = Math.sin(a) * r * .56;
-    if (Math.abs(x) < 560 && Math.abs(y) < 95) y += y < 0 ? -110 : 110;
-    pts.push({ x, y, z: .74 + R() * .4 });
-  }
-  const cam = $("#cam");
-  const sw = pts.map((p, i) => {
+  const R = rng(21), field = $("#field"), NP = 64, sw = [];
+  for (let i = 0; i < NP; i++) {
+    const a = i * 2.39996, r = 380 + 1500 * Math.sqrt((i + .5) / NP) * (0.8 + R() * .4);
     const el = document.createElement("div"); el.className = "pill sp";
     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>${qs[i % qs.length]}`;
-    cam.appendChild(el);
-    return { el, ...p, ts: 1.42 + 1.85 * Math.pow(i / pts.length, .62) };
-  });
-  const main = $("#main");
-  cam.appendChild(main);
-  const mw = () => main.offsetWidth;
+    field.appendChild(el);
+    sw.push({ el, x: Math.cos(a) * r * 1.1, y: Math.sin(a) * r * .62, z: -1800 + R() * 2300, ts: 1.5 + 1.95 * Math.pow(i / NP, .7) });
+  }
+  sw.forEach((s, i) => { if (i % 3 == 0) cue("pop", s.ts, { f: 500 + (i % 7) * 90, g: .35 }); });
+  const main = $("#main"); field.appendChild(main);
 
-  // ---------- app refs ----------
-  const evs = $$(".ev"), r0 = $$(".r0"), r1 = $$(".r1"), r2 = $$(".r2");
-  const cur = $("#cursor"), due = $("#due"), paid = $("#paid");
+  // ---------- D refs ----------
+  const evs = $$(".ev"), dts = $$(".ev .dt"), r0 = $$(".r0"), r1 = $$(".r1"), r2 = $$(".r2");
+  const cur = $("#cursor"), due = $("#due"), paid = $("#paid"), trav = $("#trav"), app = $("#app");
   const words = $$("#s3 .mask>span");
+  const off = (el, stop) => { let x = 0, y = 0; while (el && el !== stop) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  show($("#s4"), true);
+  const dotPos = dts.map(d => { const o = off(d, app); return { x: o.x + 7, y: o.y + 7 }; });
+  const chipO = off($("#chipwrap"), app), chipPos = { x: chipO.x + 320 - 125, y: chipO.y + 23 };
+  const actO = off($("#actcard"), app), rail = $("#rail");
+  rail.style.left = (dotPos[0].x - actO.x - 1) + "px"; rail.style.top = (dotPos[0].y - actO.y) + "px"; rail.style.height = (dotPos[3].y - dotPos[0].y) + "px";
+  show($("#s4"), false);
+
+  // ---------- E ----------
+  const reel = (el, to) => { el.firstElementChild.innerHTML = Array.from({ length: 21 + to }, (_, i) => `<span>${i % 10}</span>`).join(""); return 20 + to; };
+  const R1 = reel($("#r1"), 7), R2 = reel($("#r2"), 9);
+  const BH = [.78, .92, 1, .86, .95, .88];
+  $("#bars").innerHTML = BH.map(h => `<i data-h="${h}"></i>`).join("");
+  const bars = $$("#bars i");
+
+  // ---------- soundtrack (synthesized from these cues by sound.py) ----------
+  cue("pad", 0, { t0: 0, t1: 1.6, notes: [57, 64], g: .07, bright: .02 });
+  cue("beat", 0, { t0: 1.5, t1: 3.5, bpm: 120, roots: [45], hats: false });
+  cue("beat", 0, { t0: 3.5, t1: 3.99, bpm: 240, roots: [45], hats: false, g: .7 });
+  cue("riser", 4.0, { d: 1.2, g: .9 }); cue("impact", 4.0, { g: .8 }); cue("whoosh", 4.3, { d: .5 });
+  [[4.0, 6.0, [57, 60, 64]], [6.0, 8.0, [53, 57, 60]], [8.0, 10.0, [55, 59, 62]], [10.0, 12.0, [57, 60, 64]], [12.0, 14.0, [53, 57, 60]], [14.0, 16.4, [52, 55, 59, 64]]]
+    .forEach(([a, b, n]) => cue("pad", 0, { t0: a, t1: b, notes: n, g: .09, bright: .035 }));
+  cue("beat", 0, { t0: 4.5, t1: 10.0, bpm: 120, roots: [45, 41, 43, 43], snare: true });
+  cue("beat", 0, { t0: 10.5, t1: 14.5, bpm: 120, roots: [45, 41], snare: true });
+  cue("whoosh", 5.55, { d: .5 }); cue("kick", 6.1, { g: .6 });
+  for (let i = 0; i < Q.length; i++) cue("type", 6.45 + i / 52, { g: .7 });
+  cue("click", 6.4); cue("click", 7.05, { g: .7 });
+  [7.5, 8.0, 8.5, 9.0].forEach((t, i) => cue("pop", t, { f: 600 + i * 120, g: .6 }));
+  cue("whoosh", 9.3, { d: .3 }); cue("ding", 9.35); cue("impact", 9.35, { g: .35 });
+  cue("whoosh", 10.45, { d: .5 }); cue("riser", 10.6, { d: .6, g: .5 });
+  [10.95, 11.07].forEach(t => cue("tick", t)); cue("impact", 11.1, { g: .6 });
+  cue("whoosh", 12.5, { d: .4, up: false }); cue("kick", 12.9, { g: .8 }); cue("whoosh", 13.3, { d: .45 });
+  cue("pop", 13.95, { f: 900, g: .8 }); cue("impact", 13.95, { g: .45 }); cue("swell", 14.4, { d: 1.0, g: .6 });
+  window.CUES = CUES;
 
   function scene(id, t, a, b) { const on = t >= a && t < b; show($(id), on); return on; }
-  function wipe(id, t, a, d) { // panel slides up over the frame, then continues up to reveal
-    const el = $(id); const k = P(t, a, d, E.inOutQuint);
-    show(el, t > a && t < a + d); tf(el, `translateY(${L(100, -100, k)}%)`);
-  }
 
   function render(t) {
-    // S1–S2 ------------------------------------------------------------
-    if (scene("#s1", t, 0, 3.72)) {
-      const txt = t < 0.12 ? "Did Acme pay " : "Did Acme pay " + typed("invoice #2041 yet?", t, 0.12, 26);
-      $("#mq").textContent = txt;
-      $("#caret").style.opacity = t < 0.9 ? 1 : (Math.floor(t * 3.4) % 2 ? 0 : 1);
-      main.style.left = -mw() / 2 + "px"; main.style.top = -main.offsetHeight / 2 + "px";
-      const zoom = L(1.06, 1, P(t, 0, 1.4, E.outCubic)) * L(1, .6, P(t, 1.35, 2.0, E.inOutCubic));
-      const whip = P(t, 3.42, .3, E.inExpo);
-      tf(cam, `scale(${zoom * L(1, 2.6, whip)}) rotate(${L(0, -4, whip)}deg)`);
+    // A/B 0–4.3 ---------------------------------------------------------
+    const aOn = scene("#s1", t, 0, 4.3);
+    if (aOn) {
+      $("#mq").textContent = typed(Q, t, .06, 27);
+      $("#caret").style.opacity = t < 1.3 ? 1 : (Math.floor(t * 3.4) % 2 ? 0 : 1);
+      main.style.left = -main.offsetWidth / 2 + "px"; main.style.top = -main.offsetHeight / 2 + "px";
+      // macro on the caret, pulling back while the question types; then a 3D dolly back with a slow orbit
+      const pull = P(t, 0, 1.45, E.outQuart), macro = L(7, 1, pull);
+      const follow = (main.offsetWidth / 2 - 60) * (1 - P(t, 0, 1.45, E.inOutCubic));
+      const back = P(t, 1.45, 2.3, E.inOutCubic);
+      const ry = L(0, -22, P(t, 1.5, 2.4, E.inOutCubic)), rx = L(0, 10, P(t, 1.5, 2.4, E.inOutCubic));
+      const implode = P(t, 3.62, .36, E.inExpo);
+      field.style.transform = `scale(${macro}) translateX(${-follow}px) translateZ(${L(0, -950, back)}px) rotateY(${ry}deg) rotateX(${rx}deg)`;
+      tf(main, `translate3d(0,0,${L(0, -200, implode)}px) scale(${Math.max(0, 1 - implode)})`);
       sw.forEach(s => {
-        const k = P(t, s.ts, .42, E.outBack), o = P(t, s.ts, .14, E.lin);
-        s.el.style.left = s.x - s.el.offsetWidth / 2 + "px"; s.el.style.top = s.y - 22 + "px";
-        const drift = (t - s.ts) * 14 * (s.x > 0 ? 1 : -1);
-        tf(s.el, `translateX(${t > s.ts ? drift : 0}px) scale(${s.z * L(.55, 1, k)})`);
-        op(s.el, o * L(.55, 1, (s.z - .72) / .42));
+        const k = P(t, s.ts, .5, E.outBack), o = P(t, s.ts, .18, E.lin);
+        s.el.style.left = -s.el.offsetWidth / 2 + "px"; s.el.style.top = "-26px";
+        tf(s.el, `translate3d(${L(s.x, 0, implode)}px,${L(s.y, 0, implode)}px,${L(s.z, -200, implode)}px) scale(${L(.3, 1, k) * (1 - implode * .95)})`);
+        op(s.el, o);
       });
+      op($("#dot"), t > 3.9 ? 1 : 0);
+      tf($("#dot"), `scale(${P(t, 3.9, .15, E.outBack) * L(1, 70, P(t, 4.0, .3, E.inExpo))})`);
     }
-    wipe("#w1", t, 3.52, .42);
-    // S3 ----------------------------------------------------------------
-    if (scene("#s3", t, 3.72, 4.95)) {
-      words.forEach((w, i) => { const k = P(t, 3.78 + i * .09, .5, E.outExpo); tf(w, `translateY(${L(110, 0, k)}%)`); });
-      tf($("#s3 h1"), `scale(${L(1, 1.04, P(t, 3.72, 1.2, E.lin))})`);
+    // C 4.25–5.95: "Something simple." — its period swallows the frame ---
+    if (scene("#s3", t, 4.25, 5.95)) {
+      words.forEach((w, i) => { const k = P(t, 4.5 + i * .1, .55, E.outExpo); tf(w, `translateY(${L(115, 0, k)}%)`); });
+      tf($("#wdot"), `scale(${P(t, 4.95, .5, E.spring)})`);
+      tf($("#s3 h1"), `translateY(-50%) scale(${L(1, 1.05, P(t, 4.3, 1.5, E.lin))})`);
+      const w = $("#wdot").getBoundingClientRect(), hole = P(t, 5.52, .42, E.inOutQuint);
+      $("#hole").style.left = w.left + w.width / 2 + "px"; $("#hole").style.top = w.top + w.height / 2 + "px";
+      op($("#hole"), t > 5.52 ? 1 : 0); tf($("#hole"), `scale(${L(.4, 90, hole)})`);
     }
-    // S4 ----------------------------------------------------------------
-    if (scene("#s4", t, 4.6, 10.3)) {
-      // blue card slides away upward revealing the app
-      const up = P(t, 4.6, .5, E.inOutQuint);
-      show($("#s3"), t < 5.1); if (t >= 4.6 && t < 5.1) { $("#s3").style.zIndex = 5; tf($("#s3"), `translateY(${-up * 100}%)`); } else { tf($("#s3"), "none"); }
-      const inK = P(t, 4.62, .8, E.outExpo);
-      const push = P(t, 8.25, 1.0, E.inOutCubic);
-      // camera: push toward the status chip (chip ≈ at 1180,265 in frame)
-      const s = L(1, 1.3, push), fx = 1230, fy = 470, dx = (960 - fx) * push * .25, dy = (560 - fy) * push * .5;
-      tf($("#appcam"), `translate(${fx + dx}px,${fy + dy}px) scale(${s * L(.94, 1, inK)}) translate(${-fx}px,${-fy + L(60, 0, inK)}px)`);
-      // search types
-      const sq = typed(Q, t, 5.05, 52);
+    // D 5.9–10.65: the app, in 3D ---------------------------------------
+    if (scene("#s4", t, 5.9, 10.65)) {
+      const inK = P(t, 5.9, 1.0, E.outExpo), push = P(t, 9.2, 1.0, E.inOutCubic);
+      const orbit = L(-7, 5, P(t, 6.3, 4.2, E.inOutCubic)), whip = P(t, 10.3, .3, E.inExpo);
+      const fx = 1230, fy = 470, s = L(1, 1.34, push);
+      $("#appcam").style.transform = `translateX(${-whip * 2600}px) translate(${fx + (960 - fx) * push * .3}px,${fy + (560 - fy) * push * .5}px) scale(${s}) translate(${-fx}px,${-fy}px) translateZ(${L(-900, 0, inK)}px) rotateX(${L(38, 0, inK) + L(0, 2, push)}deg) rotateY(${L(-24, 0, inK) + orbit * (1 - push)}deg) rotateZ(${L(-6, 0, inK)}deg)`;
+      [["#side", 6.0, -60, 0], ["#top", 6.08, 0, -40]].forEach(([id, a, x, y]) => { const q = P(t, a, .6, E.outExpo); op($(id), q); tf($(id), `translate(${L(x, 0, q)}px,${L(y, 0, q)}px)`); });
+      const sq = typed(Q, t, 6.45, 52);
       $("#sq").innerHTML = sq ? sq : `<span class="ph">Ask about any customer or invoice…</span>`;
-      $("#search").classList.toggle("focus", t > 4.98);
-      $("#caret2").style.display = t > 4.98 && t < 5.75 ? "inline-block" : "none";
-      // results
-      const res = [[r0, 5.72], [r1, 5.82], [r2, 5.98]];
-      res.forEach(([els, a]) => els.forEach((el, i) => { const k = P(t, a + i * .06, .6, E.outExpo); op(el, k); tf(el, `translateY(${L(26, 0, k)}px)`); }));
-      // timeline
-      const evt = [6.05, 6.5, 6.95, 7.75];
-      evs.forEach((ev, i) => {
-        const k = P(t, evt[i], .5, E.outExpo); op(ev, k); tf(ev, `translateX(${L(24, 0, k)}px)`);
-        const ln = ev.querySelector(".ln"); if (ln) tf(ln, `scaleY(${P(t, evt[i] + .15, .4, E.outCubic)})`);
-        const d = ev.querySelector(".dot"); tf(d, `scale(${L(.2, 1, P(t, evt[i], .45, E.outBack))})`);
-      });
-      // status flip at 7.9
-      const flip = P(t, 7.9, .5, E.spring);
-      op(due, 1 - P(t, 7.88, .12, E.lin)); tf(due, `scale(${L(1, .8, P(t, 7.88, .15))})`);
-      op(paid, P(t, 7.92, .12, E.lin)); tf(paid, `scale(${L(.6, 1, flip)})`);
-      $("#pdate").textContent = t > 7.95 ? "Sep 27" : "—";
-      // cursor: into search, click, then over to the chip
-      const c1 = P(t, 4.75, .35, E.outCubic), c2 = P(t, 7.1, .75, E.inOutCubic);
-      const cx = L(L(900, 760, c1), 1010, c2), cy = L(L(420, 125, c1), 410, c2);
-      const press = t > 4.98 && t < 5.08 ? .85 : 1;
-      cur.style.left = cx + "px"; cur.style.top = cy + "px"; tf(cur, `scale(${press})`); op(cur, P(t, 4.7, .15, E.lin) * (1 - P(t, 8.8, .2, E.lin)));
+      $("#search").classList.toggle("focus", t > 6.38);
+      $("#caret2").style.display = t > 6.38 && t < 7.1 ? "inline-block" : "none";
+      [[r0, 7.08], [r1, 7.16], [r2, 7.3]].forEach(([els, a]) => els.forEach((el, i) => { const q = P(t, a + i * .06, .6, E.outExpo); op(el, q); tf(el, `translateY(${L(40, 0, q)}px) scale(${L(.96, 1, q)})`); }));
+      // the brand dot travels the payment journey, lighting each step on the beat
+      const stops = [7.5, 8.0, 8.5, 9.0];
+      let p = dotPos[0], seg = 0;
+      for (let i = 1; i < 4; i++) if (t >= stops[i] - .22) seg = i;
+      if (seg >= 1) { const q = P(t, stops[seg] - .22, .22, E.inOutCubic); p = { x: L(dotPos[seg - 1].x, dotPos[seg].x, q), y: L(dotPos[seg - 1].y, dotPos[seg].y, q) }; }
+      const fly = P(t, 9.08, .27, E.inOutCubic);
+      if (fly > 0) p = { x: L(dotPos[3].x, chipPos.x, fly), y: L(dotPos[3].y, chipPos.y, fly) - Math.sin(fly * Math.PI) * 200 };
+      trav.style.left = p.x + "px"; trav.style.top = p.y + "px";
+      op(trav, P(t, 7.3, .15, E.lin) * (1 - P(t, 9.35, .05, E.lin)));
+      tf(trav, `scale(${L(0, 1, P(t, 7.3, .3, E.outBack)) * (fly > 0 ? L(1, .7, fly) : 1)})`);
+      const green = t > 8.95; trav.style.background = green ? "#18B26B" : "#3936DC"; trav.style.boxShadow = green ? "0 0 0 6px rgba(24,178,107,.22)" : "0 0 0 6px rgba(57,54,220,.18)";
+      $("#railf").style.height = (fly > 0 ? dotPos[3].y - dotPos[0].y : Math.max(0, p.y - dotPos[0].y)) + "px";
+      dts.forEach((d, i) => { const lit = t >= stops[i]; d.style.background = lit ? (i == 3 ? "#18B26B" : "#3936DC") : "#D5D6E2"; tf(d, `scale(${lit ? L(1.9, 1, P(t, stops[i], .35, E.outCubic)) : 1})`); });
+      evs.forEach((ev, i) => { const q = P(t, stops[i] - .05, .4, E.outExpo); op(ev, L(.3, 1, q)); tf(ev, `translateX(${L(10, 0, q)}px)`); });
+      const st = P(t, 9.35, .5, E.spring);
+      op(due, 1 - P(t, 9.33, .06, E.lin)); op(paid, P(t, 9.35, .06, E.lin)); tf(paid, `scale(${L(.5, 1, st)})`);
+      const rg = P(t, 9.35, .6, E.outCubic), rd = L(10, 300, rg); op($("#ring"), t > 9.35 ? 1 - rg : 0); Object.assign($("#ring").style, { width: rd + "px", height: rd + "px", margin: `${-rd / 2}px ${-rd / 2}px 0 0`, borderWidth: L(6, 1.5, rg) + "px" });
+      $("#pdate").textContent = t > 9.35 ? "Sep 27" : "—";
+      const c1 = P(t, 6.1, .3, E.outCubic);
+      cur.style.left = L(1000, 780, c1) + "px"; cur.style.top = L(520, 130, c1) + "px";
+      tf(cur, `scale(${t > 6.38 && t < 6.46 ? .85 : 1})`); op(cur, P(t, 6.1, .1, E.lin) * (1 - P(t, 7.1, .2, E.lin)));
     }
-    wipe("#w2", t, 10.05, .5);
-    // S5 ----------------------------------------------------------------
-    if (scene("#s5", t, 10.3, 12.3)) {
-      const n = Math.round(79 * P(t, 10.35, .75, E.outExpo));
-      $("#big").textContent = `−${n}%`;
-      const p = $$("#proof > *");
-      p.forEach((el, i) => { const k = P(t, 10.3 + [0, .35, .6][i], .6, E.outExpo); op(el, k); tf(el, `translateY(${L(40, 0, k)}px)`); });
-      tf($("#proof"), `scale(${L(1, 1.035, P(t, 10.3, 2, E.lin))})`);
+    // E 10.55–12.62: proof ----------------------------------------------
+    if (scene("#s5", t, 10.55, 12.62)) {
+      const inK = P(t, 10.45, .35, E.outExpo), ex = P(t, 12.4, .22, E.inExpo);
+      tf($("#proofg"), `translate(${L(900, 0, inK)}px,${ex * 1100}px) scale(${L(1, 1.04, P(t, 10.55, 2, E.lin))})`);
+      [[$("#r1"), R1, 10.55], [$("#r2"), R2, 10.67]].forEach(([el, to, a]) => { const q = P(t, a, .45, E.outCubic); tf(el.firstElementChild, `translateY(${-L(0, to, q)}em)`); });
+      op($("#minus"), P(t, 10.95, .2, E.lin)); tf($("#minus"), `translateX(${L(-60, 0, P(t, 10.95, .4, E.outExpo))}px)`);
+      bars.forEach((b, i) => { const a = P(t, 10.62 + i * .04, .25, E.outCubic), sh = P(t, 11.1 + i * .05, .6, E.spring); tf(b, `scaleY(${a * +b.dataset.h * L(1, .21, sh)})`); });
+      const c = P(t, 11.25, .6, E.outExpo); op($("#cap"), c); tf($("#cap"), `translateY(${L(30, 0, c)}px)`);
     }
-    wipe("#w3", t, 12.0, .5);
-    // S6 ----------------------------------------------------------------
-    if (scene("#s6", t, 12.3, 99)) {
-      const k = P(t, 12.3, .75, E.outExpo);
-      tf($("#wmend"), `translateY(${L(240, 0, k)}px)`);
-      const d = $("#enddot");
-      if (d) { const dk = P(t, 12.72, .6, E.spring); tf(d, `translateY(${L(-150, 0, dk)}px) scale(${L(.3, 1, P(t, 12.72, .25))})`); }
-      $("#divl").style.height = 380 * P(t, 12.8, .55, E.outExpo) + "px";
-      [["#tl1", 12.95], ["#tl2", 13.05], ["#url", 13.35]].forEach(([s, a]) => { const q = P(t, a, .7, E.outExpo); op($(s), s == "#url" ? q * .75 : q); tf($(s), `translateX(${L(-30, 0, q)}px)`); });
-      tf($("#endg"), `scale(${L(1, 1.03, P(t, 12.3, 3, E.outCubic))})`);
+    // F 12.6–16.4: the dot lands -----------------------------------------
+    if (scene("#s6", t, 12.6, 99)) {
+      const drop = P(t, 12.6, .3, E.inCubic), grow = P(t, 13.05, .35, E.inExpo);
+      const land = t >= 12.9 && t < 13.05 ? L(.72, 1, P(t, 12.9, .15, E.outBack)) : 1;
+      tf($("#bigdot"), `translateY(${t < 12.9 ? L(-640, 0, drop) : 0}px) scale(${L(1, 34, grow) / land}, ${L(1, 34, grow) * land})`);
+      $("#s6").style.background = t > 13.4 ? "var(--blue)" : "var(--navy)"; op($("#bigdot"), t > 13.4 ? 0 : 1);
+      const k = P(t, 13.3, .7, E.outExpo); tf($("#wmend"), `translateY(${L(250, 0, k)}px)`);
+      const fd = P(t, 13.65, .3, E.inCubic), fs = P(t, 13.95, .5, E.spring);
+      $("#fdot").style.left = DOT.x + "px"; $("#fdot").style.top = DOT.y + "px";
+      op($("#fdot"), t > 13.65 ? 1 : 0);
+      tf($("#fdot"), `translateY(${t < 13.95 ? L(-520, 0, fd) : 0}px) scale(${t < 13.95 ? .85 : L(1.35, 1, fs)}, ${t < 13.95 ? 1.25 : L(.7, 1, fs)})`);
+      $("#divl").style.height = 390 * P(t, 14.05, .55, E.outExpo) + "px";
+      [["#tl1", 14.15], ["#tl2", 14.25], ["#url", 14.5]].forEach(([s, a]) => { const q = P(t, a, .7, E.outExpo); op($(s), s == "#url" ? q * .75 : q); tf($(s), `translateX(${L(-40, 0, q)}px)`); });
+      tf($("#endg"), `scale(${L(1, 1.03, P(t, 13.3, 3, E.outCubic))})`);
     }
   }
-  boot(15.4, render);
+  boot(16.4, render);
 })();
 </script>
 </body></html>

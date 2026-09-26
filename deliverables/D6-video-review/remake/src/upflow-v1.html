@@ -1,0 +1,276 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Upflow remake</title>
+<link rel="stylesheet" href="_assets/upflow/fonts.css">
+<style>
+:root{--blue:#3936DC;--navy:#191A4C;--paper:#FAFAF7;--ink:#191A4C;--mute:#6E6F8C;--line:#E9E9F1;--tint:#EEEEFD;--green:#0E8A55;--greenbg:#E4F6EC;--amber:#A86300;--amberbg:#FFF3DC}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);font-family:Figtree,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+svg{display:block}
+/* S1–S2: the question */
+#s1{background:var(--paper)}
+#cam{position:absolute;left:50%;top:50%;width:0;height:0}
+.pill{position:absolute;display:flex;align-items:center;gap:.5em;white-space:nowrap;background:#fff;border:1px solid #E4E4EC;border-radius:999px;box-shadow:0 1px 2px rgba(25,26,76,.06),0 8px 24px rgba(25,26,76,.06);color:var(--ink);font-weight:500;transform-origin:center}
+.pill svg{flex:none;width:.9em;height:.9em}
+#main{font-size:46px;padding:.55em 1em .55em .8em;left:0;top:0}
+.sp{font-size:25px;padding:.5em .95em .5em .75em}
+.caret{display:inline-block;width:3px;height:1.05em;background:var(--blue);margin-left:2px;vertical-align:-.15em}
+/* S3 */
+#s3{background:var(--blue);display:grid;place-items:center;color:#fff}
+#s3 h1{font-size:150px;font-weight:600;letter-spacing:-4px;display:flex;gap:.26em}
+.mask{display:inline-block;overflow:hidden;padding:0 .02em .12em;margin-bottom:-.12em}
+.mask>span{display:inline-block}
+/* S4: the app */
+#s4{background:var(--paper)}
+#appcam{position:absolute;inset:0;transform-origin:0 0}
+#app{position:absolute;left:140px;top:80px;width:1640px;height:920px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 100px rgba(25,26,76,.13),0 4px 12px rgba(25,26,76,.05);overflow:hidden;display:grid;grid-template-columns:260px 1fr}
+#side{border-right:1px solid var(--line);padding:34px 22px;background:#FCFCFE}
+#side .wm{width:122px;color:var(--navy);margin:0 0 42px 12px}
+.nav{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:12px;font-size:20px;font-weight:500;color:var(--mute);margin-bottom:4px}
+.nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+.nav.on{background:var(--tint);color:var(--blue);font-weight:600}
+#mainc{display:flex;flex-direction:column}
+#top{height:92px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 36px;gap:18px}
+#search{flex:none;width:760px;height:54px;border:1.5px solid #E1E1EA;border-radius:999px;display:flex;align-items:center;gap:14px;padding:0 22px;font-size:22px;font-weight:500;color:var(--ink);background:#fff}
+#search.focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(57,54,220,.12)}
+#search svg{width:22px;height:22px}
+#search .ph{color:#A3A4B8}
+.avatar{margin-left:auto;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:600;font-size:17px}
+#body{padding:34px 40px;display:grid;grid-template-columns:1fr 560px;gap:28px;align-content:start}
+.crumb{grid-column:1/-1;font-size:18px;color:var(--mute);font-weight:500}
+.cust{grid-column:1/-1;display:flex;align-items:center;gap:18px;margin:-6px 0 4px}
+.cust .lg{width:56px;height:56px;border-radius:14px;background:#0F1030;color:#fff;display:grid;place-items:center;font-weight:700;font-size:26px}
+.cust h2{font-size:40px;font-weight:700;letter-spacing:-.5px}
+.cust .tag{font-size:17px;font-weight:600;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:5px 13px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px}
+.inv-h{display:flex;align-items:center;justify-content:space-between}
+.inv-h .n{font-size:22px;font-weight:600;color:var(--mute)}
+.amt{font-size:64px;font-weight:700;letter-spacing:-1.5px;margin:10px 0 22px}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;border-top:1px solid var(--line);padding-top:22px}
+.meta b{display:block;font-size:16px;color:var(--mute);font-weight:500;margin-bottom:6px}
+.meta span{font-size:22px;font-weight:600}
+.chip{position:relative;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 18px;border-radius:999px;font-size:20px;font-weight:600;white-space:nowrap}
+.chip.due{background:var(--amberbg);color:var(--amber)}
+.chip.paid{background:var(--greenbg);color:var(--green);position:absolute;right:0;top:0}
+.chip svg{width:20px;height:20px}
+#chipwrap{position:relative;height:44px;width:300px;display:flex;justify-content:flex-end}
+#chipwrap .due{position:absolute;right:0;top:0}
+.others{margin-top:22px}
+.others h4{font-size:17px;color:var(--mute);font-weight:600;margin:0 0 10px 4px}
+.row{display:grid;grid-template-columns:110px 1fr 150px 200px;align-items:center;padding:15px 6px;border-top:1px solid var(--line);font-size:19px;font-weight:500}
+.row .s{font-size:16px;font-weight:600;justify-self:start;padding:5px 12px;border-radius:999px;background:#F1F1F6;color:var(--mute)}
+.act h3{font-size:22px;font-weight:700;margin-bottom:20px}
+.ev{position:relative;display:grid;grid-template-columns:34px 1fr;gap:6px;padding-bottom:26px}
+.ev .dot{width:14px;height:14px;border-radius:50%;margin-top:6px;background:#C9CAD8;position:relative;z-index:1}
+.ev .ln{position:absolute;left:6px;top:24px;width:2px;height:calc(100% - 18px);background:var(--line);transform-origin:top}
+.ev p{font-size:20px;font-weight:600;line-height:1.3}
+.ev small{display:block;font-size:16px;color:var(--mute);font-weight:500;margin-top:3px}
+.ev.blue .dot{background:var(--blue)}
+.ev.green .dot{background:#18B26B}
+#cursor{position:absolute;width:42px;height:42px;left:0;top:0;z-index:20;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+/* S5 */
+#s5{background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center}
+#big{font-size:330px;font-weight:700;letter-spacing:-12px;line-height:.9;font-variant-numeric:tabular-nums}
+#s5 p{font-size:54px;font-weight:500;margin-top:26px;letter-spacing:-.5px}
+#s5 small{display:block;font-size:30px;font-weight:500;opacity:.62;margin-top:22px}
+/* S6 */
+#s6{background:var(--blue);color:#fff}
+#endg{position:absolute;inset:0;transform-origin:50% 50%}
+#wmend{position:absolute;left:150px;top:448px;width:560px;overflow:visible}
+#wmmask{position:absolute;left:140px;top:420px;width:620px;height:230px;overflow:hidden}
+#divl{position:absolute;left:958px;top:540px;width:3px;height:0;background:#fff;transform:translateY(-50%)}
+.tl{position:absolute;left:1030px;font-size:52px;font-weight:500;letter-spacing:-.5px;line-height:1.1}
+#url{position:absolute;left:1030px;top:668px;font-size:30px;font-weight:500;opacity:.75}
+.wipe{position:absolute;inset:0;z-index:30;visibility:hidden}
+</style></head>
+<body>
+<!-- S1–S2 -->
+<div class="scene" id="s1"><div id="cam"><div class="pill" id="main"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="mq"></span><span class="caret" id="caret"></span></div></div></div>
+<!-- S3 -->
+<div class="scene" id="s3"><h1><span class="mask"><span>Something</span></span><span class="mask"><span>simple.</span></span></h1></div>
+<!-- S4 -->
+<div class="scene" id="s4"><div id="appcam">
+  <div id="app">
+    <aside id="side"><div class="wm" id="wmside"></div>
+      <div class="nav"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9H3z"/></svg>Home</div>
+      <div class="nav on"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c1.8.7 3 2.4 3.5 5.2"/></svg>Customers</div>
+      <div class="nav"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 16h7"/></svg>Invoices</div>
+      <div class="nav"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18M7 15h3"/></svg>Payments</div>
+      <div class="nav"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="12" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8.5 6H12a3 3 0 0 1 3 3v.5M8.5 18H12a3 3 0 0 0 3-3v-.5"/></svg>Workflows</div>
+      <div class="nav"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Insights</div>
+    </aside>
+    <section id="mainc">
+      <div id="top"><div id="search"><svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg><span id="sq"></span><span class="caret" id="caret2"></span></div><div class="avatar">MC</div></div>
+      <div id="body">
+        <div class="crumb r0">Customers / Acme Corp</div>
+        <div class="cust r0"><div class="lg">A</div><h2>Acme Corp</h2><span class="tag">Net 30</span></div>
+        <div class="r1">
+          <div class="card">
+            <div class="inv-h"><span class="n">Invoice #2041</span>
+              <div id="chipwrap"><span class="chip due" id="due"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Due in 3 days</span>
+              <span class="chip paid" id="paid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Paid · 3 days early</span></div>
+            </div>
+            <div class="amt">€12,400.00</div>
+            <div class="meta"><div><b>Issued</b><span>Aug 28</span></div><div><b>Due</b><span>Sep 30</span></div><div><b>Paid</b><span id="pdate">—</span></div></div>
+          </div>
+          <div class="others r2"><h4>Other open invoices</h4>
+            <div class="row"><span>#2038</span><span>Globex</span><span>€4,200</span><span class="s">Reminder scheduled</span></div>
+            <div class="row"><span>#2043</span><span>Initech</span><span>€8,950</span><span class="s">Due Oct 12</span></div>
+          </div>
+        </div>
+        <div class="card act r1"><h3>Activity</h3>
+          <div class="ev"><div class="dot"></div><div class="ln"></div><div><p>Invoice sent</p><small>Aug 28 · by email</small></div></div>
+          <div class="ev blue"><div class="dot"></div><div class="ln"></div><div><p>Reminder sent automatically</p><small>Sep 20 · Friendly reminder workflow</small></div></div>
+          <div class="ev blue"><div class="dot"></div><div class="ln"></div><div><p>Acme opened the payment portal</p><small>Sep 26 · 2 min on page</small></div></div>
+          <div class="ev green"><div class="dot"></div><div><p>Paid by bank transfer · €12,400</p><small>Sep 27 · reconciled automatically</small></div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <svg id="cursor" viewBox="0 0 24 24"><path d="M5 3l14 8.2-6.3 1.4-3.3 5.9z" fill="#111" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+</div></div>
+<!-- S5 -->
+<div class="scene" id="s5"><div id="proof"><div id="big">−0%</div><p>invoices 31+ days overdue</p><small>WorkMotion, with Upflow</small></div></div>
+<!-- S6 -->
+<div class="scene" id="s6"><div id="endg">
+  <div id="wmmask"><div id="wmend" style="position:absolute;left:10px;top:28px"></div></div>
+  <div id="divl"></div>
+  <div class="tl" id="tl1" style="top:468px">faster payments.</div>
+  <div class="tl" id="tl2" style="top:526px">stronger relationships.</div>
+  <div id="url">upflow.io</div>
+</div></div>
+<div class="wipe" id="w1" style="background:var(--blue)"></div>
+<div class="wipe" id="w2" style="background:var(--navy)"></div>
+<div class="wipe" id="w3" style="background:var(--blue)"></div>
+
+<script src="lib.js"></script>
+<script>
+(async () => {
+  const get = f => fetch("_assets/upflow/" + f).then(r => r.text());
+  const [vb, lett, dot] = await Promise.all([get("wm-vb.txt"), get("wm-letters.txt"), get("wm-dot.txt")]);
+  const wm = (w, dotId) => `<svg viewBox="${vb}" width="${w}" style="overflow:visible"><path fill="currentColor" fill-rule="evenodd" d="${lett}"/><path ${dotId ? `id="${dotId}"` : ""} fill="currentColor" d="${dot}" style="transform-box:fill-box;transform-origin:50% 100%"/></svg>`;
+  $("#wmside").innerHTML = wm(122);
+  $("#wmend").innerHTML = wm(560, "enddot");
+
+  // ---------- swarm ----------
+  const Q = "Did Acme pay invoice #2041 yet?";
+  const qs = ["Relance envoyée au client ?", "Which invoices are 30+ days late?", "Who owns the Globex account?", "Was the reminder sent?",
+    "支払いはまだですか？", "¿Cuándo vence la factura 1187?", "Is this invoice disputed?", "Perché il DSO è salito?", "Hat Umbrella schon bezahlt?",
+    "Where's the remittance for €12,400?", "Can we pause dunning for Initech?", "What's our DSO this month?", "Did anyone call Hooli?",
+    "Qui relance Stark Industries ?", "¿Quién aprobó el descuento?", "Which customers pay late every month?", "Is Wayne on a payment plan?",
+    "Mahnung schon raus?", "La facture 2039 est payée ?", "Why is cash flow down?", "Who promised to pay Friday?", "Il cliente ha ricevuto la fattura?",
+    "¿Pagó Soylent?", "What's overdue in Germany?"];
+  const R = rng(11), pts = [], N = 54;
+  for (let i = 0; i < N; i++) {           // golden-angle spiral: even spread, grows outward
+    const a = i * 2.39996 + R() * .35, r = 300 + 1550 * Math.sqrt((i + .5) / N);
+    let x = Math.cos(a) * r * 1.05, y = Math.sin(a) * r * .56;
+    if (Math.abs(x) < 560 && Math.abs(y) < 95) y += y < 0 ? -110 : 110;
+    pts.push({ x, y, z: .74 + R() * .4 });
+  }
+  const cam = $("#cam");
+  const sw = pts.map((p, i) => {
+    const el = document.createElement("div"); el.className = "pill sp";
+    el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#191A4C" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>${qs[i % qs.length]}`;
+    cam.appendChild(el);
+    return { el, ...p, ts: 1.42 + 1.85 * Math.pow(i / pts.length, .62) };
+  });
+  const main = $("#main");
+  cam.appendChild(main);
+  const mw = () => main.offsetWidth;
+
+  // ---------- app refs ----------
+  const evs = $$(".ev"), r0 = $$(".r0"), r1 = $$(".r1"), r2 = $$(".r2");
+  const cur = $("#cursor"), due = $("#due"), paid = $("#paid");
+  const words = $$("#s3 .mask>span");
+
+  function scene(id, t, a, b) { const on = t >= a && t < b; show($(id), on); return on; }
+  function wipe(id, t, a, d) { // panel slides up over the frame, then continues up to reveal
+    const el = $(id); const k = P(t, a, d, E.inOutQuint);
+    show(el, t > a && t < a + d); tf(el, `translateY(${L(100, -100, k)}%)`);
+  }
+
+  function render(t) {
+    // S1–S2 ------------------------------------------------------------
+    if (scene("#s1", t, 0, 3.72)) {
+      const txt = t < 0.12 ? "Did Acme pay " : "Did Acme pay " + typed("invoice #2041 yet?", t, 0.12, 26);
+      $("#mq").textContent = txt;
+      $("#caret").style.opacity = t < 0.9 ? 1 : (Math.floor(t * 3.4) % 2 ? 0 : 1);
+      main.style.left = -mw() / 2 + "px"; main.style.top = -main.offsetHeight / 2 + "px";
+      const zoom = L(1.06, 1, P(t, 0, 1.4, E.outCubic)) * L(1, .6, P(t, 1.35, 2.0, E.inOutCubic));
+      const whip = P(t, 3.42, .3, E.inExpo);
+      tf(cam, `scale(${zoom * L(1, 2.6, whip)}) rotate(${L(0, -4, whip)}deg)`);
+      sw.forEach(s => {
+        const k = P(t, s.ts, .42, E.outBack), o = P(t, s.ts, .14, E.lin);
+        s.el.style.left = s.x - s.el.offsetWidth / 2 + "px"; s.el.style.top = s.y - 22 + "px";
+        const drift = (t - s.ts) * 14 * (s.x > 0 ? 1 : -1);
+        tf(s.el, `translateX(${t > s.ts ? drift : 0}px) scale(${s.z * L(.55, 1, k)})`);
+        op(s.el, o * L(.55, 1, (s.z - .72) / .42));
+      });
+    }
+    wipe("#w1", t, 3.52, .42);
+    // S3 ----------------------------------------------------------------
+    if (scene("#s3", t, 3.72, 4.95)) {
+      words.forEach((w, i) => { const k = P(t, 3.78 + i * .09, .5, E.outExpo); tf(w, `translateY(${L(110, 0, k)}%)`); });
+      tf($("#s3 h1"), `scale(${L(1, 1.04, P(t, 3.72, 1.2, E.lin))})`);
+    }
+    // S4 ----------------------------------------------------------------
+    if (scene("#s4", t, 4.6, 10.3)) {
+      // blue card slides away upward revealing the app
+      const up = P(t, 4.6, .5, E.inOutQuint);
+      show($("#s3"), t < 5.1); if (t >= 4.6 && t < 5.1) { $("#s3").style.zIndex = 5; tf($("#s3"), `translateY(${-up * 100}%)`); } else { tf($("#s3"), "none"); }
+      const inK = P(t, 4.62, .8, E.outExpo);
+      const push = P(t, 8.25, 1.0, E.inOutCubic);
+      // camera: push toward the status chip (chip ≈ at 1180,265 in frame)
+      const s = L(1, 1.3, push), fx = 1230, fy = 470, dx = (960 - fx) * push * .25, dy = (560 - fy) * push * .5;
+      tf($("#appcam"), `translate(${fx + dx}px,${fy + dy}px) scale(${s * L(.94, 1, inK)}) translate(${-fx}px,${-fy + L(60, 0, inK)}px)`);
+      // search types
+      const sq = typed(Q, t, 5.05, 52);
+      $("#sq").innerHTML = sq ? sq : `<span class="ph">Ask about any customer or invoice…</span>`;
+      $("#search").classList.toggle("focus", t > 4.98);
+      $("#caret2").style.display = t > 4.98 && t < 5.75 ? "inline-block" : "none";
+      // results
+      const res = [[r0, 5.72], [r1, 5.82], [r2, 5.98]];
+      res.forEach(([els, a]) => els.forEach((el, i) => { const k = P(t, a + i * .06, .6, E.outExpo); op(el, k); tf(el, `translateY(${L(26, 0, k)}px)`); }));
+      // timeline
+      const evt = [6.05, 6.5, 6.95, 7.75];
+      evs.forEach((ev, i) => {
+        const k = P(t, evt[i], .5, E.outExpo); op(ev, k); tf(ev, `translateX(${L(24, 0, k)}px)`);
+        const ln = ev.querySelector(".ln"); if (ln) tf(ln, `scaleY(${P(t, evt[i] + .15, .4, E.outCubic)})`);
+        const d = ev.querySelector(".dot"); tf(d, `scale(${L(.2, 1, P(t, evt[i], .45, E.outBack))})`);
+      });
+      // status flip at 7.9
+      const flip = P(t, 7.9, .5, E.spring);
+      op(due, 1 - P(t, 7.88, .12, E.lin)); tf(due, `scale(${L(1, .8, P(t, 7.88, .15))})`);
+      op(paid, P(t, 7.92, .12, E.lin)); tf(paid, `scale(${L(.6, 1, flip)})`);
+      $("#pdate").textContent = t > 7.95 ? "Sep 27" : "—";
+      // cursor: into search, click, then over to the chip
+      const c1 = P(t, 4.75, .35, E.outCubic), c2 = P(t, 7.1, .75, E.inOutCubic);
+      const cx = L(L(900, 760, c1), 1010, c2), cy = L(L(420, 125, c1), 410, c2);
+      const press = t > 4.98 && t < 5.08 ? .85 : 1;
+      cur.style.left = cx + "px"; cur.style.top = cy + "px"; tf(cur, `scale(${press})`); op(cur, P(t, 4.7, .15, E.lin) * (1 - P(t, 8.8, .2, E.lin)));
+    }
+    wipe("#w2", t, 10.05, .5);
+    // S5 ----------------------------------------------------------------
+    if (scene("#s5", t, 10.3, 12.3)) {
+      const n = Math.round(79 * P(t, 10.35, .75, E.outExpo));
+      $("#big").textContent = `−${n}%`;
+      const p = $$("#proof > *");
+      p.forEach((el, i) => { const k = P(t, 10.3 + [0, .35, .6][i], .6, E.outExpo); op(el, k); tf(el, `translateY(${L(40, 0, k)}px)`); });
+      tf($("#proof"), `scale(${L(1, 1.035, P(t, 10.3, 2, E.lin))})`);
+    }
+    wipe("#w3", t, 12.0, .5);
+    // S6 ----------------------------------------------------------------
+    if (scene("#s6", t, 12.3, 99)) {
+      const k = P(t, 12.3, .75, E.outExpo);
+      tf($("#wmend"), `translateY(${L(240, 0, k)}px)`);
+      const d = $("#enddot");
+      if (d) { const dk = P(t, 12.72, .6, E.spring); tf(d, `translateY(${L(-150, 0, dk)}px) scale(${L(.3, 1, P(t, 12.72, .25))})`); }
+      $("#divl").style.height = 380 * P(t, 12.8, .55, E.outExpo) + "px";
+      [["#tl1", 12.95], ["#tl2", 13.05], ["#url", 13.35]].forEach(([s, a]) => { const q = P(t, a, .7, E.outExpo); op($(s), s == "#url" ? q * .75 : q); tf($(s), `translateX(${L(-30, 0, q)}px)`); });
+      tf($("#endg"), `scale(${L(1, 1.03, P(t, 12.3, 3, E.outCubic))})`);
+    }
+  }
+  boot(15.4, render);
+})();
+</script>
+</body></html>
