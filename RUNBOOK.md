@@ -15,7 +15,7 @@ Legend: 🧑 you · 🎬 Poolday · 🤖 Claude Code (this session) · 💬 Clau
 | 0.2 | 🧑 | Pick 2 reference videos (any SaaS/motion-design video you love that fits the brand) + 2–3 "what I love" lines each (A3) | no | ✅ references picked (`references/`) |
 | 0.3 | 🧑 | Page reviews: paste `deliverables/PROMPT-A-page-review.md` into Claude chat (it can browse poolday.ai; this session can't), bring the output back here | no | ✅ page reviews done (D7) |
 | 0.4 | 🧑 | Video review: pick PostHog or Upflow, screenshot frames with timestamps (or a screen recording), run `deliverables/PROMPT-B-video-review.md` in Claude chat | no | ✅ video review done (D6) + remakes |
-| 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ✅ key given; final qualification answered in Claude Code (M50) |
+| 0.5 | 🧑 | (optional) Anthropic API key: only needed for the loop to run on its own; without it, it runs in mock mode or via a Claude Code command | no | ✅ key given; final qualification answered in Claude Code (M50); key deleted by you on 26 Sep (M54) |
 | 0.6 | 🧑 | Find the Pletor UGC farm screenshot, keep it for the appendix | no | ✅ `deliverables/assets/pletor-ugc-farm.webp` |
 | 0.7 | 🧑 | UGC: your own Pletor/Casey AI format (shock face + iPhone product demo), made in Poolday the intended way. Send me the Pletor image/video prompts + models so we adapt them to Poolday | no | ✅ 8 reels made in Poolday ("Poolday AI UGC Reels (8x)") |
 | 0.8 | 🤖 | Build the agent loop (D3), runs on the CSV first → `loop/` | no | ✅ done, tests pass (mock mode) |
@@ -147,7 +147,8 @@ When the first prospect video is final:
 - **H:** LinkedIn video final + post copy (I draft, you pick). ✅ the CEO's UGC-farm video + caption (D1 §8)
 - **I:** agent loop end-to-end demo on 3 leads + screen recording. ✅ live run on Wispr Flow (`deliverables/D3-loop/`), no recording by choice
 - **J:** reviews written (D6, D7) + growth idea final. ✅
-- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix). 🟡 in progress (waiting on the MP4 uploads)
+- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix). 🟡 MP4s received and filed (D1, D2), the 8-reel Poolday link and Pletor screenshot in (M53). Left: D4 numbers at +24h, reels 3–4, the final review pass together
+- **L:** security. ✅ Poolday trigger secret rotated and API key deleted (26 Sep, M54). 🧑 On the Mac: clear the saved automation URL and relaunch the loop, then paste the new URL (commands in M54)
 
 ---
 

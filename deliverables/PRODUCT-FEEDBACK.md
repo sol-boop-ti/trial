@@ -7,6 +7,7 @@
 - **Severity:** cosmetic, but it's the first thing a new user sees when uploading brand assets. Likely fix: `max-width: 100%` plus wrapping on the formats line, or a shorter "Video, audio, image, text, font, 3D · max 1 GB" summary with a "see all formats" tooltip.
 
 ## What felt great
+- **AI UGC impressed me most.** In "Poolday AI UGC Reels (8x)" the agent made a smart call at every step. The standout: the AI creator **turns the camera around and films the product demo** on the laptop. With other tools I generated only the hook with AI and filmed the demo by hand (iPhone pointed at my Mac). Here, the whole reel came out of one conversation. That is worth showing in Poolday's own marketing: "the creator films your demo too".
 - The UI and UX feel premium and consistent with the "superintelligence" positioning.
 - Align mode's structured questions: options as cards, an "Awaiting your input" state, "Let agent decide", free text. It feels like briefing a creative director.
 - Asking the agent "do you have an API?" produced a precise, honest answer: public API, keys/docs/playground/webhooks under Capabilities → Integrations, a lighter Automation + inbound-webhook option, and "I won't guess the paths". Screenshots: `assets/poolday-feedback/api-answer.webp`, `api-question.webp`.

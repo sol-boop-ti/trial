@@ -248,7 +248,7 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   1. "Same prompt, 4 apps": Higgsfield, Poolday, Kling, Seedance.
   2. "Reply with proof" remakes, inspired by Higgsfield's After Effects plugin replies.
   3. A "your launch video is now free, comment your URL" hook, with an honesty check on any claim that a specific model made the video.
-- **UGC (D4):** the user's Pletor pipeline is recorded in `poolday/pletor-ugc-reference.md` (base character → shock face → image-to-video), with an intent-level Poolday brief that follows the brief's method (30 actor photos → pick → variants). The farm screenshot is kept for the appendix (`deliverables/assets/pletor-ugc-farm.webp`).
+- **UGC (D4):** the user's Pletor pipeline is recorded in `poolday/ugc-reference.md` (renamed from `pletor-ugc-reference.md` on 24 Sep) (base character → shock face → image-to-video), with an intent-level Poolday brief that follows the brief's method (30 actor photos → pick → variants). The farm screenshot is kept for the appendix (`deliverables/assets/pletor-ugc-farm.webp`).
 - **Page review (D7):** critiqued the Claude chat draft (`deliverables/D7-review-draft-claude-chat.md`). Pricing is the most impactful part. Never change factual claims in rewrites, cut the repetitive slogan pattern, and verify the cited numbers.
 - **References:** the first reference video received is `references/ref-x-video-1.mp4` (12s, 16:9, beige background; colorful tiles linked by lines → a radial fan of cards → a horizontal carousel of image cards moving in a wave). Frames were extracted with ffmpeg for the analysis.
 
@@ -562,6 +562,16 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - Bottom enlarged to 58%; copy cut to two labels ("AI Slop" / "Made with Poolday").
   - The Poolday frame is now a rebuild of the user's Apple-motion reference (a 3D phone tunnel), rebranded to a fuller Lumen identity (Bricolage Grotesque display from Google Fonts + Inter; Moss/Ember/Sky/Night/Sand).
   - The brand kit is a 16:9 one-page brand guide (modelled on the user's "Picante" template screenshot), attached as "Inspiration attached".
+- **Update 3 (user feedback on v2):**
+  - The slop was "ok tier, not really bad": it's now the generic AI motion-design look (gradient, flare, "WORK SMARTER. GROW FASTER.", glass chart, wrong logo), all in grey. The top shrinks to ≈30% for the old-vs-new effect.
+  - The brand kit is now smaller and superposed on the Poolday frame, tagged "built by AI from lumen.com", with a URL bar → arrow so the URL-to-kit mechanic is explicit.
+  - Copy changed so the labels don't read "AI SLOP MADE WITH POOLDAY": "Other AI video tools" vs the Poolday logo, headline "Your URL in. Your brand out."
+- **Update 4 (user):**
+  - The top frame is now the user's "LOCAL AI SLOP" sign image, shown as a paused square video in grey.
+  - The top label is bigger and darker (it was unreadable). The **VS** is a 210px medallion on a white seam.
+  - The bottom label is the logo + "Made with Poolday".
+  - The CTA line is removed.
+  - Rights note: the sign is a third-party image; replace it before paid use.
 
 ## M49. Poolday time and credits (from the user's screenshots, 26 Sep evening)
 - **Credits:** budget 2,000,000 ($2,000, so 1,000 credits = $1). Spent 835,270 (Settings → Usage, 30 days); balance 1,164,730. Top category Agents: 639,531 (77%). Daily: ≈25k (24 Sep), ≈400k (25 Sep, read from the chart), 409,800 (26 Sep, 328 events).
@@ -588,10 +598,6 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - New test; 40 pass.
 - **Deviation from the skill:** `process-leads` says "don't commit / don't edit METHODS". Here the answers must reach the user's Mac, so only the answer file is committed (`loop/answers/claude-qualification-2026-09-26.json`, no database), and this entry follows CLAUDE.md.
 - **Mac import:** `cd ~/poolday-trial && git pull && cd loop && python3 -m prospect_loop llm-import --file answers/claude-qualification-2026-09-26.json`, then refresh the dashboard. Dry-run on a simulated Mac database: Wispr stays approved with the new email; Convex out, Delightree in.
-- **Update 3 (user feedback on v2):**
-  - The slop was "ok tier, not really bad": it's now the generic AI motion-design look (gradient, flare, "WORK SMARTER. GROW FASTER.", glass chart, wrong logo), all in grey. The top shrinks to ≈30% for the old-vs-new effect.
-  - The brand kit is now smaller and superposed on the Poolday frame, tagged "built by AI from lumen.com", with a URL bar → arrow so the URL-to-kit mechanic is explicit.
-  - Copy changed so the labels don't read "AI SLOP MADE WITH POOLDAY": "Other AI video tools" vs the Poolday logo, headline "Your URL in. Your brand out."
 
 ## M51. D4: first two reels live, early reach
 - **Account:** @natecreates99 (professional; 8 followers, 45 following).
@@ -602,12 +608,6 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Changes for the next posts:** Trial reels if available (non-followers first); a face plus text hook in frame 1 (reel 2 has it, reel 1 opens on a laptop); IG library audio; follows slowed to ~10/day plus real niche activity; no delete-and-repost; the "AI info" label on; seed each reel to Story and DMs.
 - **Plan:** post 2 more tomorrow (morning, evening) so n = 4 meets 3 < n < 20, a 5th if time allows. Read views at +12/+24h.
 - **Output:** `DELIVERABLE.md` D4 table; screenshots in `deliverables/assets/d4/`.
-- **Update 4 (user):**
-  - The top frame is now the user's "LOCAL AI SLOP" sign image, shown as a paused square video in grey.
-  - The top label is bigger and darker (it was unreadable). The **VS** is a 210px medallion on a white seam.
-  - The bottom label is the logo + "Made with Poolday".
-  - The CTA line is removed.
-  - Rights note: the sign is a third-party image; replace it before paid use.
 
 ## M52. How the qualification was done and checked (user question)
 - **Method:** a code pre-score (freshness 40 / buyer 25 / B2B 15 / video fit 20, gate 45), then the 5×20 rubric answered per lead from dataset facts, with code guards (freshness from dates, sum, knockout without a buyer, threshold 70).
@@ -619,3 +619,55 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Limits:** one rater, dataset only (no live verification), coarse criteria.
 - **Validation plan:** outcomes by score band (5 qualified + 3–5 close calls as a control), re-weighting after 20–30 sends, a blind CEO scoring of 10 leads for agreement between raters, and an optional API second opinion.
 - Written into `deliverables/D3-loop/README.md`.
+- **Follow-up (user: "what does '4 of 5 are the same' mean?"):**
+  - The fallback scorer (the mock: a fixed formula on the same fields, no AI) qualifies Flam 99, TwelveLabs 83, Blacksmith 79, Wispr Flow 73 and Convex 73.
+  - The rubric qualifies Flam 99, TwelveLabs 79, Blacksmith 77, Delightree 77 and Wispr Flow 76.
+  - Same first four; Delightree replaces Convex. The D3 README bullet now spells this out.
+  - Recomputed on the cloud DB (`LOOP_DB=work/claude-run.db`, rebuilt by `ingest`):
+    ```
+    cd loop && python3 -c "import json;from prospect_loop import llm,store;c=store.connect('work/claude-run.db');a={t['domain']:t['result']['score'] for t in json.load(open('answers/claude-qualification-2026-09-26.json'))['tasks'] if t['task']=='qualify'};print(sorted(((llm.mock_qualify(l)['score'],a[l['domain']],l['company']) for l in store.all_leads(c) if l['domain'] in a),reverse=True)[:6])"
+    ```
+
+## M53. Final videos filed (D1, D2) and the 8-reel batch linked (D4)
+- **What:** the user uploaded the three final Poolday videos to GitHub (web upload, repo root) and shared the Poolday link and a screenshot of the 8 UGC reels.
+- **Tools:** git, ffmpeg (imageio-ffmpeg), PIL, the loop's email rule checks (`llm.clean_email`).
+- **Inputs:**
+  - Flam teaser: 25.1s, 1920×1080, 30 fps ("final (25 s 16:9)").
+  - Wispr Flow teaser: 22.5s, 1920×1080 ("v3 — video plate + Gmail").
+  - LinkedIn video: 15.1s, 1536×1920 ("Infinite UGC farm — A · Screen capture ×40 (no end card)").
+  - The Poolday conversation "Poolday AI UGC Reels (8x)" (link) and a screenshot of its 8 reels.
+- **Process:**
+  1. `git mv` to `deliverables/D1-linkedin/infinite-ugc-farm.mp4` and `deliverables/D2-prospect-videos/{flam-series-b-teaser,wispr-flow-meetings-teaser}.mp4` (clean names, same blobs).
+  2. Watched each at 1 frame/s (`ffmpeg -vf "fps=1,scale=480:-1,tile=5x5"`) → shot lists. 4-frame previews: `ffmpeg -ss T -i video -frames:v 1` per frame, then a PIL grid with time labels.
+  3. Self-review of both prospect videos against my own D6 pacing rule (frame 1, the slowest stretch, the outro length).
+  4. Flam email drafted from the loop's email guide and checked with `llm.clean_email`: all rules pass, 71 words.
+  5. The 8-reel screenshot saved as `deliverables/assets/d4/poolday-ugc-reels-8x.jpg`. The Pletor screenshot (already in `assets/`) filled the appendix.
+  6. Cleanup:
+     - `D1-linkedin.md` had a stale duplicate of §5–§6 (the older "Claude writes, Poolday films" version, left by an earlier edit). Removed; §6 now has the UGC guardrails; §8 links the final file and suggests a cover frame.
+     - In this file, the D8 ad updates 3 and 4 were moved back under M48 (they had been appended to M50 and M51).
+- **Decision & why:**
+  - Frame previews go in the docs because Markdown on GitHub doesn't play repo videos inline. The reader sees each video at a glance, then clicks through.
+  - The self-review is there because the pacing critique I gave Poolday (D6) should apply to my own videos too.
+- **User insight (logged in D4, the Pletor appendix, PRODUCT-FEEDBACK and the daily-post formats):**
+  - "The AI creator turns the camera around and films the Poolday demo."
+  - For Pletor, only the hook was AI, and the user filmed the demo by hand (iPhone pointed at the Mac). In Poolday, the whole reel comes out of one conversation. The user also found the agent "smart at every step" of the batch.
+- **Output:**
+  - `DELIVERABLE.md`:
+    - D1 filled (video, caption, first comment, lead capture, honesty note, cover frame);
+    - D2 (videos, previews, agent time, emails);
+    - D4 (Poolday link, screenshot, the 8 hooks, what impressed);
+    - TL;DR and key numbers;
+    - the Pletor appendix.
+  - Also: `D2-prospect-videos/README.md` and PRODUCT-FEEDBACK "What felt great".
+- **Time/credits:** no Poolday credits (filing and review only).
+- **Lessons:** GitHub web uploads land at the repo root with the original file names, so move them in one commit. A timestamped self-review is cheap and makes the critique of others credible.
+
+## M54. Security housekeeping (user, 26 Sep evening)
+- **What:** the user rotated the Poolday automation's webhook secret (the old trigger URL had been visible in a screenshot) and deleted the Anthropic API key pasted in chat earlier.
+- **Process:** the scratchpad copy of the key was deleted; a grep over the repo and the scratchpad finds no copy.
+- **Mac follow-up:** the loop saves the automation URL in `~/secrets/poolday-webhook.env`. After a rotation, delete the saved line and relaunch. The script then asks for the new URL:
+  ```
+  sed -i '' '/^POOLDAY_WEBHOOK_URL=/d' ~/secrets/poolday-webhook.env
+  cd ~/poolday-trial && bash loop/start-mac.command
+  ```
+- **Decision & why:** anyone holding a leaked trigger URL can start Poolday runs on the account's credits. Rotation kills the old token. A key pasted in chat should be treated as exposed.

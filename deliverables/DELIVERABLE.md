@@ -8,20 +8,20 @@
 
 | # | Deliverable | Link | Key number |
 |---|---|---|---|
-| D1 | LinkedIn post + video | [PLACEHOLDER: post draft / video link] | [PLACEHOLDER: length, ratio] |
-| D2 | Prospect video: Flam | [PLACEHOLDER: video link] | [PLACEHOLDER: prompts, render time] |
-| D2 | Prospect video: Wispr Flow | [PLACEHOLDER: video link] | [PLACEHOLDER: prompts, render time] |
+| D1 | LinkedIn post + video | [video](D1-linkedin/infinite-ugc-farm.mp4) · [post copy](D1-linkedin.md) (§8) | 15s · 4:5 · one prompt in Poolday, 56 min of agent time |
+| D2 | Prospect video: Flam | [video](D2-prospect-videos/flam-series-b-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 25s · 16:9 · 2 messages, 50 min (brand kit included) |
+| D2 | Prospect video: Wispr Flow | [video](D2-prospect-videos/wispr-flow-meetings-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 22s · 16:9 · 3 messages (v1 → v3), 55 min (brand kit included) |
 | D3 | Agent loop (leads → qualify → video → human gate → email draft) | [PLACEHOLDER: repo link] · [PLACEHOLDER: demo recording] | [PLACEHOLDER: leads processed, emails drafted] |
-| D4 | AI UGC on Instagram | [PLACEHOLDER: @handle] | [PLACEHOLDER: n posts, total views] |
+| D4 | AI UGC on Instagram | [@natecreates99](https://www.instagram.com/natecreates99/) · [the 8 reels in Poolday](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a) | 8 reels made (12s each) · [PLACEHOLDER: n posted, total views] |
 | D5 | Growth idea: "Paste your URL, get your launch video" | [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link] | $3k pilot → up to $15k; target ≤$150 per booked demo at scale |
 | D6 | Video review ([PLACEHOLDER: PostHog / Upflow]) | [PLACEHOLDER: link] | Top 3 changes + first-5s rewrite |
 | D7 | Page reviews (home + b2b-startups) | [PLACEHOLDER: link] | [PLACEHOLDER: n prioritized changes] |
 
 **Key numbers**
 - Total UGC views: [PLACEHOLDER] across [PLACEHOLDER] posts (best post: [PLACEHOLDER] views)
-- Credits spent: [PLACEHOLDER] of $2,000 (by deliverable: see [Credits](#credits-by-deliverable))
-- Prompts per video: [PLACEHOLDER: e.g. 7 → 4 → 2] (first → second → third video)
-- Render time per run: [PLACEHOLDER: median / range]
+- Credits spent: 835,270 of 2,000,000 (≈ $835 of $2,000, 42%). By conversation: see [Time and credits](#time-and-credits-poolday-2426-sep-2026)
+- Prompts per video: 2 (Flam) and 3 (Wispr Flow, v1 → v3) with the org skills; 1 for the automated D3 run on the saved Wispr kit
+- Agent time per video: 49–56 min for a first video with its brand kit; 4 min for a repeat on a saved kit (the D3 run)
 - Parallel Poolday conversations at peak: [PLACEHOLDER]
 
 ---
@@ -60,13 +60,37 @@
 
 ## D1. LinkedIn post + video
 
-- **Use case shown:** [PLACEHOLDER: chosen concept; recommended: "One URL in, brand kit + launch video out", see [D1-linkedin.md](D1-linkedin.md)]
-- **Why this angle:** [PLACEHOLDER: why it produces *qualified* leads]
-- **Video:** [PLACEHOLDER: link] · 4:5 · [PLACEHOLDER: length] · hook understood with the sound off
-- **Process:** 5 concept directions from Poolday → picked [PLACEHOLDER] → full brief → [PLACEHOLDER: n] prompts, [PLACEHOLDER: credits]
-- **Post copy:**
-  > [PLACEHOLDER: final post text]
-- **Lead-capture CTA:** [PLACEHOLDER: e.g. "Comment VIDEO + your URL and I'll make yours"]. It qualifies leads, because people have to give their company URL. Link in the first comment.
+**"Claude Opus 5.5 + Poolday = Infinite UGC farm"**, posted by the CEO.
+
+- **Use case shown:** one message in Poolday, "Build me a UGC farm. 50 creators, 50 scripts, 50 reels.", and the agent casts the creators, writes the scripts and fills a wall of reels while a "reels made" counter climbs.
+- **Why this angle:**
+  - UGC at volume is what app and D2C marketers pay agencies and creators for every month, so the people who comment are buyers.
+  - "[tool] + [tool] = [big outcome]" is the headline format that performs best for me.
+- **Video:** [`D1-linkedin/infinite-ugc-farm.mp4`](D1-linkedin/infinite-ugc-farm.mp4) · 15s · 4:5 (1536×1920) · readable with the sound off (the prompt, the counter).
+
+  ![Four frames: the prompt, casting, 50 reels, the ×400 wall](D1-linkedin/infinite-ugc-farm-frames.jpg)
+- **Process:** one prompt with creative freedom (`poolday/prompts/L3-ugc-studio-one-prompt.md`), made entirely in Poolday. One conversation: 2 messages, 4 outputs, 56 min of agent time. I picked output A (a sped-up screen capture ×40, no end card).
+- **Post copy (the CEO's caption):**
+  ```
+  Claude Opus 5.5 + Poolday = Infinite UGC farm.
+
+  One message:
+  "Build me a UGC farm. 50 creators, 50 scripts, 50 reels."
+
+  Poolday casts the creators, writes the hooks,
+  films the reels and adds the captions.
+  Running on Claude Opus 5.5.
+
+  A year ago this was an agency and a month of work.
+  Now it's one prompt.
+
+  Want the exact prompt? Comment "UGC" and I'll send it.
+  ```
+- **First comment:** `Every reel is labeled as AI. Try it: poolday.ai ?utm_source=linkedin&utm_campaign=ceo-ugc-farm`
+- **Lead capture:** everyone who comments "UGC" gets the prompt by DM, and their company goes into the D3 loop to be scored ([D1-linkedin.md](D1-linkedin.md) §4).
+- **Honesty:** the video is a sped-up dramatization made in Poolday (its counter runs into the thousands), so the caption claims no count. The real batch behind it is the 8 reels in D4.
+- **Cover image:** set the LinkedIn thumbnail to the 0:09 frame (the wall of reels). Frame 0 is a dark, almost empty screen.
+- Other angles and headline options: [D1-linkedin.md](D1-linkedin.md).
 
 ---
 
@@ -83,16 +107,22 @@ Scoring on the Series B list (38 companies, Higgsfield excluded): (1) freshness 
 | Buyer | CMO / Head of Product + Creative Director | VP Product Marketing + Head of Design, Marketing |
 | Why | Freshest round with contacts. They sell interactive content to enterprise marketers, so they judge visual quality professionally | Largest fresh round on the list. Design-led brand, and the move into meetings means a launch is coming |
 | Angle | "Your Series B announcement film" | "What your meetings launch could look like" |
-| Video | [PLACEHOLDER: link] | [PLACEHOLDER: link] |
-| Prompts / render time / credits | [PLACEHOLDER] | [PLACEHOLDER] |
+| Video | [`flam-series-b-teaser.mp4`](D2-prospect-videos/flam-series-b-teaser.mp4) · 25s · 16:9 | [`wispr-flow-meetings-teaser.mp4`](D2-prospect-videos/wispr-flow-meetings-teaser.mp4) · 22s · 16:9 |
+| Prompts / agent time / credits | 2 messages · 50 min, brand kit included · ≈140k credits (est.) | 3 messages (v1 → v3) · 55 min, brand kit included · ≈155k credits (est.) |
 
-Backup: **Convex** ($57M, open source, so the skill can use its real UI components). [PLACEHOLDER: used as the 3rd video to test `/prospect-video`? result]
+![Flam: 4 frames](D2-prospect-videos/flam-frames.jpg)
+
+![Wispr Flow: 4 frames](D2-prospect-videos/wispr-flow-frames.jpg)
+
+Shot lists, a self-review against my own pacing rule, and both emails: [D2-prospect-videos/README.md](D2-prospect-videos/README.md).
+
+Backup: **Convex** ($57M, open source, so the skill can use its real UI components). Not made: the loop's live test reused the Wispr Flow kit instead (4 min, ≈$11), and the loop's rubric later scored Convex 67, just under the bar.
 
 ### How they were made
 - Brand kit from the website → reference-teaser skill + a reference video I chose, with what I liked about it written as mechanisms → the skill's approval gate (script, look, routing) → iteration with timestamped mechanism feedback.
 - A/B test: skill-based vs. the "threejs, most impressive video possible" prompt. [PLACEHOLDER: result]
 - [PLACEHOLDER: screenshot of the approval gate]
-- **Outreach drafts:** [PLACEHOLDER: email to each buyer, from the D3 loop]
+- **Outreach drafts:** Flam → Karthik (CMO), a new draft that passes the loop's email rule checks. Wispr Flow → Carolyn (VP Product Marketing), the loop's draft ([`D3-loop/wispr-flow-email-sample.eml`](D3-loop/wispr-flow-email-sample.eml)) with the v3 teaser's link swapped in. Both are in [D2-prospect-videos/README.md](D2-prospect-videos/README.md).
 
 ---
 
@@ -125,6 +155,21 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 - **Account:** [@natecreates99](https://www.instagram.com/natecreates99/). New account, professional mode (reel insights). Warmed up before posting: 8 followers, 45 following on 26 Sep.
 - **Posting limit:** a new IG account can only post about **1–2 times per day** before reach drops or the account gets flagged, so **about 4–5 posts fit in 48 hours**. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
 - **Method:** reused my AI UGC method from Pletor (see appendix), inside Poolday: actor photos → pick → voices → pick → scripts → batch as variants in one conversation. The Poolday run "Poolday AI UGC Reels (8x)" produced 8 reels (52 min of agent time).
+- **All 8 reels, in Poolday:** [conversation "Poolday AI UGC Reels (8x)"](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a). They are 12s each, in 9:16, with 3 AI creators and 8 different hooks.
+
+  ![The 8 reels in Poolday](assets/d4/poolday-ugc-reels-8x.jpg)
+- **The 8 hooks** (on-screen text in frame 1):
+  1. "I could literally KISS the business owner who showed me this 🤯"
+  2. "CLAUDE CAN DO WHAT NOW ??!"
+  3. "POV: you built your SaaS but it's time to pay $5K for a launch video 👀"
+  4. "POV: launch is tomorrow and you don't have a motion designer"
+  5. "to the tech guy who told me u could launch your startup from a URL"
+  6. "nobody told me a launch video could start from a URL"
+  7. "when the founder wants a launch video "by Friday""
+  8. "POV: you were about to email the agency for a quote"
+- **What impressed me:**
+  - Poolday made a smart call at every step of this batch.
+  - The AI creator **turns the camera around and films the Poolday demo** on the laptop. I didn't think that was possible. Before (see the appendix), I generated only the hook with AI and filmed the demo part myself, by hand, with my iPhone pointed at my Mac. Here, the whole reel comes out of one conversation, with no manual filming.
 
 | # | Hook (first 2s) | Posted | Views at +12h | Views at +24h | Views at submission |
 |---|---|---|---|---|---|
@@ -199,6 +244,7 @@ I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The
   - "Same prompt, 4 apps" comparisons;
   - "Claude Opus 5.5 + Poolday = Infinite UGC farm" style equations;
   - replies with proof under "AI can't do this" threads;
+  - my own before/after, e.g. "I used to film the demo with my iPhone pointed at my Mac. Now the AI creator turns the camera around and films it.";
   - build-in-public updates from the prospect loop and the UGC account.
 - **Cadence:**
   - X: 1 post and 3–5 proof replies a day.
@@ -264,6 +310,8 @@ Screenshots: `assets/poolday-final/`.
 
 **Prior experience: the AI UGC farm I built for Pletor**
 
-[PLACEHOLDER: screenshot of the UGC farm built for Pletor]
+![The UGC farm flow I built in Pletor: 4 AI creators, dozens of hook variants each](assets/pletor-ugc-farm.webp)
 
-[PLACEHOLDER: one line of context: what it produced, volume, results]
+- **How it worked:** four AI creators (@casey_ai, @mailia_ai, @brooke_ai, @ciara_ai), each with dozens of hook variants. AI made only the hook, the first seconds of reaction to camera. I filmed the product demo part myself, by hand, with my iPhone pointed at my Mac.
+- **What changed with Poolday (D4):** the AI creator turns the camera around and films the demo too, so the whole reel is generated in one conversation.
+- [PLACEHOLDER: volume and results of the Pletor farm]

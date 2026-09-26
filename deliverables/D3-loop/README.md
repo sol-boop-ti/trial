@@ -25,7 +25,11 @@
 **What "qualified" means:** worth making a free video for, because a fresh round (budget, launch, announcement), a named marketing/creative buyer and a visual product make a personalized video most likely to land.
 
 **Evidence it's coherent (26 Sep, 27 scored leads):**
-- Rank correlation 0.83 with the deterministic pre-score and 0.71 with the offline mock scorer. 4 of 5 qualified leads are the same as the mock's.
+- **Two methods, nearly the same winners.**
+  - The loop has an offline fallback scorer (the "mock"): a fixed formula on the same fields, no AI, used when no AI is connected.
+  - It qualifies Flam 99, TwelveLabs 83, Blacksmith 79, Wispr Flow 73 and Convex 73.
+  - The rubric qualifies the same first four, with Delightree instead of Convex.
+  - The rank correlation is 0.83 with the pre-score and 0.71 with the fallback.
 - It agrees with the manual D2 picks made before the loop existed: Flam #1 and Wispr Flow #2 both qualify; backup Blacksmith qualifies; backup Convex is a close call (67).
 - The disagreements are explained:
   - Convex drops because the contact is a marketing manager and the product is a backend.

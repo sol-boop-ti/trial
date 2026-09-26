@@ -187,65 +187,7 @@ Comment UGC and I'll send you the prompt.
 ```
 **First comment:** `The exact prompt: [link]. Try Poolday: [poolday.ai ?utm_source=linkedin&utm_campaign=d1-ugc]`
 
-**Video:** one Poolday run that animates Poolday building a UGC farm, sped up (prompt: `poolday/prompts/L3-ugc-studio-one-prompt.md`). The agent has creative freedom.
-
-**Guardrails:** nothing public without the human gate; deliver within 72h or say so publicly; D1 credit cap [$300] of $2,000, per video in `METHODS.md`.
-
-## 5. Metrics (read at 24h / 72h / 14 days)
-| Metric | Target |
-|---|---|
-| Comments with a company URL | ≥ 40 per post in 72h |
-| Share of URL comments scoring Tier A/B | ≥ 50% |
-| Demos booked from post leads (DM link + UTM) | ≥ [8–10] in 14 days |
-| Reach vs the author's median post / "AI slop" flags | ≥ 2× / 0 |
-
----
-**Sources** (searched 2026-09-24. X, TechCrunch, higgsfield.ai and runtimewire pages were blocked here; those claims come from search snippets. Open them before quoting.)
-[S1] [Anthropic: Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5), [9to5Mac, 22 Sep](https://9to5mac.com/2026/09/22/anthropic-upgrades-claude-with-new-opus-5-5-model-details-here/) ·
-[S3] [X: "one prompt using Opus 5.5 … 12 hours"](https://x.com/donaldjewkes/status/2102801274173587569), [Threads: "ONE.PROMPT."](https://www.threads.com/@dannystuart/video/DdoStg1jDID/video-one-prompt-opus-is-stunning/) ·
-[S4] [OrcaRouter: what "one shot" really takes](https://www.orcarouter.ai/blog/claude-opus-5-5-video-plan-one-shot) ·
-[S5] [TechCrunch, 30 Jul: LinkedIn slop button](https://techcrunch.com/2026/07/30/linkedin-adds-a-button-to-report-ai-generated-slop/) ·
-[S6] [Fortune, 25 Aug: 1M+ clicks](https://fortune.com/2026/08/25/1-million-people-clicked-linkedin-ai-slop/) ·
-[S9] [X: Motion in Claude launch](https://x.com/motion_so/status/2083992227114520576) ·
-[S10] [Artificial Analysis video arena](https://artificialanalysis.ai/video/leaderboard/text-to-video), [Clipia: Seedance vs Kling vs Veo](https://clipia.ai/en/blog/seedance-2-vs-kling-3-vs-veo-3) ·
-[S12] [X: Higgsfield AI Motion Designer launch](https://x.com/higgsfield/status/2098409362041753708), [Higgsfield blog](https://higgsfield.ai/blog/ai-motion-designer-after-effects-gpt), [product page](https://higgsfield.ai/ai-motion-designer) ·
-[S13] [Blotato: Higgsfield pricing 2026](https://www.blotato.com/blog/higgsfield-pricing), [Creatify](https://creatify.ai/blog/higgsfield-pricing-(2026)-plans-and-what-you-ll-actually-pay) ·
-[S14] [Kling 3.0 credit guide](https://kling.ai/blog/kling-video-3-0-credit-cost-guide), [eesel: Kling pricing](https://www.eesel.ai/blog/kling-ai-pricing) ·
-[S15] [Dreamina: Seedance 2.0 pricing](https://dreamina.capcut.com/seedance/seedance-2-0-pricing), [Seedance price per second](https://dreamina.capcut.com/seedance/seedance-price)
-
----
-
-## 6. New angle (v5): "Claude Opus 5.5 + Poolday = Infinite UGC farm" (V5 · L4 · F5)
-The Jev angle was dropped (user's call). The headline format "[famous tool] + [tool] = [big outcome]" is the user's best-performing format.
-
-**Why the headline is true:** Claude Opus 5.5 writes the scripts (in claude.ai), and Poolday turns them into reels. So we don't need to know which model Poolday runs inside.
-
-**Headline options (same format):**
-1. Claude Opus 5.5 + Poolday = Infinite UGC farm **(pick)**
-2. Claude Opus 5.5 + Poolday = 100 UGC ads a week
-3. Claude writes. Poolday films. = Infinite UGC
-4. Opus 5.5 + Poolday = a UGC team that never sleeps
-5. 1 prompt + Poolday = 8 UGC reels
-6. Claude Opus 5.5 + Poolday = your UGC agency, fired
-
-**Post (simple):**
-```
-Claude Opus 5.5 + Poolday = Infinite UGC farm
-
-Step 1: Claude writes 30 UGC scripts in 1 minute.
-Step 2: Poolday turns them into reels.
-AI creators, captions, edit. Done.
-
-15 seconds below, sped up.
-[N] reels. [T]. [$X].
-
-Next week? Same thing, one line.
-
-Comment UGC and I'll send you the exact prompts.
-```
-**First comment:** `Both prompts, word for word: [link]. Try Poolday: [poolday.ai ?utm_source=linkedin&utm_campaign=d1-ugc]`
-
-**Video (15s, 4:5, sped-up screen recording):** 0–2s a grid of 8 reels playing + the headline · 2–5s Claude writing the scripts (sped up) · 5–12s Poolday building the reels (creators appear, the grid fills one by one), with a real clock in the corner · 12–15s full grid + "[N] reels · [T]". Prompts: `poolday/prompts/L3-ugc-studio-one-prompt.md`.
+**Video:** one Poolday run that animates Poolday building a UGC farm, sped up (prompt: `poolday/prompts/L3-ugc-studio-one-prompt.md`). The agent has creative freedom. Final file: §8.
 
 **Guardrails:** every reel is labeled as AI; no fake reviews or fake "real customers". "Farm" is the hook, not a promise to spam.
 
@@ -291,6 +233,12 @@ Comment the number.
 ---
 
 ## 8. Final: the CEO's post (video: "Opus 5.5 + Poolday: Infinite UGC farm", 15s, made in Poolday)
+**File:** [`D1-linkedin/infinite-ugc-farm.mp4`](D1-linkedin/infinite-ugc-farm.mp4) · 15s · 4:5 (1536×1920) · with sound. Output "A · Screen capture ×40 (no end card)" of the Poolday conversation "Opus 5.5 + Poolday: Infinite UGC farm" (2 messages, 4 outputs, 56 min of agent time).
+
+![Four frames: the prompt, casting, 50 reels, the ×400 wall](D1-linkedin/infinite-ugc-farm-frames.jpg)
+
+**Cover image:** when uploading, set the thumbnail to the 0:09 frame (the wall of reels). Frame 0 is a dark, almost empty screen.
+
 **What the video shows:** the Poolday app, sped up ×40. One message, "Build me a UGC farm. 50 creators, 50 scripts, 50 reels." → it casts 50 creators → writes 50 scripts → a wall of reels fills up with a "reels made" counter. The model picker in the prompt bar reads "Claude Opus 5.5".
 ```
 Claude Opus 5.5 + Poolday = Infinite UGC farm.
