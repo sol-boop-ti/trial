@@ -156,3 +156,65 @@ Creative freedom: pacing, transitions, music.
 [S13] [Blotato: Higgsfield pricing 2026](https://www.blotato.com/blog/higgsfield-pricing), [Creatify](https://creatify.ai/blog/higgsfield-pricing-(2026)-plans-and-what-you-ll-actually-pay) ·
 [S14] [Kling 3.0 credit guide](https://kling.ai/blog/kling-video-3-0-credit-cost-guide), [eesel: Kling pricing](https://www.eesel.ai/blog/kling-ai-pricing) ·
 [S15] [Dreamina: Seedance 2.0 pricing](https://dreamina.capcut.com/seedance/seedance-2-0-pricing), [Seedance price per second](https://dreamina.capcut.com/seedance/seedance-price)
+
+---
+
+## 6. Two new angles: "cool things you can do with Poolday" (v4)
+
+Both use the same format: **a 15s sped-up screen recording of Poolday doing the work**, with a real clock and a prompt counter. Proof beats claims when people have a "Seems like AI slop" button [S5].
+
+### #4 "Jev's launch got 40M views. Here's how to make yours." (V5 · L5 · F4)
+**Why now:** Jev (TypeSafe AI, launched 15 Sep 2026) is the launch of the month. Its launch video passed ~40M views on X, and investors are offering a >$10B valuation [S16]. Jev is also shown in Poolday's own "made with Poolday" gallery.
+**Before posting, confirm with Poolday that the Jev film was made with Poolday, and how** (fully or partly, and whether Jev agrees to be named). If it can't be confirmed, use variant B.
+- **Video (15s, 4:5):** hook = the Jev film + "40M views", then Poolday making a launch film in the same style for another product, sped up, then the result + "[N] prompts · [T]". Prompts: `poolday/prompts/L2-jev-launch-demo.md`.
+- **Copy (variant A, if confirmed):**
+```
+Jev's launch video did 40M+ views on X.
+It was made with Poolday. An agent, not an agency.
+
+So I asked the same agent for a launch film in that style
+for another product.
+15 seconds below. Sped up, real clock in the corner.
+
+[N] prompts. [T] of real time.
+Brand kit pulled from one URL. 3 styles to pick from.
+Then it built the film.
+
+Launching this quarter?
+Comment LAUNCH + your company URL.
+I'll make the first [10] this week.
+```
+- **Copy (variant B, if not confirmed):** line 2 becomes *"Everyone asked how it was made. So I tried to make one like it with an agent."*
+- **First comment:** `The prompt I used, word for word: [link]. Try it: [poolday.ai ?utm_source=linkedin&utm_campaign=d1-jev]`
+- **Main risk:** looking like we're riding Jev's name. Fix: say plainly what Poolday did and didn't do, and never show Jev's logo in our film.
+
+### #5 "Set up your AI UGC studio in one prompt" (V5 · L4 · F4)
+**Why now:** AI UGC is the hottest growth tactic of 2026, and most teams stitch 4–5 tools together (an image model, a video model, a script tool, an editor). One agent doing all of it is the surprise.
+- **What Poolday does in the demo:** from one message, it builds the brand kit, 4 reusable AI creators, 8 hook-first scripts, 8 vertical reels with captions, and a saved `/ugc-batch` command for next week.
+- **Video (15s, 4:5):** hook = a 4x2 grid of the 8 reels playing + "8 UGC reels. 1 prompt.", then the sped-up run (creators appear, hooks board, reels fill the grid one by one), then "next week: /ugc-batch". Prompts: `poolday/prompts/L3-ugc-studio-one-prompt.md`.
+- **Copy:**
+```
+Most AI UGC setups are 5 tools taped together.
+An image model, a video model, a script doc, an editor, a spreadsheet.
+
+I gave one prompt to Poolday instead.
+It built 4 recurring AI creators, wrote 8 hooks,
+and made 8 reels. 15 seconds below, sped up.
+
+[N] prompts. [T]. [$X] in credits.
+Next week it's one line: /ugc-batch.
+
+Every reel is labeled as AI. That's the rule.
+
+Want the exact prompt?
+Comment UGC and I'll send it.
+```
+- **First comment:** `The creators, the 8 hooks and the reels: [link]. Try it: [poolday.ai ?utm_source=linkedin&utm_campaign=d1-ugc]`
+- **Wording:** "UGC farm" is how growth people say it (and makes a strong hook on X), but on a founder's LinkedIn, "UGC studio" avoids the spam and "slop" reading. Test "farm" on X first.
+- **Main risk:** being read as fake-testimonial spam. Fix: AI disclosure on every reel, no fake reviews or fake customers, creators as characters, not as "real users".
+- **Bonus proof:** the D4 Instagram account runs exactly this setup. Add its real numbers ("[V] views in [D] days") once they exist.
+
+### Order
+#4 first (topical, it fades in about 2 weeks), then #5 three to four days later. Then the earlier #1/#2 as planned.
+
+[S16] [Bloomberg, 25 Sep: Jev, an AI model that can't chat](https://www.bloomberg.com/news/articles/2026-09-25/jev-an-ai-model-that-can-t-chat-takes-on-bigger-rivals), [ETV Bharat: Jev launch](https://www.etvbharat.com/en/technology/typesafe-ai-jev-ai-diogo-almeida-openai-chatgpt-rival-enn26092101669)

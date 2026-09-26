@@ -481,3 +481,13 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Lessons:** read the platform's auth options before choosing one. A "secure by default" checkbox (HMAC) can silently block a working client.
 - **Correction after the user's screenshots:** "Insert event field" only offers `{{event.body}}`, `{{event.files}}`, `{{event.headers}}` and `{{event.query}}`, and "Example event" is a read-only preview. The prompt now inserts `{{event.body}}` (the whole lead JSON) once, instead of 13 per-field inserts. Also caught: the instruction text from the A1 file had been pasted into the prompt, so the prompt must contain only the fenced block.
 - **Mac run 1 error:** "Homebrew is missing" although Homebrew was installed. Cause: on Apple Silicon, Homebrew lives in /opt/homebrew/bin, which isn't on the PATH until `brew shellenv` is added to ~/.zprofile (the installer's "Next steps", often skipped). Fix: `start-mac.command` now finds brew in /opt/homebrew or /usr/local, loads it, and adds it to ~/.zprofile once. The "No such file" sed message on the env file is harmless on a first run, because the script creates the file.
+
+## M39. Two new LinkedIn angles: Jev launch demo + AI UGC studio
+- **User request:** 2 viral posts about cool uses of Poolday, each built around a 15s sped-up demo made in Poolday: one with Jev, one "set up your AI UGC farm in 1 click".
+- **Research:** web search (2026-09-26). Jev = TypeSafe AI's decision model (launched 15 Sep 2026, launch video ~40M views on X, >$10B valuation offers; Bloomberg 25 Sep). Jev appears in Poolday's "made with Poolday" gallery (b2b page). Detail pages were blocked (egress), so figures come from search snippets.
+- **Decisions & why:**
+  - Real screen recordings, sped up with a clock and a prompt counter, rather than an animated rebuild of the UI: proof holds up better against the "AI slop" button.
+  - The Jev claim is gated on Poolday's confirmation, with a fallback copy.
+  - "UGC studio" on LinkedIn, "farm" tested on X.
+  - Mandatory AI disclosure on every reel.
+- **Output:** `deliverables/D1-linkedin.md` §6; prompts `poolday/prompts/L2-jev-launch-demo.md`, `L3-ugc-studio-one-prompt.md` (2 runs each: make it, then cut the 15s demo).
