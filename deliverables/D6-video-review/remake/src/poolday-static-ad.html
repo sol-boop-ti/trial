@@ -1,0 +1,124 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Poolday static ad</title>
+<style>
+@font-face{font-family:Inter;font-weight:100 900;src:url(_assets/poolday/inter.woff2) format("woff2")}
+:root{--ink:#F5F5F5;--mute:#878787;--bar:#161616;--hair:rgba(255,255,255,.12);--lumen:#FF6B2C}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:Inter,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.tag{position:absolute;left:60px;font-size:34px;letter-spacing:-.01em;display:flex;align-items:center;gap:14px}
+.dot{width:14px;height:14px;border-radius:50%}
+/* ---------- TOP: the usual way (greyed) ---------- */
+#top{position:absolute;left:0;right:0;top:0;height:900px;background:#d9d9d9;filter:grayscale(1) contrast(.92) brightness(.93);overflow:hidden}
+#top .tag{top:54px;color:#333}
+.app{position:absolute;left:60px;right:60px;top:130px;height:700px;background:#f3f3f3;border:2px solid #bdbdbd;border-radius:14px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.18);font-family:Arial,Helvetica,sans-serif}
+.ribbon{height:92px;background:#e6e6e6;border-bottom:2px solid #c8c8c8;display:flex;align-items:center;gap:14px;padding:0 20px}
+.ribbon i{display:block;width:46px;height:46px;border-radius:6px;background:#cfcfcf}
+.ribbon b{font-weight:700;font-size:22px;color:#555;margin-right:10px}
+.slide{position:absolute;left:30px;right:30px;top:120px;height:470px;background:linear-gradient(180deg,#8ecbff,#fff7a8);border:2px solid #aaa;overflow:hidden}
+.wordart{position:absolute;left:0;right:0;top:26px;text-align:center;font-family:"Times New Roman",serif;font-weight:900;font-style:italic;font-size:92px;color:#ffe100;-webkit-text-stroke:3px #c2410c;text-shadow:6px 6px 0 #7c2d12;transform:scaleY(1.2)}
+.bul{position:absolute;left:44px;top:190px;font-family:"Comic Sans MS","Comic Neue",cursive,Arial;font-size:34px;color:#1e3a8a;line-height:1.35}
+.clip{position:absolute;right:40px;top:170px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 12%,#ffb3b3 13% 40%,#e11d48 41%);box-shadow:inset -20px -20px 0 rgba(0,0,0,.2)}
+.stretch{position:absolute;left:60px;bottom:22px;font-family:Arial;font-weight:900;font-size:40px;color:#111;transform:scaleX(2.2);transform-origin:left}
+.render{position:absolute;left:30px;right:30px;bottom:26px;height:66px;display:flex;align-items:center;gap:18px;font-size:24px;color:#444}
+.render .pb{flex:1;height:18px;border-radius:9px;background:#d0d0d0;overflow:hidden}
+.render .pb i{display:block;width:7%;height:100%;background:#888}
+.sticky{position:absolute;right:80px;top:700px;background:#fff59d;color:#333;font-family:"Comic Sans MS",cursive,Arial;font-size:30px;padding:18px 22px;transform:rotate(4deg);box-shadow:0 8px 16px rgba(0,0,0,.2)}
+/* ---------- DIVIDER ---------- */
+#mid{position:absolute;left:0;right:0;top:852px;height:96px;display:grid;place-items:center;z-index:5}
+#mid span{background:#000;border:1.5px solid rgba(255,255,255,.25);border-radius:999px;padding:14px 34px;font-size:38px;letter-spacing:-.02em}
+/* ---------- BOTTOM: with Poolday ---------- */
+#bot{position:absolute;left:0;right:0;top:900px;bottom:0;background:#000;overflow:hidden}
+#ht{position:absolute;inset:0;opacity:.8}
+#bot .tag{top:80px;color:var(--ink)}
+#bot .tag img{height:40px}
+#bot .tag b{font-weight:400}
+.player{position:absolute;left:60px;top:140px;width:570px;height:590px;border-radius:26px;overflow:hidden;background:#070707;border:1px solid var(--hair);box-shadow:0 30px 80px rgba(255,107,44,.12)}
+.frame{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,rgba(255,107,44,.35),transparent 55%),#060606}
+.frame .lw{position:absolute;left:34px;top:30px;font-size:28px;letter-spacing:-.03em}
+.frame .lw b,.kitc b{color:var(--lumen);font-weight:400}
+.frame .k1{position:absolute;left:34px;top:110px;font-size:96px;line-height:.9;letter-spacing:-.05em}
+.frame .k1 em{font-style:normal;color:var(--lumen)}
+.frame .ghost{position:absolute;left:34px;top:110px;font-size:96px;line-height:.9;letter-spacing:-.05em;color:#fff;opacity:.18;filter:blur(5px);transform:translateX(-18px)}
+.dash{position:absolute;left:130px;top:300px;width:440px;height:230px;border-radius:18px;background:#141414;border:1px solid rgba(255,255,255,.14);transform:perspective(900px) rotateY(-22deg) rotateX(8deg);box-shadow:-30px 30px 60px rgba(0,0,0,.6)}
+.dash .r{position:absolute;left:22px;height:10px;border-radius:5px;background:#2b2b2b}
+.dash i{position:absolute;bottom:24px;width:34px;border-radius:7px 7px 3px 3px;background:var(--lumen)}
+.dash .line{position:absolute;left:210px;top:40px;width:220px;height:120px}
+.grain{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+.ctrl{position:absolute;left:0;right:0;bottom:0;height:86px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:center;gap:18px;padding:0 24px;font-size:22px;color:#ddd;font-variant-numeric:tabular-nums}
+.ctrl .pb{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.25);position:relative}
+.ctrl .pb i{position:absolute;left:0;top:0;bottom:0;width:46%;border-radius:3px;background:#fff}
+.ctrl .pb b{position:absolute;left:46%;top:50%;width:16px;height:16px;margin:-8px;border-radius:50%;background:#fff}
+.play{width:0;height:0;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent}
+/* brand kit */
+.kitc{position:absolute;left:680px;right:40px;top:140px;height:590px;border-radius:26px;background:var(--bar);border:1px solid var(--hair);padding:24px 22px}
+.kitc .h{font-size:17px;letter-spacing:.14em;color:var(--mute);margin-bottom:14px}
+.url{height:52px;border-radius:999px;background:#0b0b0b;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;padding:0 18px;font-size:22px;gap:10px;margin-bottom:10px}
+.url svg{width:18px;height:18px}
+.kr{border-top:1px solid var(--hair);padding:11px 0;display:flex;flex-direction:column;gap:8px}
+.kr small{font-size:15px;letter-spacing:.1em;color:var(--mute)}
+.kr .v{display:flex;align-items:center;gap:8px;font-size:24px;letter-spacing:-.02em}
+.sw{width:40px;height:40px;border-radius:10px}
+.th{width:72px;height:46px;border-radius:8px;background:#0b0b0b;border:1px solid var(--hair);position:relative}
+.th i{position:absolute;left:8px;right:8px;height:6px;border-radius:3px;background:#2e2e2e}
+.arrow{position:absolute;left:625px;top:405px;width:60px;height:60px;display:grid;place-items:center;border-radius:50%;background:#000;border:1.5px solid rgba(255,255,255,.3);z-index:3}
+.arrow svg{width:28px;height:28px}
+#copy{position:absolute;left:60px;right:60px;top:770px;font-size:62px;line-height:1.03;letter-spacing:-.03em}
+#copy .m{color:var(--mute)}
+.cta{position:absolute;left:60px;bottom:52px;display:flex;align-items:center;gap:18px}
+.cta .pill{background:#F2F2F2;color:#050505;border-radius:999px;padding:18px 32px;font-size:30px}
+.cta .dom{font-size:30px;color:var(--mute)}
+</style></head>
+<body>
+<!-- TOP: the usual way -->
+<div id="top">
+  <div class="tag"><span class="dot" style="background:#666"></span>Your launch video, the usual way</div>
+  <div class="app">
+    <div class="ribbon"><b>Slides</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="slide">
+      <div class="wordart">LUMEN 2.0!!!</div>
+      <div class="bul">• Our product is GREAT<br>• Very fast &amp; smart<br>• Buy now!!</div>
+      <div class="clip"></div>
+      <div class="stretch">lumen</div>
+    </div>
+    <div class="render">Exporting video…<span class="pb"><i></i></span>3%</div>
+  </div>
+  <div class="sticky">it's due tomorrow 😭</div>
+</div>
+<div id="mid"><span>vs.</span></div>
+<!-- BOTTOM: with Poolday -->
+<div id="bot"><canvas id="ht" width="1080" height="1020"></canvas>
+  <div class="tag"><img id="mk" src="_assets/poolday/mark.svg"><b>poolday</b><span style="color:var(--mute)">· same video, made from your brand</span></div>
+  <div class="player"><div class="frame">
+      <div class="lw">lumen<b>.</b></div>
+      <div class="ghost">Work,<br>faster.</div>
+      <div class="k1">Work,<br><em>faster.</em></div>
+      <div class="dash"><span class="r" style="top:22px;width:40%"></span><span class="r" style="top:44px;width:25%"></span>
+        <i style="left:24px;height:50px"></i><i style="left:66px;height:80px"></i><i style="left:108px;height:66px"></i><i style="left:150px;height:120px"></i>
+        <svg class="line" viewBox="0 0 220 120"><path d="M0 100 C40 95 60 70 90 72 S150 30 220 8" fill="none" stroke="#FF6B2C" stroke-width="5" stroke-linecap="round"/><circle cx="220" cy="8" r="7" fill="#FF6B2C"/></svg></div>
+      <div class="grain"></div>
+    </div>
+    <div class="ctrl"><span class="play"></span><span>0:07 / 0:15</span><span class="pb"><i></i><b></b></span></div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></div>
+  <div class="kitc">
+    <div class="h">BRAND KIT · FROM ONE URL</div>
+    <div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>lumen.com</div>
+    <div class="kr"><small>LOGO</small><span class="v">lumen<b>.</b></span></div>
+    <div class="kr"><small>COLORS</small><span class="v"><i class="sw" style="background:#FF6B2C"></i><i class="sw" style="background:#0B0B0B;border:1px solid #333"></i><i class="sw" style="background:#F5F5F5"></i><i class="sw" style="background:#8A8A8A"></i></span></div>
+    <div class="kr"><small>TYPE</small><span class="v">Aa · Inter</span></div>
+    <div class="kr"><small>VOICE</small><span class="v" style="font-size:21px">calm, sure, no hype</span></div>
+    <div class="kr" style="border-bottom:1px solid var(--hair)"><small>PRODUCT UI</small><span class="v"><span class="th"><i style="top:10px;width:60%"></i><i style="top:24px"></i></span><span class="th"><i style="top:10px;width:30%"></i><i style="top:24px;width:70%"></i></span></span></div>
+  </div>
+  <div id="copy">Paste your URL.<br><span class="m">Get a video that's actually yours.</span></div>
+  <div class="cta"><span class="pill">Try it with your URL</span><span class="dom">poolday.ai</span></div>
+</div>
+<script>
+// Poolday's scan-dot halftone behind the bottom half
+const g = document.getElementById("ht").getContext("2d");
+for (let y = 0; y < 1020; y += 8) for (let x = 0; x < 1080; x += 8) {
+  const r = 1 - Math.min(1, Math.hypot((x - 540) / 640, (y - 460) / 520)); if (r <= 0) continue;
+  const v = Math.round(10 + 34 * r); g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.arc(x, y, .6 + 1.4 * r, 0, 6.283); g.fill();
+}
+document.fonts.ready.then(() => document.body.dataset.ready = 1);
+</script>
+</body></html>

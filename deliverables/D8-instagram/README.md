@@ -1,6 +1,14 @@
 # D8 (bonus): Poolday's Instagram
 
-## 1. The story ad, remade (`poolday-ad.mp4`, 9:16, 14.4s, with sound)
+## 0. The static story ad (`poolday-static-ad.png`, 1080×1920; `@2x` for print)
+One 9:16 image, split screen, readable in about 1 second:
+- **Top (greyed): "Your launch video, the usual way".** A slides app with WordArt "LUMEN 2.0!!!", clip-art, bullet points, a stretched logo, "Exporting video… 3%" and a sticky note "it's due tomorrow". This is the PowerPoint/slop feeling.
+- **Bottom: the Poolday logo · "same video, made from your brand".** A paused frame of a professional motion-design video (kinetic headline with a motion trail, a 3D-tilted product dashboard, grain, the brand's orange light, player at 0:07/0:15). Next to it, the **brand kit it was built from: "from one URL"** (lumen.com → logo, colors, type, voice, product UI), with an arrow from the kit into the video.
+- **Copy:** "Paste your URL. Get a video that's actually yours." CTA: "Try it with your URL" · poolday.ai.
+- On Poolday's brand: black, Inter 400, the scan-dot halftone, the cream pill CTA. The colour comes only from the customer's video.
+
+
+## 1. Animated version (`poolday-ad.mp4`, 9:16, 14.4s, with sound)
 **The original** (`original-ig-ad-screenshot.png`): a static card, "No AI slop. Just your videos, edited well. Poolday learns your brand and edits every video to it." The idea is right, but:
 - nothing happens in the first 3 seconds;
 - it tells instead of shows;
