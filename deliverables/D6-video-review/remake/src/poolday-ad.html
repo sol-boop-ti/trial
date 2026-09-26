@@ -1,0 +1,255 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Poolday IG ad</title>
+<style>
+@font-face{font-family:Inter;font-weight:100 900;src:url(_assets/poolday/inter.woff2) format("woff2")}
+:root{--ink:#F5F5F5;--mute:#878787;--bar:#161616;--hair:rgba(255,255,255,.1);--lumen:#FF6B2C;--iris:linear-gradient(90deg,#8ec5ff 0%,#b8a9ff 20%,#f5a8f0 42%,#ffd2a8 64%,#a8f0d8 84%,#8ec5ff 100%)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:Inter,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden;background:#000}
+.hl{position:absolute;left:80px;right:80px;font-weight:400;font-size:78px;line-height:1.02;letter-spacing:-.025em}
+.hl .m{color:var(--mute)}
+.mask{display:block;overflow:hidden;padding-bottom:.08em}
+.mask>span{display:inline-block}
+#halftone{position:absolute;inset:0;opacity:.9}
+/* S1–S2 the card that flips */
+#stage{position:absolute;left:0;right:0;top:330px;height:1240px;perspective:2200px}
+#card{position:absolute;left:170px;top:0;width:740px;height:1240px;transform-style:preserve-3d}
+.face{position:absolute;inset:0;border-radius:44px;overflow:hidden;backface-visibility:hidden}
+#slop{background:linear-gradient(135deg,#ff00c8,#ffe600 30%,#00ffd0 55%,#7a00ff 80%,#ff3b00)}
+#slop .t1{position:absolute;left:40px;right:40px;top:170px;text-align:center;font-weight:900;font-size:150px;line-height:.9;color:#fff;letter-spacing:-.02em;transform:scaleY(1.45) skewX(-8deg);text-shadow:6px 0 #ff0040,-6px 0 #00e5ff,0 12px 0 #3b0066}
+#slop .t2{position:absolute;left:50px;right:50px;top:560px;text-align:center;font-weight:800;font-size:66px;line-height:1.05;color:#1a1a1a;background:#fff200;padding:18px 10px;transform:rotate(-4deg)}
+#slop .t3{position:absolute;left:0;right:0;top:820px;text-align:center;font-weight:900;font-size:120px;color:#fff;text-shadow:0 0 30px #ff00e1,0 0 60px #00fff2}
+.spark{position:absolute;width:70px;height:70px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+.blob{position:absolute;border-radius:50%;filter:blur(2px)}
+#stamp{position:absolute;left:50%;top:560px;width:820px;margin-left:-410px;text-align:center;font-weight:900;font-size:150px;letter-spacing:.04em;color:#ff2a2a;border:14px solid #ff2a2a;border-radius:24px;padding:4px 0 14px;transform-origin:50% 50%;mix-blend-mode:normal;background:rgba(0,0,0,.05)}
+#clean{background:#0b0b0b;transform:rotateY(180deg);border:1px solid var(--hair)}
+#clean .lw{position:absolute;left:64px;top:64px;font-size:44px;letter-spacing:-.03em}
+#clean .lw b{color:var(--lumen);font-weight:400}
+#clean .h{position:absolute;left:64px;right:64px;top:300px;font-size:104px;line-height:.98;letter-spacing:-.035em}
+#clean .h em{font-style:normal;color:var(--lumen)}
+#clean .ui{position:absolute;left:64px;right:64px;top:720px;height:330px;border-radius:24px;background:#151515;border:1px solid var(--hair);padding:30px}
+#clean .ui .row{height:22px;border-radius:11px;background:#262626;margin-bottom:18px}
+#clean .ui .bar{position:absolute;bottom:34px;width:56px;border-radius:10px 10px 4px 4px;background:var(--lumen)}
+#clean .cap{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:40px}
+#clean .cap span{background:#000;padding:8px 16px;border-radius:10px}
+.lbl{position:absolute;left:80px;top:170px;font-size:58px;letter-spacing:-.02em;color:var(--mute)}
+.lbl b{font-weight:400;color:var(--ink)}
+/* S3 brand kit */
+#url{position:absolute;left:140px;right:140px;top:430px;height:120px;border-radius:999px;background:#0e0e0e;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;padding:0 46px;font-size:52px;letter-spacing:-.02em}
+#url .car{display:inline-block;width:4px;height:58px;background:var(--ink);margin-left:4px}
+#scan{position:absolute;left:140px;right:140px;top:430px;height:120px;border-radius:999px;overflow:hidden;pointer-events:none}
+#scan i{position:absolute;top:0;bottom:0;width:180px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent)}
+#kit{position:absolute;left:90px;right:90px;top:640px;height:1090px;border-radius:40px;background:var(--bar);border:1px solid var(--hair);padding:50px 54px}
+#kit .kt{display:flex;justify-content:space-between;font-size:30px;color:var(--mute);letter-spacing:.02em;margin-bottom:34px}
+.krow{display:grid;grid-template-columns:230px 1fr 60px;align-items:center;height:168px;border-top:1px solid var(--hair)}
+.krow .k{font-size:34px;color:var(--mute)}
+.krow .v{display:flex;align-items:center;gap:18px;font-size:46px;letter-spacing:-.02em}
+.sw{width:84px;height:84px;border-radius:20px}
+.ok{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:grid;place-items:center}
+.ok svg{width:26px;height:26px}
+.shot{width:150px;height:96px;border-radius:14px;background:#0b0b0b;border:1px solid var(--hair);position:relative;overflow:hidden}
+.shot i{position:absolute;left:14px;right:14px;height:10px;border-radius:5px;background:#2a2a2a}
+/* S4 wall */
+#wall{position:absolute;left:-40px;top:360px;width:1160px;display:grid;grid-template-columns:repeat(3,360px);gap:20px;transform-origin:50% 0}
+.tile{position:relative;height:640px;border-radius:30px;overflow:hidden;background:#0b0b0b;border:1px solid var(--hair)}
+.tile .bug{position:absolute;right:22px;top:22px;font-size:26px;letter-spacing:-.03em;color:var(--ink);z-index:3}
+.tile .bug b{color:var(--lumen);font-weight:400}
+.tile .cc{position:absolute;left:0;right:0;bottom:40px;text-align:center;font-size:30px;z-index:3}
+.tile .cc span{background:#000;padding:6px 12px;border-radius:8px}
+.tile .big{position:absolute;left:28px;right:28px;top:200px;font-size:84px;line-height:.95;letter-spacing:-.04em}
+.tile .big em{font-style:normal;color:var(--lumen)}
+#count{position:absolute;left:50%;top:1600px;transform:translateX(-50%);background:rgba(20,20,20,.9);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:22px 40px;font-size:40px;white-space:nowrap;z-index:5}
+/* S5 end card (Poolday's own: charcoal, kinetic tagline, slot roll, iris rule) */
+#s5{background:var(--bar)}
+#t1{position:absolute;left:90px;right:60px;top:680px;font-size:104px;letter-spacing:-.035em;line-height:1}
+#t2{position:absolute;left:90px;right:40px;top:810px;font-size:104px;letter-spacing:-.035em;line-height:1;white-space:nowrap}
+#roll{display:inline-block;vertical-align:top;height:1.08em;overflow:hidden}
+#roll>div{display:flex;flex-direction:column}
+#roll span{height:1.08em;font-weight:700}
+#rule{position:absolute;left:90px;top:1020px;height:4px;width:0;background:var(--iris);border-radius:2px}
+#sub{position:absolute;left:90px;right:90px;top:1080px;font-size:44px;line-height:1.3;color:var(--mute);letter-spacing:-.01em}
+#sig{position:absolute;left:90px;bottom:260px;display:flex;align-items:center;gap:22px;font-size:46px;letter-spacing:-.03em}
+#sig img{height:62px}
+</style></head>
+<body>
+<canvas id="halftone" width="1080" height="1920"></canvas>
+
+<div class="scene" id="s1">
+  <div class="lbl" id="l1">Most AI video tools:</div>
+  <div class="lbl" id="l2" style="opacity:0"><b>Poolday:</b> your brand, edited well.</div>
+  <div id="stage"><div id="card">
+    <div class="face" id="slop">
+      <div class="blob" style="left:-80px;top:-60px;width:360px;height:360px;background:#00ffea"></div>
+      <div class="blob" style="right:-90px;top:320px;width:300px;height:300px;background:#ff00b8"></div>
+      <div class="t1" id="st1">LUMNE</div>
+      <div class="t2">The futrue of work is hear!!</div>
+      <div class="t3" id="st3">BUY NWO</div>
+      <div class="spark" style="left:80px;top:470px"></div><div class="spark" style="right:90px;top:120px;transform:scale(1.4)"></div><div class="spark" style="left:520px;top:1040px;transform:scale(.8)"></div>
+    </div>
+    <div class="face" id="clean">
+      <div class="lw">lumen<b>.</b></div>
+      <div class="h">The future of work is <em>here.</em></div>
+      <div class="ui"><div class="row" style="width:60%"></div><div class="row" style="width:40%"></div>
+        <div class="bar" style="left:60px;height:70px"></div><div class="bar" style="left:140px;height:110px"></div><div class="bar" style="left:220px;height:90px"></div><div class="bar" style="left:300px;height:160px"></div><div class="bar" style="left:380px;height:210px"></div></div>
+      <div class="cap"><span>we shipped it.</span></div>
+    </div>
+  </div></div>
+  <div id="stamp">AI SLOP</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="hl" style="top:170px"><span class="mask"><span id="h3a">It learns your brand</span></span><span class="mask"><span id="h3b" class="m">before it edits anything.</span></span></div>
+  <div id="url"><span id="uq"></span><span class="car" id="car"></span></div><div id="scan"><i></i></div>
+  <div id="kit"><div class="kt"><span>BRAND KIT · LUMEN</span><span id="kstat">learning…</span></div>
+    <div class="krow"><span class="k">Logo</span><span class="v">lumen<b style="color:var(--lumen);font-weight:400">.</b></span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="krow"><span class="k">Colors</span><span class="v"><i class="sw" style="background:#FF6B2C"></i><i class="sw" style="background:#0B0B0B;border:1px solid #333"></i><i class="sw" style="background:#F5F5F5"></i><i class="sw" style="background:#8A8A8A"></i></span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="krow"><span class="k">Type</span><span class="v"><span style="font-size:70px">Aa</span> Inter · Regular</span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="krow"><span class="k">Voice</span><span class="v">calm, sure, no hype</span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="krow"><span class="k">Product</span><span class="v"><span class="shot"><i style="top:18px;width:60%"></i><i style="top:40px"></i><i style="top:62px;width:40%"></i></span><span class="shot"><i style="top:18px;width:30%"></i><i style="top:40px;width:80%"></i></span><span class="shot"><i style="top:18px;width:70%"></i><i style="top:40px;width:50%"></i></span></span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></div>
+  </div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="hl" style="top:150px;z-index:6"><span class="mask"><span id="h4a">Then every video</span></span><span class="mask"><span id="h4b" class="m">is edited to it.</span></span></div>
+  <div id="wall"></div>
+  <div style="position:absolute;left:0;right:0;top:0;height:420px;background:linear-gradient(#000 70%,transparent);z-index:5"></div>
+  <div id="count"><span id="cn">1</span> videos · 1 brand</div>
+</div>
+
+<div class="scene" id="s5">
+  <div id="t1">No AI slop.</div>
+  <div id="t2">Just yours, <span id="roll"><div><span>fast.</span><span>on brand.</span><span>everywhere.</span><span>well.</span></div></span></div>
+  <div id="rule"></div>
+  <div id="sub">Poolday learns your brand once,<br>then edits every video to it.</div>
+  <div id="sig"><img src="_assets/poolday/mark.svg">poolday.ai</div>
+</div>
+
+<script src="lib.js"></script>
+<script>
+(() => {
+  window.SIZE = [1080, 1920];
+  const CUES = [], cue = (k, t, o = {}) => CUES.push({ k, t, ...o });
+  // ---------- Poolday's scan-dot halftone (4px dots, 8px rows, swelling to the centre) ----------
+  const hc = $("#halftone"), g = hc.getContext("2d");
+  function halftone(alpha, cy) {
+    g.clearRect(0, 0, 1080, 1920); if (alpha <= 0) return;
+    for (let y = 0; y < 1920; y += 8) for (let x = 0; x < 1080; x += 8) {
+      const dx = (x - 540) / 620, dy = (y - cy) / 760, r = 1 - Math.min(1, Math.hypot(dx, dy));
+      if (r <= 0) continue;
+      const v = Math.round(10 + 36 * r); g.fillStyle = `rgba(${v},${v},${v},${alpha})`;
+      g.beginPath(); g.arc(x, y, .6 + 1.5 * r, 0, 6.283); g.fill();
+    }
+  }
+  // ---------- S4 wall of on-brand videos (one brand kit, many formats) ----------
+  const T = [
+    ["kin", "Ship<br><em>faster.</em>", "launch reel"], ["ui", "", "product demo"], ["quote", "“It just<br>works.”", "customer quote"],
+    ["num", "3×<br><em>output</em>", "stat card"], ["kin", "Meet<br><em>Lumen 2.</em>", "launch film"], ["ui2", "", "feature tour"],
+    ["kin", "Less<br>busywork.", "UGC ad"], ["num", "10k<br><em>teams</em>", "social proof"], ["end", "", "end card"],
+    ["kin", "Now<br><em>live.</em>", "announcement"], ["ui", "", "tutorial"], ["quote", "“Finally<br>on brand.”", "testimonial"]];
+  $("#wall").innerHTML = T.map(([k, txt, cap]) => {
+    let inner = "";
+    if (k === "kin" || k === "num" || k === "quote") inner = `<div class="big" style="${k === "quote" ? "font-size:64px;top:230px" : ""}">${txt}</div>`;
+    if (k === "ui" || k === "ui2") inner = `<div style="position:absolute;left:24px;right:24px;top:170px;height:300px;border-radius:18px;background:#151515;border:1px solid rgba(255,255,255,.1)"><div class="sb" style="position:absolute;left:18px;right:18px;top:24px;height:12px;border-radius:6px;background:#2a2a2a"></div>${[0, 1, 2, 3, 4].map(i => `<i class="tb" style="position:absolute;bottom:22px;left:${24 + i * 58}px;width:40px;height:${40 + i * 38}px;border-radius:8px 8px 3px 3px;background:#FF6B2C;transform-origin:bottom"></i>`).join("")}</div>`;
+    if (k === "end") inner = `<div style="position:absolute;inset:0;display:grid;place-items:center;font-size:84px;letter-spacing:-.04em">lumen<b style="position:absolute;color:#FF6B2C;font-weight:400;margin-left:228px">.</b></div>`;
+    return `<div class="tile">${k === "end" ? "" : `<div class="bug">lumen<b>.</b></div>`}${inner}<div class="cc"><span>${cap}</span></div></div>`;
+  }).join("");
+  const tiles = $$(".tile");
+
+  // ---------- soundtrack ----------
+  cue("impact", 0.02, { g: .7 }); cue("kick", 0.02);
+  cue("beat", 0, { t0: 0.0, t1: 1.5, bpm: 240, roots: [40], hats: false, g: .45 });
+  cue("impact", 0.62, { g: 1 }); cue("snare", 0.62, { g: .8 });
+  cue("whoosh", 1.62, { d: .45 }); cue("pop", 1.95, { f: 900, g: .7 });
+  const chords = [[52, 55, 59], [48, 52, 55], [50, 53, 57], [47, 50, 55, 59]];
+  for (let i = 0, t = 2; t < 14.4; i++, t += 2) cue("pad", 0, { t0: t, t1: Math.min(14.4, t + 2), notes: chords[i % 4], g: .1, bright: .04 });
+  cue("beat", 0, { t0: 2.5, t1: 9.9, bpm: 120, roots: [40, 36, 38, 35], snare: true });
+  for (let i = 0; i < 9; i++) cue("type", 3.0 + i * .045);
+  cue("riser", 3.55, { d: .4, g: .5 });
+  [4.0, 4.5, 5.0, 5.5, 6.0].forEach((t, i) => cue("pop", t, { f: 600 + i * 110, g: .55 }));
+  cue("ding", 6.25, { g: .5 });
+  cue("whoosh", 6.9, { d: .4 });
+  for (let i = 0; i < 12; i++) cue("tick", 7.2 + i * .07, { g: .6 });
+  cue("riser", 10.1, { d: 1.2, g: .7 }); cue("impact", 10.15, { g: .8 });
+  [10.9, 11.15, 11.4].forEach(t => cue("tick", t)); cue("kick", 11.65, { g: .9 }); cue("impact", 11.65, { g: .5 });
+  cue("swell", 12.3, { d: .8, g: .5 }); cue("pop", 12.9, { f: 700, g: .5 });
+  window.CUES = CUES;
+
+  const scene = (id, t, a, b) => { const on = t >= a && t < b; show($(id), on); return on; };
+  const reveal = (el, t, a) => { const k = P(t, a, .6, E.outExpo); tf(el, `translateY(${L(110, 0, k)}%)`); };
+
+  function render(t) {
+    // halftone breathes behind S1–S4, off on the end card
+    halftone(t < 10.1 ? .9 : 0, t < 2.5 ? 900 : t < 6.6 ? 1180 : 960);
+    // S1 0–2.5: AI slop, stamped, then the card flips to the Poolday edit ---------------------
+    if (scene("#s1", t, 0, 2.55)) {
+      const card = $("#card");
+      const jit = t < 1.62 ? Math.sin(t * 57) * 3 : 0;
+      $("#slop").style.filter = t < 1.62 ? `hue-rotate(${t * 220}deg) saturate(1.4)` : "none";
+      tf($("#st1"), `scaleY(1.45) skewX(${-8 + Math.sin(t * 23) * 6}deg) translateX(${Math.sin(t * 31) * 8}px)`);
+      tf($("#st3"), `scale(${1 + Math.abs(Math.sin(t * 9)) * .08}) rotate(${Math.sin(t * 13) * 4}deg)`);
+      const st = P(t, .6, .35, E.spring), sOn = t > .6 && t < 1.62;
+      op($("#stamp"), sOn ? 1 : 0); tf($("#stamp"), `scale(${L(3, 1, P(t, .6, .12, E.inCubic))}) rotate(${L(-4, -11, st)}deg)`);
+      const shake = t > .6 && t < .95 ? Math.sin(t * 90) * 16 * (1 - (t - .6) / .35) : 0;
+      const flip = P(t, 1.62, .55, E.inOutCubic);
+      const exitK = P(t, 2.3, .25, E.inExpo);
+      tf(card, `translate(${shake + jit}px, ${-exitK * 500}px) rotateY(${flip * 180}deg) scale(${L(1, .9, Math.sin(flip * Math.PI)) * L(1, .6, exitK)})`);
+      op(card, 1 - exitK);
+      op($("#l1"), 1 - P(t, 1.62, .15, E.lin)); op($("#l2"), P(t, 1.9, .3, E.lin)); tf($("#l2"), `translateY(${L(20, 0, P(t, 1.9, .4, E.outExpo))}px)`);
+      op($("#l2"), P(t, 1.9, .3, E.lin) * (1 - exitK));
+    }
+    // S3 2.5–6.7: the brand kit is learned ---------------------------------------------------
+    if (scene("#s3", t, 2.5, 6.75)) {
+      reveal($("#h3a"), t, 2.55); reveal($("#h3b"), t, 2.65);
+      const u = P(t, 2.75, .5, E.outExpo); op($("#url"), u); tf($("#url"), `scale(${L(.9, 1, u)})`);
+      $("#uq").textContent = typed("lumen.com", t, 3.0, 22) || "";
+      $("#car").style.opacity = Math.floor(t * 4) % 2 ? .2 : 1;
+      const sc = P(t, 3.45, .5, E.inOutCubic); tf($("#scan i"), `translateX(${L(-200, 900, sc)}px)`); op($("#scan"), t > 3.45 && t < 3.95 ? 1 : 0);
+      const kk = P(t, 3.7, .6, E.outExpo); op($("#kit"), kk); tf($("#kit"), `translateY(${L(120, 0, kk)}px)`);
+      $$(".krow").forEach((r, i) => {
+        const a = 4.0 + i * .5, q = P(t, a, .45, E.outBack);
+        op(r, P(t, a, .12, E.lin)); tf(r, `translateX(${L(-60, 0, P(t, a, .4, E.outExpo))}px)`);
+        tf(r.querySelector(".ok"), `scale(${q})`); r.querySelector(".ok").style.background = t > a + .1 ? "#F5F5F5" : "transparent";
+        r.querySelector(".ok svg").style.stroke = t > a + .1 ? "#000" : "#F5F5F5";
+        r.querySelectorAll(".sw").forEach((s, j) => tf(s, `scale(${P(t, a + j * .06, .35, E.outBack)})`));
+      });
+      $("#kstat").textContent = t > 6.25 ? "ready" : "learning…"; $("#kstat").style.color = t > 6.25 ? "#F5F5F5" : "";
+      const ex = P(t, 6.45, .3, E.inExpo); tf($("#s3"), `translateY(${-ex * 400}px) scale(${L(1, .92, ex)})`); op($("#s3"), 1 - ex);
+    }
+    // S4 6.7–10.2: the wall of on-brand videos --------------------------------------------
+    if (scene("#s4", t, 6.7, 10.2)) {
+      reveal($("#h4a"), t, 6.75); reveal($("#h4b"), t, 6.85);
+      tiles.forEach((tl, i) => {
+        const a = 7.2 + i * .07, k = P(t, a, .5, E.outBack);
+        op(tl, P(t, a, .1, E.lin)); tf(tl, `translateY(${L(80, 0, P(t, a, .45, E.outExpo))}px) scale(${L(.7, 1, k)})`);
+        tl.querySelectorAll(".tb").forEach((b, j) => tf(b, `scaleY(${P(t, a + .15 + j * .05, .4, E.outBack)})`));
+        const big = tl.querySelector(".big"); if (big) { const q = P(t, a + .1, .5, E.outExpo); tf(big, `translateY(${L(40, 0, q)}px)`); op(big, q); }
+      });
+      $("#cn").textContent = Math.max(1, Math.min(12, Math.floor((t - 7.2) / .07) + 1));
+      const cc = P(t, 7.3, .4, E.outBack); tf($("#count"), `translateX(-50%) scale(${cc})`);
+      // slow crane down the wall, then punch into the end-card tile
+      const pan = P(t, 7.2, 2.5, E.inOutCubic), dive = P(t, 9.75, .45, E.inExpo);
+      const s = L(1, 1.06, pan) * L(1, 3.2, dive);
+      tf($("#wall"), `translate(${L(0, -30, pan) - dive * 300}px, ${L(0, -250, pan) - dive * 900}px) scale(${s})`);
+      op($("#s4"), 1 - P(t, 10.0, .2, E.lin));
+    }
+    // S5 10.1–14.4: Poolday's own end card -------------------------------------------------
+    if (scene("#s5", t, 10.1, 99)) {
+      const a = P(t, 10.15, .6, E.outExpo); op($("#t1"), a); tf($("#t1"), `translateY(${L(60, 0, a)}px)`);
+      const b = P(t, 10.45, .6, E.outExpo); op($("#t2"), b); tf($("#t2"), `translateY(${L(60, 0, b)}px)`);
+      // slot-machine roll on the keyword, motion-blurred by the capture
+      const r = t < 10.9 ? 0 : t < 11.65 ? L(0, 3, E.inOutCubic(P(t, 10.9, .75, E.lin))) : 3;
+      const land = P(t, 11.65, .4, E.spring);
+      tf($("#roll>div"), `translateY(${-r * 1.08}em)`);
+      tf($("#roll"), `scale(${t > 11.65 ? L(1.08, 1, land) : 1})`);
+      $("#rule").style.width = 900 * P(t, 11.8, .55, E.outExpo) + "px";
+      const c = P(t, 12.2, .6, E.outExpo); op($("#sub"), c); tf($("#sub"), `translateY(${L(30, 0, c)}px)`);
+      const d = P(t, 12.6, .6, E.outExpo); op($("#sig"), d); tf($("#sig"), `translateY(${L(30, 0, d)}px)`);
+      // the observed ending: the iris rule collapses to a centre dash
+      const col = P(t, 13.9, .4, E.inOutCubic);
+      if (col > 0) { const w = L(900, 60, col); $("#rule").style.width = w + "px"; $("#rule").style.left = 90 + (900 - w) / 2 + "px"; }
+    }
+  }
+  boot(14.4, render);
+})();
+</script>
+</body></html>

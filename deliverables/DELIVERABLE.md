@@ -206,6 +206,13 @@ I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The
 - **Every post ends in a measurable action** (comment a URL or a number), which feeds the lead loop (D3).
 - **Tracked weekly:** posts, views, URL comments, demos booked.
 
+## D8 (bonus): Poolday's Instagram
+- **The story ad, remade** (`D8-instagram/poolday-ad.mp4`, 9:16, 14s):
+  - The current ad is a static text card, set in monospace + cyan, which is off Poolday's own brand.
+  - The remake opens on an "AI SLOP" stamp in the first second, flips to the same ad done well, shows the brand kit being learned, then a wall of 12 on-brand formats, and ends on Poolday's real end card (slot-machine keyword roll, iris rule).
+- **Profile picture:** the logo is cropped in the circle ("Poolday.a"). Use the mark alone, centered (`D8-instagram/profile-picture-proposal.png`).
+- **Content engine:** 12 short motion use-case videos, titled with the kit's own `<input> to <output>` formula (URL to launch film, podcast to 10 clips, one video to 5 formats…), one a day. List in `D8-instagram/README.md`.
+
 ## What I'd do with more time
 
 - [PLACEHOLDER: refine after the 48h]

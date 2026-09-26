@@ -14,7 +14,7 @@ const ONLY = process.env.ONLY, SHUTTER = 0.5;
   for (const n of process.argv.slice(2)) {
     const dir = path.join(TMP, n); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
     const open = async () => {
-      const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+      const p = await b.newPage({ viewport: { width: (global.W || 1920), height: (global.H || 1080) } });
       p.on("pageerror", e => console.log("ERR", e.message));
       await p.goto(`http://127.0.0.1:8777/${n}.html?capture`);
       await p.waitForSelector("body[data-ready]", { state: "attached", timeout: 60000 });
@@ -22,10 +22,13 @@ const ONLY = process.env.ONLY, SHUTTER = 0.5;
       return p;
     };
     const first = await open();
-    const { dur, cues } = await first.evaluate(() => ({ dur: window.DUR, cues: window.CUES || [] }));
+    const { dur, cues, size } = await first.evaluate(() => ({ dur: window.DUR, cues: window.CUES || [], size: window.SIZE || [1920, 1080] }));
+    const W = size[0], H = size[1];
+    await first.setViewportSize({ width: W, height: H });
     const [a, z] = ONLY ? ONLY.split("-").map(Number) : [0, dur];
     const F = Math.round((z - a) * FPS), jobs = [];
     for (let f = 0; f < F; f++) for (let k = 0; k < SUBS; k++) jobs.push([f * SUBS + k, a + (f + (SUBS > 1 ? k / (SUBS - 1) * SHUTTER : 0)) / FPS]);
+    global.W = W; global.H = H;
     const pages = [first, ...(await Promise.all(Array.from({ length: WORKERS - 1 }, open)))];
     let next = 0, doneN = 0; const t0 = Date.now();
     await Promise.all(pages.map(async p => {
@@ -37,7 +40,8 @@ const ONLY = process.env.ONLY, SHUTTER = 0.5;
       }
       await p.close();
     }));
-    const base = path.join(__dirname, "..", `${n}-remake${ONLY ? "-part" : ""}`);
+    const outDir = process.env.OUT || path.join(__dirname, "..");
+    const base = path.join(outDir, `${n}${process.env.OUT ? "" : "-remake"}${ONLY ? "-part" : ""}`);
     const vf = `${SUBS > 1 ? `tmix=frames=${SUBS},select='not(mod(n+1\\,${SUBS}))',` : ""}setpts=N/${FPS}/TB`;
     execFileSync(FF, ["-y", "-loglevel", "error", "-framerate", String(FPS * SUBS), "-i", path.join(dir, "f%06d.jpg"),
       "-vf", vf, "-r", String(FPS), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "15", "-preset", "slow", base + "-silent.mp4"]);
