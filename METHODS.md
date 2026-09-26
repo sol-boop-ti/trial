@@ -491,3 +491,4 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - "UGC studio" on LinkedIn, "farm" tested on X.
   - Mandatory AI disclosure on every reel.
 - **Output:** `deliverables/D1-linkedin.md` §6; prompts `poolday/prompts/L2-jev-launch-demo.md`, `L3-ugc-studio-one-prompt.md` (2 runs each: make it, then cut the 15s demo).
+- **Update (user's call):** the Jev angle was dropped. The UGC post was rewritten simple, with the user's best-performing headline format: "Claude Opus 5.5 + Poolday = Infinite UGC farm" (6 variants in D1 §6). The workflow is now Claude writes the scripts → Poolday makes the reels, so the headline is literally true without knowing Poolday's internal model. `L2-jev-launch-demo.md` was removed.
