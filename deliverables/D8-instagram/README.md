@@ -1,14 +1,14 @@
 # D8 (bonus): Poolday's Instagram
 
 ## 0. The static story ad (`poolday-static-ad.png`, 1080×1920; `@2x` for print)
-Old vs new in one 9:16 image: **grey = the others, colour = Poolday.**
-- **Top (≈30%, greyed): "Other AI video tools".** A paused frame of the generic motion design every AI tool outputs: purple-cyan gradient, lens flare, "WORK SMARTER. GROW FASTER.", a glassy bar chart, a gradient "Get Started Today!" button, sparkles, and a stock hexagon "LUMEN" logo, because the brand was never used.
-- **"vs."**
-- **Bottom (≈70%, colour): the Poolday logo.**
-  - A paused frame of a professional motion-design video for the demo brand Lumen: the Apple-style phone tunnel with Lumen app screens, "Plan. Ship. **Grow.**", grain and motion trails.
-  - **Superposed, smaller:** the 16:9 Lumen brand guide, tagged ✦ **"Brand kit, built by AI from lumen.com"**, with a URL bar "lumen.com → Go" and an arrow into it, so it's obvious the kit came from just entering the URL.
-- **Copy:** "Your URL in. Your brand out." CTA: "Try it with your URL" · poolday.ai. There's no label pair that reads as one sentence (v2 read "AI Slop / Made with Poolday").
-- The Poolday side stays on its brand (black, Inter, scan-dot halftone, cream pill). The colour comes from the customer's video. Lumen is fictional.
+Old vs new in one 9:16 image: **grey = the others, colour = Poolday**, with a big **VS** medallion on the seam.
+- **Top (≈36%, grey): "Other AI video tools"** (large, dark, readable). A paused square video frame of the "LOCAL AI SLOP · At least we're trying" sign, the meme the user picked to stand for what other tools output.
+- **VS:** a 210px white medallion, black ring, tilted, sitting on a white seam.
+- **Bottom (colour): the Poolday mark + "Made with Poolday".**
+  - A paused frame of a professional motion-design video for the demo brand Lumen (the Apple-style phone tunnel).
+  - Superposed, smaller: the 16:9 Lumen brand guide, tagged ✦ "Brand kit, built by AI from lumen.com", with the URL bar "lumen.com → Go" and an arrow into it.
+- **Copy:** "Your URL in. Your brand out." (no CTA line; Instagram's button does that job).
+- **Rights:** the "LOCAL AI SLOP" sign is a third-party image whose source is unknown. Fine for this pitch; replace it with our own slop frame, or license it, before running the ad. Lumen is fictional.
 
 ## 1. Animated version (`poolday-ad.mp4`, 9:16, 14.4s, with sound)
 **The original** (`original-ig-ad-screenshot.png`): a static card, "No AI slop. Just your videos, edited well. Poolday learns your brand and edits every video to it." The idea is right, but:

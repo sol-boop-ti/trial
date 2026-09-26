@@ -207,7 +207,7 @@ I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The
 - **Tracked weekly:** posts, views, URL comments, demos booked.
 
 ## D8 (bonus): Poolday's Instagram
-- **The static story ad, remade** (`D8-instagram/poolday-static-ad.png`): old vs new in one 9:16 image. Top, grey: "Other AI video tools", a generic gradient-and-sparkles motion frame with the wrong logo. Bottom, colour: Poolday, a pro motion frame for the demo brand Lumen, with its brand kit superposed and tagged "built by AI from lumen.com" (URL bar → kit). Copy: "Your URL in. Your brand out." An animated version also exists (`poolday-ad.mp4`).
+- **The static story ad, remade** (`D8-instagram/poolday-static-ad.png`): old vs new in one 9:16 image with a big **VS**. Top, grey: "Other AI video tools", a paused video of the "LOCAL AI SLOP" sign. Bottom, colour: "Made with Poolday", a pro motion frame for the demo brand Lumen, with its brand kit superposed and tagged "built by AI from lumen.com". Copy: "Your URL in. Your brand out." (Replace the third-party slop image before paid use.) An animated version also exists (`poolday-ad.mp4`).
 - **Why:**
   - The current ad is a static text card, set in monospace + cyan, which is off Poolday's own brand.
   - The remake opens on an "AI SLOP" stamp in the first second, flips to the same ad done well, shows the brand kit being learned, then a wall of 12 on-brand formats, and ends on Poolday's real end card (slot-machine keyword roll, iris rule).

@@ -6,35 +6,26 @@
 :root{--night:#15130F;--ember:#FF6B2C;--sand:#EFE6D8;--sky:#A9C7FF;--moss:#2F4A3A;--mute:#8a8a8a}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:Inter,sans-serif;color:#F5F5F5;-webkit-font-smoothing:antialiased}
-/* ================= TOP (old, grey): a generic AI motion-design frame ================= */
-#top{position:absolute;left:0;right:0;top:0;height:600px;background:#d2d2d2;overflow:hidden}
-#top .tag{position:absolute;left:0;right:0;top:34px;text-align:center;font-size:34px;letter-spacing:.01em;color:#555}
-.old{position:absolute;left:150px;top:100px;width:780px;height:439px;border-radius:14px;overflow:hidden;filter:grayscale(1) contrast(.9) brightness(1.02);box-shadow:0 16px 34px rgba(0,0,0,.2)}
-.gen{position:absolute;inset:0;background:radial-gradient(60% 80% at 70% 20%,#7b3cff 0,transparent 60%),radial-gradient(50% 70% at 10% 90%,#00c2ff 0,transparent 60%),linear-gradient(135deg,#1a1147,#0a1a3d)}
-.flare{position:absolute;left:520px;top:40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,255,255,.6) 12%,transparent 60%)}
-.flare2{position:absolute;left:300px;top:150px;width:400px;height:6px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:rotate(-18deg)}
-.gl{position:absolute;left:40px;top:34px;display:flex;align-items:center;gap:10px;font-family:"DejaVu Sans",Arial,sans-serif;font-weight:700;font-size:22px;letter-spacing:.2em;color:#fff}
-.gl i{width:30px;height:30px;background:linear-gradient(135deg,#a855f7,#06b6d4);clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)}
-.gh{position:absolute;left:0;right:0;top:92px;text-align:center;font-family:"DejaVu Sans",Arial,sans-serif;font-weight:800;font-size:66px;line-height:1.02;letter-spacing:-.01em;color:#fff;text-shadow:0 0 24px rgba(168,85,247,.9),0 4px 0 #3b1d7a}
-.gh span{background:linear-gradient(90deg,#c084fc,#22d3ee);-webkit-background-clip:text;color:transparent;text-shadow:none}
-.gcard{position:absolute;left:210px;top:262px;width:360px;height:150px;border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.35);transform:perspective(700px) rotateX(24deg) rotateZ(-4deg);box-shadow:0 20px 40px rgba(0,0,0,.4)}
-.gcard i{position:absolute;bottom:18px;width:34px;border-radius:6px;background:linear-gradient(#22d3ee,#a855f7)}
-.spk{position:absolute;width:30px;height:30px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
-.gbtn{position:absolute;left:600px;top:320px;padding:12px 22px;border-radius:999px;background:linear-gradient(90deg,#a855f7,#06b6d4);font-family:"DejaVu Sans",Arial;font-weight:700;font-size:18px;color:#fff;box-shadow:0 0 20px rgba(168,85,247,.8)}
-.octrl{position:absolute;left:0;right:0;bottom:0;height:52px;background:linear-gradient(transparent,rgba(0,0,0,.6));display:flex;align-items:center;gap:12px;padding:0 18px;font-size:16px;color:#fff}
+/* ================= TOP (old, grey): a video made with another AI tool ================= */
+#top{position:absolute;left:0;right:0;top:0;height:700px;background:#d2d2d2;overflow:hidden}
+#top .tag{position:absolute;left:0;right:0;top:40px;text-align:center;font-size:54px;font-weight:600;letter-spacing:-.03em;color:#1c1c1c}
+.old{position:absolute;left:290px;top:128px;width:500px;height:500px;border-radius:18px;overflow:hidden;filter:grayscale(1) contrast(.95);box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.old img{width:100%;height:100%;object-fit:cover;display:block}
+.octrl{position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;align-items:center;gap:12px;padding:0 18px;font-size:17px;color:#fff}
 .octrl .pb{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.35);position:relative}
 .octrl .pb i{position:absolute;left:0;top:0;bottom:0;width:47%;background:#fff}
 .tri{width:0;height:0;border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}
 /* ================= VS ================= */
-#vs{position:absolute;left:0;right:0;top:566px;display:flex;justify-content:center;z-index:6}
-#vs span{background:#000;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;padding:12px 30px;font-size:32px;letter-spacing:-.01em}
+#vs{position:absolute;left:50%;top:700px;width:210px;height:210px;margin:-105px 0 0 -105px;border-radius:50%;background:#fff;border:10px solid #000;box-shadow:0 0 0 6px #fff,0 20px 50px rgba(0,0,0,.45);display:grid;place-items:center;z-index:9;transform:rotate(-8deg)}
+#vs span{font-size:104px;font-weight:900;font-style:italic;letter-spacing:-.06em;color:#000;margin-left:-8px}
+.seam{position:absolute;left:0;right:0;top:696px;height:8px;background:#fff;z-index:8}
 /* ================= BOTTOM (new, colour): made from your brand ================= */
-#bot{position:absolute;left:0;right:0;top:600px;bottom:0;background:#000;overflow:hidden}
+#bot{position:absolute;left:0;right:0;top:700px;bottom:0;background:#000;overflow:hidden}
 #ht{position:absolute;inset:0;opacity:.7}
-.brand{position:absolute;left:0;right:0;top:66px;display:flex;justify-content:center;align-items:center;gap:18px;font-size:60px;letter-spacing:-.035em}
+.brand{position:absolute;left:0;right:0;top:118px;display:flex;justify-content:center;align-items:center;gap:18px;font-size:58px;font-weight:500;letter-spacing:-.035em}
 .brand img{height:64px;margin-top:-4px}
-.glow{position:absolute;left:140px;top:250px;width:800px;height:460px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,107,44,.34),transparent);filter:blur(30px)}
-.player{position:absolute;left:40px;top:170px;width:1000px;height:562px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.glow{position:absolute;left:140px;top:300px;width:800px;height:460px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,107,44,.34),transparent);filter:blur(30px)}
+.player{position:absolute;left:40px;top:222px;width:1000px;height:562px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 40px 100px rgba(0,0,0,.7)}
 .frame{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,#FBF6EE,#EAE0D0);perspective:700px;overflow:hidden}
 .phone{position:absolute;width:210px;height:430px;border-radius:34px;background:#111;padding:9px;box-shadow:0 30px 50px rgba(21,19,15,.28)}
 .scr{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#fff;position:relative;font-family:Bricolage,sans-serif}
@@ -54,12 +45,12 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
 .ctrl .pb b{position:absolute;left:47%;top:50%;width:15px;height:15px;margin:-7.5px;border-radius:50%;background:#fff}
 .pause{display:flex;gap:6px}.pause i{width:6px;height:20px;background:#fff;border-radius:1px}
 /* URL → AI brand kit, superposed on the video */
-.url{position:absolute;left:40px;top:790px;width:500px;height:92px;border-radius:999px;background:#101010;border:1.5px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:16px;padding:0 14px 0 30px;font-size:38px;letter-spacing:-.02em;z-index:7;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.url{position:absolute;left:40px;top:842px;width:500px;height:92px;border-radius:999px;background:#101010;border:1.5px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:16px;padding:0 14px 0 30px;font-size:38px;letter-spacing:-.02em;z-index:7;box-shadow:0 20px 40px rgba(0,0,0,.5)}
 .url svg{width:30px;height:30px;flex:none}
 .url .go{margin-left:auto;height:64px;padding:0 22px;border-radius:999px;background:#F2F2F2;color:#050505;display:flex;align-items:center;gap:10px;font-size:26px}
 .url .go svg{width:22px;height:22px}
-.flow{position:absolute;left:432px;top:752px;width:140px;height:110px;z-index:8}
-.kitwrap{position:absolute;left:560px;top:600px;width:480px;z-index:7;transform:rotate(-3deg);transform-origin:50% 50%}
+.flow{position:absolute;left:432px;top:804px;width:140px;height:110px;z-index:8}
+.kitwrap{position:absolute;left:560px;top:652px;width:480px;z-index:7;transform:rotate(-3deg);transform-origin:50% 50%}
 .aitag{position:absolute;left:18px;top:-24px;z-index:2;display:flex;align-items:center;gap:10px;background:#0c0c0c;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 18px;font-size:22px;white-space:nowrap}
 .aitag svg{width:20px;height:20px}
 .kit{width:480px;height:270px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.7),0 0 0 6px rgba(255,255,255,.08);font-family:Bricolage,sans-serif;color:var(--night);display:grid;grid-template-columns:1.2fr 1fr}
@@ -80,30 +71,26 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
 .logos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
 .logos div{height:30px;border-radius:5px;display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:-.05em}
 /* copy */
-.hl{position:absolute;left:40px;right:40px;top:955px;font-size:90px;line-height:1;letter-spacing:-.045em}
+.hl{position:absolute;left:40px;right:40px;top:1010px;font-size:94px;line-height:1;letter-spacing:-.045em}
 .hl span{color:#8a8a8a}
 .cta{position:absolute;left:40px;bottom:56px;display:flex;align-items:center;gap:22px}
 .cta .pill{background:#F2F2F2;color:#050505;border-radius:999px;padding:20px 34px;font-size:32px}
 .cta .dom{font-size:32px;color:#9a9a9a}
 </style></head>
 <body>
-<!-- OLD: what generic AI video tools give you -->
+<!-- OLD: a video made with another AI tool -->
 <div id="top">
   <div class="tag">Other AI video tools</div>
-  <div class="old"><div class="gen"></div><div class="flare"></div><div class="flare2"></div>
-    <div class="gl"><i></i>LUMEN</div>
-    <div class="gh">WORK SMARTER.<br><span>GROW FASTER.</span></div>
-    <div class="gcard"><i style="left:24px;height:40px"></i><i style="left:70px;height:66px"></i><i style="left:116px;height:52px"></i><i style="left:162px;height:92px"></i><i style="left:208px;height:112px"></i><i style="left:254px;height:80px"></i></div>
-    <div class="gbtn">Get Started Today!</div>
-    <div class="spk" style="left:90px;top:220px"></div><div class="spk" style="left:690px;top:120px;transform:scale(.7)"></div><div class="spk" style="left:620px;top:250px;transform:scale(.5)"></div>
+  <div class="old"><img src="_assets/ad/slop-sign.webp" alt="">
     <div class="octrl"><span class="tri"></span><span>0:07 / 0:15</span><span class="pb"><i></i></span></div>
   </div>
 </div>
-<div id="vs"><span>vs.</span></div>
+<div class="seam"></div>
+<div id="vs"><span>VS</span></div>
 
 <!-- NEW: Poolday, built from the brand kit it made from one URL -->
-<div id="bot"><canvas id="ht" width="1080" height="1320"></canvas>
-  <div class="brand"><img src="_assets/poolday/mark.svg">poolday</div>
+<div id="bot"><canvas id="ht" width="1080" height="1220"></canvas>
+  <div class="brand"><img src="_assets/poolday/mark.svg">Made with Poolday</div>
   <div class="glow"></div>
   <div class="player"><div class="frame" id="frame"><div class="center">Plan. Ship. <em>Grow.</em></div><div class="grain"></div></div>
     <div class="ctrl"><span class="pause"><i></i><i></i></span><span>0:07 / 0:15</span><span class="pb"><i></i><b></b></span></div></div>
@@ -133,7 +120,6 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
   </div>
 
   <div class="hl">Your URL in.<br><span>Your brand out.</span></div>
-  <div class="cta"><span class="pill">Try it with your URL</span><span class="dom">poolday.ai</span></div>
 </div>
 <script>
 const screens = [
@@ -153,7 +139,7 @@ P.forEach(([x, y, rx, ry, rz], i) => {
   if (i === 1 || i === 3) { const s = d.cloneNode(true); s.classList.add("streak"); s.style.transform += " translateX(-40px)"; fr.insertBefore(s, d); }
 });
 const g = document.getElementById("ht").getContext("2d");
-for (let y = 0; y < 1320; y += 8) for (let x = 0; x < 1080; x += 8) {
+for (let y = 0; y < 1220; y += 8) for (let x = 0; x < 1080; x += 8) {
   const r = 1 - Math.min(1, Math.hypot((x - 540) / 640, (y - 520) / 620)); if (r <= 0) continue;
   const v = Math.round(10 + 30 * r); g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.arc(x, y, .6 + 1.4 * r, 0, 6.283); g.fill();
 }

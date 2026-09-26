@@ -602,3 +602,20 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Changes for the next posts:** Trial reels if available (non-followers first); a face plus text hook in frame 1 (reel 2 has it, reel 1 opens on a laptop); IG library audio; follows slowed to ~10/day plus real niche activity; no delete-and-repost; the "AI info" label on; seed each reel to Story and DMs.
 - **Plan:** post 2 more tomorrow (morning, evening) so n = 4 meets 3 < n < 20, a 5th if time allows. Read views at +12/+24h.
 - **Output:** `DELIVERABLE.md` D4 table; screenshots in `deliverables/assets/d4/`.
+- **Update 4 (user):**
+  - The top frame is now the user's "LOCAL AI SLOP" sign image, shown as a paused square video in grey.
+  - The top label is bigger and darker (it was unreadable). The **VS** is a 210px medallion on a white seam.
+  - The bottom label is the logo + "Made with Poolday".
+  - The CTA line is removed.
+  - Rights note: the sign is a third-party image; replace it before paid use.
+
+## M52. How the qualification was done and checked (user question)
+- **Method:** a code pre-score (freshness 40 / buyer 25 / B2B 15 / video fit 20, gate 45), then the 5×20 rubric answered per lead from dataset facts, with code guards (freshness from dates, sum, knockout without a buyer, threshold 70).
+- **Coherence checks** computed on the 27 scored leads:
+  - Spearman 0.83 against the pre-score, 0.71 against the mock scorer.
+  - 4 of 5 qualified leads shared with the mock.
+  - Consistent with the manual D2 picks (Flam, Wispr qualified; Blacksmith qualified; Convex a close call).
+  - Only 2 leads differ by ≥10 points from the mock (Flex +15, Consensus −12), both explained.
+- **Limits:** one rater, dataset only (no live verification), coarse criteria.
+- **Validation plan:** outcomes by score band (5 qualified + 3–5 close calls as a control), re-weighting after 20–30 sends, a blind CEO scoring of 10 leads for agreement between raters, and an optional API second opinion.
+- Written into `deliverables/D3-loop/README.md`.
