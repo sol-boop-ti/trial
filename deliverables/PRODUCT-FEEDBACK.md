@@ -15,3 +15,14 @@
 - **Where:** in chat, the agent answered "Yes, your code can start a production…" with a **Create an API key** button pointing to Capabilities → Integrations. That page says **"Integrations Not Enabled. API integrations are not enabled for this organization. Contact your administrator."**
 - **Screenshot:** `assets/poolday-feedback/integrations-not-enabled.webp`.
 - **Suggestion:** the agent should know the org's entitlements. It should say "API access is available on your plan once enabled; here's how to request it", with a one-click "Request access" instead of a dead end. For a trial or enterprise evaluation, API access is exactly what a technical buyer wants to test.
+
+## Pacing: videos are too slow for social (high impact)
+It shows in all three videos I looked at: the PostHog and Upflow reviews, and a post picked at random from the CEO's LinkedIn ("Businesses have no excuse left for not making…", linkedin.com/posts/alexeichemenda_…). **The scenes are too slow, and the first 3 seconds are wasted.** In the LinkedIn one, the first 3s are just a blur clearing. People decide to scroll in about 3 seconds.
+- **The fix, as a default:**
+  - something meaningful on screen in frame 1: the product, a claim, a face, or a number;
+  - no blur-in or fade-in openers;
+  - average shot ≤1.2s;
+  - text holds for reading time + 0.3s;
+  - the hook is fully stated by 2s.
+- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow reaches the product at 4s instead of never, and the original still hasn't shown it at 8.5s.
+

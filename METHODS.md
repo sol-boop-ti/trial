@@ -530,3 +530,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - Upflow: the original's hook is ~10s, far too long; the remake shows more examples and arguments in less time.
   - PostHog: 2D on-brand is more professional than 3D effects and modelling.
 - **CEO post:** the user made the D1 video in Poolday ("Opus 5.5 + Poolday: Infinite UGC farm", 15s, a Poolday UI capture ×40: 50 creators, 50 scripts, a reels wall; the prompt bar's model picker shows "Claude Opus 5.5"). The caption is written in the CEO's voice (`D1-linkedin.md` §8). The model claim is supported by Poolday's own model picker. No real-time or volume claims, since the video is a dramatized ×40 capture. AI-label note in the first comment.
+
+## M44. Cross-cutting finding: Poolday videos are too slow
+- **User observation:** all three videos seen (the two review videos + a random post from the CEO's LinkedIn) have scenes that are too slow. The first 3s are wasted (on LinkedIn, just a blur clearing), while people scroll within ~3s.
+- **Recorded in:** `DELIVERABLE.md` (top of D6), `PRODUCT-FEEDBACK.md` (high impact), `D6-video-review.md`.
+- **Recommendation:** a default "social pacing" preset: meaningful content in frame 1, no blur or fade openers, average shot ≤1.2s, the hook stated by 2s. Evidence: the D6 side-by-side compares.
+- The LinkedIn post itself wasn't viewable from this environment; this relies on the user's viewing.
