@@ -287,3 +287,25 @@ Comment the number.
 **Video / carousel:** one 3–5s clip per use case with a title card (1/5, 2/5…), then the before/after remake as the ending. Each clip comes from real work already done: the UGC reels (D4), the growth-tool walkthrough (D5), the ref-teaser remakes (D2), the webhook loop (D3), and the PostHog/Upflow remakes (D6).
 **Follow-ups:** one deep-dive post per use case in the following days, in the order the comments vote for. That makes a series by itself.
 
+
+---
+
+## 8. Final: the CEO's post (video: "Opus 5.5 + Poolday: Infinite UGC farm", 15s, made in Poolday)
+**What the video shows:** the Poolday app, sped up ×40. One message, "Build me a UGC farm. 50 creators, 50 scripts, 50 reels." → it casts 50 creators → writes 50 scripts → a wall of reels fills up with a "reels made" counter. The model picker in the prompt bar reads "Claude Opus 5.5".
+```
+Claude Opus 5.5 + Poolday = Infinite UGC farm.
+
+One message:
+"Build me a UGC farm. 50 creators, 50 scripts, 50 reels."
+
+Poolday casts the creators, writes the hooks,
+films the reels and adds the captions.
+Running on Claude Opus 5.5.
+
+A year ago this was an agency and a month of work.
+Now it's one prompt.
+
+Want the exact prompt? Comment "UGC" and I'll send it.
+```
+**First comment:** `Every reel is labeled as AI. Try it: poolday.ai ?utm_source=linkedin&utm_campaign=ceo-ugc-farm`
+**Note:** the video is a sped-up (×40) dramatization of the run. The caption claims no real time or reel count beyond the prompt itself.

@@ -14,6 +14,10 @@ Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/
 - The visuals are great, but **not on brand**. PostHog is a **2D** brand (flat illustration, hand-drawn hedgehogs), so a 2D video would fit it far better than 3D clay renders.
 - The **footer at the end looks like PowerPoint**, the typical "AI made this" slide: a static logo plus a web footer. It should be an animated sign-off.
 
+**After the remakes (side by side, `remake/*-compare.mp4`):**
+- **Upflow: the hook is ~10 seconds long, which is far too long.** The original spends its first ~10s on one question and its swarm before anything happens. The remake gets there in 4s, and in the same time shows **more examples and more arguments**: the product answering the question, the payment timeline, the reminder workflow, the portal, and the −79% proof. At 8.5s the original is still on the questions, while the remake is already showing the product.
+- **PostHog: 2D in their own style is more professional than 3D effects and modelling.** The 3D clay renders read as a generic AI effect. The 2D remake, with their hand-drawn hedgehogs, fonts and OS windows, reads as PostHog, and it looks more crafted, not less.
+
 **Is brand extraction the problem?** Poolday does have brand-kit extraction, and it's an important part of the job. It captured PostHog's logo, colours and fonts, but not its visual medium (2D illustration). Feeding the kit the brand's real illustration assets, plus a rule like "2D only", fixes that.
 
 The frame-by-frame analysis below confirms each point with timestamps.

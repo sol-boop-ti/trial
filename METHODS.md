@@ -524,3 +524,9 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - `DELIVERABLE.md`: a new section "My commitment: post about Poolday every day" (rotating formats, cadence, CTA to the lead loop, weekly tracking).
   - `D1-linkedin.md` §7: the listicle post (UGC farm, launch video from a URL, remake any video on brand, prospect videos on autopilot, $1,000 motion design), with a clip plan reusing D2–D6 material and a follow-up series.
 - **Guardrail:** "just launched" only if there's a real launch moment.
+
+## M43. Review notes after the remakes + the CEO's caption
+- **User's verdicts, added to D6:**
+  - Upflow: the original's hook is ~10s, far too long; the remake shows more examples and arguments in less time.
+  - PostHog: 2D on-brand is more professional than 3D effects and modelling.
+- **CEO post:** the user made the D1 video in Poolday ("Opus 5.5 + Poolday: Infinite UGC farm", 15s, a Poolday UI capture ×40: 50 creators, 50 scripts, a reels wall; the prompt bar's model picker shows "Claude Opus 5.5"). The caption is written in the CEO's voice (`D1-linkedin.md` §8). The model claim is supported by Poolday's own model picker. No real-time or volume claims, since the video is a dramatized ×40 capture. AI-label note in the first comment.
