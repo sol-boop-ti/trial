@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import csv
+import html
 import json
 import re
 import secrets
+import shutil
+import subprocess
 import threading
 import urllib.parse
 from email.message import EmailMessage
@@ -538,6 +541,69 @@ def _slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
+PLAY_ICON = Path(__file__).with_name("assets") / "play.png"
+THUMB = "[VIDEO THUMBNAIL]"
+
+
+def _ffmpeg() -> str | None:
+    exe = shutil.which("ffmpeg")
+    if exe:
+        return exe
+    try:  # optional: the pip wheel ships a static binary
+        import imageio_ffmpeg  # type: ignore
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return None
+
+
+def make_thumbnail(video_url: str, dest: Path) -> Path | None:
+    """3s animated preview (480px GIF, play button on top) cut from the Poolday video.
+    Needs ffmpeg; returns None when it's missing or the video can't be read (the email
+    then falls back to a plain "Watch the video" link)."""
+    ff = _ffmpeg()
+    if not ff or not video_url.startswith("http"):
+        return None
+    if dest.exists() and dest.stat().st_size > 0:
+        return dest
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    graph = ("[0:v]fps=12,scale=480:-2:flags=lanczos[v];[v][1:v]overlay=(W-w)/2:(H-h)/2,split[a][b];"
+             "[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4")
+    clip = dest.with_suffix(".clip.mp4")
+    try:  # 1) download the video (stdlib, capped at 200 MB), 2) make the GIF locally
+        import urllib.request
+        with urllib.request.urlopen(video_url, timeout=60) as r, open(clip, "wb") as fh:
+            fh.write(r.read(200 * 1024 * 1024))
+        subprocess.run([ff, "-y", "-loglevel", "error", "-ss", "2", "-t", "3", "-i", str(clip), "-i", str(PLAY_ICON),
+                        "-filter_complex", graph, str(dest)], check=True, timeout=120)
+        return dest if dest.exists() and dest.stat().st_size > 0 else None
+    except (subprocess.SubprocessError, OSError, ValueError):
+        return None
+    finally:
+        clip.unlink(missing_ok=True)
+
+
+def build_email_body(msg: EmailMessage, body: str, video_url: str, thumb: Path | None) -> None:
+    """Plain text + HTML. In the HTML part the [VIDEO THUMBNAIL] line becomes a clickable
+    animated preview (inline GIF) that opens the video; the plain part keeps a link."""
+    link = video_url or ""
+    plain = body.replace(THUMB + "\n" + link, "▶ Watch the video: " + link) if link else body.replace(THUMB, "")
+    msg.set_content(plain)
+    paras = []
+    for block in re.split(r"\n\s*\n", body.strip()):
+        lines = block.strip().split("\n")
+        if lines and lines[0].strip() == THUMB:
+            url = (lines[1].strip() if len(lines) > 1 else link) or link
+            img = (f'<img src="cid:video-thumb" width="480" alt="Watch the video" style="display:block;border-radius:10px;max-width:100%">'
+                   if thumb else "▶ Watch the video")
+            paras.append(f'<p><a href="{html.escape(url, quote=True)}">{img}</a></p>')
+        else:
+            paras.append("<p>" + "<br>".join(html.escape(l) for l in lines) + "</p>")
+    msg.add_alternative("<html><body style=\"font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.5\">"
+                        + "\n".join(paras) + "</body></html>", subtype="html")
+    if thumb:
+        msg.get_payload()[1].add_related(thumb.read_bytes(), "image", "gif", cid="<video-thumb>", filename="preview.gif")
+
+
 def export(conn, out_dir: Path | None = None, include_exported: bool = False) -> dict:
     out = Path(out_dir or config.OUT_DIR)
     (out / "emails").mkdir(parents=True, exist_ok=True)
@@ -556,7 +622,8 @@ def export(conn, out_dir: Path | None = None, include_exported: bool = False) ->
         msg["Date"] = formatdate(localtime=True)
         msg["X-Unsent"] = "1"  # opens as an editable draft in Outlook/Apple Mail
         msg["X-Prospect"] = f"{lead['company']} | {c.get('name', '')} | {c.get('title', '')} | {c.get('linkedin', '')}"
-        msg.set_content(e["body"])
+        thumb = make_thumbnail(lead.get("video_url") or "", out / "thumbs" / f"{_slug(lead['company'])}.gif")
+        build_email_body(msg, e["body"], lead.get("video_url") or "", thumb)
         path = out / "emails" / f"{_slug(lead['company'])}.eml"
         path.write_bytes(bytes(msg))
         files.append(str(path))

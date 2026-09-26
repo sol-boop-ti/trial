@@ -243,7 +243,7 @@ function renderDetail(l) {
     <textarea class="body" id="ebody">${esc(l.email.body)}</textarea>
     ${(l.email.checks || []).length ? `<div class="hint" style="color:var(--warn)">Rule checks: ${l.email.checks.map(esc).join(" · ")}</div>` : `<div class="hint">All email rule checks pass.</div>`}
     <div class="inline"><button class="primary" id="esave">Save edits</button><button id="redraft">Redraft</button>
-      <span class="hint">Then “Export approved drafts” writes .eml + CSV for sending.</span></div>`;
+      <span class="hint">Then “Export approved drafts” writes .eml + CSV for sending. In the .eml, [VIDEO THUMBNAIL] becomes a clickable 3-second animated preview of the video.</span></div>`;
 
   if (l.status === "rejected") html += `<h3>Rejected</h3><div class="card">${esc(l.reject_note || "No note.")}</div>`;
 

@@ -20,6 +20,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 command -v cloudflared >/dev/null 2>&1 || { say "Installing cloudflared (one time)…"; brew install cloudflared; }
 command -v python3 >/dev/null 2>&1 || { say "Installing Python (one time)…"; brew install python; }
+command -v ffmpeg >/dev/null 2>&1 || { say "Installing ffmpeg (one time, for the email video previews: a few minutes)…"; brew install ffmpeg; }
 
 # 2. Settings file with a random secret (created once, kept afterwards)
 mkdir -p "$HOME/secrets"
