@@ -7,7 +7,13 @@ ENV="$HOME/secrets/poolday-webhook.env"
 LOG="/tmp/poolday-tunnel.log"
 say() { printf "\n\033[1m%s\033[0m\n" "$*"; }
 
-# 1. Tools
+# 1. Tools (Homebrew is often installed but not on the PATH: find it)
+for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  if ! command -v brew >/dev/null 2>&1 && [ -x "$b" ]; then
+    eval "$("$b" shellenv)"
+    grep -q "brew shellenv" "$HOME/.zprofile" 2>/dev/null || echo "eval \"\$($b shellenv)\"" >> "$HOME/.zprofile"
+  fi
+done
 if ! command -v brew >/dev/null 2>&1; then
   say "Homebrew is missing. Install it first: open https://brew.sh, copy the line on the page into Terminal, then run this again."
   exit 1
