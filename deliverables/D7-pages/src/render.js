@@ -68,7 +68,7 @@ h1{margin:0 0 6px;font-size:34px;font-weight:500;letter-spacing:-.02em}.sub{colo
 .it{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;font-size:19px;line-height:1.35}
 .n{flex:none;width:32px;height:32px;border-radius:50%;background:#06b6d4;color:#000;font-weight:700;font-size:16px;line-height:32px;text-align:center}
 .note{margin-top:28px;font-size:14px;line-height:1.5;color:#939393}</style></head><body>
-<h1>${TITLE[p]}: before and after${suf ? ' (above the fold)' : ''}</h1><div class="sub">Before = the live page, screenshot supplied by the user. After = our rebuild at 1440px. Both shown at 720px wide. Goal: more demos booked.</div>
+<h1>${TITLE[p]}: before and after${suf ? ' (above the fold)' : ''}</h1><div class="sub">Before = the live page (my screenshot). After = my rebuild at 1440px. Both shown at 720px wide. Goal: more demos booked.</div>
 <div class="row"><div class="col"><h2>Before · live page, screenshot</h2><img src="file://${R}/${p}-before-live${suf}.png"></div>
 <div class="col after"><h2>After · proposed</h2><img src="file://${R}/${p}-after-annotated${suf}.png"></div>
 <div class="leg"><h2>Changes (page order)</h2>${LEGEND[p].map((t, i) => `<div class="it"><span class="n">${i + 1}</span><span>${t}</span></div>`).join('')}<p class="note">Everything without a number is the live page, kept. Detail, copy and A/B tests: D7-page-review.md.</p></div></div></body></html>`;

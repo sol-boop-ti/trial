@@ -1,13 +1,14 @@
-# D1: LinkedIn post + video (v3)
+# D1: LinkedIn post + video
 
-**Posted from:** the Poolday hiring manager's personal account (founder voice). **Goal:** reach + many *qualified* leads (B2B founders, marketing and growth leads). **Every video:** made in Poolday, 4:5, readable on mute.
-**Fill-in rule:** every `[bracket]` gets a real measured number from `METHODS.md`. No invented stats, customers or Poolday claims.
+**Final, what the CEO posts: §8** (at the bottom). It's the "Claude Opus 5.5 + Poolday = Infinite UGC farm" video (15s, 4:5, made entirely in Poolday) and its caption. Sections 1–7 are the angles I weighed first, kept for reference. §4 (comment → lead) and §5 (metrics) still apply to the final post.
+
+**Posted from:** the CEO's personal account (founder voice). **Goal:** reach + many *qualified* leads (B2B founders, marketing and growth leads). **Every video:** made in Poolday, 4:5, readable on mute.
 
 **The moment (checked 2026-09-24):** Opus 5.5 shipped on 22 Sep [S1], and feeds are full of "made this video with one prompt" posts, whose fine print often says hours of agent work [S3][S4]. LinkedIn added a "Seems like AI slop" button (1M+ clicks in its first month) [S5][S6]. Higgsfield just put an AI motion designer inside After Effects [S12]. Buyers are asking which AI video tool actually works. We answer with proof, not claims.
 
 ---
 
-## 1. Angles, ranked (V = virality, L = lead quality, F = feasible in 48h, out of 5)
+## 1. Angles considered first, ranked (V = virality, L = lead quality, F = feasible in 48h, out of 5)
 
 ### #1 Same prompt, 4 apps (V5 · L4 · F3)
 **Idea:** one B2B launch brief, given word for word to Higgsfield, Kling, Seedance and Poolday, results side by side.
@@ -159,8 +160,8 @@ Creative freedom: pacing, transitions, music.
 
 ---
 
-## 6. New angle (v5): "Claude Opus 5.5 + Poolday = Infinite UGC farm" (V5 · L4 · F5)
-The Jev angle was dropped (user's call). The headline format "[famous tool] + [tool] = [big outcome]" is the user's best-performing format.
+## 6. The chosen angle: "Claude Opus 5.5 + Poolday = Infinite UGC farm" (V5 · L4 · F5)
+The headline format "[famous tool] + [tool] = [big outcome]" is my best-performing format.
 
 **Everything happens in Poolday** (user's call): no separate Claude step. **Check before posting:** the "Claude Opus 5.5 +" part needs Poolday to run on Opus 5.5. Ask Poolday (CEO or the agent). If it doesn't, use headline 5.
 

@@ -683,3 +683,36 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **Correction to M51:** the grid and the stats page show each reel's cover, which is the laptop shot, not frame 1. Reel 3 opens on a face (the screenshot of it playing), so reel 1 probably does too. Its frame-1 hook is marked "to confirm" (probably #3, the "$5K" one) instead of "opens on a laptop".
 - **Output:** DELIVERABLE D4 (table rows 1–4, posting rule, format note); RUNBOOK G.
 
+
+## M56. Full outside-eye review of every deliverable against the brief (27 Sep)
+- **What:** reread every outward document (DELIVERABLE, D1–D8, PRODUCT-FEEDBACK) as a reader who knows nothing of the process, and checked each brief item and tip is answered.
+- **Found and fixed:**
+  - **Claims that never happened,** written at planning time: a skill-vs-threejs A/B test, a saved `/prospect-video` command with a "7 → 4 → 2" prompt curve, "all conversations in Align mode", Light/Max tiers. "How I worked" was rewritten from METHODS and the Poolday screenshots only (the real curve: ≈50 min and ≈$140 for a first video, 4 min and ≈$11 for a repeat via the webhook). The A/B is now listed as not done.
+  - **D3 section was stale** ("no public API, a human pastes the prompt"). It now describes the live webhook run, the real numbers (37 → 10 cut → 27 scored → 5 qualified → 1 video in 4 min → approved → email), and the honest limit on "find new leads" (the RSS news source is built but not run live, and news leads lack a named buyer).
+  - **D3 README contradiction:** the walkthrough listed Convex as qualified (the offline formula on the Mac) while the section below listed Delightree (the rubric). Now both are explained.
+  - **D5 numbers contradicted each other:** the summary said "$3k pilot, ≤$150 per demo", while the write-up says $15k in 3 stages and ≈$380 per demo at 5%. The summary now follows the write-up.
+  - **D5 write-up:**
+    - it said credits were priced 1:1 in dollars (wrong: 1,000 credits = $1);
+    - the cost table was empty (now measured: ≈$140–155 for a first video, ≈$11 for a repeat);
+    - the mockup file names were broken;
+    - the automation line was stale.
+  - **D6:**
+    - "Upflow reaches the product at 4s" corrected to 6s (the remake's shot list);
+    - the remakes are now disclosed as built in code, not in Poolday;
+    - the Poolday prompts are marked as not run;
+    - a [verify] was resolved (github.com/PostHog/brand).
+  - **D7:**
+    - the brief's two pages now come first and pricing is marked as a bonus;
+    - a one-paragraph "why each page loses demos" was added;
+    - internal "round 3/4" wording was removed;
+    - the comparison sheets were re-rendered with first-person subtitles (`src/render.js`; the renders themselves are unchanged).
+  - **DELIVERABLE placeholders filled from existing work:** D3, D6, D7, the TL;DR, and "What I'd do with more time" (D8 row added).
+  - **Wording:** "the user" → first person in outward docs. The D1 doc now opens on the final post. D4-ugc-scripts is marked as unused prep. The remake README says 5-sample motion blur (was 3).
+- **Links:** every relative link in the deliverable docs resolves. The only exception is the git-ignored PostHog asset folder, which is intended.
+- **Left for the user (placeholders):**
+  - the submission date;
+  - UGC views and reel 4;
+  - money spent on other tools;
+  - peak parallel Poolday conversations;
+  - reel 1's frame-1 hook;
+  - the Pletor farm's volume and results.

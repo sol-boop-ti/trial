@@ -2,7 +2,7 @@
 
 ## 0. The static story ad (`poolday-static-ad.png`, 1080×1920; `@2x` for print)
 Old vs new in one 9:16 image: **grey = the others, colour = Poolday**, with a big **VS** medallion on the seam.
-- **Top (≈36%, grey): "Other AI video tools"** (large, dark, readable). A paused square video frame of the "LOCAL AI SLOP · At least we're trying" sign, the meme the user picked to stand for what other tools output.
+- **Top (≈36%, grey): "Other AI video tools"** (large, dark, readable). A paused square video frame of the "LOCAL AI SLOP · At least we're trying" sign, the meme I picked to stand for what other tools output.
 - **VS:** a 210px white medallion, black ring, tilted, sitting on a white seam.
 - **Bottom (colour): the Poolday mark + "Made with Poolday".**
   - A paused frame of a professional motion-design video for the demo brand Lumen (the Apple-style phone tunnel).

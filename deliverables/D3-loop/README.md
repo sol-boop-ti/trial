@@ -5,7 +5,7 @@
 | Step | What happened | Screenshot |
 |---|---|---|
 | Find | 37 Series B companies ingested from the dataset (fresh rounds, named buyers) | `screenshots/03-dashboard-leads.jpg` |
-| Qualify | 5 qualified (Flam 99, TwelveLabs 83, Blacksmith 79, Wispr Flow 73, Convex 73), 32 disqualified with reasons. Each lead gets a video angle and a buyer | `03` |
+| Qualify | On the Mac, with no API key, the loop's offline formula ran: 5 qualified (Flam 99, TwelveLabs 83, Blacksmith 79, Wispr Flow 73, Convex 73) and 32 out, each with its reason. Then the real rubric, answered in Claude Code and imported by domain: the same first four, with Delightree instead of Convex (below). Each lead gets a video angle and a buyer | `03` |
 | Build with Poolday | The pipeline POSTed the lead to a **Poolday Automation webhook** (HTTP 202 accepted) → Poolday made a 22s 16:9 Wispr Flow teaser, reusing the approved v3 composition | `04`, `05`, `06` |
 | Return | Poolday's agent has **no outbound network**, so it couldn't call back and printed the result JSON instead. The Automation's Output only offers app connectors (Airtable, Apollo…), no webhook. The link was pasted into the dashboard at the human gate (one paste) | `07`, `08`, `09`, `12`, `13` |
 | Human validation | Approve / Regenerate with a note / Reject | `10` |

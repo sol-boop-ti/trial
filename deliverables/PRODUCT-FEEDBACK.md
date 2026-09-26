@@ -25,7 +25,7 @@ It shows in all three videos I looked at: the PostHog and Upflow reviews, and a 
   - average shot ≤1.2s;
   - text holds for reading time + 0.3s;
   - the hook is fully stated by 2s.
-- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow reaches the product at 4s instead of never, and the original still hasn't shown it at 8.5s.
+- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow shows the product at 6s instead of never, and the original still hasn't shown it at 8.5s.
 
 
 ## Automations can be triggered from outside but can't report back (high impact for API users)

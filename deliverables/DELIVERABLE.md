@@ -1,6 +1,6 @@
 # Poolday Growth Assignment: Deliverables
 
-**[PLACEHOLDER: name]** · 48-hour assignment · **[PLACEHOLDER: submission date]**
+**Raphael Gaudin** · 48-hour assignment · **[PLACEHOLDER: submission date]**
 
 ---
 
@@ -8,53 +8,53 @@
 
 | # | Deliverable | Link | Key number |
 |---|---|---|---|
-| D1 | LinkedIn post + video | [video](D1-linkedin/infinite-ugc-farm.mp4) · [post copy](D1-linkedin.md) (§8) | 15s · 4:5 · one prompt in Poolday, 56 min of agent time |
-| D2 | Prospect video: Flam | [video](D2-prospect-videos/flam-series-b-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 25s · 16:9 · 2 messages, 50 min (brand kit included) |
-| D2 | Prospect video: Wispr Flow | [video](D2-prospect-videos/wispr-flow-meetings-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 22s · 16:9 · 3 messages (v1 → v3), 55 min (brand kit included) |
-| D3 | Agent loop (leads → qualify → video → human gate → email draft) | [PLACEHOLDER: repo link] · [PLACEHOLDER: demo recording] | [PLACEHOLDER: leads processed, emails drafted] |
-| D4 | AI UGC on Instagram | [@natecreates99](https://www.instagram.com/natecreates99/) · [the 8 reels in Poolday](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a) | 8 reels made (12s each) · [PLACEHOLDER: n posted, total views] |
-| D5 | Growth idea: "Paste your URL, get your launch video" | [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link] | $3k pilot → up to $15k; target ≤$150 per booked demo at scale |
-| D6 | Video review ([PLACEHOLDER: PostHog / Upflow]) | [PLACEHOLDER: link] | Top 3 changes + first-5s rewrite |
-| D7 | Page reviews (home + b2b-startups) | [PLACEHOLDER: link] | [PLACEHOLDER: n prioritized changes] |
+| D1 | LinkedIn post + video, for the CEO's account | [video](D1-linkedin/infinite-ugc-farm.mp4) · [caption + alternatives](D1-linkedin.md) | 15s · 4:5 · one prompt, made entirely in Poolday |
+| D2 | Prospect video: Flam ($40M Series B) | [video](D2-prospect-videos/flam-series-b-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 25s · 2 messages · 50 min of agent time, brand kit included |
+| D2 | Prospect video: Wispr Flow ($280M Series B) | [video](D2-prospect-videos/wispr-flow-meetings-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 22s · 3 messages (v1 → v3) · 55 min, brand kit included |
+| D3 | Agent loop: find → qualify → Poolday → human gate → email | [how it ran](D3-loop/README.md) · [code](../loop/) | 37 leads → 5 qualified → a Poolday video through a webhook in 4 min (≈$11) → approved → email drafted |
+| D4 | AI UGC on Instagram | [@natecreates99](https://www.instagram.com/natecreates99/) · [the 8 reels in Poolday](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a) | 8 reels made · [PLACEHOLDER: n] posted · [PLACEHOLDER] views |
+| D5 | Growth idea: "Paste a link. Watch the video." | [write-up](D5-growth-idea.md) · [mockups](D5-mockups/walkthrough.mp4) | $15k in 3 gated stages · ≈$19 per video, ≈$380 per booked demo at 5% (est.) |
+| D6 | Video review: PostHog **and** Upflow | [review](D6-video-review/D6-video-review.md) · [remakes](D6-video-review/remake/README.md) | Top 3 changes each · both remade: Upflow 23 → 16s, PostHog 24 → 20s |
+| D7 | Page reviews: home + b2b-startups (+ pricing) | [review](D7-pages/D7-page-review.md) · [before/after](D7-pages/compare/) | 15 numbered changes, each with its A/B test · every page rebuilt before/after |
+| D8 | Bonus: Poolday's own Instagram | [static ad](D8-instagram/poolday-static-ad.png) · [notes](D8-instagram/README.md) | ad remake · profile-picture fix · 12 ideas for use-case shorts |
 
 **Key numbers**
-- Total UGC views: [PLACEHOLDER] across [PLACEHOLDER] posts (best post: [PLACEHOLDER] views)
-- Credits spent: 835,270 of 2,000,000 (≈ $835 of $2,000, 42%). By conversation: see [Time and credits](#time-and-credits-poolday-2426-sep-2026)
-- Prompts per video: 2 (Flam) and 3 (Wispr Flow, v1 → v3) with the org skills; 1 for the automated D3 run on the saved Wispr kit
-- Agent time per video: 49–56 min for a first video with its brand kit; 4 min for a repeat on a saved kit (the D3 run)
-- Parallel Poolday conversations at peak: [PLACEHOLDER]
+- UGC views: [PLACEHOLDER] across [PLACEHOLDER] reels (best: [PLACEHOLDER]).
+- Credits: 835,270 of 2,000,000 spent (≈ $835 of $2,000, 42%). Other tools: [PLACEHOLDER: $ spent outside Poolday, of the $300 allowed].
+- Poolday agent time: 5h01m across 9 conversations. A first video with its brand kit took 49–56 min. The same brand again, through the D3 webhook, took 4 min (≈$11).
+- Messages per video: 2 (Flam), 3 (Wispr Flow, v1 → v3), 1 (the automated D3 run).
 
 ---
 
 ## How I worked
 
-**1. Planned before building, from the tool's own docs.** I read the Poolday agent guide first and let it change the plan. Runs take about an hour, a first video takes about 7 prompts, variants belong in one conversation, and saved skills/commands cut later videos to 1–2 prompts. That moved brand kits and prospect videos to hour 0, and made the saved command the backbone of the agent loop.
+**1. Read the agent guide first, and let it change the plan.** Runs take about an hour and a first video takes several prompts, so the long Poolday jobs (brand kits, prospect videos) started at hour 0. Everything reusable was saved (brand kits, skills), so later videos would be cheap. My notes: `poolday/agent-guide-notes.md`.
 
-**2. Two lanes, zero idle time.** Poolday renders in one lane. I and Claude Code work in the other (briefs, critiques, the agent loop, reviews). Long jobs started first, and every render window was used for other work.
+**2. Two lanes, no idle time.** Poolday worked in one lane: 9 conversations, one per job, [PLACEHOLDER: n] at once at peak (table in "Time and credits"). In the other lane, Claude Code and I built the loop, the reviews, the remakes and this doc. Variants stayed inside one conversation, as the guide advises.
 
-**3. Parallel Poolday conversations.** [PLACEHOLDER: n] conversations at once, one per video (prospect A, prospect B, an A/B test, UGC, LinkedIn), all in Align mode, each on the right tier (Light for quick option rounds, Max for showcase videos). I parallelized across different videos, never across variants of one video: the guide says variants clone faster inside a single conversation.
+**3. Skills and brand kits first.**
+- Two org skills, saved on day 1: **motion-craft** (pacing and motion rules from my motion-design manual) and **ref-teaser** (turn a reference video into a teaser, with one approval gate).
+- A brand kit from each website. Flam's has 34 colours, animatable node cards, 18 imagery assets and motion and sound rules, and it flagged on its own that some scraped images showed another company's products. Wispr Flow's has 22 colours. Poolday's own kit was compared with mine and enriched.
 
-**4. Brand kits first.** Each prospect video started with a brand kit built from the company's website, the biggest quality lever when you don't have a company's assets. [PLACEHOLDER: what the brand kit got right/wrong]
+**4. I picked the references and wrote what I love about each.** Flam: an ImagineArt launch video ("the easing and speed, and the continuity: tiles linked by lines"). Wispr Flow: a Skuve reel ("the clean light-grey UI world, numbered cards"). The skill copies cuts and rhythm, so the reference is the biggest creative lever.
 
-**5. Options before committing.** Every brief included a validation step: 5 concept directions for LinkedIn, [PLACEHOLDER: n] actor photos → pick → voices → pick for UGC, and the skill's single approval gate (script, look, routing) for prospect videos. Choosing before rendering is cheaper than fixing after. [PLACEHOLDER: screenshot of an option-selection step]
+**5. Options before committing.** UGC: actor photos → pick → voices → pick → scripts → batch (6 messages, 11 outputs). LinkedIn: directions first, then 4 outputs, and I picked A. Prospect videos: the skill's approval gate. After Wispr v3, Poolday asked which new pieces to merge into the brand kit so later Wispr videos are cheaper:
 
-**6. The reference video is the biggest creative lever.** The reference-teaser skill copies the reference's cuts, rhythm and look, so I picked references myself and wrote down what I liked about each as mechanisms ("hard cuts on the kick", "oversized type wiping across the UI"). [PLACEHOLDER: references used]
+![Poolday asks before merging v3's new pieces into the Wispr Flow kit](assets/poolday-session/s34.webp)
 
-**7. Mechanism critiques, not adjectives.** Feedback was timestamped and mechanical ("hard cut at 0:04, hold the logo 2 frames longer, music peak on the tagline"), never "make it punchier". [PLACEHOLDER: one real feedback round, before/after]
+**6. Intent, not editing instructions.** My Poolday prompts said what and why (the angle, the reference, what I love about it) and left the execution to the agent, as the brief advises. Claude helped with briefs and critiques, never step-by-step edit lists. Critiques were timestamped mechanisms ("the grid holds 4s with only a cursor moving: cut to 1.5s"), never "make it punchier".
 
-**8. A/B test on the brief.** Skill-based prompt vs. the brief's one-liner ("build it in threejs, most impressive video possible") in separate conversations. Winner: [PLACEHOLDER: which and why].
+**7. Reuse is where the cost drops.** The first video per brand took about 50 min of agent time (≈$140). The same brand again, sent by the loop to the Automation webhook: 1 message, 4 min, ≈$11.
 
-**9. Skill/command reuse and the learning curve.** After the first prospect video was final, I saved the flow as a skill and a `/prospect-video` command. Measured prompts per video: **[PLACEHOLDER: 7] → [PLACEHOLDER: 4] → [PLACEHOLDER: 2]**. The agent loop now only has to generate a 2-line call.
-
-**10. Clear roles per tool.**
+**8. Clear roles per tool.**
 
 | Tool | Role |
 |---|---|
-| **Claude (chat)** | Brief structure and intent, hooks and scripts, LinkedIn and email copy, critiques from frames, page and video reviews (it can browse) |
-| **Claude Code** | Ranked the CSV, built the agent loop, kept the plan, runbook and methods log, assembled this doc |
-| **Poolday** | Brand kits and every video, plus saved skills and commands. It decides the execution. I didn't paste editing instructions from Claude into it |
+| **Claude (chat)** | Hooks and scripts, LinkedIn and email copy, the first draft of the page review (it can browse) |
+| **Claude Code** | Ranked the CSV, built the agent loop, the D6 remakes, the D7 page rebuilds and the D8 ads, kept the plan, runbook and methods log, assembled this doc |
+| **Poolday** | Brand kits, skills, every video in D1–D4, and the automation. It decided the execution |
 
-**11. Documented as I went.** Every step was logged the same day (what, tools, inputs, process, decision and why, output, time/credits, lessons). That log is the source for this section. [PLACEHOLDER: link to METHODS.md]
+**9. Documented as I went.** Every step was logged the same day (what, tools, inputs, process, decision and why, output, time/credits, lessons): [METHODS.md](../METHODS.md), 55 entries.
 
 ---
 
@@ -119,34 +119,34 @@ Shot lists, a self-review against my own pacing rule, and both emails: [D2-prosp
 Backup: **Convex** ($57M, open source, so the skill can use its real UI components). Not made: the loop's live test reused the Wispr Flow kit instead (4 min, ≈$11), and the loop's rubric later scored Convex 67, just under the bar.
 
 ### How they were made
-- Brand kit from the website → reference-teaser skill + a reference video I chose, with what I liked about it written as mechanisms → the skill's approval gate (script, look, routing) → iteration with timestamped mechanism feedback.
-- A/B test: skill-based vs. the "threejs, most impressive video possible" prompt. [PLACEHOLDER: result]
-- [PLACEHOLDER: screenshot of the approval gate]
+- Brand kit from the website → my ref-teaser and motion-craft skills + a reference video I chose, with what I love about it written as mechanisms → the skill's approval gate (script, look, routing) → iteration (Wispr Flow went v1 → v3: a real video plate and a Gmail compose screen were added).
+- Not done: the brief's other route ("build it in threejs, most impressive video possible") as an A/B against the skill. First item in "What I'd do with more time".
 - **Outreach drafts:** Flam → Karthik (CMO), a new draft that passes the loop's email rule checks. Wispr Flow → Carolyn (VP Product Marketing), the loop's draft ([`D3-loop/wispr-flow-email-sample.eml`](D3-loop/wispr-flow-email-sample.eml)) with the v3 teaser's link swapped in. Both are in [D2-prospect-videos/README.md](D2-prospect-videos/README.md).
 
 ---
 
 ## D3. Agent loop
 
-**Leads → qualify → Poolday video → human validation → email draft**
-
-[PLACEHOLDER: diagram]
+**Find → qualify → Poolday makes the video → human validation → email draft. Run live on 26 Sep.** The walkthrough, with 13 screenshots of the live run: [D3-loop/README.md](D3-loop/README.md). Code: [`loop/`](../loop/) (Python standard library, 40 tests).
 
 ```
-[Sources: CSV + funding news] → [Enrich: site, round date, product]
- → [Qualify: score 0–100 on an ICP rubric, with justification]
- → [Generate Poolday prompt: "/prospect-video <url> <reference>"]
- → [Human pastes into Poolday → pastes video link back]   (no public API yet)
- → [HUMAN GATE: approve / reject / regenerate with a note]
- → [Draft personalized email] → [draft for the hiring manager to send]
+[Find: the Series B list + a funding-news RSS source] → dedupe, drop Higgsfield
+ → [Pre-score 0–100 in code: freshness 40 · buyer 25 · B2B 15 · video fit 20]   (under 45: cut)
+ → [Qualify: 5 criteria × 20, justification, video angle, buyer]                (70+ kept; no named buyer = out)
+ → [Poolday: the lead is POSTed to an Automation webhook, the agent makes the video]
+ → [Return: the video link is pasted at the gate (Poolday can't call back yet)]
+ → [HUMAN GATE: approve · reject · regenerate with a note]
+ → [Email draft for the named buyer → .eml with a clickable animated preview]  → the CEO sends it
 ```
 
-- **Repo:** [PLACEHOLDER: repo link]
-- **Demo recording (one lead end to end):** [PLACEHOLDER: link]
-- **Qualification rubric:** [PLACEHOLDER: criteria and weights]
-- **Poolday step:** Poolday has no documented public API, so the loop generates the 2-line `/prospect-video` call and a human pastes it in. The saved command is what makes this step short.
-- **Results:** [PLACEHOLDER: n leads in → n qualified → n videos → n approved → n emails drafted]
-- **Next step:** automate the Poolday step through an API or a browser agent once one is available, and send the drafts to the hiring manager's inbox.
+- **Live run:** 37 leads in → 10 cut by the pre-score → 27 scored → 5 qualified → Wispr Flow sent to Poolday (HTTP 202) → Poolday reused the saved Wispr composition and rendered a 22s video in 4 min (≈$11) → approved at the gate → email to Carolyn (VP Product Marketing) drafted and exported.
+- **Qualification:** Flam 99, TwelveLabs 79, Blacksmith 77, Delightree 77, Wispr Flow 76 (the rubric, answered in Claude Code since there was no API key).
+  - **Checks:** 4 of the 5 are also the picks of the loop's offline formula; the rank correlation with the pre-score is 0.83; it matches the D2 picks I made by hand.
+  - **Limits,** and how to validate with real outcomes: in the README.
+- **The human gate:** nothing goes out unless a person approves the video. "Regenerate with a note" sends the lead back to Poolday with the note.
+- **The Poolday step:** the API is locked for trial orgs and being deprecated (per the CEO), so the loop triggers a Poolday **Automation webhook**. Poolday's agent has no outbound network, and the Automation's Output has no webhook destination. So the video link comes back with one paste at the gate. With an Output webhook, that paste disappears: the loop already verifies signed callbacks.
+- **Finding new leads:** the live run used the Series B list. The funding-news source (TechCrunch, PR Newswire, Business Wire… over RSS) is built and tested offline. It still needs a contact-enrichment step: a news item has no named buyer, and the rubric knocks those out.
+- **Emails the CEO sends:** Wispr Flow (`D3-loop/wispr-flow-email-sample.eml`, with its preview) and Flam (in the D2 README).
 
 ---
 
@@ -185,24 +185,78 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 ---
 
-## D5. Growth idea: "Paste your URL, get your launch video"
+## D5. Growth idea: "Paste a link. Watch the video."
 
-**Summary.** A very simple site: paste your website URL, pick a style (Apple-style motion design, Linear-style dark UI, kinetic type, 3D, trending social motion styles), get your launch video. It's the Submagic mechanic (upload → pick a template → done) applied to launch videos. Poolday builds the brand kit from the URL and renders it with a saved template per style. Runs take about an hour, so the video is **emailed**, which captures the lead before the value arrives. Watermarked preview → HD download or edit = sign up → book a demo.
+**The idea.** A free page on poolday.ai. You pick one of three things Poolday already makes well, give it a link, pick a style card and leave a work email, and you get the video:
+- a **launch video** from your website URL;
+- **podcast clips** from an episode;
+- an **AI product ad** from a URL and a product photo.
 
-**Distribution: "Poolday can actually do it."** On X, engagement-bait posts claim "an AI model just made this video with one prompt" (often faked). We actually remake the video in Poolday (it pulls the video from the link), screen-record it running, and reply "Poolday can actually do it" + the link. Precedent: Motion/Mosaic replied to big threads with "tag us to get a video explaining this thread".
+It's the Submagic mechanic (upload → pick "Hormozi" → done), applied to Poolday's best outputs. The result page's main button is **"Book a 15 min demo"**: "Want this for your real launch? It takes one call."
 
-**Quick win: ride the "AI motion designer" trend.** It's the format of the week on X: "I paid $1,000 for a video like this a year ago. Now I made it with Opus 5.5 in 30 minutes" (e.g. @tdinh_me, 4k views in 4h; replies share the prompt: *"Make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are… visit the pages first to learn about the product, then write the video yourself"*). Screenshot: `assets/trend-opus-motion-design-tweet.png`.
-- **The play:** post incredible motion-design videos made with Poolday for well-known brands, 2–3 a week, with the before/after and the prompt, e.g. "We gave Poolday one prompt: make [brand]'s launch video better." Each post shows people how good AI motion design has become, and that Poolday does it without code.
-- **Proof it works:** my D6 remakes (PostHog and Upflow, rebuilt 100% on brand, with 3D cameras, brand match cuts and a synced soundtrack) are exactly this format.
-- **Honesty rule:** name the model ("Opus 5.5") only if Poolday confirms it runs on it for that video; otherwise "made with Poolday". Only publish another brand's remake with their OK (PostHog's hedgehogs are licensed art), or use our own brand or consenting customers.
+**Why it books demos:**
+- The visitor sees their own brand in a Poolday video before any call.
+- Credits go only to work emails at real companies; personal emails are refused on the spot.
+- So every video is also a qualified lead with a name, a role and a company.
 
-**Budget:** a $3k pilot, then up to $12k more unlocked in stages when targets are hit (cost per booked demo ≤$300 in the pilot, ≤$150 at scale).
+**Distribution: "Poolday can actually do it."** On X, posts claim "AI made this video with one prompt", and the claim is often faked. We remake the video for real in Poolday, screen-record the run, and reply with it and the link. Precedent: Motion/Mosaic replied to big threads with "tag us to get a video explaining this thread".
 
-**Full write-up** (product flow, how it runs on Poolday, distribution, lead routing, budget, metrics, risks): [D5-growth-idea.md](D5-growth-idea.md) · [PLACEHOLDER: shareable link]
+**Quick win: ride the "AI motion designer" trend.** It's the format of the week on X: "I paid $1,000 for a video like this a year ago. Now I made it with Opus 5.5 in 30 minutes" (e.g. @tdinh_me, 4k views in 4h; screenshot: `assets/trend-opus-motion-design-tweet.png`).
+- **The play:** 2–3 posts a week of before/after remakes of well-known brands' videos, made in Poolday, each with the prompt.
+- **The format already works:** my D6 remakes are exactly this before/after, built in code.
+- **Honesty rule:**
+  - name a model only if Poolday confirms that it ran on it;
+  - publish another brand's remake only with their OK.
+
+**Budget:** $15k in three gated stages. Each stage opens only when the previous one hits its trigger:
+1. $2k manual pilot, 2 weeks;
+2. $5k public page;
+3. $8k scale.
+
+At ≈$19 per delivered video (est.) and 5% video → demo, that's ≈$380 per booked demo. The pilot's job is to push both numbers down. A repeat video on a saved kit already measured ≈$11 (D3).
+
+**Mockups:** seven screens in Poolday's app style (`D5-mockups/`, the whole path in `walkthrough.mp4`). **Full write-up:** product flow, styles, why it beats Motion, cost model, risks: [D5-growth-idea.md](D5-growth-idea.md).
 
 ---
 
-## D6. Video review: [PLACEHOLDER: PostHog GenAI launch / Upflow faster payments]
+## D6. Video review: both, PostHog GenAI launch and Upflow faster payments
+
+Full review, timestamped tables and the prompts I'd give Poolday: [D6-video-review.md](D6-video-review/D6-video-review.md).
+
+**Upflow (23.3s): a great idea with lost rhythm.**
+- The hook takes ~10s.
+- The opening question ("Did Acme pay invoice #2041 yet?") is never answered, because the product never appears.
+- The best line (WorkMotion cut invoices 31+ days overdue by 79%) is micro-text in the footer.
+- At 1.5× speed it already feels better (`upflow-1.5x-quicktest.mp4`): the ideas are right, the holds are too long.
+
+Top 3 changes:
+1. Show the product answering the question.
+2. Cut every hold to reading time + 0.3s (target 14–16s).
+3. Give −79% its own full card.
+
+**PostHog (24.4s): beautiful, but not PostHog.**
+- It uses 3D clay renders, while PostHog is a 2D brand (flat, hand-drawn hedgehogs).
+- The climax ("It's live") is the smallest text in the film.
+- The product gets 2s of tiny tabs.
+- The end card is a web footer pasted into a film, with the old logo.
+
+Top 3 changes:
+1. Go 2D, in PostHog's own illustration style.
+2. Replace the slide with an animated sign-off.
+3. Show real product proof at full frame.
+
+**Upflow's first 5 seconds, rewritten (and built):**
+- **0.0–1.5s:** the question types fast, with a key click on every letter.
+- **1.5–3.6s:** 64 questions in 6 languages pop in around it on the beat.
+- **3.6–4.0s:** the swarm implodes into Upflow's blue dot.
+- **4.0s:** the dot floods the frame: "Something simple."
+- **5.9s:** the product answers the question.
+
+**Proof: both remade,** 100% on each brand, built in code with Claude Code (not in Poolday):
+- Upflow: 23.3 → 16.4s.
+- PostHog: 24.4 → 19.8s, in 2D with PostHog's real hedgehogs and the 2026 logo.
+- Before/after, side by side: `D6-video-review/remake/*-compare.mp4`.
+- The PostHog one is a private spec piece: the hedgehogs are licensed art.
 
 **Cross-cutting finding: Poolday's videos are too slow.** It shows in all three videos I looked at: the PostHog and Upflow reviews, and a post picked at random from the CEO's LinkedIn ("Businesses have no excuse left for not making…", linkedin.com/posts/alexeichemenda_…). **The scenes are too slow, and the first 3 seconds are wasted.** In the LinkedIn one, the first 3s are just a blur clearing. People decide to scroll in about 3 seconds.
 - **The fix, as a default:**
@@ -211,29 +265,42 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
   - average shot ≤1.2s;
   - text holds for reading time + 0.3s;
   - the hook is fully stated by 2s.
-- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow reaches the product at 4s instead of never, and the original still hasn't shown it at 8.5s.
+- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow shows the product at 6s instead of never, and the original still hasn't shown it at 8.5s.
 
-
-- **Method:** framework-based review (hook 0–3s, the question the opening sets up, value prop, story arc, pacing, mobile legibility, sound-off viewing, music/SFX sync, product proof, CTA, length vs platform) from frames with timestamps and a screen recording. Notes are written as mechanisms (cuts, holds, easing, sync points).
-- **Timestamped notes:** [PLACEHOLDER: table]
-- **Top 3 changes:**
-  1. [PLACEHOLDER]
-  2. [PLACEHOLDER]
-  3. [PLACEHOLDER]
-- **First 5 seconds, rewritten:** [PLACEHOLDER: shot list]
-- **Proof:** [PLACEHOLDER: improved intro remade in Poolday, before/after, or "not run"]
+**Root cause, as product feedback:**
+- A pacing skill is on by default for social.
+- The brand kit captures the brand's visual *medium* (PostHog = 2D illustration), not only the logo, colours and fonts.
 
 ---
 
-## D7. Page reviews: poolday.ai and /solutions/b2b-startups
+## D7. Page reviews: poolday.ai and /solutions/b2b-startups (+ /pricing as a bonus)
 
-- **Goal:** more demos booked.
-- **Method:** fixed framework (5-second test, value prop, segment fit, social proof, demo CTA friction, objection handling, "instant value" entry points, on-page video, speed/mobile, analytics) applied to the live pages plus my own desktop and mobile screenshots. Every finding points to a specific element.
-- **Biggest reason each page loses demos:** home [PLACEHOLDER] · b2b-startups [PLACEHOLDER]
-- **Prioritized changes (ICE):** [PLACEHOLDER: table: problem → change → why it increases demo bookings → A/B test]
-- **Top 3 changes, annotated mockups (before/after):** [PLACEHOLDER]
-- **Hero rewrites (2 variants per page):** [PLACEHOLDER]
-- **Link to D5:** [PLACEHOLDER: where a "paste your URL" entry point would sit on the page and how it hands off to the demo CTA]
+Full review: [D7-page-review.md](D7-pages/D7-page-review.md). Each page is rebuilt before/after on the live page's own structure, with only the numbered items changed (`D7-pages/compare/`).
+
+**Why each page loses demos:**
+- **Home:**
+  - the demo is the only path, so visitors who aren't ready for a call leave;
+  - "Meet Poolday." never says what Poolday is;
+  - nothing asks for the demo between the proof and the footer.
+- **B2B startups:**
+  - the H1 names the product, not the startup's job;
+  - the second button only scrolls;
+  - there are no logos in the first screen;
+  - the 9 use cases are text-only.
+- **Pricing (bonus):** "$1,250 in credits" doesn't say how much video that buys.
+
+**Top 5 changes.** Each has an A/B test and a guardrail. The primary metric is booked demos per unique visitor.
+1. **B2B hero:**
+   - the H1 becomes "Every feature you ship, on video.";
+   - a **"Paste your URL"** field (a free launch video by email, = D5) replaces "View examples".
+2. **Home:** "Watch a 2-min build" next to "Book a 15 min demo", for visitors who aren't ready to call.
+3. **Pricing:** "$1,250 in credits · ≈ 50–250 finished videos", derived from Poolday's own "~$5–25 per video".
+4. **Home:**
+   - "Meet Poolday. An agent that plans, makes and fixes the whole video.";
+   - "Book a 15 min demo" right under the features.
+5. **B2B:** each of the 9 use-case cards gets an animated input → output preview.
+
+![B2B startups, first screen: live page vs. rebuilt](D7-pages/compare/b2b-compare-fold.png)
 
 ---
 
@@ -263,12 +330,13 @@ I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The
 
 ## What I'd do with more time
 
-- [PLACEHOLDER: refine after the 48h]
-- Automate the Poolday step of the agent loop (API or browser agent) and run it on a weekly feed of fresh rounds.
-- Run the D7 changes as real A/B tests with the demo funnel instrumented end to end (CTA view → click → booking → show-up).
-- Pilot the D5 URL-to-video site with 2–3 style templates and a hard daily credit cap.
-- Scale UGC past the new-account limit: more warmed accounts and more platforms (TikTok, YouTube Shorts), iterating on the best hook.
-- Build a library of saved Poolday commands per use case (launch, funding announcement, feature drop) so each new video takes 1–2 prompts.
+- Run the brief's other route as an A/B test: my ref-teaser skill vs. "build it in threejs, most impressive video possible", on the same company.
+- Turn on the funding-news source with a contact-enrichment step, so the loop finds new leads every week beyond the list.
+- Ask Poolday for an Output → Webhook (or API access), to remove the one paste in the loop.
+- A/B test the D7 changes with the demo funnel measured end to end (CTA view → click → booking → show-up).
+- Pilot D5 with 2–3 style templates and a daily credit cap.
+- Scale UGC: more warmed accounts, TikTok and YouTube Shorts, and more variants of the best hook.
+- Apply my own pacing rule to my videos: Flam's 4s grid hold and Wispr Flow's 7s outro.
 
 ---
 

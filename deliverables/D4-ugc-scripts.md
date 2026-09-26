@@ -1,4 +1,4 @@
-> **Status (user decision):** the user runs D4 themselves, using the format that worked for Casey AI at Pletor (shock face + product demo filmed on an iPhone). They will provide the Pletor image and video prompts and the models used. Production is done in Poolday following the brief's intended method (e.g. "first generate 30 actor photos, let me choose, then proceed…", Align mode, options before committing). The material below is optional backup only.
+> **Prep material, not used in the end.** The 8 reels were made directly in Poolday with my own format (shock face + product demo), and the AI creator films the demo too: see `DELIVERABLE.md` → D4. These scripts are the backup I prepared before that.
 
 # D4: AI UGC prep (Instagram Reels)
 

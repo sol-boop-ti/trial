@@ -1,6 +1,6 @@
 # D6: Video review (PostHog GenAI launch + Upflow faster payments)
 
-Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/s, scene-cut detection, key frames at full size), then combined with the user's own viewing notes. Timestamps are approximate (±0.5s). Source files: `references/review-posthog.mp4` (24.4s) and `references/review-upflow.mp4` (23.3s).
+Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/s, scene-cut detection, key frames at full size), then combined with my own viewing notes. Timestamps are approximate (±0.5s). Source files: `references/review-posthog.mp4` (24.4s) and `references/review-upflow.mp4` (23.3s).
 
 ---
 
@@ -15,7 +15,7 @@ Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/
 - The **footer at the end looks like PowerPoint**, the typical "AI made this" slide: a static logo plus a web footer. It should be an animated sign-off.
 
 **After the remakes (side by side, `remake/*-compare.mp4`):**
-- **Upflow: the hook is ~10 seconds long, which is far too long.** The original spends its first ~10s on one question and its swarm before anything happens. The remake gets there in 4s, and in the same time shows **more examples and more arguments**: the product answering the question, the payment timeline, the reminder workflow, the portal, and the −79% proof. At 8.5s the original is still on the questions, while the remake is already showing the product.
+- **Upflow: the hook is ~10 seconds long, which is far too long.** The original spends its first ~10s on one question and its swarm before anything happens. The remake resolves the hook at 4s, shows the product at 6s, and in the same time shows **more examples and more arguments**: the product answering the question, the payment timeline, the reminder workflow, the portal, and the −79% proof. At 8.5s the original is still on the questions, while the remake is already showing the product.
 - **PostHog: 2D in their own style is more professional than 3D effects and modelling.** The 3D clay renders read as a generic AI effect. The 2D remake, with their hand-drawn hedgehogs, fonts and OS windows, reads as PostHog, and it looks more crafted, not less.
 
 **Cross-cutting finding: Poolday's videos are too slow.** It shows in all three videos I looked at: the PostHog and Upflow reviews, and a post picked at random from the CEO's LinkedIn ("Businesses have no excuse left for not making…", linkedin.com/posts/alexeichemenda_…). **The scenes are too slow, and the first 3 seconds are wasted.** In the LinkedIn one, the first 3s are just a blur clearing. People decide to scroll in about 3 seconds.
@@ -25,7 +25,7 @@ Method: both videos analysed frame by frame (ffmpeg: a contact sheet at 1 frame/
   - average shot ≤1.2s;
   - text holds for reading time + 0.3s;
   - the hook is fully stated by 2s.
-- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow reaches the product at 4s instead of never, and the original still hasn't shown it at 8.5s.
+- **How to ship it:** a built-in "social pacing" preset/skill that is on by default for social formats. My D6 remakes show the difference side by side: Upflow shows the product at 6s instead of never, and the original still hasn't shown it at 8.5s.
 
 **Is brand extraction the problem?** Poolday does have brand-kit extraction, and it's an important part of the job. It captured PostHog's logo, colours and fonts, but not its visual medium (2D illustration). Feeding the kit the brand's real illustration assets, plus a rule like "2D only", fixes that.
 
@@ -84,17 +84,17 @@ The frame-by-frame analysis below confirms each point with timestamps.
 1. **Pacing defaults are too slow for SaaS UI.** Fix it once with a Poolday **skill** (the guide: "skills are knowledge you teach the agent about your preferences"):
    > *SaaS UI pacing: hook 1.5–2.5s; average shot ≤1.2s (fast montage 0.4–0.8s); a text card holds for reading time (~0.25s/word) + 0.3s; typing ~1.5 frames per glyph; the logo lockup 2–3s in total, including a ≥0.6s hold once landed, and alive (slow push/drift), never a static slide; cut on the beat; nothing fully still during holds. Always pay off the opening question with the real product UI.*
 
-   These numbers are aligned with `poolday/motion-design-for-agents.md` (the user's motion-design manual, distilled from analysing many great motion pieces), which should be given to Poolday as a skill too.
+   These numbers are aligned with `poolday/motion-design-for-agents.md` (my motion-design manual, distilled from analysing many great motion pieces), which should be given to Poolday as a skill too.
 
-   Attach 3–5 reference SaaS launch videos with great pacing to the skill. That's the user's idea, and it fits the guide's "drop in inspiration, name what you like about each reference".
+   Attach 3–5 reference SaaS launch videos with great pacing to the skill. That's my idea, and it fits the guide's "drop in inspiration, name what you like about each reference".
 2. **The brand kit captured the identity (logo, colours, font) but not the brand's visual *medium*.** PostHog = 2D illustration.
    - **Does Poolday have brand extraction?** Yes. The guide documents "web research & brand-asset extraction from any site" and "Create a brand kit for [brand]" from a website, guidelines or Figma. The ref-teaser skill also calls a `brand-kit-authoring` flow.
    - **The fix:** feed the kit the brand's **illustration style and mascot assets** (the "asset library" and "Video DNA" layers), not just the website. Add a usage law: *"PostHog videos are 2D, flat, illustrated. No 3D renders."*
-   - PostHog publishes its brand assets and hedgehog art publicly [verify the URL]; those go into the kit as real files.
+   - PostHog publishes its brand assets and hedgehog art publicly (github.com/PostHog/brand, used for the remake); those go into the kit as real files.
 3. **End cards need a rule too:** a sign-off is motion, not a web footer.
 
-## 4. The extra step: remake them in Poolday
-Show, don't only tell: remake the first ~8s of each with the fixes (Align mode, the video attached as the reference):
+## 4. How I'd brief Poolday to fix them
+The prompts I'd give Poolday (Align mode, the original attached as the reference). Not run: the credits went to D1–D4, and §5 shows the target instead.
 ```
 Attached: the original Upflow video. Remake it as a ~15s cut with these changes:
 the question types in ~1.2s; cut the swarm at 0:07; one "Something simple." card;
@@ -108,10 +108,9 @@ in PostHog's own illustrated style (flat colour, their hedgehog art, UI windows
 as the stage). No 3D renders. Replace the end card with a 1.5s animated sign-off:
 logo + one line + posthog.com. First show me 3 style frames for approval.
 ```
-Then put before/after side by side in the deliverable.
 
 ## 5. Done: both videos remade (`remake/`)
-To show the fixes instead of only describing them, I rebuilt both videos, 100% on brand:
+To show the fixes instead of only describing them, I rebuilt both videos, 100% on brand. They are built in code with Claude Code (an HTML/CSS timeline captured frame by frame), not in Poolday:
 - **Upflow, 16.4s** (was 23.3s): the question hooks in 1s; the swarm is 2s shorter; one "Something simple." card; **the product answers the question** (invoice #2041 flips to "Paid · 3 days early", with the activity timeline); **−79%** gets its own card; the logo lands in under 0.8s, and the period drops in last. The whole film is built around Upflow's dot: the swarm implodes into it, it floods the frame, it travels the payment journey and stamps "Paid", and it lands as the period of the logo.
 - **PostHog, 19.8s** (was 24.4s): the same story in PostHog's real medium. It uses **2D hand-drawn hedgehogs** from PostHog's own brand library (no 3D, no AI hogs), the RoundHog and Squeak fonts, PostHog OS windows, three real product beats (analytics with a launch annotation, a session replay with 47 rage clicks, a feature flag rolling out), and **the 2026 logo doing the app's own logomark jump** instead of a slide footer. The original also used the **old** PostHog logo, which the brand book forbids.
 

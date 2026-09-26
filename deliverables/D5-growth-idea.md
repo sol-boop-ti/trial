@@ -1,8 +1,8 @@
-# D5. Growth idea: "Pick a product, paste a link, get the video"
+# D5. Growth idea: "Paste a link. Watch the video."
 
 **The idea.** A free page with three products Poolday already makes well: a **launch video** from your URL, **podcast clips** from an episode link, and an **AI product ad** from a URL plus a product photo. One input, one style card, done: the Submagic mechanic (upload → pick "Hormozi" → done), applied to Poolday's best outputs. Every video ends with a booking offer. We spread it on X by remaking viral "AI made this in one prompt" videos for real in Poolday and replying with the run.
 
-*Proposal only. Credit cost per video and render time are measured in the first Poolday runs (stage 0).*
+*Proposal only: nothing implemented, as the brief asks (the screens are mockups). Costs below mix what I measured during the assignment with estimates, and each estimate is marked [est.].*
 
 ## 1. Flow (four clicks, one field each)
 
@@ -20,22 +20,24 @@
 | **Podcast clips** (5 × 30–60s, 9:16) | YouTube link or upload | **Hormozi:** 1–3 word bold caps, yellow/green keyword pops, punch-in zooms every few seconds. **Diary of a CEO:** 1–3 words, heavy outline, host yellow / guest white, cinematic two-camera cuts. **MrBeast:** comic-style font, blue active word, fast jump cuts, sound effects. **Ali Abdaal:** desaturated grade with one colour pop, handwritten-style captions beside the speaker, calm. **Iman Gadzhi:** fast cuts, minimal "luxury" text overlays, dynamic zooms, dark premium grade. |
 | **AI product ad** (15s) | URL + product image | **3D hero CGI:** product floats and turns in a studio void, macro details, light sweeps. **Faux out-of-home:** giant product placed in a real city (the viral FOOH format). **UGC:** an AI creator holds and reviews the product to camera, captions, phone framing. **Cinematic:** the product in a short lifestyle scene, film grade, one line of copy. |
 
-Evidence: Submagic, Kapwing and Choppity sell Hormozi, MrBeast and Ali Abdaal templates by name; how-to guides exist for the Diary of a CEO and Iman Gadzhi looks; FOOH and AI UGC top the 2026 ad trend lists. View counts not checked (X/YouTube blocked) [verify].
+Evidence: Submagic, Kapwing and Choppity sell Hormozi, MrBeast and Ali Abdaal templates by name; how-to guides exist for the Diary of a CEO and Iman Gadzhi looks; FOOH and AI UGC top the 2026 ad trend lists. View counts not checked (X/YouTube blocked) (unverified).
 
 ## 3. What the product looks like
 
-Mockups in `deliverables/D5-mockups/`:
-- `01-landing.png`: the three product cards, one line each.
-- `02-style.png`: input field plus the style cards with looping previews.
-- `03-generating.png`: progress screen, with the switch to "we'll email it" if the render is slow.
-- `04-result.png`: the video, share buttons and the booking offer.
-- `walkthrough.gif`: the full path from landing to result.
+Seven screens in Poolday's app style, in `D5-mockups/` (the full path: `walkthrough.mp4`):
+1. `01-link.png`: "Paste a link. Watch the video." Pick Launch Video, Podcast Clips or AI Product Ad, then paste the URL (`01b` shows the product-ad input, `01-link-mobile` the phone layout).
+2. `02-recording.png`: "Do you have a screen recording of your product?" Upload one (MP4/MOV, up to 2 min), or "No. Poolday AI records it for you".
+3. `03-brand-kit.png`: the brand kit pulled from the site (logo, colours, fonts), shown back to the visitor.
+4. `04-style.png`: style cards with looping previews (real reference footage). The card *is* the prompt.
+5. `04d-details.png`: "Last step. Your video is already being made." Work email, role, source. Personal emails are refused inline (`04c`).
+6. `05-generating-*.png`: progress through screen recording → brand kit → storyboard, with the switch to "we'll email it" if the render is slow.
+7. `06-result.png`: the video (watermarked 720p download, HD + 3 variants, try another style, share), and the main button, "Book a 15 min demo": "Want this for your real launch? It takes one call." 
 
 ## 4. Why this beats Motion
 
-Motion launched "drop a product URL, get a launch video" inside AI assistants on 2 Aug 2026 (their X post) [verify]. So the launch video alone is not new. Our edge:
+Motion launched "drop a product URL, get a launch video" inside AI assistants on 2 Aug 2026 (their X post) (unverified). So the launch video alone is not new. Our edge:
 - **Three products, not one.** Podcast clips are the high-frequency one: a show ships every week, so users come back weekly. Launch videos happen a few times a year.
-- **Generative ads.** Motion is a motion-design agent. The product-ad track uses AI video, which it doesn't lead on [verify].
+- **Generative ads.** Motion is a motion-design agent. The product-ad track uses AI video, which it doesn't lead on (unverified).
 - **A human behind the video.** Qualified leads get a call offer for the full version. Motion's flow ends at self-serve.
 - **Quality shown in public.** The X remakes put the output side by side with the viral clip.
 
@@ -46,14 +48,14 @@ Find viral posts claiming "[tool] made this video with one prompt". Feed the cli
 
 ## 6. Cost model
 
-**(a) Measured cost (fill from the first runs).** Read the credits used per run in the Poolday UI. Credits appear to be priced 1:1 in dollars: Business is $1,250/mo with $1,250 of credits, extra credits at 2× the rate, and the home page cites ~$5–$25 per finished video (reported [verify]).
-`Cost per delivered video = (credits per run × runs per delivered video) × $ per credit`. Runs per delivered video accounts for re-renders and QA failures.
+**(a) Measured during the assignment.** 1,000 credits = $1 (the $2,000 trial = 2,000,000 credits). Poolday's home page says "~$5–$25 per finished video".
 
-| Product | Tier | Credits/run | Runs per delivered | $/credit | **$/delivered video** |
-|---|---|---|---|---|---|
-| Launch video (25s) | Light / Standard | _ | _ | _ | _ |
-| Podcast clips (5 per episode) | Light / Standard | _ | _ | _ | _ |
-| AI product ad (15s) | Standard | _ | _ | _ | _ |
+| Run | What it included | Agent time | **Cost** |
+|---|---|---|---|
+| First video for a new brand (Flam, Wispr Flow) | brand kit + custom teaser + iterations | 50–55 min | **≈ $140–155** [est., pro-rata on agent time] |
+| The same brand again, through the automation webhook (D3) | saved kit + saved composition, one message | 4 min | **≈ $11** [est.] |
+
+This product sits between the two: a new brand kit per visitor, but a saved style template instead of a custom build. The bottom-up check below puts it at $3–25.
 
 **(b) Bottom-up sanity check (public API prices, Sept 2026).** What the building blocks cost Poolday; its price adds margin.
 
@@ -83,7 +85,7 @@ This lands inside the reported $5–25, so that figure is plausible. Generative 
 | Stage | Budget | Videos at ~$19 [est.] | Range at $8–30 | Trigger to open the next stage |
 |---|---|---|---|---|
 | **0. Manual pilot** (2 wks) | ~$2k | ~100 | 65–250 | Cost per video measured (table a), ≥5 booked demos |
-| **1. Public page** (3–4 wks) | ~$5k | ~260 | 165–625 | Cost per booked demo ≤ Poolday's current paid cost per demo [verify] |
+| **1. Public page** (3–4 wks) | ~$5k | ~260 | 165–625 | Cost per booked demo ≤ Poolday's current paid cost per demo (unverified) |
 | **2. Scale** | ~$8k | ~420 | 265–1,000 | Same ratio holds at higher volume |
 | **Total** | **$15k** | **~790** | 500–1,900 | |
 
@@ -92,8 +94,8 @@ Credits go only to qualified leads (work email on a matching domain, B2B, ~10–
 ## 7. How it runs
 
 - **Per request:** "Create a brand kit for [URL]", then clone the saved style template with `brand:name` (~2 prompts per the agent guide).
-- **Automation:** the Enterprise plan reportedly includes API access [verify]. The agent loop (D3) already has a Poolday client waiting for the endpoints. Until then, an operator runs a queue.
-- **Render time:** full productions "can take an hour or more"; cloned templates on Light should be faster. Measured on pilot days 1–2. The measurement decides on-page vs email delivery.
+- **Automation:** proven in D3. The page POSTs the request to a Poolday Automation webhook, and the agent runs the saved template (the D3 run: 1 message, 4 min). What's missing is the way back: the Automation can't call a URL when the video is done, so the pilot needs Poolday's API or an Output webhook, or an operator who relays the link.
+- **Render time:** a full production took 50–55 min; the reused-template run took 4 min. A new visitor needs a new brand kit on top, so the pilot measures it. That number decides on-page vs email delivery.
 
 ## 8. Targets (confirm in the pilot)
 

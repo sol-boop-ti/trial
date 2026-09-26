@@ -147,7 +147,7 @@ When the first prospect video is final:
 - **H:** LinkedIn video final + post copy (I draft, you pick). ✅ the CEO's UGC-farm video + caption (D1 §8)
 - **I:** agent loop end-to-end demo on 3 leads + screen recording. ✅ live run on Wispr Flow (`deliverables/D3-loop/`), no recording by choice
 - **J:** reviews written (D6, D7) + growth idea final. ✅
-- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix). 🟡 MP4s received and filed (D1, D2), the 8-reel Poolday link and Pletor screenshot in (M53). Left: D4 numbers at +24h, reels 3–4, the final review pass together
+- **K:** assemble the deliverable doc (+ **Pletor UGC farm screenshot** in the appendix). 🟡 Outside-eye review done and fixed (M56); MP4s, 8-reel link and Pletor screenshot in (M53). Left: D4 numbers at +24h, reels 3–4, the final review pass together
 - **L:** security. ✅ Poolday trigger secret rotated and API key deleted (26 Sep, M54). 🧑 On the Mac: clear the saved automation URL and relaunch the loop, then paste the new URL (commands in M54)
 
 ---

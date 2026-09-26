@@ -1,6 +1,6 @@
 # D6 bonus: the two videos, remade
 
-The review (`../D6-video-review.md`) says what's wrong. These two remakes show the fix. Both are built in code (HTML/CSS timeline → frame-exact capture with 3-sub-frame motion blur → H.264), 1920×1080, 30 fps. Brand kits and sources: `BRAND-KITS.md`.
+The review (`../D6-video-review.md`) says what's wrong. These two remakes show the fix. Both are built in code (HTML/CSS timeline → frame-exact capture with 5-sample motion blur → H.264), 1920×1080, 30 fps. Brand kits and sources: `BRAND-KITS.md`.
 
 | | Original | Remake |
 |---|---|---|
