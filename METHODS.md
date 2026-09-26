@@ -716,3 +716,30 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
   - peak parallel Poolday conversations;
   - reel 1's frame-1 hook;
   - the Pletor farm's volume and results.
+
+## M57. The final deliverable page (27 Sep)
+- **What:** the version the user sends to the CEO. The user asked for outputs + TL;DR + details, written in the user's voice (simple words, "I worked with Claude Opus 5.5 & Poolday"), with every piece of media visible directly and without lag.
+- **Tools:** HTML/CSS (a published claude.ai artifact, private until the user shares it), ffmpeg (imageio-ffmpeg), PIL, Playwright for one look at desktop and phone width.
+- **User answers used:**
+  - other tools: $200 (Claude Max);
+  - up to 5 Poolday conversations at once (Flam, Wispr Flow, AI UGC, motion-craft skill, LinkedIn video) plus Claude;
+  - reel 1's hook is the "$5K" one;
+  - Pletor: keep it, but no volume or results;
+  - only 3 reels posted, because of Instagram's anti-spam shadowban on new accounts that post more than once a day.
+- **Process:**
+  1. `deliverables/final/build_media.py` rebuilds light media from the originals:
+     - 11 videos in H.264 (CRF 26–27, 720p or phone sizes, AAC 96k, +faststart), each with a JPEG poster;
+     - 15 images as JPEG, at most 1600–1800px wide.
+     - Total 16 MB.
+     - The IG profile screenshot is cropped to drop the row of other people's suggested profiles.
+  2. `deliverables/final/index.html`:
+     - Poolday's own look: black ground, Inter 400, #161616 caption bars under each piece of media, the halftone behind the header, one iris rule. The colour comes from the videos.
+     - Structure: Outputs (D1–D8, every video and image), TL;DR (one line per deliverable, 4 numbers, 3 lessons), Details.
+     - Videos use `preload="none"` with a poster, so nothing loads until play, and only one plays at a time. Images are lazy-loaded with fixed sizes, and a click opens them full size.
+  3. One render at 1440px and 390px: no horizontal scroll. The sticky nav hid section titles, so `scroll-margin-top` was added.
+  4. Published as a private artifact, with the media as supporting files.
+- **Output:**
+  - The page: https://claude.ai/artifact/RWmrnGcJ4unei6jUPUT8GW.
+  - The source (`final/index.html`, `final/build_media.py`) is in the repo. The media folder is git-ignored and rebuilt by the script.
+  - `DELIVERABLE.md` is updated with the same answers and links to the page.
+- **Left:** the reel view counts (marked "[views]" on the page), and sharing the page with the CEO from its Share menu.

@@ -1,5 +1,7 @@
 # Poolday Growth Assignment: Deliverables
 
+> **The version to send is the web page:** https://claude.ai/artifact/RWmrnGcJ4unei6jUPUT8GW (outputs, TL;DR, details; every video plays inside). Its source is `final/index.html`; the light media are rebuilt by `final/build_media.py`.
+
 **Raphael Gaudin** · 48-hour assignment · **[PLACEHOLDER: submission date]**
 
 ---
@@ -12,7 +14,7 @@
 | D2 | Prospect video: Flam ($40M Series B) | [video](D2-prospect-videos/flam-series-b-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 25s · 2 messages · 50 min of agent time, brand kit included |
 | D2 | Prospect video: Wispr Flow ($280M Series B) | [video](D2-prospect-videos/wispr-flow-meetings-teaser.mp4) · [shot list + email](D2-prospect-videos/README.md) | 22s · 3 messages (v1 → v3) · 55 min, brand kit included |
 | D3 | Agent loop: find → qualify → Poolday → human gate → email | [how it ran](D3-loop/README.md) · [code](../loop/) | 37 leads → 5 qualified → a Poolday video through a webhook in 4 min (≈$11) → approved → email drafted |
-| D4 | AI UGC on Instagram | [@natecreates99](https://www.instagram.com/natecreates99/) · [the 8 reels in Poolday](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a) | 8 reels made · [PLACEHOLDER: n] posted · [PLACEHOLDER] views |
+| D4 | AI UGC on Instagram | [@natecreates99](https://www.instagram.com/natecreates99/) · [the 8 reels in Poolday](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a) | 8 reels made · 3 posted · [PLACEHOLDER] views |
 | D5 | Growth idea: "Paste a link. Watch the video." | [write-up](D5-growth-idea.md) · [mockups](D5-mockups/walkthrough.mp4) | $15k in 3 gated stages · ≈$19 per video, ≈$380 per booked demo at 5% (est.) |
 | D6 | Video review: PostHog **and** Upflow | [review](D6-video-review/D6-video-review.md) · [remakes](D6-video-review/remake/README.md) | Top 3 changes each · both remade: Upflow 23 → 16s, PostHog 24 → 20s |
 | D7 | Page reviews: home + b2b-startups (+ pricing) | [review](D7-pages/D7-page-review.md) · [before/after](D7-pages/compare/) | 15 numbered changes, each with its A/B test · every page rebuilt before/after |
@@ -20,7 +22,7 @@
 
 **Key numbers**
 - UGC views: [PLACEHOLDER] across [PLACEHOLDER] reels (best: [PLACEHOLDER]).
-- Credits: 835,270 of 2,000,000 spent (≈ $835 of $2,000, 42%). Other tools: [PLACEHOLDER: $ spent outside Poolday, of the $300 allowed].
+- Credits: 835,270 of 2,000,000 spent (≈ $835 of $2,000, 42%). Other tools: $200 (Claude Max), of the $300 allowed.
 - Poolday agent time: 5h01m across 9 conversations. A first video with its brand kit took 49–56 min. The same brand again, through the D3 webhook, took 4 min (≈$11).
 - Messages per video: 2 (Flam), 3 (Wispr Flow, v1 → v3), 1 (the automated D3 run).
 
@@ -30,7 +32,7 @@
 
 **1. Read the agent guide first, and let it change the plan.** Runs take about an hour and a first video takes several prompts, so the long Poolday jobs (brand kits, prospect videos) started at hour 0. Everything reusable was saved (brand kits, skills), so later videos would be cheap. My notes: `poolday/agent-guide-notes.md`.
 
-**2. Two lanes, no idle time.** Poolday worked in one lane: 9 conversations, one per job, [PLACEHOLDER: n] at once at peak (table in "Time and credits"). In the other lane, Claude Code and I built the loop, the reviews, the remakes and this doc. Variants stayed inside one conversation, as the guide advises.
+**2. Two lanes, no idle time.** Poolday worked in one lane: 9 conversations, one per job, up to 5 at once (Flam, Wispr Flow, the AI UGC reels, the motion-craft skill, the LinkedIn video) (table in "Time and credits"). In the other lane, Claude Code and I built the loop, the reviews, the remakes and this doc. Variants stayed inside one conversation, as the guide advises.
 
 **3. Skills and brand kits first.**
 - Two org skills, saved on day 1: **motion-craft** (pacing and motion rules from my motion-design manual) and **ref-teaser** (turn a reference video into a teaser, with one approval gate).
@@ -153,7 +155,7 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 ## D4. AI UGC on Instagram
 
 - **Account:** [@natecreates99](https://www.instagram.com/natecreates99/). New account, professional mode (reel insights). Warmed up before posting: 8 followers, 45 following on 26 Sep.
-- **Posting limit:** from my experience, a new account shouldn't post more than **once a day**, or it risks a shadowban. I posted 3 on day 1 to fit the 48 hours, then stopped. The 4th goes up the next day. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
+- **Posting limit:** I stopped at 3 posts. From my experience, Instagram's anti-spam filter shadowbans a new account that keeps posting more than once a day. The other 5 reels are ready. I warmed the account up with normal activity (follows, likes, comments) and no posts, starting before any video production.
 - **Method:** reused my AI UGC method from Pletor (see appendix), inside Poolday: actor photos → pick → voices → pick → scripts → batch as variants in one conversation. The Poolday run "Poolday AI UGC Reels (8x)" produced 8 reels (52 min of agent time).
 - **All 8 reels, in Poolday:** [conversation "Poolday AI UGC Reels (8x)"](https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a). They are 12s each, in 9:16, with 3 AI creators and 8 different hooks.
 
@@ -173,10 +175,9 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 | # | Hook (frame 1) · cover caption (the laptop demo) | Posted | Views at +12h | Views at +24h | Views at submission |
 |---|---|---|---|---|---|
-| 1 | [to confirm: probably "POV: you built your SaaS but it's time to pay $5K for a launch video 👀"] · "it did the $5K part from ONE link" | [26 Sep, morning](https://www.instagram.com/reel/DdvmblCsJN1/) | 0 (avg watch 9s: stats not settled) | [PLACEHOLDER] | [PLACEHOLDER] |
+| 1 | "POV: you built your SaaS but it's time to pay $5K for a launch video 👀" · "it did the $5K part from ONE link" | [26 Sep, morning](https://www.instagram.com/reel/DdvmblCsJN1/) | 0 (avg watch 9s: stats not settled) | [PLACEHOLDER] | [PLACEHOLDER] |
 | 2 | "to the tech guy who told me u could launch your startup from a URL" (face, reaction) | [26 Sep, 21:15](https://www.instagram.com/reel/DdwHhNmMUNj/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
 | 3 | "when the founder wants a launch video "by Friday"" · "done before lunch. from one URL". Caption "it was so fast im genuinely shocked lol", IG library audio (Total Eclipse of the Heart) | [26 Sep, ~21:40](https://www.instagram.com/reel/DdwK82gsVSt/) | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
-| 4 | [PLACEHOLDER: 27 Sep, needed for 3 < n] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] | [PLACEHOLDER] |
 
 - **Total views:** [PLACEHOLDER] · **Best hook:** [PLACEHOLDER] · **Leads/profile clicks:** [PLACEHOLDER]
 - **Early read (+12h):** a 2-day-old account's first reel gets almost no distribution. Check Account Status → recommendations eligibility before calling it a shadowban. The fixes for the next posts: Trial reels (shown to non-followers first), a face plus text hook in frame 1, IG library audio (applied on reel 3), fewer follows per day, and the "AI info" label on.
@@ -383,4 +384,3 @@ Screenshots: `assets/poolday-final/`.
 
 - **How it worked:** four AI creators (@casey_ai, @mailia_ai, @brooke_ai, @ciara_ai), each with dozens of hook variants. AI made only the hook, the first seconds of reaction to camera. I filmed the product demo part myself, by hand, with my iPhone pointed at my Mac.
 - **What changed with Poolday (D4):** the AI creator turns the camera around and films the demo too, so the whole reel is generated in one conversation.
-- [PLACEHOLDER: volume and results of the Pletor farm]

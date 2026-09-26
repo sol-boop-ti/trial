@@ -1,0 +1,678 @@
+<title>Poolday Growth Assignment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap">
+<style>
+/* One deliberate look: Poolday's own. Black ground, Inter 400, off-white ink, #161616 caption bars.
+   The only strong colour on the page comes from the videos. */
+:root{
+  --ground:#000000; --underlay:#08090a; --bar:#161616; --raise:#0e0e10;
+  --ink:#f2f2f0; --ink-2:#c9c9c6; --ink-3:#8b8b88; --ink-4:#5c5c5a;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.18);
+  --pill:#f3f3ef; --pill-ink:#0a0a0a;
+  --iris:linear-gradient(90deg,#8ec5ff,#b8a9ff,#f5a8f0,#ffd2a8,#a8f0d8,#8ec5ff);
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ground)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+.read{max-width:720px}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--ink)}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible,video:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+h1,h2,h3,h4{font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.025em}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+
+/* header */
+header.top{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header.top canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+header.top .wrap{position:relative;padding-block:clamp(56px,10vw,112px) 48px;display:grid;gap:22px}
+h1{font-size:clamp(40px,6.4vw,80px);line-height:.98;max-width:14ch}
+.lede{font-size:clamp(18px,2vw,22px);line-height:1.4;color:var(--ink-2);max-width:40ch}
+.iris{height:2px;background:var(--iris)}
+
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.jump .wrap{display:flex;gap:8px;align-items:center;padding-block:10px;overflow-x:auto;scrollbar-width:none}
+nav.jump a{flex:none;text-decoration:none;font-size:14px;font-weight:500;padding:6px 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
+nav.jump a.main{background:var(--pill);color:var(--pill-ink);border-color:var(--pill)}
+nav.jump .sep{flex:none;width:1px;height:18px;background:var(--line-2);margin-inline:6px}
+nav.jump a.d{border-color:transparent;padding-inline:8px;color:var(--ink-3)}
+nav.jump a:hover{color:var(--ink)} nav.jump a.main:hover{color:var(--pill-ink)}
+
+section.part{padding-block:72px 24px;scroll-margin-top:48px}
+.out,.det{scroll-margin-top:56px}
+.part-head{display:grid;gap:10px;margin-bottom:40px}
+.part-head h2{font-size:clamp(34px,4.4vw,52px);line-height:1.04}
+.part-head p{color:var(--ink-3);max-width:60ch}
+
+/* outputs */
+.out{display:grid;gap:18px;padding-block:36px;border-top:1px solid var(--line)}
+.out-head{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--ink-3);min-width:36px}
+.out-head h3{font-size:clamp(22px,2.4vw,28px);line-height:1.2}
+.out-head p{flex-basis:100%;color:var(--ink-3);padding-left:52px}
+@media (max-width:640px){.out-head p{padding-left:0}}
+.grid{display:grid;gap:14px;align-items:start}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-d1{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+.g-d4{grid-template-columns:minmax(0,3fr) minmax(0,1fr)}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.g2,.g-d1,.g-d4{grid-template-columns:minmax(0,1fr)}}
+
+/* Poolday's video card: media, then a 56px #161616 caption bar with a hairline */
+figure.card{margin:0;border-radius:16px;overflow:hidden;background:var(--bar);border:1px solid var(--line)}
+figure.card video,figure.card img{display:block;width:100%;height:auto;max-width:100%;background:var(--underlay)}
+figure.card img[data-zoom]{cursor:zoom-in}
+figure.card figcaption{min-height:56px;padding:10px 14px;border-top:1px solid var(--line);display:grid;gap:1px}
+figure.card figcaption b{font-size:13.5px;font-weight:500;line-height:1.3}
+figure.card figcaption span{font-size:12px;color:var(--ink-3);line-height:1.35}
+
+.post{border:1px solid var(--line);border-radius:16px;background:var(--raise);padding:22px;display:grid;gap:16px;align-content:start}
+.post pre{margin:0;white-space:pre-wrap;font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--ink)}
+.post .small{font-size:13.5px;color:var(--ink-3)}
+.post .small b{color:var(--ink-2);font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{text-decoration:none;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
+.links a:hover{color:var(--ink);border-color:var(--ink-3)}
+.stack{display:grid;gap:14px}
+
+/* TL;DR */
+.tldr{display:grid;gap:0;border-top:1px solid var(--line)}
+.tl{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:16px;padding-block:18px;border-bottom:1px solid var(--line)}
+.tl .tag{padding-top:3px}
+.tl p{font-size:17px;line-height:1.5;color:var(--ink-2);max-width:74ch}
+.tl p b{color:var(--ink);font-weight:500}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
+@media (max-width:900px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.num{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:4px}
+.num b{font-size:28px;font-weight:400;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.num span{font-size:13px;color:var(--ink-3);line-height:1.4}
+.learn{margin-top:28px;display:grid;gap:10px}
+.learn h3{font-size:22px}
+ol.clean{margin:0;padding-left:1.3em;display:grid;gap:8px;color:var(--ink-2);max-width:74ch}
+
+/* details */
+.det{padding-block:44px;border-top:1px solid var(--line);display:grid;gap:18px}
+.det > h3{font-size:clamp(24px,2.8vw,32px);line-height:1.15}
+.det h4{font-size:17px;font-weight:500;letter-spacing:-.01em;margin-top:10px;color:var(--ink)}
+.det p,.det li{color:var(--ink-2);font-size:16px}
+.det ul,.det ol{margin:0;padding-left:1.25em;display:grid;gap:6px;max-width:74ch}
+.det p{max-width:74ch}
+.det b{color:var(--ink);font-weight:500}
+.quote{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,24px);line-height:1.4;color:var(--ink);max-width:40ch;padding-left:18px;border-left:2px solid var(--line-2)}
+.mail{border:1px solid var(--line);border-radius:14px;background:var(--raise);padding:18px;max-width:640px}
+.mail .subj{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+.mail .subj b{color:var(--ink)}
+.mail pre{margin:0;white-space:pre-wrap;font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+th{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+tr:last-child td{border-bottom:0}
+td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+td b{color:var(--ink);font-weight:500}
+.todo{background:#2a2a18;color:#f1e7a3;border-radius:4px;padding:0 4px}
+footer{padding-block:48px 72px;color:var(--ink-4);font-size:13px}
+
+/* zoom */
+#zoom{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.94);overflow:auto;padding:max(56px,env(safe-area-inset-top,0px)) 16px 32px}
+#zoom img{display:block;margin:0 auto;max-width:none;width:min(1800px,100%);height:auto;border-radius:10px}
+#zoom button{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;font:500 14px var(--sans);background:var(--pill);color:var(--pill-ink);border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+</style>
+
+<header class="top">
+  <canvas id="dots" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="eyebrow">Growth assignment · Raphael Gaudin</p>
+    <h1>Everything I made for Poolday in 48 hours.</h1>
+    <p class="lede">I worked with Claude Opus 5.5 and Poolday. First the outputs: every video plays right here. Then the TL;DR, then the details.</p>
+  </div>
+</header>
+<div class="iris" aria-hidden="true"></div>
+
+<nav class="jump" aria-label="Sections">
+  <div class="wrap">
+    <a class="main" href="#outputs">Outputs</a>
+    <a class="main" href="#tldr">TL;DR</a>
+    <a class="main" href="#details">Details</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a class="d" href="#d1">D1</a><a class="d" href="#d2">D2</a><a class="d" href="#d3">D3</a><a class="d" href="#d4">D4</a>
+    <a class="d" href="#d5">D5</a><a class="d" href="#d6">D6</a><a class="d" href="#d7">D7</a><a class="d" href="#d8">D8</a>
+  </div>
+</nav>
+
+<main>
+<!-- ============================== OUTPUTS ============================== -->
+<section class="part" id="outputs">
+  <div class="wrap">
+    <div class="part-head">
+      <p class="eyebrow">Part 1</p>
+      <h2>Outputs</h2>
+      <p>Videos load only when you press play. Click any image to see it full size.</p>
+    </div>
+
+    <div class="out" id="d1">
+      <div class="out-head"><span class="tag">D1</span><h3>LinkedIn post for your account</h3>
+        <p>"Claude Opus 5.5 + Poolday = Infinite UGC farm." One prompt, made 100% in Poolday.</p></div>
+      <div class="grid g-d1">
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d1-ugc-farm.jpg" width="864" height="1080" src="media/d1-ugc-farm.mp4"></video>
+          <figcaption><b>Infinite UGC farm</b><span>15s · 4:5 · made in Poolday</span></figcaption>
+        </figure>
+        <div class="post">
+          <p class="eyebrow">The post</p>
+<pre>Claude Opus 5.5 + Poolday = Infinite UGC farm.
+
+One message:
+"Build me a UGC farm. 50 creators, 50 scripts, 50 reels."
+
+Poolday casts the creators, writes the hooks,
+films the reels and adds the captions.
+Running on Claude Opus 5.5.
+
+A year ago this was an agency and a month of work.
+Now it's one prompt.
+
+Want the exact prompt? Comment "UGC" and I'll send it.</pre>
+          <p class="small"><b>First comment:</b> Every reel is labeled as AI. Try it: poolday.ai/?utm_source=linkedin&amp;utm_campaign=ceo-ugc-farm</p>
+          <p class="small"><b>Cover:</b> when you upload, pick the 0:09 frame (the wall of reels). The first frame is a dark, almost empty screen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="out" id="d2">
+      <div class="out-head"><span class="tag">D2</span><h3>Two prospect videos</h3>
+        <p>Made in Poolday, from a brand kit built from each company's website. The emails are ready (in the details).</p></div>
+      <div class="grid g2">
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d2-flam.jpg" width="1280" height="720" src="media/d2-flam.mp4"></video>
+          <figcaption><b>Flam · $40M Series B</b><span>25s · 16:9 · for Karthik, CMO</span></figcaption>
+        </figure>
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d2-wispr.jpg" width="1280" height="720" src="media/d2-wispr.mp4"></video>
+          <figcaption><b>Wispr Flow · $280M Series B</b><span>22s · 16:9 · for Carolyn, VP Product Marketing</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="out" id="d3">
+      <div class="out-head"><span class="tag">D3</span><h3>The agent loop, run for real</h3>
+        <p>Find leads → score them → Poolday makes the video → I check it → the email is ready for you to send.</p></div>
+      <div class="grid g2">
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d3-dashboard.jpg" width="1600" height="1041" alt="The loop's dashboard: leads found and scored, Flam at 99">
+          <figcaption><b>1 · Leads found and scored</b><span>37 Series B companies in, 5 qualified, each with a reason</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d3-poolday-done.jpg" width="1600" height="1041" alt="Poolday's automation run with the finished Wispr Flow video">
+          <figcaption><b>2 · Poolday made the video</b><span>The loop sent the lead to a Poolday automation · 4 min</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d3-human-check.jpg" width="1600" height="1041" alt="The human check: approve, redo with a note, or reject">
+          <figcaption><b>3 · Human check</b><span>Approve, redo with a note, or reject. Nothing goes out without it</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d3-email.jpg" width="1400" height="1400" alt="The drafted email to Carolyn at Wispr Flow with a video preview">
+          <figcaption><b>4 · The email you send</b><span>The video preview moves inside the email and opens the video</span></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="out" id="d4">
+      <div class="out-head"><span class="tag">D4</span><h3>AI UGC on Instagram</h3>
+        <p>8 reels made in one Poolday conversation. 3 are live on a new account, <a href="https://www.instagram.com/natecreates99/">@natecreates99</a>.</p></div>
+      <div class="grid g-d4">
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d4-8-reels.jpg" width="1600" height="1246" alt="The 8 AI UGC reels in Poolday, each with its hook">
+          <figcaption><b>The 8 reels in Poolday</b><span>12s each · 9:16 · 3 AI creators, 8 hooks</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d4-profile.jpg" width="600" height="733" alt="The @natecreates99 profile with 3 reels">
+          <figcaption><b>@natecreates99</b><span>3 reels live</span></figcaption></figure>
+      </div>
+      <div class="links">
+        <a href="https://www.instagram.com/reel/DdvmblCsJN1/">Reel 1 ↗</a>
+        <a href="https://www.instagram.com/reel/DdwHhNmMUNj/">Reel 2 ↗</a>
+        <a href="https://www.instagram.com/reel/DdwK82gsVSt/">Reel 3 ↗</a>
+        <a href="https://app.poolday.ai/organizations/57c870af-f156-4631-a64e-945d22ab6990/conversation/055fb41d-de19-4007-a037-3f7a459a7f2a">All 8 in Poolday ↗</a>
+      </div>
+    </div>
+
+    <div class="out" id="d5">
+      <div class="out-head"><span class="tag">D5</span><h3>Growth idea: "Paste a link. Watch the video."</h3>
+        <p>A free page where anyone gets a video from a link, then books a demo. Mockups only: nothing built, as asked.</p></div>
+      <figure class="card">
+        <video controls preload="none" playsinline poster="media/d5-walkthrough.jpg" width="1280" height="800" src="media/d5-walkthrough.mp4"></video>
+        <figcaption><b>The whole flow, from link to booked demo</b><span>41s · mockup of the 7 steps</span></figcaption>
+      </figure>
+      <div class="grid g2">
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d5-link.jpg" width="1440" height="900" alt="Step 1: pick a product and paste a link">
+          <figcaption><b>Step 1 · Paste a link</b><span>Launch video, podcast clips or AI product ad</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d5-result.jpg" width="1440" height="900" alt="Step 7: the video, and the Book a 15 min demo button">
+          <figcaption><b>Step 7 · The video, then the demo</b><span>"Want this for your real launch? It takes one call."</span></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="out" id="d6">
+      <div class="out-head"><span class="tag">D6</span><h3>Video review: I reviewed both videos, then remade them</h3>
+        <p>Same brands, same stories, faster and more on brand. Built in code with Claude Opus 5.5, to show what I'd ask for.</p></div>
+      <div class="grid g2">
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d6-upflow-remake.jpg" width="1280" height="720" src="media/d6-upflow-remake.mp4"></video>
+          <figcaption><b>Upflow, remade</b><span>16s (the original is 23s) · the product answers the question</span></figcaption>
+        </figure>
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d6-posthog-remake.jpg" width="1280" height="720" src="media/d6-posthog-remake.mp4"></video>
+          <figcaption><b>PostHog, remade</b><span>20s (the original is 24s) · 2D, with PostHog's own hedgehogs</span></figcaption>
+        </figure>
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d6-upflow-compare.jpg" width="1280" height="720" src="media/d6-upflow-compare.mp4"></video>
+          <figcaption><b>Upflow · before / after</b><span>Side by side, synced at 0</span></figcaption>
+        </figure>
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d6-posthog-compare.jpg" width="1280" height="720" src="media/d6-posthog-compare.mp4"></video>
+          <figcaption><b>PostHog · before / after</b><span>Side by side, synced at 0</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="out" id="d7">
+      <div class="out-head"><span class="tag">D7</span><h3>Page reviews: home and B2B startups (+ pricing)</h3>
+        <p>The live page on the left, my rebuild on the right. Only the numbered items change.</p></div>
+      <div class="stack">
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d7-home.jpg" width="1800" height="598" alt="Home: live page vs rebuild, first screen">
+          <figcaption><b>poolday.ai · home</b><span>First screen · click to zoom</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d7-b2b.jpg" width="1800" height="596" alt="B2B startups: live page vs rebuild, first screen">
+          <figcaption><b>/solutions/b2b-startups</b><span>First screen · click to zoom</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d7-pricing.jpg" width="1800" height="596" alt="Pricing: live page vs rebuild, first screen">
+          <figcaption><b>/pricing (bonus)</b><span>First screen · click to zoom</span></figcaption></figure>
+      </div>
+      <div class="grid g2">
+        <figure class="card">
+          <video controls preload="none" playsinline muted poster="media/d7-home-meet.jpg" width="1280" height="800" src="media/d7-home-meet.mp4"></video>
+          <figcaption><b>Home · "Meet Poolday", animated</b><span>Each feature shows itself working</span></figcaption>
+        </figure>
+        <figure class="card">
+          <video controls preload="none" playsinline muted poster="media/d7-b2b-use-cases.jpg" width="1280" height="800" src="media/d7-b2b-use-cases.mp4"></video>
+          <figcaption><b>B2B · the 9 use cases, animated</b><span>Input → output, instead of text-only cards</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="out" id="d8">
+      <div class="out-head"><span class="tag">D8</span><h3>Bonus: Poolday's own Instagram</h3>
+        <p>I saw your story ad while scrolling. Here's my remake, plus a fix for the profile picture.</p></div>
+      <div class="grid g4">
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-static-ad.jpg" width="900" height="1600" alt="The remade static ad: other AI video tools versus Poolday">
+          <figcaption><b>The ad, remade (static)</b><span>9:16 · grey vs colour, one big VS</span></figcaption></figure>
+        <figure class="card">
+          <video controls preload="none" playsinline poster="media/d8-ad.jpg" width="720" height="1280" src="media/d8-ad.mp4"></video>
+          <figcaption><b>The ad, remade (animated)</b><span>14s · 9:16 · with sound</span></figcaption>
+        </figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-original.jpg" width="600" height="1301" alt="The current Poolday story ad">
+          <figcaption><b>The current ad</b><span>A static text card</span></figcaption></figure>
+        <figure class="card"><img data-zoom loading="lazy" decoding="async" src="media/d8-profile-pic.jpg" width="900" height="900" alt="Proposed profile picture: the mark alone, centered">
+          <figcaption><b>Profile picture fix</b><span>Today the circle cuts the logo ("Poolday.a")</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TL;DR ============================== -->
+<section class="part" id="tldr">
+  <div class="wrap">
+    <div class="part-head">
+      <p class="eyebrow">Part 2</p>
+      <h2>TL;DR</h2>
+    </div>
+    <div class="tldr">
+      <div class="tl"><span class="tag">D1</span><p><b>A post for your account: "Claude Opus 5.5 + Poolday = Infinite UGC farm".</b> 15s video, made 100% in Poolday with one prompt. People comment "UGC" to get the prompt, and their company goes into the loop to be scored.</p></div>
+      <div class="tl"><span class="tag">D2</span><p><b>Flam ($40M Series B) and Wispr Flow ($280M Series B).</b> I picked them because the round is fresh and the list names a marketing buyer. The video and the email are ready for each.</p></div>
+      <div class="tl"><span class="tag">D3</span><p><b>The loop works end to end.</b> 37 leads → 5 qualified → Poolday makes the video through a webhook (4 min, about $11) → I approve it → the email is drafted for you. One step is still manual: pasting the video link back, because Poolday can't call back yet.</p></div>
+      <div class="tl"><span class="tag">D4</span><p><b>8 AI UGC reels made in one Poolday conversation, 3 posted on a new account.</b> Views: <span class="todo">[views]</span>. The best part: the AI creator turns the camera around and films the Poolday demo.</p></div>
+      <div class="tl"><span class="tag">D5</span><p><b>"Paste a link. Watch the video."</b> A free page: pick a launch video, podcast clips or a product ad, paste a link, get your video, book a demo. $15k in 3 stages, each opened only if the last one works.</p></div>
+      <div class="tl"><span class="tag">D6</span><p><b>I reviewed both videos and remade them.</b> The main problem is pacing: scenes are too slow and the first 3 seconds are wasted. I saw the same thing on a video from your LinkedIn.</p></div>
+      <div class="tl"><span class="tag">D7</span><p><b>15 changes to the pages, each with an A/B test.</b> The biggest: a "Paste your URL" field on the B2B hero, and "Watch a 2-min build" next to "Book a demo" for people not ready to call.</p></div>
+      <div class="tl"><span class="tag">D8</span><p><b>Bonus:</b> a remake of your Instagram story ad, a profile-picture fix, and 12 ideas for short use-case videos.</p></div>
+    </div>
+    <div class="nums">
+      <div class="num"><b>$835</b><span>of the $2,000 Poolday credits (42%)</span></div>
+      <div class="num"><b>5h01</b><span>of Poolday agent time, 9 conversations, up to 5 at once</span></div>
+      <div class="num"><b>$140 → $11</b><span>first video for a brand → the same brand again</span></div>
+      <div class="num"><b>$200</b><span>other tools (Claude Max), of the $300 allowed</span></div>
+    </div>
+    <div class="learn">
+      <h3>What I learned</h3>
+      <ol class="clean">
+        <li><b>Save brand kits and skills first.</b> The second video for a brand costs about 10 times less than the first.</li>
+        <li><b>Poolday videos need faster pacing for social.</b> Something real in the first frame, and the hook said in 2 seconds.</li>
+        <li><b>AI UGC is where Poolday impressed me most.</b> The creator films the product demo too. I used to do that part by hand.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DETAILS ============================== -->
+<section class="part" id="details">
+  <div class="wrap">
+    <div class="part-head">
+      <p class="eyebrow">Part 3</p>
+      <h2>Details</h2>
+    </div>
+
+    <div class="det" id="how">
+      <h3>How I worked</h3>
+      <ul>
+        <li><b>Tools:</b> Claude Opus 5.5 (in Claude chat and Claude Code) and Poolday. I spent $200 on Claude Max and nothing else.</li>
+        <li><b>I read the agent guide first.</b> A run takes about an hour, so I started the long Poolday jobs first and did everything else while they ran.</li>
+        <li><b>Up to 5 Poolday conversations at once:</b> Flam, Wispr Flow, the AI UGC reels, the motion-craft skill and the LinkedIn video, with Claude working next to them.</li>
+        <li><b>Skills and brand kits first.</b> I made two skills for my org: <i>motion-craft</i> (pacing and motion rules) and <i>ref-teaser</i> (turn a reference video into a teaser). Then a brand kit for each company, from its website.</li>
+        <li><b>I picked the reference videos myself</b> and wrote what I love in each one, like "the easing, the speed, and the tiles linked by lines".</li>
+        <li><b>Options before building:</b> actors, then voices, then scripts for the UGC; a direction first for the LinkedIn video.</li>
+        <li><b>I gave Poolday the goal, not a list of edits.</b> It chose how to do it, as your tip says.</li>
+        <li><b>Reuse is where the cost drops.</b> A first video for a brand took about 50 minutes (about $140). The same brand again, sent by the loop, took 4 minutes (about $11).</li>
+      </ul>
+    </div>
+
+    <div class="det">
+      <h3>D1 · LinkedIn post</h3>
+      <h4>Why this angle</h4>
+      <ul>
+        <li>It shows volume and speed in 15 seconds. UGC at scale is something app and startup marketers already pay agencies and creators for.</li>
+        <li>"[tool] + [tool] = [big result]" is the headline format that works best for me.</li>
+      </ul>
+      <h4>How it brings qualified leads</h4>
+      <p>People comment "UGC" to get the prompt. The DM asks for their company. The company goes into the loop (D3) and gets a score. Only good fits get a call offer.</p>
+      <h4>How it was made</h4>
+      <p>One prompt in Poolday, with creative freedom. Poolday proposed directions, I picked one, it made 4 versions, and I kept version A. 2 messages, 56 minutes of agent time.</p>
+      <h4>To be clear</h4>
+      <p>The video is a sped-up dramatization: its counter goes into the thousands. The post doesn't claim a number. The real batch is the 8 reels in D4.</p>
+      <h4>Other angles I considered</h4>
+      <ul>
+        <li>"Same prompt, 4 AI apps": a fair test of Higgsfield, Kling, Seedance and Poolday on one brief.</li>
+        <li>"Free launch video. Comment your URL."</li>
+        <li>"Reply with proof": under "AI can't do this" posts on X, reply with Poolday doing it.</li>
+        <li>"Poolday just launched. My top 5 use cases": a list post.</li>
+      </ul>
+    </div>
+
+    <div class="det">
+      <h3>D2 · Prospect videos</h3>
+      <h4>Why these two</h4>
+      <p>A fresh round plus a named marketing buyer means they need video now, and there's someone to send it to. From the 38 companies on the list (without Higgsfield), I kept the rounds from the last 90 days. Then I scored four things: how fresh the round is, a named buyer, a visual product, and a real need for video.</p>
+      <div class="tw"><table>
+        <thead><tr><th></th><th>Flam</th><th>Wispr Flow</th></tr></thead>
+        <tbody>
+          <tr><td><b>Round</b></td><td>$40M Series B, 10 days before I started</td><td>$280M Series B, 38 days before</td></tr>
+          <tr><td><b>Buyer</b></td><td>Karthik, CMO and Head of Product (also Tejas, Creative Director)</td><td>Carolyn, VP Product Marketing (also Kimberly, Head of Design, Marketing)</td></tr>
+          <tr><td><b>Why</b></td><td>The freshest round with contacts. They sell interactive content to marketers, so they judge video quality like pros</td><td>The biggest fresh round on the list. A design-led brand, and they're moving into meetings, so a launch is coming</td></tr>
+          <tr><td><b>Angle</b></td><td>"Your Series B announcement film"</td><td>"What your meetings launch could look like"</td></tr>
+          <tr><td><b>Poolday</b></td><td class="n">2 messages · 50 min · kit included</td><td class="n">3 messages (v1 → v3) · 55 min · kit included</td></tr>
+        </tbody>
+      </table></div>
+      <h4>How they were made</h4>
+      <p>Brand kit from the website → my two skills + a reference video I chose → Poolday's approval step → iterations. Wispr Flow went from v1 to v3: real-looking footage and a Gmail screen were added.</p>
+      <h4>What I'd still fix</h4>
+      <ul>
+        <li><b>Flam:</b> from 0:08 to 0:12 the grid holds for 4 seconds with only a cursor moving. It should be 1.5 seconds.</li>
+        <li><b>Wispr Flow:</b> the "meetings" angle only shows at 0:14, and the ending is 7 seconds long. Fine in an email, too long for social.</li>
+      </ul>
+      <h4>The emails, ready to send</h4>
+      <div class="grid g2">
+        <div class="mail"><p class="subj">To Karthik (Flam) · Subject: <b>A 25-second film for Flam's Series B</b></p>
+<pre>Hi Karthik,
+
+Congrats on the $40M Series B. Flam sells interactive content to enterprise marketers, so your own announcement should show the product working, not just describe it. As CMO, that's your story to tell.
+
+So we made you a 25-second announcement film from your site and brand. It was made with Poolday, an AI video production agent.
+
+[VIDEO THUMBNAIL]
+[video link]
+
+Want the editable version for your Series B announcement?
+
+[Your name]</pre></div>
+        <div class="mail"><p class="subj">To Carolyn (Wispr Flow) · Subject: <b>Your meetings launch, as a 20-second film</b></p>
+<pre>Hi Carolyn,
+
+Congrats on the $280M Series B. With Wispr Flow moving into meetings, product marketing is about to need a launch story that shows the product working, not just describes it.
+
+So we made you a ~20-second film of what that launch could look like. It was made with Poolday, an AI video production agent, from your site and brand.
+
+[VIDEO THUMBNAIL]
+[video link]
+
+Want the editable version for the meetings launch?
+
+[Your name]</pre></div>
+      </div>
+      <p>The loop turns [VIDEO THUMBNAIL] into a short moving preview that opens the video (you can see it in D3, image 4).</p>
+    </div>
+
+    <div class="det">
+      <h3>D3 · The agent loop</h3>
+      <h4>What it does</h4>
+      <ol>
+        <li><b>Find:</b> it reads the Series B list. A funding-news feed is also built, but it wasn't used in this run.</li>
+        <li><b>Quick filter:</b> a score out of 100 in code (how fresh the round is, a named buyer, B2B, video fit). Under 45 is out.</li>
+        <li><b>Real scoring:</b> 5 criteria out of 20, each with a written reason. 70 or more is qualified. No named buyer means out.</li>
+        <li><b>Poolday:</b> the loop sends the lead to a Poolday automation (a webhook), and Poolday makes the video.</li>
+        <li><b>Human check:</b> approve, redo with a note, or reject.</li>
+        <li><b>Email:</b> drafted for the named buyer, with a moving video preview. You send it.</li>
+      </ol>
+      <h4>The live run (26 Sep)</h4>
+      <p>37 leads → 10 cut by the quick filter → 27 scored → 5 qualified: Flam 99, TwelveLabs 79, Blacksmith 77, Delightree 77 and Wispr Flow 76. Wispr Flow was sent to Poolday. Poolday reused the saved Wispr video and made a new 22-second version in 4 minutes (about $11). I approved it, and the email to Carolyn was drafted.</p>
+      <h4>How I know the scoring makes sense</h4>
+      <ul>
+        <li>A simple formula with no AI picks 4 of the same 5.</li>
+        <li>It matches the two companies I picked by hand for D2.</li>
+        <li>Every score comes with a written reason you can check.</li>
+      </ul>
+      <p>The real test is the results. Send to the 5, plus a few close calls to compare. Then look at replies and demos by score, and adjust after 20 to 30 sends.</p>
+      <h4>What's still manual, and why</h4>
+      <p>Pasting the video link back into the loop. Poolday's agent can't send it back: it has no internet access, and an automation can only send its result to app connectors, not to a URL. With a "send to webhook" output, that step disappears, and the loop is already built to receive it.</p>
+      <p>I built the loop with Claude Opus 5.5 in Claude Code: Python, a local dashboard and 40 tests.</p>
+    </div>
+
+    <div class="det">
+      <h3>D4 · AI UGC on Instagram</h3>
+      <ul>
+        <li><b>Account:</b> @natecreates99. New account, warmed up with normal activity (following, liking, commenting) before the first post.</li>
+        <li><b>Why only 3 posted:</b> I stopped at 3. From my experience, Instagram's anti-spam filter shadowbans a new account that keeps posting more than once a day. The other 5 reels are ready.</li>
+        <li><b>How:</b> my own format (a shocked face, then the product demo), made in Poolday: pick the actors → pick the voices → scripts → the batch. 6 messages, 52 minutes of agent time.</li>
+      </ul>
+      <p class="quote">"The AI creator turns the camera around and films the Poolday demo on the laptop. I didn't think that was possible. Before, I made only the hook with AI and filmed the demo myself with my iPhone."</p>
+      <div class="tw"><table>
+        <thead><tr><th>Reel</th><th>Hook (first frame)</th><th>Posted</th><th>Views</th></tr></thead>
+        <tbody>
+          <tr><td class="n"><a href="https://www.instagram.com/reel/DdvmblCsJN1/">Reel 1</a></td><td>"POV: you built your SaaS but it's time to pay $5K for a launch video 👀"</td><td class="n">26 Sep, morning</td><td class="n"><span class="todo">[views]</span></td></tr>
+          <tr><td class="n"><a href="https://www.instagram.com/reel/DdwHhNmMUNj/">Reel 2</a></td><td>"to the tech guy who told me u could launch your startup from a URL"</td><td class="n">26 Sep, 21:15</td><td class="n"><span class="todo">[views]</span></td></tr>
+          <tr><td class="n"><a href="https://www.instagram.com/reel/DdwK82gsVSt/">Reel 3</a></td><td>"when the founder wants a launch video "by Friday""</td><td class="n">26 Sep, 21:40</td><td class="n"><span class="todo">[views]</span></td></tr>
+        </tbody>
+      </table></div>
+      <p>The 5 other hooks, ready: "I could literally KISS the business owner who showed me this 🤯" · "CLAUDE CAN DO WHAT NOW ??!" · "POV: launch is tomorrow and you don't have a motion designer" · "nobody told me a launch video could start from a URL" · "POV: you were about to email the agency for a quote".</p>
+    </div>
+
+    <div class="det">
+      <h3>D5 · Growth idea: "Paste a link. Watch the video."</h3>
+      <h4>The idea</h4>
+      <p>A free page on poolday.ai. You pick one of three things Poolday already makes well, paste a link, pick a style, leave your work email, and get the video. The main button on the result page is "Book a 15 min demo".</p>
+      <ul>
+        <li><b>Launch video</b> from your website URL. Styles: Apple-like product motion, kinetic type, storytelling film.</li>
+        <li><b>Podcast clips</b> from an episode. Styles people already search for: Hormozi, Diary of a CEO, MrBeast, Ali Abdaal.</li>
+        <li><b>AI product ad</b> from a URL and a product photo. Styles: 3D hero, giant product in a real city, UGC, cinematic.</li>
+      </ul>
+      <p>It's the Submagic trick (upload, pick "Hormozi", done), applied to Poolday's best outputs.</p>
+      <h4>Why it books demos</h4>
+      <ul>
+        <li>People see their own brand in a Poolday video before any call.</li>
+        <li>Only work emails get a video. So every video is also a lead with a name, a role and a company.</li>
+        <li>The result page asks for the call at the best moment: "Want this for your real launch? It takes one call."</li>
+      </ul>
+      <h4>How people find it</h4>
+      <ul>
+        <li><b>"Poolday can actually do it":</b> on X, many posts claim "AI made this video with one prompt", and often it's fake. We remake the video for real in Poolday and reply with the run and the link.</li>
+        <li><b>The "AI motion designer" trend:</b> right now on X, people post "I paid $1,000 for a video like this a year ago, now I made it with Opus 5.5 in 30 minutes". We post before/after remakes of well-known brands' videos, 2–3 a week, made in Poolday, with the prompt. My D6 remakes show the format.</li>
+      </ul>
+      <h4>Budget</h4>
+      <p>$15k in 3 stages: a $2k manual pilot for 2 weeks, then a $5k public page, then $8k to scale. Each stage opens only if the one before hits its target.</p>
+      <p>At about $19 per video and 5% of videos turning into a demo, that's about $380 per booked demo (estimate). The pilot's job is to push both numbers down. A repeat video on a saved kit already cost about $11 in D3.</p>
+      <h4>Risks</h4>
+      <ul>
+        <li><b>A bad video of someone's own product is worse than none.</b> Only ship styles that pass a 10-input test, and have a person check each video.</li>
+        <li><b>AI ads are the expensive product.</b> Give them only to qualified leads, with a daily credit cap.</li>
+        <li><b>Motion already does "URL → launch video".</b> Lead with podcast clips and ads, show quality in public, and offer the human call.</li>
+      </ul>
+    </div>
+
+    <div class="det">
+      <h3>D6 · Video review</h3>
+      <h4>Upflow (23s): a great idea, but slow</h4>
+      <ul>
+        <li>The hook takes about 10 seconds.</li>
+        <li>The question at the start ("Did Acme pay invoice #2041 yet?") is never answered, because the product never shows up.</li>
+        <li>The best line (WorkMotion cut invoices 31+ days overdue by 79%) is tiny text in the footer.</li>
+        <li>At 1.5× speed it already feels better. The ideas are good; the shots just last too long.</li>
+      </ul>
+      <p><b>Top 3 changes:</b> show the product answering the question · cut every shot to reading time + 0.3s (14–16s total) · give −79% its own full card.</p>
+      <h4>PostHog (24s): beautiful, but not PostHog</h4>
+      <ul>
+        <li>It uses 3D clay renders, but PostHog is a 2D brand (flat, hand-drawn hedgehogs).</li>
+        <li>The big moment ("It's live") is the smallest text in the film.</li>
+        <li>The product only gets 2 seconds of tiny tabs.</li>
+        <li>The end card looks like a web footer, and it uses the old logo.</li>
+      </ul>
+      <p><b>Top 3 changes:</b> go 2D, in PostHog's own style · an animated sign-off instead of the slide · real product shots at full size.</p>
+      <h4>The big finding: Poolday's videos are too slow</h4>
+      <p>I see it in all three videos I looked at: these two, and a video picked at random from your LinkedIn, where the first 3 seconds are just a blur clearing. People decide to scroll in about 3 seconds.</p>
+      <ul>
+        <li>Something real in the first frame: the product, a claim, a face or a number.</li>
+        <li>No blur-in or fade-in at the start.</li>
+        <li>Shots around 1.2 seconds on average.</li>
+        <li>Text stays on screen for reading time plus 0.3 seconds.</li>
+        <li>The hook is said by 2 seconds.</li>
+      </ul>
+      <p>The fix for the product: a "social pacing" setting, on by default for social formats. And the brand kit should learn the brand's style of visuals (PostHog = 2D drawings), not only its logo, colours and fonts.</p>
+      <h4>About the remakes</h4>
+      <p>I built them in code with Claude Opus 5.5, not in Poolday, to show exactly what I'd ask for. Upflow: 23 → 16 seconds, and the product shows up at 6 seconds. PostHog: 24 → 20 seconds, in 2D with PostHog's real hedgehogs and the new logo. The PostHog one is private: the hedgehogs are their licensed art.</p>
+    </div>
+
+    <div class="det">
+      <h3>D7 · Page reviews</h3>
+      <p>Goal: more demos booked. Every change has an A/B test, measured on booked demos per visitor.</p>
+      <h4>Why each page loses demos</h4>
+      <ul>
+        <li><b>Home:</b> the demo is the only option, so people not ready for a call leave. "Meet Poolday." never says what Poolday is. And nothing asks for the demo between the proof and the footer.</li>
+        <li><b>B2B startups:</b> the title names the product, not the startup's job. The second button only scrolls. No customer logos in the first screen. The 9 use cases are text only.</li>
+        <li><b>Pricing (bonus):</b> "$1,250 in credits" doesn't say how much video you get.</li>
+      </ul>
+      <div class="tw"><table>
+        <thead><tr><th>Page</th><th>Change</th><th>Why it books more demos</th></tr></thead>
+        <tbody>
+          <tr><td><b>B2B</b></td><td>Title: "Every feature you ship, on video."</td><td>A startup that ships every week gets it in 5 seconds</td></tr>
+          <tr><td><b>B2B</b></td><td>"Paste your URL" field (a free launch video by email, = D5) instead of "View examples"</td><td>People see their own brand in a Poolday video before the call</td></tr>
+          <tr><td><b>B2B</b></td><td>Real customer logos in the first screen (PostHog, Lovable, ClickUp, Dust…)</td><td>Proof from peers before scrolling</td></tr>
+          <tr><td><b>B2B</b></td><td>Each of the 9 use cases shows its input turning into the video</td><td>"We already have that" makes the use case feel real</td></tr>
+          <tr><td><b>Home</b></td><td>"Watch a 2-min build" next to "Book a 15 min demo"</td><td>Keeps the people who aren't ready to call</td></tr>
+          <tr><td><b>Home</b></td><td>The video feed in 4 rows by use case (launch, demos, ads, podcasts)</td><td>People find their use case at a glance</td></tr>
+          <tr><td><b>Home</b></td><td>"Meet Poolday. An agent that plans, makes and fixes the whole video."</td><td>Explains "superintelligence" in one line</td></tr>
+          <tr><td><b>Home</b></td><td>"Book a 15 min demo" right after the features</td><td>Asks right after the product makes sense</td></tr>
+          <tr><td><b>Home</b></td><td>Customers only in the logo wall; investors on their own line</td><td>Careful buyers trust it more</td></tr>
+          <tr><td><b>Home</b></td><td>The demo card says what happens in the 15 minutes</td><td>A sales call feels less scary</td></tr>
+          <tr><td><b>Pricing</b></td><td>"$1,250 in credits · ≈ 50–250 finished videos"</td><td>Answers "how much video do I get?" at the price</td></tr>
+          <tr><td><b>Pricing</b></td><td>"Your first month at $600 · no lock-in"</td><td>Removes the risk where the price is read</td></tr>
+          <tr><td><b>Pricing</b></td><td>Logos, a comparison with agency / freelancer / in-house editor, and 4 FAQs</td><td>Moves the comparison to production cost, and answers the last questions</td></tr>
+        </tbody>
+      </table></div>
+      <p>What I kept: the black ground, the off-white buttons, the halftone, the caption bars with the prompt behind each video, and "Book a 15 min demo" as the main button.</p>
+    </div>
+
+    <div class="det">
+      <h3>D8 · Bonus: Poolday's Instagram</h3>
+      <ul>
+        <li><b>The current story ad</b> is a static text card ("No AI slop. Just your videos, edited well."), set in monospace and cyan, which isn't Poolday's own style. Nothing happens in the first 3 seconds.</li>
+        <li><b>The remake shows it instead of saying it:</b> grey "other AI video tools" against a colourful Poolday frame, with a brand kit built from a URL. The animated version opens on an "AI SLOP" stamp in the first second, flips to the same ad done well, and ends on Poolday's real end card. The "LOCAL AI SLOP" sign is a third-party image, so replace it before running the ad.</li>
+        <li><b>Profile picture:</b> the circle cuts the wordmark ("Poolday.a"). Use the mark alone, centered.</li>
+        <li><b>12 short videos to feed the account,</b> one a day, named "&lt;input&gt; to &lt;output&gt;": your URL to a launch film · one podcast to 10 clips · a screen recording to a product demo · your logo to a brand kit in 30s · a viral ad to your ad · one video to 5 formats · English to 6 languages · one prompt to a UGC farm · a lead to a prospect video · a changelog to a release video · photos + voice to a founder story · a webinar to 3 teasers.</li>
+      </ul>
+    </div>
+
+    <div class="det">
+      <h3>Feedback on Poolday, from using it</h3>
+      <ul>
+        <li><b>Great:</b> the AI UGC (the creator filming the demo), the questions in Align mode, and honest answers from the agent.</li>
+        <li><b>Pacing:</b> add a default "social pacing" setting (see D6).</li>
+        <li><b>Automations can be started from outside but can't report back.</b> Add a "send to webhook" output with the video link.</li>
+        <li><b>API:</b> the agent offers "Create an API key", but the page says integrations aren't enabled. It should offer "Request access" instead.</li>
+        <li><b>Small bug:</b> the "Upload your assets" window cuts off its text on the right.</li>
+      </ul>
+    </div>
+
+    <div class="det">
+      <h3>Time and money</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Poolday conversation</th><th>For</th><th>Agent time</th><th>Messages</th></tr></thead>
+        <tbody>
+          <tr><td>Opus 5.5 + Poolday: Infinite UGC farm</td><td>D1</td><td class="n">56 min</td><td class="n">2</td></tr>
+          <tr><td>Wispr Flow brand kit + teaser v1–v3</td><td>D2</td><td class="n">55 min</td><td class="n">3</td></tr>
+          <tr><td>Poolday AI UGC Reels (8x)</td><td>D4</td><td class="n">52 min</td><td class="n">6</td></tr>
+          <tr><td>Flam brand kit + teaser</td><td>D2</td><td class="n">50 min</td><td class="n">2</td></tr>
+          <tr><td>Founder LinkedIn teaser: free launch video</td><td>D1 (another angle)</td><td class="n">49 min</td><td class="n">1</td></tr>
+          <tr><td>Create motion-craft + ref-teaser skills</td><td>Setup</td><td class="n">25 min</td><td class="n">3</td></tr>
+          <tr><td>Poolday brand kit: compare + improve</td><td>Setup</td><td class="n">7 min</td><td class="n">1</td></tr>
+          <tr><td>Automation run from the loop</td><td>D3</td><td class="n">4 min</td><td class="n">1</td></tr>
+          <tr><td>API access question</td><td>D3</td><td class="n">3 min</td><td class="n">2</td></tr>
+        </tbody>
+      </table></div>
+      <p>Poolday credits: 835,270 of 2,000,000 used ($835 of $2,000). Poolday doesn't show credits per conversation, so the per-video costs above are estimates based on agent time. Other tools: $200 (Claude Max).</p>
+    </div>
+
+    <div class="det">
+      <h3>I'd post about Poolday every day</h3>
+      <p>On X and LinkedIn. It really excites me, and the content is ready: before/after remakes, "top 5 use cases" lists, "[tool] + Poolday = [result]" posts, replies with proof under "AI can't do this" posts, and my own before/after ("I used to film the demo with my iPhone. Now the AI creator does it."). Every post ends with one simple action (comment a word or a URL), which feeds the lead loop.</p>
+    </div>
+
+    <div class="det">
+      <h3>Appendix · The AI UGC farm I built for Pletor</h3>
+      <figure class="card" style="max-width:900px"><img data-zoom loading="lazy" decoding="async" src="media/appendix-pletor.jpg" width="1600" height="1041" alt="The UGC farm flow I built in Pletor: 4 AI creators with many hook variants">
+        <figcaption><b>UGC farm in Pletor</b><span>4 AI creators, many hook variants each</span></figcaption></figure>
+      <p>AI made only the hook, the first seconds of reaction to the camera. I filmed the product demo myself with my iPhone pointed at my Mac. With Poolday, the AI creator films the demo too.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Raphael Gaudin · made with Claude Opus 5.5 and Poolday</div></footer>
+
+<div id="zoom" hidden role="dialog" aria-modal="true" aria-label="Image, full size"><button type="button" id="zoom-close">Close</button><img alt=""></div>
+
+<script>
+// Halftone behind the header: 4px dots on 8px rows, brightest near the middle, fading to black.
+(function () {
+  var c = document.getElementById('dots'); if (!c) return;
+  function draw() {
+    var r = c.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr);
+    var g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, r.width, r.height);
+    var cx = r.width * 0.7, cy = r.height * 0.45, max = Math.hypot(r.width, r.height) * 0.55;
+    for (var y = 4; y < r.height; y += 8) for (var x = 4; x < r.width; x += 8) {
+      var k = 1 - Math.hypot(x - cx, (y - cy) * 1.4) / max; if (k <= 0) continue;
+      var v = Math.round(16 + 30 * k * k); g.fillStyle = 'rgb(' + v + ',' + v + ',' + (v + 2) + ')';
+      g.beginPath(); g.arc(x, y, 1.6 * Math.min(1, 0.4 + k), 0, 6.283); g.fill();
+    }
+  }
+  draw(); var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 150); });
+})();
+
+// Click an image to see it full size.
+(function () {
+  var box = document.getElementById('zoom'), big = box.querySelector('img'), close = document.getElementById('zoom-close'), last = null;
+  function open(img) { last = img; big.src = img.currentSrc || img.src; big.alt = img.alt; box.hidden = false; box.scrollTop = 0; document.body.style.overflow = 'hidden'; close.focus(); }
+  function shut() { box.hidden = true; big.removeAttribute('src'); document.body.style.overflow = ''; if (last) last.focus(); }
+  document.querySelectorAll('img[data-zoom]').forEach(function (img) {
+    img.tabIndex = 0; img.setAttribute('role', 'button');
+    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
+  });
+  close.addEventListener('click', shut);
+  box.addEventListener('click', function (e) { if (e.target === box) shut(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) shut(); });
+  // Only one video plays at a time.
+  document.addEventListener('play', function (e) { document.querySelectorAll('video').forEach(function (v) { if (v !== e.target) v.pause(); }); }, true);
+})();
+</script>
