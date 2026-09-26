@@ -181,6 +181,21 @@ Backup: **Convex** ($57M, open source, so the skill can use its real UI componen
 
 ---
 
+## My commitment: post about Poolday every day
+I'd post every day on X and LinkedIn about Poolday. It genuinely excites me. The content engine is ready:
+- **Formats that rotate:**
+  - use-case listicles ("Top 5 Poolday use cases");
+  - before/after remakes of well-known videos (the "AI motion designer" trend);
+  - "Same prompt, 4 apps" comparisons;
+  - "Claude Opus 5.5 + Poolday = Infinite UGC farm" style equations;
+  - replies with proof under "AI can't do this" threads;
+  - build-in-public updates from the prospect loop and the UGC account.
+- **Cadence:**
+  - X: 1 post and 3–5 proof replies a day.
+  - LinkedIn: 1 post a day, founder voice, the best performer from X re-cut.
+- **Every post ends in a measurable action** (comment a URL or a number), which feeds the lead loop (D3).
+- **Tracked weekly:** posts, views, URL comments, demos booked.
+
 ## What I'd do with more time
 
 - [PLACEHOLDER: refine after the 48h]

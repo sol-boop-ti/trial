@@ -248,3 +248,42 @@ Comment UGC and I'll send you the exact prompts.
 **Video (15s, 4:5, sped-up screen recording):** 0–2s a grid of 8 reels playing + the headline · 2–5s Claude writing the scripts (sped up) · 5–12s Poolday building the reels (creators appear, the grid fills one by one), with a real clock in the corner · 12–15s full grid + "[N] reels · [T]". Prompts: `poolday/prompts/L3-ugc-studio-one-prompt.md`.
 
 **Guardrails:** every reel is labeled as AI; no fake reviews or fake "real customers". "Farm" is the hook, not a promise to spam.
+
+---
+
+## 7. New angle: "Top 5 Poolday use cases" (listicle, X thread + LinkedIn carousel or video)
+**Why it works:** listicles are saved and shared, and each item is a mini demo. It shows the range: Poolday is a full media agent (brand kit, UGC, motion design, editing, automations), and each use case is now easy.
+**Honesty check:** open with "Poolday just launched" only if there is a real launch moment (ask the team). Otherwise use "I've been using Poolday for a week. My top 5 use cases:".
+
+**Post:**
+```
+Poolday just launched.
+It's an AI agent that makes your videos, end to end.
+
+Here are my top 5 use cases:
+
+1. An AI UGC farm
+One prompt → AI creators, scripts, 8 reels with captions.
+Next week: one line, new batch.
+
+2. Your launch video from a URL
+Paste your site. It pulls your brand and your UI,
+and makes an Apple-style launch film.
+
+3. Remake any video you love, on your brand
+Paste the link of a video you wish you had made.
+It rebuilds it with your logo, colors and product.
+
+4. Personalized prospect videos, on autopilot
+A lead lands in your CRM → a video made for them → you approve → it's sent.
+
+5. Motion design that used to cost $1,000+
+Kinetic type, product UI animations, 3D cameras.
+Before/after below.
+
+Which one do you want to see first?
+Comment the number.
+```
+**Video / carousel:** one 3–5s clip per use case with a title card (1/5, 2/5…), then the before/after remake as the ending. Each clip comes from real work already done: the UGC reels (D4), the growth-tool walkthrough (D5), the ref-teaser remakes (D2), the webhook loop (D3), and the PostHog/Upflow remakes (D6).
+**Follow-ups:** one deep-dive post per use case in the following days, in the order the comments vote for. That makes a series by itself.
+

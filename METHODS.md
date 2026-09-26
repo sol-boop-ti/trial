@@ -517,3 +517,10 @@ Entry format: **What · Tools · Inputs · Process · Decision & why · Output �
 - **User input:** an X screenshot (@tdinh_me, 26 Sep: "paid ~$1,000+ for a video like this a year ago, made it with Opus 5.5 in <30 min", 4k views in 4h; a reply shares the prompt). The user wants this in the final doc: an easy growth lever is to post incredible motion-design videos, because that's the trend and it shows how strong AI motion design is.
 - **Decision:** added to `DELIVERABLE.md` §D5 as a quick win. Format: before/after remakes of known brands plus the prompt, 2–3 a week. The D6 remakes are the proof of concept. Guardrails: name the model only if verified; get brand consent before publishing remakes.
 - **Output:** `deliverables/DELIVERABLE.md` (D5 "Quick win"), `deliverables/assets/trend-opus-motion-design-tweet.png`.
+
+## M42. Daily posting commitment + "Top 5 use cases" post
+- **User input:** they'd post every day on X and LinkedIn about Poolday (it excites them). New idea: "Poolday just launched. Here are my top 5 use cases", with #1 the AI UGC farm (Poolday as a full media agent: incredible things, now easy).
+- **Output:**
+  - `DELIVERABLE.md`: a new section "My commitment: post about Poolday every day" (rotating formats, cadence, CTA to the lead loop, weekly tracking).
+  - `D1-linkedin.md` §7: the listicle post (UGC farm, launch video from a URL, remake any video on brand, prospect videos on autopilot, $1,000 motion design), with a clip plan reusing D2–D6 material and a follow-up series.
+- **Guardrail:** "just launched" only if there's a real launch moment.
